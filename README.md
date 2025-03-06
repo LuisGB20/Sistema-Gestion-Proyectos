@@ -29,6 +29,7 @@ Es de ahí donde surge la idea de nuestro proyecto. Para la solución de estos p
 # Integrantes
 
 - **Gomez Broca Luis Alberto**
+- **Valier Sanchez Carlos Francisco**
 
 
 ----
