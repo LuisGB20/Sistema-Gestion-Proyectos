@@ -4,6 +4,10 @@ import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 import PrimeVue from 'primevue/config';
 import Aura from '@primeuix/themes/aura';
+import 'font-awesome/css/font-awesome.min.css';
+
+
+
 
 import App from './App.vue'
 import router from './router'
