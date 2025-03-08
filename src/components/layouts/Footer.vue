@@ -1,23 +1,23 @@
 <template>
-    <footer class="bg-[#002855] text-white py-5 px-6 md:px-10">
+    <footer class="bg-linear-to-b from-DarkTeal to-CharcoalBlue text-white py-5 px-6 md:px-10">
       <div class="grid grid-cols-1 lg:grid-cols-4 gap-4 text-center lg:text-left">
         <div
-          class="flex flex-col justify-center items-center lg:items-start border-b lg:border-b-0 lg:border-r border-whisper p-4">
+          class="flex flex-col justify-center items-center lg:items-start border-b lg:border-b-0 lg:border-r border-white p-4">
           <h2 class="text-lg font-semibold">Sistema de Gestión de Proyectos</h2>
           <p class="text-sm">Optimiza tus proyectos, maximiza tus resultados.</p>
         </div>
-        <div class="flex flex-col justify-center items-center border-b lg:border-b-0 lg:border-r border-whisper p-4">
+        <div class="flex flex-col justify-center items-center border-b lg:border-b-0 lg:border-r border-white p-4">
           <ul class="flex flex-col gap-1 text-center">
-            <RouterLink to="/" class="text-whisper">Inicio</RouterLink>
-            <RouterLink to="/descubrir" class="text-whisper">Descubrir</RouterLink>
-            <RouterLink to="/sobre-nosotros" class="text-whisper">Sobre nosotros</RouterLink>
+            <RouterLink to="/" class="text-white hover:underline hover:underline-offset-2">Inicio</RouterLink>
+            <RouterLink to="/descubrir" class="text-white hover:underline hover:underline-offset-2">Descubrir</RouterLink>
+            <RouterLink to="/sobre-nosotros" class="text-white hover:underline hover:underline-offset-2">Sobre nosotros</RouterLink>
           </ul>
         </div>
-        <div class="flex flex-col justify-center items-center border-b lg:border-b-0 lg:border-r border-whisper p-4">
+        <div class="flex flex-col justify-center items-center border-b lg:border-b-0 lg:border-r border-white p-4">
           <ul class="flex flex-col gap-1 text-center">
-            <RouterLink to="/politicas-de-privacidad" class="text-whisper">Políticas de privacidad</RouterLink>
-            <RouterLink to="/terminos-y-condiciones" class="text-whisper">Términos y condiciones</RouterLink>
-            <RouterLink to="/politicas-de-cookies" class="text-whisper">Política de cookies</RouterLink>
+            <RouterLink to="/politicas-de-privacidad" class="text-white hover:underline hover:underline-offset-2">Políticas de privacidad</RouterLink>
+            <RouterLink to="/terminos-y-condiciones" class="text-white hover:underline hover:underline-offset-2">Términos y condiciones</RouterLink>
+            <RouterLink to="/politicas-de-cookies" class="text-white hover:underline hover:underline-offset-2">Política de cookies</RouterLink>
           </ul>
         </div>
         <div class="flex flex-col justify-center items-center p-4">
@@ -37,7 +37,7 @@
           </div>
         </div>
       </div>
-      <h1 class="text-center text-sm md:text-base mt-5">Todos los derechos reservados | Equipo SGP ©</h1>
+      <h1 class="text-center text-sm md:text-base mt-5">Todos los derechos reservados ©</h1>
     </footer>
   </template>
   

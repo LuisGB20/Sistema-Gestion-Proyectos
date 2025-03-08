@@ -2,12 +2,17 @@
 import { RouterLink, RouterView } from 'vue-router'
 import 'primeicons/primeicons.css'
 
-import Header from './components/layouts/Header.vue';
 import Footer from './components/layouts/Footer.vue';
+import GuestHeader from './components/layouts/GuestHeader.vue';
+import { useAuthStore } from './stores/authStore';
+import AuthHeader from './components/layouts/AuthHeader.vue';
+
+const authStore = useAuthStore();
 </script>
 
 <template>
-  <Header />
+  <AuthHeader v-if="authStore.isLoggedIn" />
+  <GuestHeader v-else />
   <RouterView />
   <Footer />
 </template>

@@ -1,4 +1,4 @@
-import { genericRequest, genericRequestAutheticated } from "@/Utils/genericRequest"
+import { genericRequest, genericRequestAutheticated } from "@/utils/genericRequest"
 import { logService } from "./logService"
 
 const base_url = import.meta.env.VITE_ENDPOINT_API ?? 'http://localhost:3000'
@@ -15,10 +15,10 @@ const handleError = async (error: any, context: string) => {
   const errorDetails = {
     response: error.response
       ? {
-          data: error.response.data,
-          status: error.response.status,
-          headers: error.response.headers,
-        }
+        data: error.response.data,
+        status: error.response.status,
+        headers: error.response.headers,
+      }
       : null,
     request: error.request || null,
     message: error.message,
@@ -46,7 +46,7 @@ export const RegisterService = async (email: string, password: string) => {
 
 export const LogoutService = async (token: string) => {
   try {
-    return await genericRequestAutheticated(headers, base_url + '/users/logout', 'POST', {token})
+    return await genericRequestAutheticated(headers, base_url + '/users/logout', 'POST', { token })
   } catch (error) {
     await handleError(error, 'logout')
   }

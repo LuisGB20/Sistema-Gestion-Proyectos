@@ -1,4 +1,4 @@
-import { logService } from '@/Services/logService'
+import { logService } from '@/services/logService'
 import axios from 'axios'
 
 //request generico para hacer peticiones a la API

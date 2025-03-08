@@ -1,3 +1,4 @@
+import AdminLayout from '@/layouts/AdminLayout.vue'
 import LoginView from '@/views/Auth/LoginView.vue'
 import RegistroView from '@/views/Auth/RegistroView.vue'
 import NotFoundView from '@/views/Error/NotFoundView.vue'
@@ -30,6 +31,13 @@ const router = createRouter({
       name: 'registro',
       component: RegistroView,
     },
+    {
+      path: '/admin',
+      name: 'admin',
+      component: AdminLayout,
+      // meta: { requiresAuth: true, roles: ['Administrador'] },
+      children: []
+    }
   ],
 })
 

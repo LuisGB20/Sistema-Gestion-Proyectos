@@ -1,7 +1,18 @@
 @import "tailwindcss";
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+
+@theme {
+    --font-roboto: "Poppins", sans-serif; 
+    --color-CharcoalBlue: #212A31;
+    --color-Gunmetal: #2E3944;
+    --color-DarkTeal: #124E66;
+    --color-SteelBlue: #748D92;
+    --color-LightGray: #D3D9D4;
+}
 
 *{
-    font-family: "Montserrat", sans-serif;
+    font-family: "Poppins", sans-serif;
     font-optical-sizing: auto;
     font-style: normal;
 }
@@ -12,4 +23,5 @@ section{
 
 main{
     min-height: 100vh;
+    background-color: #F0F6FF;
 }
