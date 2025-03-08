@@ -32,6 +32,7 @@ Es de ahí donde surge la idea de nuestro proyecto. Para la solución de estos p
 - **Valier Sanchez Carlos Francisco**
 - **Misael De Jesus Rosado Paat**
 - **Fernando Alberto Villafaña Alfonseca** - DEADMOUS3 - **ffernando.villafanalfonseca@gmail.com**
+- **Juan Diego Mendoza Gutierrez** - SublimeDevv - **juanmen1404@gmail.com**
 
 
 ----
