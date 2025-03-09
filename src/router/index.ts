@@ -6,6 +6,10 @@ import InicioView from '@/views/InicioView.vue'
 import ProyectosView from '@/views/Admin/ProyectosView.vue'
 import { createRouter, createWebHistory } from 'vue-router'
 import TareasView from '@/views/Admin/TareasView.vue'
+import SobreNosotrosView from '@/views/SobreNosotrosView.vue'
+import ContactoView from '@/views/ContactoView.vue'
+import PoliticasView from '@/views/legal/PoliticasView.vue'
+import TerminosCondicionesView from '@/views/legal/TerminosCondicionesView.vue'
 
 const router = createRouter({
   scrollBehavior(to, from, savedPosition) {
@@ -22,6 +26,26 @@ const router = createRouter({
       path: '/',
       name: 'inicio',
       component: InicioView,
+    },
+    {
+      path: '/sobre-nosotros',
+      name: 'sobre-nosotros',
+      component: SobreNosotrosView
+    },
+    {
+      path: '/contactanos',
+      name: 'contactanos',
+      component: ContactoView
+    },
+    {
+      path: '/politicas',
+      name: 'politicas',
+      component: PoliticasView
+    },
+    {
+      path: '/terminos-condiciones',
+      name: 'terminos-condiciones',
+      component: TerminosCondicionesView
     },
     {
       path: '/iniciar-sesion',
