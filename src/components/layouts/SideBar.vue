@@ -37,10 +37,13 @@ console.log(userLinks)
 </script>
 
 <template>
-    <nav class="bg-white font-semibold w-[220px] text-CharcoalBlue py-6 px-5 flex flex-col items-center shadow-[10px_0_15px_rgba(0,0,0,0.1)]">
+    <nav
+        class="bg-white font-semibold w-[220px] text-CharcoalBlue py-6 px-5 flex flex-col items-center shadow-[10px_0_15px_rgba(0,0,0,0.1)]">
         <ul>
             <li v-for="link in userLinks" class="mb-4 text-center">
                 <router-link :to="link.to"
+                    activeClass="!bg-linear-to-r !from-DarkTeal !to-CharcoalBlue !text-white hover:!text-transparent"
+                    exactActiveClass="!bg-linear-to-r !from-DarkTeal !to-CharcoalBlue !text-white hover:!text-transparent"
                     class="flex text-lg py-2 px-4 rounded-lg hover:bg-linear-to-r hover:from-DarkTeal hover:to-CharcoalBlue hover:text-white transition duration-200">
                     <component :is="link.icon" class="size-6" />
                     <span class="ml-3">{{ link.label }}</span>

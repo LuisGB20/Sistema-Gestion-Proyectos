@@ -16,10 +16,11 @@ import SobreNosotrosView from '@/views/SobreNosotrosView.vue'
 import ContactoView from '@/views/ContactoView.vue'
 import PoliticasView from '@/views/legal/PoliticasView.vue'
 import TerminosCondicionesView from '@/views/legal/TerminosCondicionesView.vue'
+import NotAuthorizedView from '@/views/Error/NotAuthorizedView.vue'
 
 const router = createRouter({
-  linkActiveClass: '!bg-linear-to-r !from-DarkTeal !to-CharcoalBlue !text-white',
-  linkExactActiveClass: '!bg-linear-to-r !from-DarkTeal !to-CharcoalBlue !text-white hover:!text-transparent',
+  linkActiveClass: 'underline underline-offset-2',
+  linkExactActiveClass: 'underline underline-offset-2',
   scrollBehavior(to, from, savedPosition) {
     return { top: 0 }
   },
@@ -27,8 +28,13 @@ const router = createRouter({
   routes: [
     {
       path: '/:pathMatch(.*)*',
-      name: 'Not Found',
+      name: 'No-encontrado',
       component: NotFoundView
+    },
+    {
+      path: '/acceso-denegado',
+      name: 'No-autorizado',
+      component: NotAuthorizedView
     },
     {
       path: '/',

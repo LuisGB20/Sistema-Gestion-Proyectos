@@ -3,21 +3,23 @@ import { logService } from '@/services/logService'
 
 //request generico para hacer peticiones a la API
 export const genericRequest = async (url: string, method: string, body?: any) => {
+  console.log(body)
   try {
     const response = await api({
       url: url,
       method: method,
       data: body,
     })
-    return response.data
+    console.log(response)
+    return response
   } catch (error: any) {
     console.log(error)
-    // await logService.log('error', `Error in genericRequest: ${error.message}`, {
-    //   url,
-    //   method,
-    //   body,
-    //   error,
-    // })
+    await logService.log('error', `Error in genericRequest: ${error.message}`, {
+      url,
+      method,
+      body,
+      error,
+    })
     throw error
   }
 }

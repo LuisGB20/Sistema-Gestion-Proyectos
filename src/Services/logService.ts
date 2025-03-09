@@ -17,12 +17,13 @@ class LogService {
 
   public async log(level: 'error' | 'warning', message: string, details: any) {
     try {
-      await axios.post(this.baseUrl, {
-        level,
-        message,
-        details,
-        timestamp: new Date().toISOString(),
-      })
+      console.log(level, message, details)
+      // await axios.post(this.baseUrl, {
+      //   level,
+      //   message,
+      //   details,
+      //   timestamp: new Date().toISOString(),
+      // })
     } catch (error) {
       console.error('Falló loguear el error:', error)
     }

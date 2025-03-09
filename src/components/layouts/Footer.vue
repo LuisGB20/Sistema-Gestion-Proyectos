@@ -9,8 +9,8 @@
         <div class="flex flex-col justify-center items-center border-b lg:border-b-0 lg:border-r border-white p-4">
           <ul class="flex flex-col gap-1 text-center">
             <RouterLink to="/" class="text-white hover:underline hover:underline-offset-2">Inicio</RouterLink>
-            <RouterLink to="/descubrir" class="text-white hover:underline hover:underline-offset-2">Descubrir</RouterLink>
             <RouterLink to="/sobre-nosotros" class="text-white hover:underline hover:underline-offset-2">Sobre nosotros</RouterLink>
+            <RouterLink to="/contactanos" class="text-white hover:underline hover:underline-offset-2">Contacto</RouterLink>
           </ul>
         </div>
         <div class="flex flex-col justify-center items-center border-b lg:border-b-0 lg:border-r border-white p-4">
