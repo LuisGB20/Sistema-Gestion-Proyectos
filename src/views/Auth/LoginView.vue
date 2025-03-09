@@ -46,53 +46,52 @@ export default defineComponent({
     <!-- Formulario a la derecha -->
     <div class="flex-1 p-8 flex justify-center items-center">
       <div class="w-full max-w-md">
-        <h2 class="text-3xl font-semibold  text-center mb-8 -mt-8 text-[#212A31]">Inicio de sesión</h2>
-        <h1 class="text-1xl font-semibold  text-center mb-10 text-[#212A31] ">Bienvenido, Por favor ingresa tus datos
+        <h2 class="text-3xl font-semibold  text-center mb-8 -mt-8 text-CharcoalBlue">Inicio de sesión</h2>
+        <h1 class="text-1xl font-semibold  text-center mb-10 text-CharcoalBlue ">Bienvenido, Por favor ingresa tus datos
         </h1>
         <form @submit.prevent="login" class="space-y-4">
           <div class="relative z-0 w-full mb-5 group">
             <input type="email" name="email" id="email"
-              class="block py-2.5 px-0 w-full text-sm text-[#124E66] bg-transparent border-0 border-b-2 border-[#2E3944] appearance-none   focus:outline-none focus:ring-0 focus:border-[#124E66] peer"
+              class="block py-2.5 px-0 w-full text-sm text-DarkTeal bg-transparent border-0 border-b-2 border-DarkTeal appearance-none   focus:outline-none focus:ring-0 focus:border-DarkTeal peer"
               placeholder=" " required />
             <label for="email"
-              class="peer-focus:font-medium absolute text-sm text-[#2E3944] duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-[#124E66] peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Ingresa
+              class="peer-focus:font-medium absolute text-sm text-DarkTeal duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-DarkTeal peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Ingresa
               tu correo</label>
           </div>
           <div class="relative z-0 w-full mb-10 group">
             <input :type="isPasswordVisible ? 'text' : 'password'" name="password" id="password"
-              class="block py-2.5 px-0 w-full text-sm text-[#124E66] bg-transparent border-0 border-b-2 border-[#2E3944] appearance-none   focus:outline-none focus:ring-0 focus:border-[#124E66] peer"
+              class="block py-2.5 px-0 w-full text-sm text-DarkTeal bg-transparent border-0 border-b-2 border-DarkTeal appearance-none   focus:outline-none focus:ring-0 focus:border-DarkTeal peer"
               placeholder=" " required />
             <label for="password"
-              class="peer-focus:font-medium absolute text-sm text-[#2E3944] duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-[#124E66] peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Ingresa
+              class="peer-focus:font-medium absolute text-sm text-DarkTeal duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-DarkTeal peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Ingresa
               tu contraseña</label>
             <button type="button" @click="togglePasswordVisibility"
               class="absolute right-0 top-1/2 transform -translate-y-1/2 mr-3">
-              <i v-if="!isPasswordVisible" class="fa fa-eye text-[#2E3944]"></i>
-              <i v-else class="fa fa-eye-slash text-[#2E3944]"></i>
+              <i v-if="!isPasswordVisible" class="pi pi-eye-slash text-CharcoalBlue"></i>
+              <i v-else class="pi pi-eye-slash text-DarkTeal"></i>
             </button>
 
           </div>
 
           <div class="flex items-center">
             <input id="link-checkbox" type="checkbox" value="" class="w-4 h-4 rounded-sm  ">
-            <label for="link-checkbox" class="ms-2 text-xs font-medium text-[#2E3944]">Acepto terminos <a href="#"
-                class="text-blue-600">y Condiciones</a>.</label>
+            <label for="link-checkbox" class="ms-2 text-xs font-medium text-CharcoalBlue">Acepto terminos <RouterLink to="TerminosyCondiciones"
+                class="text-SteelBlue hover:text-LightGray">y Condiciones</RouterLink>.</label>
 
-            <div class="text-[#2E3944] ">
-              <p class="text-[#2E3944] text-xs ml-18">¿Olvidaste tu contraseña?</p>
-              <div class="border-b-3 w-38 ml-18"></div>
+            <div class="text-CharcoalBlue hover:text-LightGray">
+              <RouterLink to='' class="text-xs ml-18  border-b-3 ">¿Olvidaste tu contraseña?</RouterLink>
             </div>
 
           </div>
 
           <div class="card flex justify-center ">
-            <Button label="Iniciar Sesion" class="w-1/2 flex justify-center items-center my-4" />
+            <Button label="Iniciar Sesion"  class="w-1/2 flex justify-center items-center my-4" />
           </div>
 
         </form>
-        <div class="text-[#2E3944] flex mt-8 text-xs">
+        <div class="text-CharcoalBlue flex mt-8 text-xs">
           <p class="">¿No tienes una cuenta?</p>
-          <RouterLink to="/registrarse" class=" border-b-3 ml-50">Registrate aqui</RouterLink>
+          <RouterLink  to="/registro" class=" border-b-3 ml-50 hover:text-LightGray ">Registrate aqui</RouterLink >
         </div>
 
 
