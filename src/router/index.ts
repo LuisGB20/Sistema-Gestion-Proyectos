@@ -17,6 +17,7 @@ import ContactoView from '@/views/ContactoView.vue'
 import PoliticasView from '@/views/legal/PoliticasView.vue'
 import TerminosCondicionesView from '@/views/legal/TerminosCondicionesView.vue'
 import NotAuthorizedView from '@/views/Error/NotAuthorizedView.vue'
+import PoliticasCookiesView from '@/views/legal/PoliticasCookiesView.vue'
 
 const router = createRouter({
   linkActiveClass: 'underline underline-offset-2',
@@ -53,13 +54,18 @@ const router = createRouter({
     },
     {
       path: '/politicas-de-privacidad',
-      name: 'politicas',
+      name: 'politicas-privacidad',
       component: PoliticasView
     },
     {
       path: '/terminos-y-condiciones',
       name: 'terminos-condiciones',
       component: TerminosCondicionesView
+    },
+    {
+      path: '/politicas-de-cookies',
+      name: 'politicas-cookies',
+      component: PoliticasCookiesView
     },
     {
       path: '/iniciar-sesion',
