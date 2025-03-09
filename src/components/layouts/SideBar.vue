@@ -9,7 +9,7 @@ const routes = [
             { to: '/admin', label: 'Dashboard', icon: ChartBarIcon },
             { to: '/admin/usuarios', label: 'Usuarios', icon: UsersIcon },
             { to: '/admin/equipos', label: 'Equipos', icon: UserGroupIcon },
-            { to: '/Admin/Proyectos', label: 'Proyectos', icon: FolderIcon },
+            { to: '/admin/proyectos', label: 'Proyectos', icon: FolderIcon },
             { to: '/admin/recursos', label: 'Recursos', icon: Square3Stack3DIcon },
             { to: '/admin/logs', label: 'Logs', icon: DocumentTextIcon },
         ]

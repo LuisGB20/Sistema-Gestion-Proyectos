@@ -59,19 +59,19 @@ const router = createRouter({
           component: EquiposView
         },
         {
-          path: '/admin/logs',
-          name: 'admin-logs',
-          component: LogsView
-        },
-        {
-          path: '/Admin/Proyectos',
+          path: '/admin/proyectos',
           name: 'proyectos',
           component: ProyectosView,
         },
         {
-          path: '/Admin/Tareas',
+          path: '/admin/tareas',
           name: 'tareas',
           component: TareasView,
+        },
+        {
+          path: '/admin/logs',
+          name: 'admin-logs',
+          component: LogsView
         },
       ]
     }
