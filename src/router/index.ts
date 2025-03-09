@@ -7,7 +7,9 @@ import LoginView from '@/views/Auth/LoginView.vue'
 import RegistroView from '@/views/Auth/RegistroView.vue'
 import NotFoundView from '@/views/Error/NotFoundView.vue'
 import InicioView from '@/views/InicioView.vue'
+import ProyectosView from '@/views/Admin/ProyectosView.vue'
 import { createRouter, createWebHistory } from 'vue-router'
+import TareasView from '@/views/Admin/TareasView.vue'
 
 const router = createRouter({
   scrollBehavior(to, from, savedPosition) {
@@ -60,6 +62,16 @@ const router = createRouter({
           path: '/admin/logs',
           name: 'admin-logs',
           component: LogsView
+        },
+        {
+          path: '/Admin/Proyectos',
+          name: 'proyectos',
+          component: ProyectosView,
+        },
+        {
+          path: '/Admin/Tareas',
+          name: 'tareas',
+          component: TareasView,
         },
       ]
     }
