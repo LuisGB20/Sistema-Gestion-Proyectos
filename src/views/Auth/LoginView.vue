@@ -38,13 +38,13 @@ export default defineComponent({
 <template>
   <main class="flex min-h-screen">
     <!-- Imagen a la izquierda -->
-    <div class="flex-1 bg-gray-200 flex justify-center items-center">
+    <div class="flex-1 flex justify-center items-center">
       <img src="../../assets/Imagenes/LoginPortada.png" alt="Imagen de Login"
         class="max-w-full max-h-full object-cover" />
     </div>
 
     <!-- Formulario a la derecha -->
-    <div class="flex-1 bg-white p-8 flex justify-center items-center">
+    <div class="flex-1 p-8 flex justify-center items-center">
       <div class="w-full max-w-md">
         <h2 class="text-3xl font-semibold  text-center mb-8 -mt-8 text-[#212A31]">Inicio de sesión</h2>
         <h1 class="text-1xl font-semibold  text-center mb-10 text-[#212A31] ">Bienvenido, Por favor ingresa tus datos
@@ -86,7 +86,7 @@ export default defineComponent({
           </div>
 
           <div class="card flex justify-center ">
-            <Button label="Iniciar Sesion" class="w-full mt-4 py-3" />
+            <Button label="Iniciar Sesion" class="w-1/2 flex justify-center items-center my-4" />
           </div>
 
         </form>

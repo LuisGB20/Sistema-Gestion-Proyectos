@@ -37,7 +37,7 @@ export default defineComponent({
 <template>
   <main class="flex min-h-screen">
     <!-- Formulario a la izquierda -->
-    <div class="flex-1 bg-white p-8 flex justify-center items-center">
+    <div class="flex-1 p-8 flex justify-center items-center">
       <div class="w-full max-w-md">
         <h2 class="text-3xl font-semibold text-center mb-6 text-[#212A31]">Registrate</h2>
         <h1 class="text-1xl font-semibold text-center mb-10 text-[#212A31]">Crea tu cuenta, te esperamos...</h1>
@@ -78,7 +78,7 @@ export default defineComponent({
                 class="text-blue-600">términos y condiciones</a>.</label>
           </div>
           <div class="card flex justify-center">
-            <Button label="Registrarme" class="w-full mt-4 py-3" />
+            <Button label="Registrarme" class="w-1/2 flex justify-center items-center my-4" />
           </div>
         </form>
         <div class="text-[#2E3944] flex mt-8 text-xs">
@@ -89,7 +89,7 @@ export default defineComponent({
     </div>
 
     <!-- Imagen a la derecha -->
-    <div class="flex-1 bg-gray-200 flex justify-center items-center">
+    <div class="flex-1 flex justify-center items-center">
       <img src="../../assets/Imagenes/LoginPortada.png" alt="Imagen de Registro"
         class="max-w-full max-h-full object-cover" />
     </div>
