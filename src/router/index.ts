@@ -7,11 +7,15 @@ import LoginView from '@/views/Auth/LoginView.vue'
 import RegistroView from '@/views/Auth/RegistroView.vue'
 import NotFoundView from '@/views/Error/NotFoundView.vue'
 import InicioView from '@/views/InicioView.vue'
-import ProyectosView from '@/views/Admin/ProyectosView.vue'
+import ProyectosView from '@/views/admin/Proyectos/ProyectosView.vue'
 import { createRouter, createWebHistory } from 'vue-router'
-import TareasView from '@/views/Admin/TareasView.vue'
+import TareasView from '@/views/admin/Tareas/TareasView.vue'
+import ActividadesView from '@/views/admin/Actividades/ActividadesView.vue'
+import RecursosView from '@/views/admin/Recursos/RecursosView.vue'
 
 const router = createRouter({
+  linkActiveClass: '!bg-linear-to-r !from-DarkTeal !to-CharcoalBlue !text-white',
+  linkExactActiveClass: '!bg-linear-to-r !from-DarkTeal !to-CharcoalBlue !text-white hover:!text-transparent',
   scrollBehavior(to, from, savedPosition) {
     return { top: 0 }
   },
@@ -44,7 +48,7 @@ const router = createRouter({
       // meta: { requiresAuth: true, roles: ['Administrador'] },
       children: [
         {
-          path: '/admin',
+          path: '',
           name: 'admin-dash',
           component: DashboardView
         },
@@ -67,6 +71,16 @@ const router = createRouter({
           path: '/admin/tareas',
           name: 'tareas',
           component: TareasView,
+        },
+        {
+          path: '/admin/actividades',
+          name: 'actividades',
+          component: ActividadesView,
+        },
+        {
+          path: '/admin/recursos',
+          name: 'recursos',
+          component: RecursosView,
         },
         {
           path: '/admin/logs',

@@ -5,7 +5,7 @@ class LogService {
   private baseUrl: string
 
   private constructor() {
-    this.baseUrl = import.meta.env.VITE_LOG_ENDPOINT_API ?? 'http://localhost:3000/logs'
+    this.baseUrl = import.meta.env.VITE_LOG_ENDPOINT_API ?? 'https://localhost:7044/logs'
   }
 
   public static getInstance(): LogService {

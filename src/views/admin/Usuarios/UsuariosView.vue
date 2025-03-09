@@ -8,7 +8,7 @@ import InputIcon from 'primevue/inputicon';
 import IconField from 'primevue/iconfield';
 import InputText from 'primevue/inputtext';
 import Select from 'primevue/select';
-import LinkComponent from '@/components/LinkComponent.vue';
+import LinkComponent from '@/components/ui/LinkButton.vue';
 
 const usuarios = ref();
 const loading = ref(true);
@@ -69,12 +69,12 @@ const filters = ref({
 });
 
 const showUser = (data: any) => {
-    
+
 }
 
 const editUser = (data: any) => {
     console.log("Hola")
-console.log(data)
+    console.log(data)
 }
 
 const confirmDeleteUser = (data: any) => {
@@ -133,10 +133,8 @@ const confirmDeleteUser = (data: any) => {
                 <Column field="rol" header="Rol" sortable></Column>
                 <Column :exportable="false" style="min-width: 12rem">
                     <template #body="slotProps">
-                        <Button icon="pi pi-eye" outlined rounded class="mr-2"
-                            @click="showUser(slotProps.data)" />
-                            <Button icon="pi pi-pencil" outlined rounded class="mr-2"
-                            @click="editUser(slotProps.data)" />
+                        <Button icon="pi pi-eye" outlined rounded class="mr-2" @click="showUser(slotProps.data)" />
+                        <Button icon="pi pi-pencil" outlined rounded class="mr-2" @click="editUser(slotProps.data)" />
                         <Button icon="pi pi-trash" outlined rounded severity="danger"
                             @click="confirmDeleteUser(slotProps.data)" />
                     </template>

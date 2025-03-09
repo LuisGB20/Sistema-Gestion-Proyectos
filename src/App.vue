@@ -14,7 +14,7 @@ const authStore = useAuthStore();
 </script>
 
 <template>
-  <AuthHeader v-if="!authStore.isLoggedIn" />
+  <AuthHeader v-if="authStore.isLoggedIn" />
   <GuestHeader v-else />
   <RouterView />
   <Footer />

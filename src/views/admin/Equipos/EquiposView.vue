@@ -1,6 +1,5 @@
-
 <script setup lang="ts">
-import LinkComponent from "@/components/LinkComponent.vue";
+import LinkComponent from "@/components/ui/LinkButton.vue";
 import Button from "primevue/button";
 import Card from "primevue/card";
 import DataView from "primevue/dataview";

@@ -1,12 +1,13 @@
 <script setup lang="ts">
 import { onBeforeMount, ref } from 'vue';
-import { Line } from 'vue-chartjs'
+import { Bar, Doughnut, Line, Pie } from 'vue-chartjs'
 import { meses } from '@/Data/Meses';
 import { Chart, registerables } from 'chart.js';
 import { computed } from '@vue/reactivity';
 Chart.register(...registerables);
 
 const dashboardData = ref({
+  cantidadUsuarios: 0,
   cantidadProyectos: 0,
   cantidadEquipos: 0,
   cantidadLogs: 0,
@@ -19,6 +20,7 @@ const cantProyectosMes = ref<Number[]>([]);
 onBeforeMount(async () => {
   // Simulación de datos falsos para el dashboard
   dashboardData.value = {
+    cantidadUsuarios: 150,
     cantidadProyectos: 120,
     cantidadEquipos: 15,
     cantidadLogs: 3500,
@@ -54,36 +56,77 @@ const chartData = computed(() => ({
 </script>
 
 <template>
-  <section>
+  <main>
     <div class="flex flex-col gap-6">
 
-      <div class="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div class="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <!-- Usuarios totales -->
+        <div
+          class="bg-linear-to-r from-DarkTeal to-CharcoalBlue text-white p-6 rounded-lg shadow-lg flex flex-col items-center">
+          <h3 class="text-gainsboro text-xl font-semibold mb-2">Usuarios Totales</h3>
+          <p class="text-gainsboro text-4xl font-bold">{{ dashboardData.cantidadUsuarios }}</p>
+        </div>
+
         <!-- Proyecto Total -->
-        <div class="bg-linear-to-r from-DarkTeal to-CharcoalBlue text-white p-6 rounded-lg shadow-lg flex flex-col items-center">
+        <div
+          class="bg-linear-to-r from-DarkTeal to-CharcoalBlue text-white p-6 rounded-lg shadow-lg flex flex-col items-center">
           <h3 class="text-gainsboro text-xl font-semibold mb-2">Proyectos Totales</h3>
           <p class="text-gainsboro text-4xl font-bold">{{ dashboardData.cantidadProyectos }}</p>
         </div>
 
         <!-- Equipos Totales -->
-        <div class="bg-linear-to-r from-DarkTeal to-CharcoalBlue text-white p-6 rounded-lg shadow-lg flex flex-col items-center">
+        <div
+          class="bg-linear-to-r from-DarkTeal to-CharcoalBlue text-white p-6 rounded-lg shadow-lg flex flex-col items-center">
           <h3 class="text-gainsboro text-xl font-semibold mb-2">Equipos Registrados</h3>
           <p class="text-gainsboro text-4xl font-bold">{{ dashboardData.cantidadEquipos }}</p>
         </div>
 
-        <div class="bg-linear-to-r from-DarkTeal to-CharcoalBlue text-white p-6 rounded-lg shadow-lg flex flex-col items-center">
+        <!-- Logs generados -->
+        <div
+          class="bg-linear-to-r from-DarkTeal to-CharcoalBlue text-white p-6 rounded-lg shadow-lg flex flex-col items-center">
           <h3 class="text-gainsboro text-xl font-semibold mb-2">Logs Generados</h3>
           <p class="text-gainsboro text-4xl font-bold">{{ dashboardData.cantidadLogs }}</p>
         </div>
       </div>
 
-      <div class="flex-1">
+      <div class="grid grid-cols-2 gap-6">
+        <div class="flex-1">
         <div class="bg-white p-6 rounded-lg shadow-xl">
-          <h2 class="text-2xl font-semibold mb-4 text-DarkTeal">Actividad mensual de Proyectos</h2>
-          <div class="bg-white h-[300px] md:h-[500px] w-full rounded-lg flex flex-col justify-center items-center">
-            <Line id="grafica-proyectos" :data="chartData" :options="{ responsive: true, maintainAspectRatio: false }" />
+          <h2 class="text-2xl font-semibold mb-4 text-DarkTeal">Actividad mensual de usuarios</h2>
+          <div class="bg-white h-[300px] md:h-[400px] w-full rounded-lg flex flex-col justify-center items-center">
+            <Line id="grafica-proyectos" :data="chartData"
+              :options="{ responsive: true, maintainAspectRatio: false }" />
           </div>
         </div>
       </div>
+      <div class="flex-1">
+        <div class="bg-white p-6 rounded-lg shadow-xl">
+          <h2 class="text-2xl font-semibold mb-4 text-DarkTeal">Actividad mensual de proyectos</h2>
+          <div class="bg-white h-[300px] md:h-[400px] w-full rounded-lg flex flex-col justify-center items-center">
+            <Pie id="grafica-proyectos" :data="chartData"
+              :options="{ responsive: true, maintainAspectRatio: false }" />
+          </div>
+        </div>
+      </div>
+      <div class="flex-1">
+        <div class="bg-white p-6 rounded-lg shadow-xl">
+          <h2 class="text-2xl font-semibold mb-4 text-DarkTeal">Actividad mensual de equipos</h2>
+          <div class="bg-white h-[300px] md:h-[400px] w-full rounded-lg flex flex-col justify-center items-center">
+            <Bar id="grafica-proyectos" :data="chartData"
+              :options="{ responsive: true, maintainAspectRatio: false }" />
+          </div>
+        </div>
+      </div>
+      <div class="flex-1">
+        <div class="bg-white p-6 rounded-lg shadow-xl">
+          <h2 class="text-2xl font-semibold mb-4 text-DarkTeal">Actividad mensual de logs</h2>
+          <div class="bg-white h-[300px] md:h-[400px] w-full rounded-lg flex flex-col justify-center items-center">
+            <Doughnut id="grafica-proyectos" :data="chartData"
+              :options="{ responsive: true, maintainAspectRatio: false }" />
+          </div>
+        </div>
+      </div>
+      </div>
     </div>
-  </section>
+  </main>
 </template>

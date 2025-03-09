@@ -4,10 +4,10 @@ import SideBar from '@/components/layouts/Sidebar.vue';
 </script>
 
 <template>
-    <div class="flex min-h-screen">
+    <div class="flex">
         <SideBar />
 
-        <div class="flex-1 p-8 content">
+        <div class="flex-1 p-10 content">
             <router-view></router-view>
         </div>
     </div>
@@ -15,6 +15,6 @@ import SideBar from '@/components/layouts/Sidebar.vue';
 
 <style scoped>
 .content {
-    width: calc(100% - 80px);
+    width: calc(100% - 220px);
 }
 </style>
