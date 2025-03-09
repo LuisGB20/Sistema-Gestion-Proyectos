@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { RouterLink, RouterView } from 'vue-router'
+import {  RouterView } from 'vue-router'
 import 'primeicons/primeicons.css'
 
 import Footer from './components/layouts/Footer.vue';
