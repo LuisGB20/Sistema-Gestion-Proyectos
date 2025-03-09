@@ -12,6 +12,10 @@ import { createRouter, createWebHistory } from 'vue-router'
 import TareasView from '@/views/admin/Tareas/TareasView.vue'
 import ActividadesView from '@/views/admin/Actividades/ActividadesView.vue'
 import RecursosView from '@/views/admin/Recursos/RecursosView.vue'
+import SobreNosotrosView from '@/views/SobreNosotrosView.vue'
+import ContactoView from '@/views/ContactoView.vue'
+import PoliticasView from '@/views/legal/PoliticasView.vue'
+import TerminosCondicionesView from '@/views/legal/TerminosCondicionesView.vue'
 
 const router = createRouter({
   linkActiveClass: '!bg-linear-to-r !from-DarkTeal !to-CharcoalBlue !text-white',
@@ -30,6 +34,26 @@ const router = createRouter({
       path: '/',
       name: 'inicio',
       component: InicioView,
+    },
+    {
+      path: '/sobre-nosotros',
+      name: 'sobre-nosotros',
+      component: SobreNosotrosView
+    },
+    {
+      path: '/contactanos',
+      name: 'contactanos',
+      component: ContactoView
+    },
+    {
+      path: '/politicas-de-privacidad',
+      name: 'politicas',
+      component: PoliticasView
+    },
+    {
+      path: '/terminos-y-condiciones',
+      name: 'terminos-condiciones',
+      component: TerminosCondicionesView
     },
     {
       path: '/iniciar-sesion',
