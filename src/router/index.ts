@@ -1,4 +1,8 @@
-import AdminLayout from '@/layouts/AdminLayout.vue'
+import AdminLayout from '@/layouts/Layout.vue'
+import DashboardView from '@/views/admin/DashboardView.vue'
+import EquiposView from '@/views/admin/Equipos/EquiposView.vue'
+import LogsView from '@/views/admin/LogsView.vue'
+import UsuariosView from '@/views/admin/Usuarios/UsuariosView.vue'
 import LoginView from '@/views/Auth/LoginView.vue'
 import RegistroView from '@/views/Auth/RegistroView.vue'
 import NotFoundView from '@/views/Error/NotFoundView.vue'
@@ -36,7 +40,28 @@ const router = createRouter({
       name: 'admin',
       component: AdminLayout,
       // meta: { requiresAuth: true, roles: ['Administrador'] },
-      children: []
+      children: [
+        {
+          path: '/admin',
+          name: 'admin-dash',
+          component: DashboardView
+        },
+        {
+          path: '/admin/usuarios',
+          name: 'admin-usuarios',
+          component: UsuariosView
+        },
+        {
+          path: '/admin/equipos',
+          name: 'admin-equipos',
+          component: EquiposView
+        },
+        {
+          path: '/admin/logs',
+          name: 'admin-logs',
+          component: LogsView
+        },
+      ]
     }
   ],
 })

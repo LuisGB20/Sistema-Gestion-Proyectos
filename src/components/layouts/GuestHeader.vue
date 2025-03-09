@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import Button from 'primevue/button';
+import LinkComponent from '../LinkComponent.vue';
 
 
 </script>
@@ -10,8 +11,8 @@ import Button from 'primevue/button';
         <h1 class="font-bold text-xl text-[#124E66] mr-auto">Sistema de Gestión de Proyectos</h1>
       
         <div class="flex ml-auto space-x-3">
-            <Button label="Iniciar sesión"/>
-            <Button label="Registrarse" />
+            <LinkComponent to="/iniciar-sesion" texto="Iniciar sesión" />
+            <LinkComponent to="/registro" texto="Registrarse" />
         </div>
     </header>
 </template>
