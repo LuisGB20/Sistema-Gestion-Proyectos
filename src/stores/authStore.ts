@@ -12,7 +12,7 @@ export const useAuthStore = defineStore('auth', () => {
 
   onMounted(() => {
     const tokenLs = localStorage.getItem('token') || '';
-    if (tokenLs !== '') {
+    if (tokenLs !== '' && tokenLs !== null) {
       token.value = tokenLs
     };
   })

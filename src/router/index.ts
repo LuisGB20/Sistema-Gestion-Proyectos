@@ -20,6 +20,11 @@ import NotAuthorizedView from '@/views/Error/NotAuthorizedView.vue'
 import PoliticasCookiesView from '@/views/legal/PoliticasCookiesView.vue'
 import SubTareasView from '@/views/Admin/SubTareas/SubTareasView.vue'
 import AgregarUsuarioView from '@/views/Admin/AgregarUsuario/AgregarUsuarioView.vue'
+import Layout from '@/layouts/Layout.vue'
+import DashboardSistemasView from '@/views/Sistemas/DashboardSistemasView.vue'
+import RecursosSistemasView from '@/views/Sistemas/Recursos/RecursosSistemasView.vue'
+import DetalleRecursoSistemasView from '@/views/Sistemas/Recursos/DetalleRecursoSistemasView.vue'
+import AgregarRecursoView from '@/views/Sistemas/Recursos/AgregarRecursoView.vue'
 
 const router = createRouter({
   linkActiveClass: 'underline underline-offset-2',
@@ -82,7 +87,7 @@ const router = createRouter({
     {
       path: '/admin',
       name: 'admin',
-      component: AdminLayout,
+      component: Layout,
       // meta: { requiresAuth: true, roles: ['Administrador'] },
       children: [
         {
@@ -134,6 +139,46 @@ const router = createRouter({
           path: '/admin/logs',
           name: 'admin-logs',
           component: LogsView
+        },
+      ]
+    },
+    {
+      path: '/gerente',
+      name: 'gerente',
+      component: Layout,
+      // meta: { requiresAuth: true, roles: ['Administrador'] },
+      children: []
+    },
+    {
+      path: '/sistemas',
+      name: 'sistemas',
+      component: Layout,
+      // meta: { requiresAuth: true, roles: ['Administrador'] },
+      children: [
+        {
+          path: '',
+          name: 'sistemas-dash',
+          component: DashboardSistemasView
+        },
+        {
+          path: '/sistemas/recursos',
+          children: [
+            {
+              path: '',
+              name: 'sistemas-dash',
+              component: RecursosSistemasView,
+            },
+            {
+              path: '/sistemas/recursos/agregar',
+              name: 'recursos-agregar',
+              component: AgregarRecursoView
+            },
+            {
+              path: '/sistemas/recursos/:id',
+              name: 'recursos-detalle',
+              component: DetalleRecursoSistemasView
+            },
+          ]
         },
       ]
     }

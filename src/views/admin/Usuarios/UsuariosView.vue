@@ -13,13 +13,13 @@ import LinkComponent from '@/components/ui/LinkButton.vue';
 const usuarios = ref();
 const loading = ref(true);
 const statuses = ref(['Activo', 'Inactivo', 'Pendiente']);
-
 const dt = ref();
 const exportCSV = () => {
     dt.value.exportCSV();
 };
 
 onMounted(() => {
+    
     usuarios.value = [
         {
             nombre: 'Juan Pérez',

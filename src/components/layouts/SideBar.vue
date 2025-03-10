@@ -1,5 +1,10 @@
 <script setup lang="ts">
 import { ChartBarIcon, DocumentTextIcon, FolderIcon, Square3Stack3DIcon, UserGroupIcon, UsersIcon, BriefcaseIcon, PuzzlePieceIcon } from '@heroicons/vue/16/solid';
+import { ref } from 'vue';
+import { useRoute } from 'vue-router';
+
+const route = useRoute();
+const rol = ref('sistemas');
 
 // Rutas disponibles para cada rol
 const routes = [
@@ -17,22 +22,49 @@ const routes = [
         ]
     },
     {
-        role: 'jefe',
+        role: 'gerente',
         links: [
-            { to: '/jefe', label: 'Panel de Jefe', icon: ChartBarIcon }
+            { to: '/gerente', label: 'Dashboard', icon: ChartBarIcon },
+            { to: '/gerente/proyectos', label: 'Proyectos', icon: FolderIcon },
+            { to: '/gerente/equipos', label: 'Equipos', icon: UserGroupIcon },
+            { to: '/gerente/empleados', label: 'Empleados', icon: UsersIcon },
+            { to: '/gerente/tareas', label: 'Tareas', icon: BriefcaseIcon },
+            { to: '/gerente/actividades', label: 'Actividades', icon: PuzzlePieceIcon },
+            { to: '/gerente/recursos', label: 'Recursos', icon: Square3Stack3DIcon },
+        ]
+    },
+    {
+        role: 'supervisor',
+        links: [
+            { to: '/gerente', label: 'Dashboard', icon: ChartBarIcon },
+            { to: '/gerente/proyecto', label: 'Proyecto', icon: FolderIcon },
+            { to: '/gerente/equipo', label: 'Equipo', icon: UserGroupIcon },
+            { to: '/gerente/tareas', label: 'Tareas', icon: BriefcaseIcon },
+            { to: '/gerente/actividades', label: 'Actividades', icon: PuzzlePieceIcon },
+            { to: '/gerente/recursos', label: 'Recursos', icon: Square3Stack3DIcon },
+        ]
+    },
+    {
+        role: 'sistemas',
+        links: [
+            { to: '/sistemas', label: 'Dashboard', icon: ChartBarIcon },
+            { to: '/sistemas/recursos', label: 'Recursos', icon: Square3Stack3DIcon },
         ]
     },
     {
         role: 'empleado',
         links: [
-            { to: '/empleado', label: 'Panel de Empleado', icon: UserGroupIcon }
+            { to: '/empleado', label: 'Dashboard', icon: ChartBarIcon },
+            { to: '/empleado/proyecto', label: 'Proyecto', icon: FolderIcon },
+            { to: '/empleado/equipo', label: 'Equipo', icon: UserGroupIcon },
+            { to: '/empleado/tareas', label: 'Tareas', icon: BriefcaseIcon },
+            { to: '/empleado/actividades', label: 'Actividades', icon: PuzzlePieceIcon },
         ]
     },
 ];
 
-const userLinks = routes[0].links;
-
-console.log(userLinks)
+const indexRoutes = routes.findIndex(r => r.role == rol.value);
+const userLinks = routes[indexRoutes].links;
 
 </script>
 
@@ -42,8 +74,8 @@ console.log(userLinks)
         <ul>
             <li v-for="link in userLinks" class="mb-4 text-center">
                 <router-link :to="link.to"
-                    activeClass="!bg-linear-to-r !from-DarkTeal !to-CharcoalBlue !text-white hover:!text-transparent"
-                    exactActiveClass="!bg-linear-to-r !from-DarkTeal !to-CharcoalBlue !text-white hover:!text-transparent"
+                    activeClass="!bg-linear-to-r !from-DarkTeal !to-CharcoalBlue !text-white"
+                    exactActiveClass="!bg-linear-to-r !from-DarkTeal !to-CharcoalBlue !text-white"
                     class="flex text-lg py-2 px-4 rounded-lg hover:bg-linear-to-r hover:from-DarkTeal hover:to-CharcoalBlue hover:text-white transition duration-200">
                     <component :is="link.icon" class="size-6" />
                     <span class="ml-3">{{ link.label }}</span>

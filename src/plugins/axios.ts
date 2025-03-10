@@ -53,8 +53,8 @@ api.interceptors.response.use(
 
         return {
             success: true,
-            message: response.message,
-            data: response.data,
+            message: response.data.message,
+            data: response.data.data,
         };
     },
     (error) => {

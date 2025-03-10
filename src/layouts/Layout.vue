@@ -16,5 +16,6 @@ import SideBar from '@/components/layouts/Sidebar.vue';
 <style scoped>
 .content {
     width: calc(100% - 220px);
+    min-height: 100vh;
 }
 </style>

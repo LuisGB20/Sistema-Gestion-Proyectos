@@ -1,0 +1,186 @@
+<script setup lang="ts">
+import { onMounted, ref } from 'vue';
+import { useRoute } from 'vue-router';
+import { getResource } from '@/services/recursosService';
+
+const route = useRoute();
+const recurso = ref({});
+
+
+onMounted(async () => {
+    const idResource = route.params.id.toString();
+    const response = await getResource(idResource);
+    console.log(response)
+    recurso.value = response.data
+})
+
+// Datos estáticos del recurso
+</script>
+
+<template>
+    <main class="flex flex-col justify-center items-center">
+        <div class="w-full bg-white shadow-lg rounded-lg p-6">
+            <p class="text-sm mb-5 text-SteelBlue">Recurso ID-{{ recurso.id }}</p>
+            <!-- Encabezado -->
+            <h1 class="text-DarkTeal text-start text-4xl font-bold">
+                Detalles del Recurso
+            </h1>
+
+            <div class="flex justify-between space-x-5">
+                <div class="w-1/2 p-4 space-y-4">
+                    <div>
+                        <h2 class="text-lg font-semibold">Nombre:</h2>
+                        <p class="text-gray-700">{{ recurso.name }}</p>
+                    </div>
+
+                    <div>
+                        <h2 class="text-lg font-semibold">Descripción:</h2>
+                        <p class="text-gray-700">{{ recurso.description }}</p>
+                    </div>
+
+                    <div>
+                        <h2 class="text-lg font-semibold">Cantidad:</h2>
+                        <p class="text-gray-700">{{ recurso.quantity }}</p>
+                    </div>
+
+                    <div>
+                        <h2 class="text-lg font-semibold">ID:</h2>
+                        <p class="text-gray-500 text-sm break-words">{{ recurso.id }}</p>
+                    </div>
+
+                    <div>
+                        <h2 class="text-lg font-semibold">Estado:</h2>
+                        <p :class="recurso.isDeleted ? 'text-red-600' : 'text-green-600'">
+                            {{ recurso.isDeleted ? 'Eliminado' : 'Activo' }}
+                        </p>
+                    </div>
+
+                    <div>
+                        <h2 class="text-lg font-semibold">Fecha de Creación:</h2>
+                        <p class="text-gray-700">{{ recurso.createdAt }}</p>
+                    </div>
+                </div>
+                <div class="w-1/2 p-4 space-y-4">
+                    <h2 class="text-lg font-semibold mb-5">Proyectos con este recurso</h2>
+                    <div class="space-y-5 max-h-[400px] overflow-y-auto">
+                        <div
+                            class="bg-linear-to-r from-DarkTeal to-CharcoalBlue text-white rounded-lg p-4 shadow-lg flex items-center justify-between w-full space-x-6">
+                            <div class="flex items-center space-x-4">
+                                <div class="flex flex-col items-start">
+                                    <span class="text-sm text-gray-300">Proyecto:</span>
+                                    <span class="text-xl font-bold">Proyecto 1</span>
+                                </div>
+                            </div>
+                            <div class="flex items-center space-x-6">
+                                <div class="flex flex-col items-center">
+                                    <span class="text-sm text-gray-300">Cant. Total</span>
+                                    <span class="text-xl font-bold">1</span>
+                                </div>
+                                <div class="flex flex-col items-center">
+                                    <span class="text-sm text-gray-300">Cant. Utilizada</span>
+                                    <span class="text-xl font-bold">1</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div
+                            class="bg-linear-to-r from-DarkTeal to-CharcoalBlue text-white rounded-lg p-4 shadow-lg flex items-center justify-between w-full space-x-6">
+                            <div class="flex items-center space-x-4">
+                                <div class="flex flex-col items-start">
+                                    <span class="text-sm text-gray-300">Proyecto:</span>
+                                    <span class="text-xl font-bold">Proyecto 1</span>
+                                </div>
+                            </div>
+                            <div class="flex items-center space-x-6">
+                                <div class="flex flex-col items-center">
+                                    <span class="text-sm text-gray-300">Cant. Total</span>
+                                    <span class="text-xl font-bold">1</span>
+                                </div>
+                                <div class="flex flex-col items-center">
+                                    <span class="text-sm text-gray-300">Cant. Utilizada</span>
+                                    <span class="text-xl font-bold">1</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div
+                            class="bg-linear-to-r from-DarkTeal to-CharcoalBlue text-white rounded-lg p-4 shadow-lg flex items-center justify-between w-full space-x-6">
+                            <div class="flex items-center space-x-4">
+                                <div class="flex flex-col items-start">
+                                    <span class="text-sm text-gray-300">Proyecto:</span>
+                                    <span class="text-xl font-bold">Proyecto 1</span>
+                                </div>
+                            </div>
+                            <div class="flex items-center space-x-6">
+                                <div class="flex flex-col items-center">
+                                    <span class="text-sm text-gray-300">Cant. Total</span>
+                                    <span class="text-xl font-bold">1</span>
+                                </div>
+                                <div class="flex flex-col items-center">
+                                    <span class="text-sm text-gray-300">Cant. Utilizada</span>
+                                    <span class="text-xl font-bold">1</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div
+                            class="bg-linear-to-r from-DarkTeal to-CharcoalBlue text-white rounded-lg p-4 shadow-lg flex items-center justify-between w-full space-x-6">
+                            <div class="flex items-center space-x-4">
+                                <div class="flex flex-col items-start">
+                                    <span class="text-sm text-gray-300">Proyecto:</span>
+                                    <span class="text-xl font-bold">Proyecto 1</span>
+                                </div>
+                            </div>
+                            <div class="flex items-center space-x-6">
+                                <div class="flex flex-col items-center">
+                                    <span class="text-sm text-gray-300">Cant. Total</span>
+                                    <span class="text-xl font-bold">1</span>
+                                </div>
+                                <div class="flex flex-col items-center">
+                                    <span class="text-sm text-gray-300">Cant. Utilizada</span>
+                                    <span class="text-xl font-bold">1</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div
+                            class="bg-linear-to-r from-DarkTeal to-CharcoalBlue text-white rounded-lg p-4 shadow-lg flex items-center justify-between w-full space-x-6">
+                            <div class="flex items-center space-x-4">
+                                <div class="flex flex-col items-start">
+                                    <span class="text-sm text-gray-300">Proyecto:</span>
+                                    <span class="text-xl font-bold">Proyecto 1</span>
+                                </div>
+                            </div>
+                            <div class="flex items-center space-x-6">
+                                <div class="flex flex-col items-center">
+                                    <span class="text-sm text-gray-300">Cant. Total</span>
+                                    <span class="text-xl font-bold">1</span>
+                                </div>
+                                <div class="flex flex-col items-center">
+                                    <span class="text-sm text-gray-300">Cant. Utilizada</span>
+                                    <span class="text-xl font-bold">1</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div
+                            class="bg-linear-to-r from-DarkTeal to-CharcoalBlue text-white rounded-lg p-4 shadow-lg flex items-center justify-between w-full space-x-6">
+                            <div class="flex items-center space-x-4">
+                                <div class="flex flex-col items-start">
+                                    <span class="text-sm text-gray-300">Proyecto:</span>
+                                    <span class="text-xl font-bold">Proyecto 1</span>
+                                </div>
+                            </div>
+                            <div class="flex items-center space-x-6">
+                                <div class="flex flex-col items-center">
+                                    <span class="text-sm text-gray-300">Cant. Total</span>
+                                    <span class="text-xl font-bold">1</span>
+                                </div>
+                                <div class="flex flex-col items-center">
+                                    <span class="text-sm text-gray-300">Cant. Utilizada</span>
+                                    <span class="text-xl font-bold">1</span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</template>
