@@ -6,10 +6,6 @@ import GuestHeader from './components/layouts/GuestHeader.vue';
 import { useAuthStore } from './stores/authStore';
 import AuthHeader from './components/layouts/AuthHeader.vue';
 
-
-
-
-
 const authStore = useAuthStore();
 </script>
 

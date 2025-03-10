@@ -16,12 +16,12 @@ import SobreNosotrosView from '@/views/SobreNosotrosView.vue'
 import ContactoView from '@/views/ContactoView.vue'
 import PoliticasView from '@/views/legal/PoliticasView.vue'
 import TerminosCondicionesView from '@/views/legal/TerminosCondicionesView.vue'
-import SubTareasView from '@/views/Admin/SubTareas/SubTareasView.vue'
-import AgregarUsuarioView from '@/views/Admin/AgregarUsuario/AgregarUsuarioView.vue'
+import NotAuthorizedView from '@/views/Error/NotAuthorizedView.vue'
+import PoliticasCookiesView from '@/views/legal/PoliticasCookiesView.vue'
 
 const router = createRouter({
-  linkActiveClass: '!bg-linear-to-r !from-DarkTeal !to-CharcoalBlue !text-white',
-  linkExactActiveClass: '!bg-linear-to-r !from-DarkTeal !to-CharcoalBlue !text-white hover:!text-transparent',
+  linkActiveClass: 'underline underline-offset-2',
+  linkExactActiveClass: 'underline underline-offset-2',
   scrollBehavior(to, from, savedPosition) {
     return { top: 0 }
   },
@@ -29,8 +29,13 @@ const router = createRouter({
   routes: [
     {
       path: '/:pathMatch(.*)*',
-      name: 'Not Found',
+      name: 'No-encontrado',
       component: NotFoundView
+    },
+    {
+      path: '/acceso-denegado',
+      name: 'No-autorizado',
+      component: NotAuthorizedView
     },
     {
       path: '/',
@@ -49,13 +54,18 @@ const router = createRouter({
     },
     {
       path: '/politicas-de-privacidad',
-      name: 'politicas',
+      name: 'politicas-privacidad',
       component: PoliticasView
     },
     {
       path: '/terminos-y-condiciones',
       name: 'terminos-condiciones',
       component: TerminosCondicionesView
+    },
+    {
+      path: '/politicas-de-cookies',
+      name: 'politicas-cookies',
+      component: PoliticasCookiesView
     },
     {
       path: '/iniciar-sesion',
