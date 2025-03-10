@@ -18,6 +18,8 @@ import PoliticasView from '@/views/legal/PoliticasView.vue'
 import TerminosCondicionesView from '@/views/legal/TerminosCondicionesView.vue'
 import NotAuthorizedView from '@/views/Error/NotAuthorizedView.vue'
 import PoliticasCookiesView from '@/views/legal/PoliticasCookiesView.vue'
+import SubTareasView from '@/views/Admin/SubTareas/SubTareasView.vue'
+import AgregarUsuarioView from '@/views/Admin/AgregarUsuario/AgregarUsuarioView.vue'
 
 const router = createRouter({
   linkActiveClass: 'underline underline-offset-2',

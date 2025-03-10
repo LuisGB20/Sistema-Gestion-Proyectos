@@ -102,6 +102,14 @@ import Button from 'primevue/button';
 
 
       </div>
+
+      <div class="flex items-start space-x-2 mt-8 ml-240 ">
+            <i class="pi pi-envelope text-CharcoalBlue"></i>
+            <span class="text-xs text-CharcoalBlue mr-8"> 50 Tareas</span>
+            <i class="pi pi-folder text-CharcoalBlue"></i>
+            <span class="text-xs text-CharcoalBlue"> 15 Archivos</span>
+          </div>
+
     </div>
   </div>
 </template>

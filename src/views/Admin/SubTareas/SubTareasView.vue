@@ -9,7 +9,7 @@ import Button from 'primevue/button';
     <div class="flex items-center justify-between w-full pr-10">
         <h1 class="text-4xl font-bold text-CharcoalBlue">Sub Tareas</h1>
         <Button
-          label="Asignar Tarea"
+          label="Asignar Sub Tarea"
           class="text-white px-4 py-2 rounded-md shadow-md"
         />
     </div>

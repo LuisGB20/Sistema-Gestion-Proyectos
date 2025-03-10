@@ -36,9 +36,16 @@ const prevPage = () => {
 
 <template>
   <div class="flex flex-col items-center pt-10">
-    <h1 class="text-4xl font-bold text-CharcoalBlue mb-6 self-start">Proyectos</h1>
 
-    <Button label="Crear" class="absolute right-10  px-4 py-2 rounded-md shadow-md" />
+    <div class="flex items-center justify-between w-full pr-10 mb-8">
+        <h1 class="text-4xl font-bold text-CharcoalBlue">Proyectos</h1>
+        <Button
+          label="Crear Proyecto"
+          class="text-white px-4 py-2 rounded-md shadow-md"
+        />
+    </div>
+
+
     <div class="overflow-y-auto max-h-screen w-full">
 
       <div class="grid grid-cols-3 gap-4 w-full">
