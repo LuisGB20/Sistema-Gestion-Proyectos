@@ -1,7 +1,6 @@
 <script setup lang='ts'>
 import Tag from 'primevue/tag';
-import Avatar from 'primevue/avatar';
-import AvatarGroup from 'primevue/avatargroup';
+
 import Button from 'primevue/button';
 </script>
 
@@ -11,15 +10,8 @@ import Button from 'primevue/button';
     <div class="flex items-center justify-between w-full pr-10">
 
       <div class="flex items-center space-x-4">
-        <h1 class="text-4xl font-bold text-CharcoalBlue">Tareas</h1>
-        <AvatarGroup class="flex w-50 h-8 ">
-          <Avatar image="https://primefaces.org/cdn/primevue/images/avatar/amyelsner.png" shape="circle" />
-          <Avatar image="https://primefaces.org/cdn/primevue/images/avatar/asiyajavayant.png" shape="circle" />
-          <Avatar image="https://primefaces.org/cdn/primevue/images/avatar/onyamalimba.png" shape="circle" />
-          <Avatar image="https://primefaces.org/cdn/primevue/images/avatar/ionibowcher.png" shape="circle" />
-          <Avatar image="https://primefaces.org/cdn/primevue/images/avatar/xuxuefeng.png" shape="circle" />
-          <Avatar label="+2" shape="circle" class='bg-red-200 rounded-2xl w-50 h-8 text-red-500' />
-        </AvatarGroup>
+        <h1 class="text-4xl font-bold text-CharcoalBlue">Recursos</h1>
+
         <Tag severity="success" value="En camino" class="px-3 py-1  bg-green-200 text-green-900 rounded-2xl"></Tag>
       </div>
 
@@ -59,7 +51,7 @@ import Button from 'primevue/button';
     <div class="overflow-y-auto max-h-screen w-full mt-6">
       <div class="space-y-4 w-full">
         <!-- Tarjeta de Proyecto -->
-        <div class="bg-gray-200 rounded-lg p-4 shadow-md flex items-center justify-between w-full">
+        <div class="bg-gray-50 rounded-lg p-4 shadow-md flex items-center justify-between w-full">
 
           <div class="flex items-center space-x-4">
             <i class="pi pi-lightbulb text-CharcoalBlue"></i>
@@ -78,13 +70,12 @@ import Button from 'primevue/button';
               <i class="pi pi-clock text-green-900 mr-2"></i>
               <Tag severity="success" value="00 : 30 : 00"></Tag>
             </div>
-            <Avatar image="https://primefaces.org/cdn/primevue/images/avatar/amyelsner.png" shape="circle" class="w-10 h-10 mr-8"/>
             <i class="pi pi-envelope text-CharcoalBlue mr-8"></i>
           </div>
         </div>
 
                 <!-- Tarjeta de Proyecto -->
-                <div class="bg-gray-200 rounded-lg p-4 shadow-md flex items-center justify-between w-full">
+                <div class="bg-gray-50 rounded-lg p-4 shadow-md flex items-center justify-between w-full">
 
                 <div class="flex items-center space-x-4">
                   <i class="pi pi-lightbulb text-CharcoalBlue"></i>
@@ -103,7 +94,6 @@ import Button from 'primevue/button';
                     <i class="pi pi-clock text-green-900 mr-2"></i>
                     <Tag severity="success" value="00 : 30 : 00"></Tag>
                   </div>
-                  <Avatar image="https://primefaces.org/cdn/primevue/images/avatar/amyelsner.png" shape="circle" class="w-10 h-10 mr-8"/>
                   <i class="pi pi-envelope text-CharcoalBlue mr-8"></i>
                 </div>
                 </div>
@@ -117,7 +107,7 @@ import Button from 'primevue/button';
 
 <style scoped>
   .overflow-y-auto::-webkit-scrollbar {
-    display: none; 
+    display: none;
   }
 
   .overflow-y-auto {

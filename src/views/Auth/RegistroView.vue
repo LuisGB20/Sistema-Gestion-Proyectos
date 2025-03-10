@@ -84,7 +84,7 @@ export default defineComponent({
         </form>
         <div class="text-CharcoalBlue flex mt-8 text-xs">
           <p class="">¿Ya tienes una cuenta?</p>
-          <router-link  to="/iniciar-sesion" class="border-b-3 ml-2 hover:text-LightGray ">Inicia sesión aquí</router-link >
+          <router-link  to="/iniciar-sesion" class="text-DarkTeal hover:underline hover:underline-offset-2 ml-8">Inicia sesión aquí</router-link >
         </div>
       </div>
     </div>

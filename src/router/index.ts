@@ -16,6 +16,8 @@ import SobreNosotrosView from '@/views/SobreNosotrosView.vue'
 import ContactoView from '@/views/ContactoView.vue'
 import PoliticasView from '@/views/legal/PoliticasView.vue'
 import TerminosCondicionesView from '@/views/legal/TerminosCondicionesView.vue'
+import SubTareasView from '@/views/Admin/SubTareas/SubTareasView.vue'
+import AgregarUsuarioView from '@/views/Admin/AgregarUsuario/AgregarUsuarioView.vue'
 
 const router = createRouter({
   linkActiveClass: '!bg-linear-to-r !from-DarkTeal !to-CharcoalBlue !text-white',
@@ -82,28 +84,38 @@ const router = createRouter({
           component: UsuariosView
         },
         {
+          path: '/admin/agregar-usuario',
+          name: 'admin-agregar-usuario',
+          component: AgregarUsuarioView,
+        },
+        {
           path: '/admin/equipos',
           name: 'admin-equipos',
           component: EquiposView
         },
         {
           path: '/admin/proyectos',
-          name: 'proyectos',
+          name: 'admin-proyectos',
           component: ProyectosView,
         },
         {
           path: '/admin/tareas',
-          name: 'tareas',
+          name: 'admin-tareas',
           component: TareasView,
         },
         {
+          path: '/admin/sub-tareas',
+          name: 'admin-sub-tareas',
+          component: SubTareasView,
+        },
+        {
           path: '/admin/actividades',
-          name: 'actividades',
+          name: 'admin-actividades',
           component: ActividadesView,
         },
         {
           path: '/admin/recursos',
-          name: 'recursos',
+          name: 'admin-recursos',
           component: RecursosView,
         },
         {
