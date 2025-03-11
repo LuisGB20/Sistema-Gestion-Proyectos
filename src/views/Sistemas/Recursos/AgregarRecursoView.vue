@@ -6,6 +6,8 @@ import { createResource } from '@/services/recursosService';
 import { useToast } from 'primevue/usetoast';
 import Toast from 'primevue/toast';
 import router from '@/router';
+import { FolderPlusIcon, InboxStackIcon } from '@heroicons/vue/16/solid';
+import { useNotificationStore } from '@/stores/notificationsStore';
 
 const { values, errors, defineField, validate } = useForm({
     validationSchema: yup.object({
@@ -33,16 +35,20 @@ const [quantity, quantityAttrs] = defineField('quantity', {
 
 const toast = useToast();
 
+const notificationStore = useNotificationStore();
+
 const handleSubmit = async () => {
     const isValid = await validate();
     if (isValid.valid) {
         const response = await createResource(name.value, description.value, quantity.value);
+        console.log(response)
         if (!response.success) {
             toast.add({ severity: 'error', summary: 'Algo salió mal', detail: response.message, life: 3000 });
         } else {
-            toast.add({ severity: 'success', summary: '¡Bienvenido!', detail: 'Inicio de sesión exitoso.', life: 3000 });
+            notificationStore.showSuccess = true;
+            notificationStore.message = 'Recurso agregado con exito';
             setTimeout(() => {
-                router.push(`/${response.data.user.rol.toLowerCase()}`)
+                router.push(`/sistemas/recursos`)
             }, 1500)
         }
     } else {
@@ -57,7 +63,7 @@ const handleSubmit = async () => {
       <div class="relative w-full max-w-lg bg-white bg-opacity-10 backdrop-blur-lg shadow-2xl rounded-2xl p-8 border border-gray-400/30">
 
           <div class="absolute -top-6 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-DarkTeal to-CharcoalBlue w-14 h-14 rounded-full flex justify-center items-center shadow-md">
-              <span class="text-xl font-bold">📘</span>
+              <span class="text-xl font-bold"><FolderPlusIcon class="size-6 text-white"/></span>
           </div>
 
           <h1 class="text-3xl font-extrabold text-CharcoalBlue text-center mb-6">
@@ -65,7 +71,7 @@ const handleSubmit = async () => {
           </h1>
 
 
-          <form @submit="handleSubmit">
+          <form @submit.prevent="handleSubmit">
               <div class="space-y-6">
 
                   <div>

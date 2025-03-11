@@ -21,11 +21,11 @@ import PoliticasCookiesView from '@/views/legal/PoliticasCookiesView.vue'
 import SubTareasView from '@/views/Admin/SubTareas/SubTareasView.vue'
 import AgregarUsuarioView from '@/views/Admin/AgregarUsuario/AgregarUsuarioView.vue'
 import Layout from '@/layouts/Layout.vue'
-import DashboardSistemasView from '@/views/Sistemas/DashboardSistemasView.vue'
 import RecursosSistemasView from '@/views/Sistemas/Recursos/RecursosSistemasView.vue'
 import DetalleRecursoSistemasView from '@/views/Sistemas/Recursos/DetalleRecursoSistemasView.vue'
 import AgregarRecursoView from '@/views/Sistemas/Recursos/AgregarRecursoView.vue'
 import EditarRecursoView from '@/views/Sistemas/Recursos/EditarRecursoView.vue'
+import DashboardSistemasView from '@/views/Sistemas/DashboardSistemasView.vue'
 
 const router = createRouter({
   linkActiveClass: 'underline underline-offset-2',
@@ -159,33 +159,33 @@ const router = createRouter({
         {
           path: '',
           name: 'sistemas-dash',
-          component: DashboardSistemasView
+          component: DashboardSistemasView,
         },
         {
-          path: '/sistemas/recursos',
+          path: 'recursos',
           children: [
             {
               path: '',
-              name: 'sistemas-dash',
+              name: 'sistemas-recursos',
               component: RecursosSistemasView,
             },
             {
-              path: '/sistemas/recursos/agregar',
-              name: 'recursos-agregar',
+              path: 'agregar',
+              name: 'sistemas-recursos-agregar',
               component: AgregarRecursoView
             },
             {
-              path: '/sistemas/recursos/editar/:id',
+              path: 'editar/:id',
               name: 'recursos-editar',
               component: EditarRecursoView
             },
             {
-              path: '/sistemas/recursos/:id',
+              path: ':id',
               name: 'recursos-detalle',
               component: DetalleRecursoSistemasView
             },
           ]
-        },
+        }
       ]
     }
   ],

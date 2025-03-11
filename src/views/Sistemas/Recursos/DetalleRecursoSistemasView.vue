@@ -1,18 +1,19 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
 import { useRoute } from 'vue-router';
-import { getResource } from '@/services/recursosService';
+import { getResource, getResourceWithProjects } from '@/services/recursosService';
 import { formatDate } from '@/utils/formatDate';
 
 const route = useRoute();
 const recurso = ref({});
-
+const projectsWithResource = ref([])
 
 onMounted(async () => {
     const idResource = route.params.id.toString();
-    const response = await getResource(idResource);
-    console.log(response)
-    recurso.value = response.data
+    const response = await getResourceWithProjects(idResource);
+    recurso.value = response.data.resource;
+    projectsWithResource.value = response.data.projects;
+    console.log(projectsWithResource.value)
 })
 
 // Datos estáticos del recurso
@@ -67,117 +68,18 @@ onMounted(async () => {
                 <div class="w-1/2 p-4 space-y-4">
                     <h2 class="text-lg font-semibold mb-5">Proyectos con este recurso</h2>
                     <div class="space-y-5 max-h-[400px] overflow-y-auto">
-                        <div
+                        <div v-for="project in projectsWithResource"
                             class="bg-linear-to-r from-DarkTeal to-CharcoalBlue text-white rounded-lg p-4 shadow-lg flex items-center justify-between w-full space-x-6">
                             <div class="flex items-center space-x-4">
                                 <div class="flex flex-col items-start">
                                     <span class="text-sm text-gray-300">Proyecto:</span>
-                                    <span class="text-xl font-bold">Proyecto 1</span>
+                                    <span class="text-xl font-bold">{{ project.name }}</span>
                                 </div>
                             </div>
                             <div class="flex items-center space-x-6">
                                 <div class="flex flex-col items-center">
-                                    <span class="text-sm text-gray-300">Cant. Total</span>
-                                    <span class="text-xl font-bold">1</span>
-                                </div>
-                                <div class="flex flex-col items-center">
                                     <span class="text-sm text-gray-300">Cant. Utilizada</span>
-                                    <span class="text-xl font-bold">1</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div
-                            class="bg-linear-to-r from-DarkTeal to-CharcoalBlue text-white rounded-lg p-4 shadow-lg flex items-center justify-between w-full space-x-6">
-                            <div class="flex items-center space-x-4">
-                                <div class="flex flex-col items-start">
-                                    <span class="text-sm text-gray-300">Proyecto:</span>
-                                    <span class="text-xl font-bold">Proyecto 1</span>
-                                </div>
-                            </div>
-                            <div class="flex items-center space-x-6">
-                                <div class="flex flex-col items-center">
-                                    <span class="text-sm text-gray-300">Cant. Total</span>
-                                    <span class="text-xl font-bold">1</span>
-                                </div>
-                                <div class="flex flex-col items-center">
-                                    <span class="text-sm text-gray-300">Cant. Utilizada</span>
-                                    <span class="text-xl font-bold">1</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div
-                            class="bg-linear-to-r from-DarkTeal to-CharcoalBlue text-white rounded-lg p-4 shadow-lg flex items-center justify-between w-full space-x-6">
-                            <div class="flex items-center space-x-4">
-                                <div class="flex flex-col items-start">
-                                    <span class="text-sm text-gray-300">Proyecto:</span>
-                                    <span class="text-xl font-bold">Proyecto 1</span>
-                                </div>
-                            </div>
-                            <div class="flex items-center space-x-6">
-                                <div class="flex flex-col items-center">
-                                    <span class="text-sm text-gray-300">Cant. Total</span>
-                                    <span class="text-xl font-bold">1</span>
-                                </div>
-                                <div class="flex flex-col items-center">
-                                    <span class="text-sm text-gray-300">Cant. Utilizada</span>
-                                    <span class="text-xl font-bold">1</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div
-                            class="bg-linear-to-r from-DarkTeal to-CharcoalBlue text-white rounded-lg p-4 shadow-lg flex items-center justify-between w-full space-x-6">
-                            <div class="flex items-center space-x-4">
-                                <div class="flex flex-col items-start">
-                                    <span class="text-sm text-gray-300">Proyecto:</span>
-                                    <span class="text-xl font-bold">Proyecto 1</span>
-                                </div>
-                            </div>
-                            <div class="flex items-center space-x-6">
-                                <div class="flex flex-col items-center">
-                                    <span class="text-sm text-gray-300">Cant. Total</span>
-                                    <span class="text-xl font-bold">1</span>
-                                </div>
-                                <div class="flex flex-col items-center">
-                                    <span class="text-sm text-gray-300">Cant. Utilizada</span>
-                                    <span class="text-xl font-bold">1</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div
-                            class="bg-linear-to-r from-DarkTeal to-CharcoalBlue text-white rounded-lg p-4 shadow-lg flex items-center justify-between w-full space-x-6">
-                            <div class="flex items-center space-x-4">
-                                <div class="flex flex-col items-start">
-                                    <span class="text-sm text-gray-300">Proyecto:</span>
-                                    <span class="text-xl font-bold">Proyecto 1</span>
-                                </div>
-                            </div>
-                            <div class="flex items-center space-x-6">
-                                <div class="flex flex-col items-center">
-                                    <span class="text-sm text-gray-300">Cant. Total</span>
-                                    <span class="text-xl font-bold">1</span>
-                                </div>
-                                <div class="flex flex-col items-center">
-                                    <span class="text-sm text-gray-300">Cant. Utilizada</span>
-                                    <span class="text-xl font-bold">1</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div
-                            class="bg-linear-to-r from-DarkTeal to-CharcoalBlue text-white rounded-lg p-4 shadow-lg flex items-center justify-between w-full space-x-6">
-                            <div class="flex items-center space-x-4">
-                                <div class="flex flex-col items-start">
-                                    <span class="text-sm text-gray-300">Proyecto:</span>
-                                    <span class="text-xl font-bold">Proyecto 1</span>
-                                </div>
-                            </div>
-                            <div class="flex items-center space-x-6">
-                                <div class="flex flex-col items-center">
-                                    <span class="text-sm text-gray-300">Cant. Total</span>
-                                    <span class="text-xl font-bold">1</span>
-                                </div>
-                                <div class="flex flex-col items-center">
-                                    <span class="text-sm text-gray-300">Cant. Utilizada</span>
-                                    <span class="text-xl font-bold">1</span>
+                                    <span class="text-xl font-bold">{{ project.usedQuantity }}</span>
                                 </div>
                             </div>
                         </div>

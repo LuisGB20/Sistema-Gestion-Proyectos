@@ -55,7 +55,7 @@ const handleLogin = async () => {
 </script>
 
 <template>
-  <main class="flex min-h-screen p-10">
+  <main class="flex min-h-screen p-10 justify-center items-center">
     <Toast />
     <img src="/src/assets/images/auth/access.svg" alt="Imagen de Login" class="size-[500px] mx-auto" />
 
@@ -98,11 +98,6 @@ const handleLogin = async () => {
           </div>
 
         </form>
-        <div class="text-CharcoalBlue flex justify-between mt-5 text-sm">
-          <p class="">¿No tienes una cuenta?</p>
-          <RouterLink to="/registro" class="text-DarkTeal hover:underline hover:underline-offset-2">Registrate aqui
-          </RouterLink>
-        </div>
 
       </div>
     </div>

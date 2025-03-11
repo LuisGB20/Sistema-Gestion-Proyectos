@@ -8,21 +8,29 @@ import InputIcon from 'primevue/inputicon';
 import IconField from 'primevue/iconfield';
 import InputText from 'primevue/inputtext';
 import LinkComponent from '@/components/ui/LinkButton.vue';
-import { getResources } from '@/services/recursosService';
+import { deleteResource, getResources } from '@/services/recursosService';
 import router from '@/router';
+import { ConfirmDialog, Toast } from 'primevue';
+import { useConfirm } from "primevue/useconfirm";
+import { useToast } from "primevue/usetoast";
+import { useNotificationStore } from '@/stores/notificationsStore';
 
-const resources = ref();
+const resources = ref([]);
 const loading = ref(true);
 const dt = ref();
 const exportCSV = () => {
     dt.value.exportCSV();
 };
 
+const notificationsStore = useNotificationStore();
+
 onMounted(async () => {
     const response = await getResources();
     resources.value = response.data;
     console.log(resources.value);
     loading.value = false;
+
+    notificationsStore.showAlert();
 });
 
 const filters = ref({
@@ -39,8 +47,44 @@ const editResource = (data: any) => {
     router.push(`/sistemas/recursos/editar/${data.id}`);
 };
 
-const confirmDeleteResource = (data: any) => {
-    console.log("Eliminar recurso", data);
+const confirm = useConfirm();
+const toast = useToast();
+
+const confirmDelete = (data: any) => {
+    console.log(data)
+    confirm.require({
+        message: '¿Quieres eliminar este registro?',
+        header: `${data.name}`,
+        icon: 'pi pi-info-circle',
+        rejectLabel: 'Cancelar',
+        rejectProps: {
+            label: 'Cancelar',
+            severity: 'secondary',
+            outlined: false
+        },
+        acceptProps: {
+            label: 'Eliminar',
+            severity: 'danger'
+        },
+        accept: () => {
+            confirmDeleteResource(data.id)
+        },
+        reject: () => {
+            toast.add({ severity: 'error', summary: 'Cancelado', detail: 'Haz cancelado la operación', life: 3000 });
+        }
+    });
+};
+
+const confirmDeleteResource = async (id: string) => {
+    console.log("Eliminar recurso", id);
+    const response = await deleteResource(id);
+    if(response.success){
+        toast.add({ severity: 'success', summary: 'Eliminado', detail: 'Recurso eliminado', life: 3000 });
+        const indexResource = resources.value.findIndex(r => r.id == id);
+        resources.value.splice(indexResource, 1);
+    } else {
+        toast.add({ severity: 'error', summary: '¡Algo ha salido mal!', detail: `${response.message}`, life: 3000 });
+    }
 };
 </script>
 
@@ -52,8 +96,8 @@ const confirmDeleteResource = (data: any) => {
             </h1>
             <LinkComponent to="/sistemas/recursos/agregar" texto="Crear" />
         </div>
-
-        <!-- Tabla -->
+        <Toast />
+        <ConfirmDialog></ConfirmDialog>
         <div class="card">
             <DataTable v-model:filters="filters" :value="resources" removableSort ref="dt" paginator :rows="5"
                 :rowsPerPageOptions="[5, 10, 20]" :loading="loading" :globalFilterFields="['name', 'description']"
@@ -84,7 +128,7 @@ const confirmDeleteResource = (data: any) => {
                         <Button icon="pi pi-pencil" outlined rounded class="mr-2"
                             @click="editResource(slotProps.data)" />
                         <Button icon="pi pi-trash" outlined rounded severity="danger"
-                            @click="confirmDeleteResource(slotProps.data)" />
+                            @click="confirmDelete(slotProps.data)" />
                     </template>
                 </Column>
 

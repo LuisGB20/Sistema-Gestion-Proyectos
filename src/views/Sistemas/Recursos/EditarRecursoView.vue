@@ -2,17 +2,20 @@
 import { ref, onMounted } from 'vue';
 import { useForm } from 'vee-validate';
 import * as yup from 'yup';
-import { updateResource } from '@/services/recursosService'; // Asumo que tienes una función para actualizar
 import { useToast } from 'primevue/usetoast';
 import Toast from 'primevue/toast';
 import { useRoute, useRouter } from 'vue-router';
+import { getResource, updateResource } from '@/services/recursosService';
+import type { Resource } from '@/Interfaces/Resource';
+import { useNotificationStore } from '@/stores/notificationsStore';
+import { PencilIcon } from '@heroicons/vue/16/solid';
 
 const toast = useToast();
 const route = useRoute();
 const router = useRouter();
-
-// Obteniendo el ID de la URL para buscar el recurso a editar
-const resourceId = route.params.id; // Asumiendo que el ID se pasa en la URL
+const notificationStore = useNotificationStore();
+const resourceId = route.params.id.toString();
+const resource = ref<Resource>();
 
 // Creamos las validaciones
 const { values, errors, defineField, validate } = useForm({
@@ -27,7 +30,6 @@ const { values, errors, defineField, validate } = useForm({
   }),
 });
 
-// Definimos los campos
 const [name, nameAttrs] = defineField('name', {
   validateOnModelUpdate: false,
 });
@@ -40,19 +42,18 @@ const [quantity, quantityAttrs] = defineField('quantity', {
   validateOnModelUpdate: false,
 });
 
-// Aquí puedes simular la carga de datos del recurso
 const loadResourceData = async () => {
-  // Simula la obtención de datos del recurso por su ID
-  const resource = await getResourceById(resourceId); // Asegúrate de tener esta función
-
-  if (resource) {
-    name.value = resource.name;
-    description.value = resource.description;
-    quantity.value = resource.quantity;
+  const response = await getResource(resourceId);
+  if (response.success) {
+    resource.value = response.data;
+    name.value = resource.value.name;
+    description.value = resource.value.description;
+    quantity.value = resource.value.quantity;
+  } else {
+    toast.add({ severity: 'error', summary: 'Error en la Operación', detail: `${response.message}`, life: 3000 });
   }
 };
 
-// Ejecutamos la carga de datos al montar el componente
 onMounted(() => {
   loadResourceData();
 });
@@ -60,13 +61,14 @@ onMounted(() => {
 const handleSubmit = async () => {
   const isValid = await validate();
   if (isValid.valid) {
-    const response = {};
+    const response = await updateResource(resourceId, name.value, description.value, quantity.value);
     if (!response.success) {
       toast.add({ severity: 'error', summary: 'Algo salió mal', detail: response.message, life: 3000 });
     } else {
-      toast.add({ severity: 'success', summary: '¡Recurso actualizado!', detail: 'El recurso se actualizó con éxito.', life: 3000 });
+      notificationStore.showSuccess = true;
+      notificationStore.message = 'Recurso editado con exito';
       setTimeout(() => {
-        router.push('/recursos'); // Redirige después de editar
+        router.push('/sistemas/recursos');
       }, 1500);
     }
   } else {
@@ -76,24 +78,25 @@ const handleSubmit = async () => {
 </script>
 
 <template>
-  <main class="flex justify-center items-center min-h-screen bg-gradient-to-br from-gray-100 to-gray-300">
+  <main class="flex justify-center items-center min-h-screen">
       <div class="relative w-full max-w-lg bg-white bg-opacity-10 backdrop-blur-lg shadow-2xl rounded-2xl p-8 border border-gray-400/30">
 
           <div class="absolute -top-6 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-DarkTeal to-CharcoalBlue w-14 h-14 rounded-full flex justify-center items-center shadow-md">
-              <span class="text-xl font-bold">📝</span>
+              <span class="text-xl font-bold"><PencilIcon class="size-6 text-white"/></span>
           </div>
 
           <h1 class="text-3xl font-extrabold text-CharcoalBlue text-center mb-6">
               Editar Recurso
           </h1>
 
-          <form @submit="handleSubmit">
+          <form @submit.prevent="handleSubmit">
               <div class="space-y-6">
                   <!-- Nombre -->
                   <div>
                       <label for="name" class="block text-lg font-medium text-CharcoalBlue mb-1">Nombre:</label>
                       <input
                           v-model="name"
+                          v-bind="nameAttrs"
                           id="name"
                           type="text"
                           class="w-full p-3 bg-transparent border border-CharcoalBlue rounded-lg shadow-sm text-CharcoalBlue focus:ring-2 focus:ring-DarkTeal focus:outline-none transition"
@@ -107,6 +110,7 @@ const handleSubmit = async () => {
                       <label for="description" class="block text-lg font-medium text-CharcoalBlue mb-1">Descripción:</label>
                       <textarea
                           v-model="description"
+                          v-bind="descriptionAttrs"
                           id="description"
                           rows="4"
                           class="w-full p-3 bg-transparent border border-CharcoalBlue rounded-lg shadow-sm text-CharcoalBlue focus:ring-2 focus:ring-DarkTeal focus:outline-none transition"
@@ -120,6 +124,7 @@ const handleSubmit = async () => {
                       <label for="quantity" class="block text-lg font-medium text-CharcoalBlue mb-1">Cantidad:</label>
                       <input
                           v-model="quantity"
+                          v-bind="quantityAttrs"
                           id="quantity"
                           type="number"
                           class="w-full p-3 bg-transparent border border-CharcoalBlue rounded-lg shadow-sm text-CharcoalBlue focus:ring-2 focus:ring-DarkTeal focus:outline-none transition"
@@ -134,7 +139,7 @@ const handleSubmit = async () => {
                           type="submit"
                           class="w-full py-3 px-6 bg-gradient-to-r from-DarkTeal to-CharcoalBlue text-white font-semibold rounded-lg shadow-md hover:scale-105 hover:shadow-xl transition-transform duration-300"
                       >
-                          Guardar Cambios
+                          Guardar
                       </button>
                   </div>
               </div>

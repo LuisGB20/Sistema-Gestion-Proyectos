@@ -5,29 +5,33 @@ import { useToast } from 'primevue/usetoast';
 export const useNotificationStore = defineStore('notification', () => {
     const showSuccess = ref(false);
     const showError = ref(false);
-    const showConfirm = ref(false);
 
     const message = ref('');
     
     const toast = useToast();
 
-    const showAlertSuccess = (message: string) => {
-      toast.add({ severity: 'error', summary: 'Algo salió mal', detail: message, life: 3000 });
-        
+    const showAlertSuccess = () => {
+      toast.add({ severity: 'success', summary: 'Operación Exitosa', detail: message.value, life: 3000 });
     }
 
-    const showAlertError = (mensaje: string) => {
+    const showAlertError = () => {
+      toast.add({ severity: 'error', summary: 'Error en la Operación', detail: message.value, life: 3000 });
+    }
+
+    const showAlert = () => {
+      if(showSuccess.value){
+        showAlertSuccess();
+      } 
+
+      if(showError.value) {
+        showAlertError();
+      }
+
+      showSuccess.value = false;
+      showError.value = false;
+      message.value = '';
       
     }
 
-    const showAlertConfirm = (mensaje: string) => {
-   
-  }
-
-  const alertaDeConfirmacionEliminacionCancelada = () => {
-    mostrarConfirmacionEliminacion.value = false;
-      mensajeConfirmacion.value = '';
-  }
-
-  return {alertaDeConfirmacion, alertaDeConfirmacionError, mostrarConfirmacion, mostrarConfirmacionError, mensajeConfirmacion, alertaDeConfirmacionEliminacion, alertaDeConfirmacionEliminacionCancelada, mostrarConfirmacionEliminacion}
+  return {showSuccess, showError, message, showAlertSuccess, showAlertError, showAlert}
 })

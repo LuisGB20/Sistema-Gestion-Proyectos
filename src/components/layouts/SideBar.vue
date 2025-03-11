@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ChartBarIcon, DocumentTextIcon, FolderIcon, Square3Stack3DIcon, UserGroupIcon, UsersIcon, BriefcaseIcon, PuzzlePieceIcon } from '@heroicons/vue/16/solid';
-import { ref } from 'vue';
-import { useRoute } from 'vue-router';
+import { computed, ref } from 'vue';
+import { RouterLink, useRoute } from 'vue-router';
 
 const route = useRoute();
 const rol = ref('sistemas');
@@ -65,7 +65,6 @@ const routes = [
 
 const indexRoutes = routes.findIndex(r => r.role == rol.value);
 const userLinks = routes[indexRoutes].links;
-
 </script>
 
 <template>
@@ -73,13 +72,13 @@ const userLinks = routes[indexRoutes].links;
         class="bg-white font-semibold w-[220px] text-CharcoalBlue py-6 px-5 flex flex-col items-center shadow-[10px_0_15px_rgba(0,0,0,0.1)]">
         <ul>
             <li v-for="link in userLinks" class="mb-4 text-center">
-                <router-link :to="link.to"
+                <RouterLink :to="link.to"
                     activeClass="!bg-linear-to-r !from-DarkTeal !to-CharcoalBlue !text-white"
                     exactActiveClass="!bg-linear-to-r !from-DarkTeal !to-CharcoalBlue !text-white"
                     class="flex text-lg py-2 px-4 rounded-lg hover:bg-linear-to-r hover:from-DarkTeal hover:to-CharcoalBlue hover:text-white transition duration-200">
                     <component :is="link.icon" class="size-6" />
                     <span class="ml-3">{{ link.label }}</span>
-                </router-link>
+                </RouterLink>
             </li>
         </ul>
     </nav>
