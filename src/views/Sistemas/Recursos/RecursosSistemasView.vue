@@ -36,7 +36,7 @@ const showResource = (data: any) => {
 };
 
 const editResource = (data: any) => {
-    console.log("Editar recurso", data);
+    router.push(`/sistemas/recursos/editar/${data.id}`);
 };
 
 const confirmDeleteResource = (data: any) => {
@@ -47,30 +47,29 @@ const confirmDeleteResource = (data: any) => {
 <template>
     <main>
         <div class="flex justify-between mb-4">
-            <h1 class="text-2xl font-bold">Recursos</h1>
+            <h1 class="text-transparent bg-clip-text bg-gradient-to-b from-DarkTeal to-CharcoalBlue text-start text-3xl font-bold">
+                Recursos
+            </h1>
             <LinkComponent to="/sistemas/recursos/agregar" texto="Crear" />
         </div>
 
         <!-- Tabla -->
         <div class="card">
             <DataTable v-model:filters="filters" :value="resources" removableSort ref="dt" paginator :rows="5"
-                :rowsPerPageOptions="[5, 10, 20]" :loading="loading"
-                :globalFilterFields="['name', 'description']"  class="rounded-lg">
+                :rowsPerPageOptions="[5, 10, 20]" :loading="loading" :globalFilterFields="['name', 'description']"
+                class="rounded-lg">
                 <template #header>
                     <div class="flex justify-between">
-                        <div class="flex flex-wrap items-center justify-start gap-2">
-                            <span class="text-xl font-bold">Recursos</span>
-                        </div>
                         <div class="flex">
-                            <div class="text-end mr-4">
-                                <Button icon="pi pi-external-link" label="Exportar" @click="exportCSV" />
-                            </div>
                             <IconField>
                                 <InputIcon>
                                     <i class="pi pi-search" />
                                 </InputIcon>
                                 <InputText v-model="filters['global'].value" placeholder="Buscar" />
                             </IconField>
+                        </div>
+                        <div class="flex flex-wrap items-center justify-start gap-2">
+                            <Button icon="pi pi-external-link" label="Exportar" @click="exportCSV" />
                         </div>
                     </div>
                 </template>
@@ -79,10 +78,11 @@ const confirmDeleteResource = (data: any) => {
                 <Column field="name" header="Nombre" sortable></Column>
                 <Column field="description" header="Descripción" sortable></Column>
                 <Column field="quantity" header="Cantidad" sortable></Column>
-                <Column :exportable="false" style="min-width: 12rem">
+                <Column header="Acciones" :exportable="false">
                     <template #body="slotProps">
                         <Button icon="pi pi-eye" outlined rounded class="mr-2" @click="showResource(slotProps.data)" />
-                        <Button icon="pi pi-pencil" outlined rounded class="mr-2" @click="editResource(slotProps.data)" />
+                        <Button icon="pi pi-pencil" outlined rounded class="mr-2"
+                            @click="editResource(slotProps.data)" />
                         <Button icon="pi pi-trash" outlined rounded severity="danger"
                             @click="confirmDeleteResource(slotProps.data)" />
                     </template>

@@ -1,6 +1,6 @@
 <template>
     <footer class="bg-linear-to-b from-DarkTeal to-CharcoalBlue text-white py-5 px-6 md:px-10">
-      <div class="grid grid-cols-1 lg:grid-cols-4 gap-4 text-center lg:text-left">
+      <!-- <div class="grid grid-cols-1 lg:grid-cols-4 gap-4 text-center lg:text-left">
         <div
           class="flex flex-col justify-center items-center lg:items-start border-b lg:border-b-0 lg:border-r border-white p-4">
           <h2 class="text-lg font-semibold">Sistema de Gestión de Proyectos</h2>
@@ -36,8 +36,8 @@
             </a>
           </div>
         </div>
-      </div>
-      <h1 class="text-center text-sm md:text-base mt-5">Todos los derechos reservados ©</h1>
+      </div> -->
+      <h1 class="text-center text-sm md:text-base">Todos los derechos reservados ©</h1>
     </footer>
   </template>
   

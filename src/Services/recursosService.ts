@@ -5,9 +5,9 @@ export const getResources = async () => {
 }
 
 export const getResource = async (id: string) => {
-    return await genericRequest(`Resource/${id}`, 'GET')
-  }
+  return await genericRequest(`Resource/${id}`, 'GET')
+}
 
-export const RegisterService = async (email: string, password: string, ConfirmPassword: string) => {
-  return await genericRequest('Auth/register', 'POST', { email, password, ConfirmPassword })
+export const createResource = async (name: string, description: string, quantity: number) => {
+  return await genericRequest(`Resource`, 'POST', {name, description, quantity})
 }

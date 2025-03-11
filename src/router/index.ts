@@ -25,6 +25,7 @@ import DashboardSistemasView from '@/views/Sistemas/DashboardSistemasView.vue'
 import RecursosSistemasView from '@/views/Sistemas/Recursos/RecursosSistemasView.vue'
 import DetalleRecursoSistemasView from '@/views/Sistemas/Recursos/DetalleRecursoSistemasView.vue'
 import AgregarRecursoView from '@/views/Sistemas/Recursos/AgregarRecursoView.vue'
+import EditarRecursoView from '@/views/Sistemas/Recursos/EditarRecursoView.vue'
 
 const router = createRouter({
   linkActiveClass: 'underline underline-offset-2',
@@ -172,6 +173,11 @@ const router = createRouter({
               path: '/sistemas/recursos/agregar',
               name: 'recursos-agregar',
               component: AgregarRecursoView
+            },
+            {
+              path: '/sistemas/recursos/editar/:id',
+              name: 'recursos-editar',
+              component: EditarRecursoView
             },
             {
               path: '/sistemas/recursos/:id',

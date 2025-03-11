@@ -12,7 +12,7 @@ import LinkComponent from '../ui/LinkButton.vue';
 
         <div class="flex ml-auto space-x-3">
             <LinkComponent to="/iniciar-sesion" texto="Iniciar sesión" />
-            <LinkComponent to="/registro" texto="Registrarse" />
+            <!-- <LinkComponent to="/registro" texto="Registrarse" /> -->
         </div>
     </header>
 </template>

@@ -2,6 +2,7 @@
 import { onMounted, ref } from 'vue';
 import { useRoute } from 'vue-router';
 import { getResource } from '@/services/recursosService';
+import { formatDate } from '@/utils/formatDate';
 
 const route = useRoute();
 const recurso = ref({});
@@ -20,27 +21,30 @@ onMounted(async () => {
 <template>
     <main class="flex flex-col justify-center items-center">
         <div class="w-full bg-white shadow-lg rounded-lg p-6">
-            <p class="text-sm mb-5 text-SteelBlue">Recurso ID-{{ recurso.id }}</p>
-            <!-- Encabezado -->
-            <h1 class="text-DarkTeal text-start text-4xl font-bold">
-                Detalles del Recurso
-            </h1>
+            <div class="mb-5">
+                <p class="text-sm text-SteelBlue">Recurso ID-{{ recurso.id }}</p>
+                <!-- Encabezado -->
+                <h1
+                    class="text-transparent bg-clip-text bg-gradient-to-b from-DarkTeal to-CharcoalBlue text-start text-3xl font-bold">
+                    Detalles del recurso
+                </h1>
+            </div>
 
             <div class="flex justify-between space-x-5">
                 <div class="w-1/2 p-4 space-y-4">
                     <div>
                         <h2 class="text-lg font-semibold">Nombre:</h2>
-                        <p class="text-gray-700">{{ recurso.name }}</p>
+                        <p>{{ recurso.name }}</p>
                     </div>
 
                     <div>
                         <h2 class="text-lg font-semibold">Descripción:</h2>
-                        <p class="text-gray-700">{{ recurso.description }}</p>
+                        <p>{{ recurso.description }}</p>
                     </div>
 
                     <div>
                         <h2 class="text-lg font-semibold">Cantidad:</h2>
-                        <p class="text-gray-700">{{ recurso.quantity }}</p>
+                        <p>{{ recurso.quantity }}</p>
                     </div>
 
                     <div>
@@ -50,14 +54,14 @@ onMounted(async () => {
 
                     <div>
                         <h2 class="text-lg font-semibold">Estado:</h2>
-                        <p :class="recurso.isDeleted ? 'text-red-600' : 'text-green-600'">
+                        <p :class="recurso.isDeleted ? 'text-rojo-error' : 'text-DarkTeal'">
                             {{ recurso.isDeleted ? 'Eliminado' : 'Activo' }}
                         </p>
                     </div>
 
                     <div>
                         <h2 class="text-lg font-semibold">Fecha de Creación:</h2>
-                        <p class="text-gray-700">{{ recurso.createdAt }}</p>
+                        <p>{{ formatDate(recurso.createdAt) }}</p>
                     </div>
                 </div>
                 <div class="w-1/2 p-4 space-y-4">
