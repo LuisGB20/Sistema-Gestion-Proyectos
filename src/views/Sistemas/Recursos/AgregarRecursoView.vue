@@ -53,48 +53,70 @@ const handleSubmit = async () => {
 </script>
 
 <template>
-    <main class="flex flex-col justify-center items-center">
-        <div class="w-full bg-white shadow-lg rounded-lg p-6">
-            <h1
-                class="inline text-transparent bg-clip-text bg-gradient-to-b from-DarkTeal to-CharcoalBlue text-start text-3xl font-bold">
-                Detalles del recurso
-            </h1>
+  <main class="flex justify-center items-center min-h-screen bg-gradient-to-brp-6">
+      <div class="relative w-full max-w-lg bg-white bg-opacity-10 backdrop-blur-lg shadow-2xl rounded-2xl p-8 border border-gray-400/30">
 
-            <!-- Formulario de Agregar -->
-            <form @submit="handleSubmit(onSubmit)">
-                <div class="space-y-4">
-                    <!-- Nombre -->
-                    <div>
-                        <label class="text-lg font-semibold" for="name">Nombre:</label>
-                        <input v-model="name" id="name" type="text"
-                            class="w-full p-2 border border-gray-300 rounded-md" />
-                        <p v-if="nameError" class="text-red-600 text-sm">{{ nameError }}</p>
-                    </div>
+          <div class="absolute -top-6 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-DarkTeal to-CharcoalBlue w-14 h-14 rounded-full flex justify-center items-center shadow-md">
+              <span class="text-xl font-bold">📘</span>
+          </div>
 
-                    <!-- Descripción -->
-                    <div>
-                        <label class="text-lg font-semibold" for="description">Descripción:</label>
-                        <textarea v-model="description" id="description" rows="4"
-                            class="w-full p-2 border border-gray-300 rounded-md" />
-                        <p v-if="descriptionError" class="text-red-600 text-sm">{{ descriptionError }}</p>
-                    </div>
+          <h1 class="text-3xl font-extrabold text-CharcoalBlue text-center mb-6">
+              Agregar Recurso
+          </h1>
 
-                    <!-- Cantidad -->
-                    <div>
-                        <label class="text-lg font-semibold" for="quantity">Cantidad:</label>
-                        <input v-model="quantity" id="quantity" type="number"
-                            class="w-full p-2 border border-gray-300 rounded-md" />
-                        <p v-if="quantityError" class="text-red-600 text-sm">{{ quantityError }}</p>
-                    </div>
 
-                    <!-- Botón de Enviar -->
-                    <div class="flex justify-end">
-                        <button type="submit" class="bg-DarkTeal text-white py-2 px-4 rounded-lg mt-4">
-                            Agregar
-                        </button>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </main>
+          <form @submit="handleSubmit">
+              <div class="space-y-6">
+
+                  <div>
+                      <label for="name" class="block text-lg font-medium text-CharcoalBlue mb-1">Nombre:</label>
+                      <input
+                          v-model="name"
+                          id="name"
+                          type="text"
+                          class="w-full p-3 bg-transparent border border-CharcoalBlue rounded-lg shadow-sm text-CharcoalBlue focus:ring-2 focus:ring-DarkTeal focus:outline-none transition"
+                          placeholder="Escribe el nombre"
+                      />
+                      <p v-if="nameError" class="text-red-400 text-sm mt-1">{{ nameError }}</p>
+                  </div>
+
+                  <div>
+                      <label for="description" class="block text-lg font-medium text-CharcoalBlue mb-1">Descripción:</label>
+                      <textarea
+                          v-model="description"
+                          id="description"
+                          rows="4"
+                          class="w-full p-3 bg-transparent border border-CharcoalBlue rounded-lg shadow-sm text-CharcoalBlue  focus:ring-2 focus:ring-DarkTeal focus:outline-none transition"
+                          placeholder="Descripcion del recurso"
+                      ></textarea>
+                      <p v-if="descriptionError" class="text-red-400 text-sm mt-1">{{ descriptionError }}</p>
+                  </div>
+
+
+                  <div>
+                      <label for="quantity" class="block text-lg font-medium text-CharcoalBlue mb-1">Cantidad:</label>
+                      <input
+                          v-model="quantity"
+                          id="quantity"
+                          type="number"
+                          class="w-full p-3 bg-transparent border border-CharcoalBlue rounded-lg shadow-sm text-CharcoalBlue focus:ring-2 focus:ring-DarkTeal focus:outline-none transition"
+                          placeholder="0"
+                      />
+                      <p v-if="quantityError" class="text-red-400 text-sm mt-1">{{ quantityError }}</p>
+                  </div>
+
+                  <!-- Botón de Enviar -->
+                  <div class="flex justify-center">
+                      <button
+                          type="submit"
+                          class="w-full py-3 px-6 bg-gradient-to-r from-DarkTeal to-CharcoalBlue text-white font-semibold rounded-lg shadow-md hover:scale-105 hover:shadow-xl transition-transform duration-300"
+                      >
+                          Agregar
+                      </button>
+                  </div>
+              </div>
+          </form>
+      </div>
+  </main>
 </template>
+
