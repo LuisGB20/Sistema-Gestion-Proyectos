@@ -13,6 +13,10 @@ export const getResourceWithProjects = async (id: string) => {
   return await genericRequest(`Resource/GetResourceWithProjects?Id=${id}`, 'GET')
 }
 
+export const GetDashboardDataResources = async () => {
+  return await genericRequest(`Resource/GetDashboardDataResources`, 'GET')
+}
+
 export const createResource = async (name: string, description: string, quantity: number) => {
   return await genericRequest(`Resource`, 'POST', {name, description, quantity})
 }

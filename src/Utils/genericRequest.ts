@@ -3,7 +3,7 @@ import { logService } from '@/services/logService'
 
 //request generico para hacer peticiones a la API
 export const genericRequest = async (url: string, method: string, body?: any) => {
-  console.log(url)
+  console.log(url, method, body)
   try {
     const response = await api({
       url: url,
