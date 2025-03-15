@@ -14,8 +14,9 @@ import { ConfirmDialog, Toast } from 'primevue';
 import { useConfirm } from "primevue/useconfirm";
 import { useToast } from "primevue/usetoast";
 import { useNotificationStore } from '@/stores/notificationsStore';
+import type { ResourceModel } from '@/interfaces/resources/ResourceModel';
 
-const resources = ref([]);
+const resources = ref<ResourceModel[]>([]);
 const loading = ref(true);
 const dt = ref();
 const exportCSV = () => {
@@ -27,7 +28,6 @@ const notificationsStore = useNotificationStore();
 onMounted(async () => {
     const response = await getResources();
     resources.value = response.data;
-    console.log(resources.value);
     loading.value = false;
 
     notificationsStore.showAlert();
@@ -39,19 +39,18 @@ const filters = ref({
     description: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
 });
 
-const showResource = (data: any) => {
+const showResource = (data: ResourceModel) => {
     router.push(`/sistemas/recursos/${data.id}`);
 };
 
-const editResource = (data: any) => {
+const editResource = (data: ResourceModel) => {
     router.push(`/sistemas/recursos/editar/${data.id}`);
 };
 
 const confirm = useConfirm();
 const toast = useToast();
 
-const confirmDelete = (data: any) => {
-    console.log(data)
+const confirmDelete = (data: ResourceModel) => {
     confirm.require({
         message: '¿Quieres eliminar este registro?',
         header: `${data.name}`,

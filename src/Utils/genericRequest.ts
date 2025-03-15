@@ -1,51 +1,32 @@
+import type { ResponseHelper } from '@/interfaces/helpers/ResponseHelper';
 import api from '@/plugins/axios'
 import { logService } from '@/services/logService'
 
-//request generico para hacer peticiones a la API
-export const genericRequest = async (url: string, method: string, body?: any) => {
-  console.log(url)
-  try {
-    const response = await api({
-      url: url,
-      method: method,
-      data: body,
-    })
-    console.log(response)
-    return response
-  } catch (error: any) {
-    console.log(error)
-    await logService.log('error', `Error in genericRequest: ${error.message}`, {
-      url,
-      method,
-      body,
-      error,
-    })
-    throw error
-  }
-}
-
-export const genericRequestAutheticated = async (
-  headers: any,
+export const genericRequest = async <T, B = unknown>(
   url: string,
   method: string,
-  body?: any,
-) => {
+  body?: B
+): Promise<ResponseHelper<T>> => {
   try {
     const response = await api({
       url: url,
       method: method,
-      headers: headers,
       data: body,
-    })
-    return response.data
-  } catch (error: any) {
-    await logService.log('error', `Error in genericRequestAutheticated: ${error.message}`, {
+    });
+
+    return response.data as ResponseHelper<T>;
+  } catch (error: unknown) {
+    await logService.log('error', `Error in genericRequest: ${error}`, {
       url,
       method,
       body,
-      headers,
       error,
-    })
-    throw error
+    });
+
+    return {
+      success: false,
+      message: 'Error desconocido',
+      data: null as T,
+    };
   }
-}
+};

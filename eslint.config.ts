@@ -15,13 +15,21 @@ export default defineConfigWithVueTs(
   },
 
   {
+    files: ["**/*.ts", "**/*.tsx"],
+
+    rules: {
+      "@typescript-eslint/no-explicit-any": "off"
+    }
+  },
+
+  {
     name: 'app/files-to-ignore',
     ignores: ['**/dist/**', '**/dist-ssr/**', '**/coverage/**'],
   },
 
   pluginVue.configs['flat/essential'],
   vueTsConfigs.recommended,
-  
+
   {
     ...pluginVitest.configs.recommended,
     files: ['src/**/__tests__/*'],

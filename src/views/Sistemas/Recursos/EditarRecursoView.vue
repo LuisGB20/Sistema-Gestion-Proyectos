@@ -6,7 +6,7 @@ import { useToast } from 'primevue/usetoast';
 import Toast from 'primevue/toast';
 import { useRoute, useRouter } from 'vue-router';
 import { getResource, updateResource } from '@/services/recursosService';
-import type { Resource } from '@/Interfaces/Resource';
+import type { Resource } from '@/interfaces/Resource';
 import { useNotificationStore } from '@/stores/notificationsStore';
 import { PencilIcon } from '@heroicons/vue/16/solid';
 

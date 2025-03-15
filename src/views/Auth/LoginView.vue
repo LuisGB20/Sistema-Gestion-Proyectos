@@ -10,7 +10,7 @@ import Toast from 'primevue/toast';
 
 const authStore = useAuthStore();
 
-const { values, errors, defineField, validate } = useForm({
+const { errors, defineField, validate } = useForm({
   validationSchema: yup.object({
     email: yup.string()
       .email('El correo electrónico no es válido')
@@ -32,15 +32,15 @@ const isPasswordVisible = ref(false);
 const toast = useToast();
 
 const togglePasswordVisibility = () => {
-  isPasswordVisible.value = !isPasswordVisible.value;  // Alternar la visibilidad
+  isPasswordVisible.value = !isPasswordVisible.value;
 };
 
 const handleLogin = async () => {
   const isValid = await validate();
   if (isValid.valid) {
     const response = await authStore.login(email.value, password.value);
-    if(!response.success){
-      toast.add({ severity: 'error', summary: 'Algo salió mal', detail: response.message, life: 3000 });
+    if(!response?.success){
+      toast.add({ severity: 'error', summary: 'Algo salió mal', detail: response?.message, life: 3000 });
     } else{
       toast.add({ severity: 'success', summary: '¡Bienvenido!', detail: 'Inicio de sesión exitoso.', life: 3000 });
       setTimeout(() => {

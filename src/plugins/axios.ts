@@ -1,9 +1,8 @@
-import type { User } from "@/Interfaces/User";
 import router from "@/router";
+import { RefreshTokenService } from "@/services/authService";
 import { useAuthStore } from "@/stores/authStore";
 import axios from "axios";
 
-// Creación de una instancia de Axios
 const api = axios.create({
     baseURL: import.meta.env.VITE_APP_API_URL ?? 'https://localhost:7044/api/',
     headers: {
@@ -11,72 +10,75 @@ const api = axios.create({
     },
 });
 
-// Interceptor de solicitud para agregar el token
-api.interceptors.request.use(
-    (config) => {
-      const token = localStorage.getItem('token');
-      if (token) {
-        config.headers.Authorization = `Bearer ${token}`;
-      }
-      return config;
-    },
-    (error) => {
-      return Promise.reject(error);
-    }
-  );
+let isRefreshing = false;
+let failedRequestsQueue: Array<() => void> = [];
 
-// Interceptor de respuesta para manejar errores globales y respuestas especiales
+api.defaults.withCredentials = true;
+
 api.interceptors.response.use(
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  //@ts-expect-error
     (response) => {
-        console.log(response)
 
         if(!response.data.success){
-            return {
-                success: false,
-                message: response.data.message,
-                status: response.status
-            }
+            return { success: false, message: response.data.message, status: response.status }
         }
 
-        // Verificar si la respuesta es de autenticación
-        if (response.config.url.includes('Auth')) {
-            const token = response.data.token || null;
-            const user: User  = response.data.user || null;
+        if (response.config?.url?.includes('Auth')) {
 
-            // Retornar los datos de la respuesta
-            return {
-                success: true,
-                message: "Autenticación exitosa",
-                data: { token, user },
+            const responseAuth = {
+              success: true,
+              message: "Autenticación exitosa",
+              data: { user: response.data.user }
+            }
+
+            return { success: true, message: "Autenticación exitosa", data: responseAuth
             };
         }
 
-        return {
-            success: true,
-            message: response.data.message,
-            data: response.data.data,
+        return { success: true, message: response.data.message, data: response.data,
         };
     },
-    (error) => {
-        const authStore = useAuthStore();
-        if (error.response.status === 401) {
-            const errorCode = error.response.data.error;
-    
-            if (errorCode === 'token_expired') {
-              // Si el error es de token expirado
-              console.log('Token expirado');
-              
+    async (error) => {
+
+      const authStore = useAuthStore();
+      const originalRequest = error.config;
+
+      if (error.response?.status === 401 && !originalRequest._retry) {
+          if (isRefreshing) {
+              return new Promise((resolve) => {
+                  failedRequestsQueue.push(() => {
+                      resolve(api(originalRequest));
+                  });
+              });
+          }
+
+          originalRequest._retry = true;
+          isRefreshing = true;
+
+          try {
+              const refresh = await RefreshTokenService();
+
+              if (!refresh.success) {
+                  authStore.logout();
+                  router.push('/iniciar-sesion');
+                  return Promise.reject(error);
+              }
+
+              failedRequestsQueue.forEach(callback => callback());
+              failedRequestsQueue = [];
+              return api(originalRequest);
+          } catch (refreshError) {
+              failedRequestsQueue = [];
               authStore.logout();
-              router.push('/iniciar-sesion'); // Redirigir al login
-            } else if (errorCode === 'forbidden') {
-              // Si el error es de falta de permisos
-              console.log('No autorizado para esta ruta');
-              
-              // Mostrar mensaje o redirigir a una página de error o acceso denegado
-              router.push('/acceso-denegado'); // Redirigir a una página de error
-            }
-        }
+              router.push('/iniciar-sesion');
+              return Promise.reject(refreshError);
+          } finally {
+              isRefreshing = false;
+          }
+      }
         return Promise.reject(error);
+
     }
 );
 

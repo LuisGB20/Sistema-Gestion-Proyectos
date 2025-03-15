@@ -1,20 +1,16 @@
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
 import { logService } from '@/services/logService'
-import type { User } from '@/Interfaces/User'
-import { LoginService, RegisterService } from '@/services/authService'
-
+import type { User } from '@/interfaces/User'
+import { LoginService, LogoutService, ValidateSession } from '@/services/authService'
 
 export const useAuthStore = defineStore('auth', () => {
-  const user = ref({} as User)
-  const token = ref('')
-  const isLoggedIn = computed(() => token.value !== '' && token.value !== undefined)
 
-  onMounted(() => {
-    const tokenLs = localStorage.getItem('token') || '';
-    if (tokenLs !== '' && tokenLs !== null) {
-      token.value = tokenLs
-    };
+  const user = ref<User | null>(null)
+  const isInitialized = ref(false)
+
+  const isLoggedIn = computed(() => {
+    return !!user.value?.id
   })
 
   async function login(email: string, password: string) {
@@ -22,54 +18,50 @@ export const useAuthStore = defineStore('auth', () => {
       const response = await LoginService(email, password)
       if (response.success) {
         user.value = response.data.user
-        token.value = response.data.token
-        localStorage.setItem('token', token.value);
-        localStorage.setItem('user', JSON.stringify(user.value));
       }
-      return response;
-    } catch (error: any) {
-      const errorMessage = 'Error during login'
-      console.error(errorMessage, error)
-      await logService.log('error', errorMessage, { error, email })
-      return error;
-    }
-  }
 
-  async function register(email: string, password: string, ConfirmPassword: string) {
-    try {
-      const response = await RegisterService(email, password, ConfirmPassword)
-      if (response.success) {
-        // user.value = response.data.user
-        // token.value = response.data.token
-        // localStorage.setItem('token', token.value);
-        // localStorage.setItem('user', JSON.stringify(user.value));
-        return response;
-      }
-    } catch (error: any) {
-      const errorMessage = 'Error during registration'
-      await logService.log('error', errorMessage, { error, email })
-      return error;
+      return response;
+
+    } catch (error: unknown) {
+      const errorMessage = error instanceof Error ? error.message : 'Ocurrió un error desconocido';
+      await logService.log('error', errorMessage, { error, email });
     }
   }
 
   async function logout() {
     try {
-      // const response = await LogoutService(token.value)
-      user.value = {} as User
-      token.value = ''
-      localStorage.removeItem('token');
-      localStorage.removeItem('user');
-      // if (response) {
-      //   user.value = {} as Usuario
-      //   token.value = ''
-      //   localStorage.removeItem('token');
-      // }
-    } catch (error: any) {
+      const response = await LogoutService()
+
+      if (response.success) {
+        user.value = {} as User
+      }
+    } catch (error: unknown) {
       const errorMessage = 'Error during logout'
-      console.error(errorMessage, error)
       await logService.log('error', errorMessage, { error })
     }
   }
 
-  return { login, register, logout, isLoggedIn, token, user }
+  async function validateSession() {
+    try {
+      const response = await ValidateSession();
+
+      if (response.success) {
+        user.value = (response.data as { user: User }).user;
+        return true
+      }
+      return false
+    } catch (error: unknown) {
+      return error
+    } finally {
+      isInitialized.value = true
+    }
+  }
+
+  async function initialize() {
+    if (!isInitialized.value) {
+      await validateSession()
+    }
+  }
+
+  return { login, logout, isLoggedIn, user, validateSession, initialize }
 })

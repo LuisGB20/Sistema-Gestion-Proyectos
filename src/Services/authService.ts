@@ -1,17 +1,23 @@
-import { genericRequest, genericRequestAutheticated } from "@/utils/genericRequest"
+import type { LoginResponse } from "@/interfaces/Login"
+import type { ResponseHelper } from "@/interfaces/helpers/ResponseHelper"
+import { genericRequest } from "@/utils/genericRequest"
 
-export const LoginService = async (email: string, password: string) => {
-  return await genericRequest('Auth/login', 'POST', { email, password })
+const controller = "Auth"
+
+export const LoginService = async (email: string, password: string): Promise<ResponseHelper<LoginResponse>> => {
+  return await genericRequest(`${controller}/login`, 'POST', { email, password })
 }
 
-export const RegisterService = async (email: string, password: string, ConfirmPassword: string) => {
-  return await genericRequest('Auth/register', 'POST', { email, password, ConfirmPassword })
+export const LogoutService = async () => {
+  return await genericRequest(`${controller}/logout`, 'POST')
 }
 
-// export const LogoutService = async (token: string) => {
-//   try {
-//     return await genericRequestAutheticated(headers, 'Auth/logout', 'POST', { token })
-//   } catch (error) {
-//     await handleError(error, 'logout')
-//   }
-// }
+
+export const RefreshTokenService = async (): Promise<ResponseHelper<boolean>> => {
+  return await genericRequest(`${controller}/refresh`, 'POST')
+}
+
+export const ValidateSession = async () => {
+  return await genericRequest(`${controller}/validate-session`, 'GET')
+
+}
