@@ -13,6 +13,7 @@ export const getResource = async (id: string): Promise<ResponseHelper<ResourceMo
   return await genericRequest(`${controller}/${id}`, 'GET')
 }
 
+// Pendientes
 export const getResourceWithProjects = async (id: string) => {
   return await genericRequest(`${controller}/GetResourceWithProjects?Id=${id}`, 'GET')
 }
@@ -21,14 +22,16 @@ export const GetDashboardDataResources = async () => {
   return await genericRequest(`${controller}/GetDashboardDataResources`, 'GET')
 }
 
-export const createResource = async (name: string, description: string, quantity: number) => {
+export const createResource = async (data: ResourceModel): Promise<ResponseHelper<ResourceModel>> => {
+  const {name, description, quantity} = data;
   return await genericRequest(`${controller}`, 'POST', {name, description, quantity})
 }
 
-export const updateResource = async (id: string, name: string, description: string, quantity: number) => {
+export const updateResource = async (data: ResourceModel): Promise<ResponseHelper<ResourceModel>> => {
+  const {id, name, description, quantity} = data;
   return await genericRequest(`${controller}/${id}`, 'PUT', {id, name, description, quantity})
 }
 
-export const deleteResource = async (id: string) => {
+export const deleteResource = async (id: string): Promise<ResponseHelper<ResourceModel>> => {
   return await genericRequest(`${controller}/${id}`, 'DELETE')
 }

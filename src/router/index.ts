@@ -23,8 +23,6 @@ import AgregarUsuarioView from '@/views/Admin/AgregarUsuario/AgregarUsuarioView.
 import Layout from '@/layouts/Layout.vue'
 import RecursosSistemasView from '@/views/Sistemas/Recursos/RecursosSistemasView.vue'
 import DetalleRecursoSistemasView from '@/views/Sistemas/Recursos/DetalleRecursoSistemasView.vue'
-import AgregarRecursoView from '@/views/Sistemas/Recursos/AgregarRecursoView.vue'
-import EditarRecursoView from '@/views/Sistemas/Recursos/EditarRecursoView.vue'
 import DashboardSistemasView from '@/views/Sistemas/DashboardSistemasView.vue'
 
 const router = createRouter({
@@ -168,16 +166,6 @@ const router = createRouter({
               path: '',
               name: 'sistemas-recursos',
               component: RecursosSistemasView,
-            },
-            {
-              path: 'agregar',
-              name: 'sistemas-recursos-agregar',
-              component: AgregarRecursoView
-            },
-            {
-              path: 'editar/:id',
-              name: 'recursos-editar',
-              component: EditarRecursoView
             },
             {
               path: ':id',

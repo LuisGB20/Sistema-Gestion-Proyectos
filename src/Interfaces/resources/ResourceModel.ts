@@ -3,6 +3,6 @@ export interface ResourceModel {
   description: string;
   quantity: number;
   id: string;
-  isDeleted: boolean;
-  createdAt: Date;
+  isDeleted?: boolean;
+  createdAt?: Date;
 }

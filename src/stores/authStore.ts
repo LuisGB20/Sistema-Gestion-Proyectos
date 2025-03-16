@@ -3,6 +3,7 @@ import { defineStore } from 'pinia'
 import { logService } from '@/services/logService'
 import type { User } from '@/interfaces/User'
 import { LoginService, LogoutService, ValidateSession } from '@/services/authService'
+import router from '@/router'
 
 export const useAuthStore = defineStore('auth', () => {
 
@@ -34,6 +35,8 @@ export const useAuthStore = defineStore('auth', () => {
 
       if (response.success) {
         user.value = {} as User
+
+        router.push('/');
       }
     } catch (error: unknown) {
       const errorMessage = 'Error during logout'
