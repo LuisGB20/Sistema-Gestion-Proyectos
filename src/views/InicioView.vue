@@ -43,12 +43,12 @@ import AdminLayout from '@/layouts/Layout.vue';
                     <!-- Beneficio 2: Comunicación Efectiva -->
                     <div class="bg-white p-6 rounded-xl shadow-lg transform transition-transform hover:scale-105 text-center">
                         <h3 class="text-xl font-semibold text-DarkTeal">Comunicación Efectiva</h3>
-                        <p class="mt-2 text-2E3944">Mejora la colaboración entre equipos con una comunicación clara y constante, evitando malentendidos y retrasos.</p>
+                        <p class="mt-2 text-2E3944">Mejora la colaboración entre equipos con una comunicación clara y constante, evitando malentendidos y asegurando un flujo de trabajo más eficiente.</p>
                     </div>
                     <!-- Beneficio 3: Registro Preciso -->
                     <div class="bg-white p-6 rounded-xl shadow-lg transform transition-transform hover:scale-105 text-center">
                         <h3 class="text-xl font-semibold text-DarkTeal">Registro Preciso</h3>
-                        <p class="mt-2 text-2E3944">Lleva un control exacto de las horas trabajadas, nóminas y avances, eliminando errores y optimizando recursos.</p>
+                        <p class="mt-2 text-2E3944">Lleva un control preciso de las horas trabajadas, nóminas y avances, eliminando errores y optimizando la asignación de recursos para una mayor eficiencia.</p>
                     </div>
                     <div class="flex col-span-3 gap-10">
                         <!-- Beneficio 4: Visibilidad en Tiempo Real -->
@@ -59,7 +59,7 @@ import AdminLayout from '@/layouts/Layout.vue';
                     <!-- Beneficio 5: Sincronización de Equipos -->
                     <div class="w-1/2 bg-white p-6 rounded-xl shadow-lg transform transition-transform hover:scale-105 text-center">
                         <h3 class="text-xl font-semibold text-DarkTeal">Sincronización de Equipos</h3>
-                        <p class="mt-2 text-2E3944">Coordina tareas y recursos de manera eficiente, evitando retrasos y maximizando la productividad.</p>
+                        <p class="mt-2 text-2E3944">Coordina tareas y recursos de manera eficiente, minimizando retrasos y maximizando la productividad de tu equipo en cada proyecto.</p>
                     </div>
                     </div>
 
@@ -88,7 +88,7 @@ import AdminLayout from '@/layouts/Layout.vue';
         </section>
 
         <!-- Cuarta sección: Características Clave -->
-        <section class="w-full bg-[#F0F4F8] py-16">
+        <section class="w-full py-16">
             <div class="w-full max-w-6xl mx-auto px-4">
                 <!-- Encabezado -->
                 <div class="text-center mb-12">
@@ -106,12 +106,12 @@ import AdminLayout from '@/layouts/Layout.vue';
                     <!-- Característica 2: Monitoreo en Tiempo Real -->
                     <div class="bg-white p-6 rounded-xl shadow-lg transform transition-transform hover:scale-105 text-center">
                         <h3 class="text-xl font-semibold text-DarkTeal">Monitoreo en Tiempo Real</h3>
-                        <p class="mt-2 text-2E3944">Controla el progreso de tus proyectos con herramientas que te permiten tomar decisiones informadas.</p>
+                        <p class="mt-2 text-2E3944">Controla de manera efectiva el progreso de tus proyectos utilizando herramientas que te permitan tomar decisiones más acertadas.</p>
                     </div>
                     <!-- Característica 3: Automatización de Procesos -->
                     <div class="bg-white p-6 rounded-xl shadow-lg transform transition-transform hover:scale-105 text-center">
                         <h3 class="text-xl font-semibold text-DarkTeal">Automatización de Procesos</h3>
-                        <p class="mt-2 text-2E3944">Optimiza flujos de trabajo y reduce errores con procesos automatizados.</p>
+                        <p class="mt-2 text-2E3944">Optimiza tus flujos de trabajo y reduce al mínimo los errores operativos mediante procesos automatizados.</p>
                     </div>
                 </div>
 
