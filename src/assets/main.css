@@ -31,22 +31,86 @@ main{
     width: screen;
 }
 
+button{
+    cursor: pointer;
+}
+
 .mirror {
     transform: scaleX(-1);
 }
   
 .p-button{
-    background-color: #124E66 !important;
-    border: none !important;
     color: white !important;
 }
 
 .p-button:hover{
-    background-color: #2E3944 !important;
+    background-color: transparent !important;
+}
+
+.p-datatable-column-sorted{
+    background-color: #212A31 !important;
+    color: white !important;
+}
+
+.p-datatable-sort-icon{
+    color: white !important;
+}
+
+.p-inputtext:focus{
+    border: 2px solid #212A31 !important;
+}
+
+.p-focus{
+    border-color: #124E66 !important;
+}
+
+.p-select-option.p-select-option-selected{
+    background: linear-gradient(to bottom, #124E66, #212A31) !important;
+    color: white !important;
 }
 
 .p-paginator-page-selected{
     background: linear-gradient(to bottom, #124E66, #212A31) !important;
     color: white !important;
 
+}
+
+.p-dialog-title{
+    color: #124E66 !important;
+}
+
+.btn-detail, .btn-submit{
+    background-color: #124E66 !important;
+    border: 2px solid #124E66 !important;
+}
+
+.btn-detail:hover, .btn-submit:hover{
+    color: #124E66 !important;
+}
+
+.btn-edit{
+    background-color: #748D92 !important;
+    border: 2px solid #748D92 !important;
+}
+
+.btn-edit:hover{
+    color: #748D92 !important;
+}
+
+.btn-delete, .btn-cancel{
+    background-color: #A31D1D !important;
+    border: 2px solid #A31D1D !important;
+}
+
+.btn-delete:hover, .btn-cancel:hover{
+    color: #A31D1D !important;
+}
+
+.btn-export, .p-dialog-close-button{
+    background-color: #212A31 !important;
+    border: 2px solid #212A31 !important;
+}
+
+.btn-export:hover, .p-dialog-close-button:hover{
+    color: #212A31 !important;
 }

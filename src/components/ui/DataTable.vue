@@ -53,7 +53,7 @@ const filters = ref({
                         </IconField>
                     </div>
                     <div class="flex flex-wrap items-center justify-start gap-2">
-                        <Button icon="pi pi-external-link" label="Exportar" @click="exportCSV" />
+                        <Button class="btn-export" icon="pi pi-external-link" label="Exportar" @click="exportCSV" />
                     </div>
                 </div>
             </template>
@@ -67,11 +67,11 @@ const filters = ref({
 
             <Column header="Acciones" :exportable="false">
                 <template #body="slotProps">
-                    <Button icon="pi pi-eye" outlined rounded class="mr-2"
+                    <Button class="btn-detail mr-2" icon="pi pi-eye" outlined rounded
                         @click="$emit('showElement', (slotProps.data))" />
-                    <Button icon="pi pi-pencil" outlined rounded class="mr-2"
+                    <Button class="btn-edit mr-2" icon="pi pi-pencil" outlined rounded
                         @click="$emit('editElement', (slotProps.data))" />
-                    <Button icon="pi pi-trash" outlined rounded severity="danger"
+                    <Button class="btn-delete" icon="pi pi-trash" outlined rounded severity="danger"
                         @click="$emit('confirmDelete', (slotProps.data))" />
                 </template>
             </Column>

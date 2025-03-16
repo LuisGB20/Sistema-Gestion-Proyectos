@@ -39,7 +39,7 @@ const chartData = computed(() => ({
     label: 'Cantidad de proyectos',
     data: resourcesQuantityMonth.value,
     fill: false,
-    backgroundColor: '#124E66',
+    backgroundColor: '#212A31',
     tension: 0.1
   }]
 }));
@@ -71,7 +71,7 @@ const chartData = computed(() => ({
         <div
           class="bg-linear-to-r from-DarkTeal to-CharcoalBlue text-white p-6 rounded-lg shadow-lg flex flex-col items-center">
           <h3 class="text-gainsboro text-xl font-semibold mb-2">Recurso más utilizado</h3>
-          <p class="text-gainsboro text-4xl font-bold">{{ dashboardData.mostUsedResource }}</p>
+          <p class="text-gainsboro text-2xl font-bold">{{ dashboardData.mostUsedResource }}</p>
         </div>
       </div>
 

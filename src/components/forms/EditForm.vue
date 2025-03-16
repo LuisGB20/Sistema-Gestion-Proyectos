@@ -75,7 +75,7 @@ watch(
                     v-model="values[field.id]"
                     @input="(e) => handleInput(field.id, e)"
                     :type="field.typeField"
-                    class="w-full p-2 border rounded-md"
+                    class="w-full p-2 border rounded-md text-DarkTeal border-DarkTeal focus:border-2 focus:border-CharcoalBlue outline-none"
                     :placeholder="field.placeholder"
                 />
                 <textarea
@@ -83,7 +83,7 @@ watch(
                     :id="field.id"
                     v-model="values[field.id]"
                     @input="(e) => handleInput(field.id, e)"
-                    class="w-full p-2 border rounded-md"
+                    class="w-full p-2 border rounded-md text-DarkTeal border-DarkTeal focus:border-2 focus:border-CharcoalBlue outline-none"
                     :placeholder="field.placeholder"
                     rows="4"
                 ></textarea>
