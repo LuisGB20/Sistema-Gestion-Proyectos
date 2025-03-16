@@ -1,107 +1,127 @@
 <script setup lang="ts">
 import AdminLayout from '@/layouts/Layout.vue';
-
 </script>
 
 <template>
-    <main class="flex flex-col gap-[2rem]">
-        <section class="p-3 sm:py-[6rem] sm:px-[6rem] w-full flex sm:flex-row flex-col bg-[#2E3944]">
+    <main class="flex flex-col">
+        <!-- Primera sección (sin cambios) -->
+        <section class="p-3 sm:py-[6rem] sm:px-[6rem] w-full flex sm:flex-row flex-col bg-Gunmetal">
             <div class="w-full sm:w-2/6 p-2 flex flex-col px-[1rem] sm:py-[3rem]">
-                <h1 class="text-[#D3D9D4] text-2xl sm:text-5xl font-bold">Optimiza tu flujo de trabajo y aumenta la productividad de tu equipo.</h1>
-                <p class="text-[#D3D9D4] text-sm sm:text-base pt-2 sm:pt-4">
-                    Tu equipo trabajará de forma más organizada y eficiente, con toda la información en un solo lugar. 
-                    Asigna tareas, haz seguimiento en tiempo real y colabora sin esfuerzo, evitando malentendidos y optimizando cada proceso. 
-                    Con herramientas intuitivas y automatización inteligente, lograrás mejores resultados en menos tiempo.
+                <h1 class="text-white text-2xl sm:text-5xl font-bold">Optimiza tu flujo de trabajo y aumenta la productividad de tu equipo.</h1>
+                <p class="text-white text-sm sm:text-base pt-2 sm:pt-4">
+                    En un entorno empresarial, la gestión eficiente de proyectos es clave para el éxito. Nuestra plataforma centralizada permite planificar, ejecutar y monitorear proyectos de manera efectiva, garantizando el cumplimiento de objetivos y la optimización de recursos.
                 </p>
             </div>
             <div class="w-full sm:w-4/6 px-2 py-[1rem] flex flex-col m-auto">
                 <div class="w-full flex flex-col sm:flex-row sm:px-4 gap-2 sm:gap-0">
                     <img src="../assets/Imagenes/LandingPortada.jpg" alt="Imagen de Portada Inicio" class="w-full sm:w-4/6 sm:rounded-l-full sm:rounded rounded-full object-cover" />
                     <div class="w-full sm:w-2/6 rounded-4xl sm:rounded-r-2xl sm:rounded-none bg-white py-2 px-3 flex flex-col justify-center gap-2">
-                        <label class="text-[#124E66] font-semibold uppercase text-sm">Registro de Actividades</label>
-                        <h1 class="text-[#124E66] font-semibold text-xl">Lleva un control detallado de cada acción en tu sistema.</h1>
-                        <label class="text-base">Nuestra nueva implementación de logs te permite monitorear cambios, detectar incidencias y mejorar la seguridad con registros en tiempo real.</label>
+                        <label class="text-DarkTeal font-semibold uppercase text-sm">Registro de Actividades</label>
+                        <h1 class="text-DarkTeal font-semibold text-xl">Lleva un control detallado de cada acción en tu sistema.</h1>
+                        <label class="text-base">Monitorea cambios, detecta incidencias y mejora la seguridad con registros en tiempo real.</label>
                     </div>
                 </div>
             </div>
         </section>
-        <section class="w-full flex flex-col items-center justify-center">
-            <div class="w-full text-center p-2">
-                <h1 class="text-[#2E3944] text-3xl font-bold uppercase">Un solo lugar para planificar, ejecutar y entregar proyectos exitosos.</h1>
-            </div>
-            <div class="text-[#124E66] font-bold capitalize w-4/6 flex flex-row py-6 justify-between space-x-5 text-center">
-                <div class="bg-linear-to-r from-DarkTeal to-CharcoalBlue text-white p-6 rounded-lg shadow-lg flex flex-col items-center justify-center">
-                    <p class="text-gainsboro text-xl font-bold">Colaboración</p>
+
+        <!-- Segunda sección: Beneficios de la Plataforma -->
+        <section class="w-full">
+            <div class="w-full mx-auto px-4">
+                <!-- Encabezado -->
+                <div class="text-center mb-12">
+                    <h2 class="text-Gunmetal text-3xl md:text-4xl font-bold uppercase">¿Por qué necesitas nuestra plataforma?</h2>
+                    <p class="text-2E3944 mt-4">Solucionamos los problemas más comunes en la gestión de proyectos empresariales.</p>
                 </div>
-                <div class="bg-linear-to-r from-DarkTeal to-CharcoalBlue text-white p-6 rounded-lg shadow-lg flex flex-col items-center justify-center">
-                    <p class="text-gainsboro text-xl font-bold">Administración de proyectos</p>
-                </div>
-                <div class="bg-linear-to-r from-DarkTeal to-CharcoalBlue text-white p-6 rounded-lg shadow-lg flex flex-col items-center justify-center">
-                    <p class="text-gainsboro text-xl font-bold">Gestión de Tareas</p>
-                </div>
-                <div class="bg-linear-to-r from-DarkTeal to-CharcoalBlue text-white p-6 rounded-lg shadow-lg flex flex-col items-center justify-center">
-                    <p class="text-gainsboro text-xl font-bold">Inventariado de Stock</p>
-                </div>
-            </div>
-            <div class="w-1/2  flex items-center justify-center mt-5">
-                <img src="../assets/Imagenes/LandingInformacion.jpg" alt="Imagen de Portada Inicio" class="w-full object-cover bg-white p-6 rounded-lg shadow-xl" />
-            </div>
-        </section>
-        <section class="p-3 sm:px-[6rem] w-full flex sm:flex-row flex-col justify-center flex-wrap">
-            <div class="w-full sm:w-1/2 px-2 flex flex-col">
-                <div class="w-full flex flex-col sm:flex-row sm:px-4 gap-2 sm:gap-0">
-                    <div class="bg-white w-full min-h-[230px] p-6 rounded-lg shadow-xl">
-                        <h2 class="text-lg font-semibold mb-4 text-DarkTeal border-b border-SteelBlue">Administración de proyectos</h2>
-                        <div class="bg-white h-fit w-full rounded-lg flex flex-col justify-center items-center">
-                            <h1 class="text-[#124E66] font-semibold text-xl uppercase pb-2">Gestiona proyectos y avanza más rápido con el trabajo.</h1>
-                            <label class="text-base">Colabora en tiempo real, optimiza procesos y alcanza tus objetivos con eficiencia.
-                                Automatiza flujos de trabajo, asigna responsabilidades y mantén el control en todo momento.</label>
-                        </div>
+
+                <!-- Beneficios -->
+                <div class="w-10/12 mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 place-content-center">
+                    <!-- Beneficio 1: Herramientas Centralizadas -->
+                    <div class="bg-white p-6 rounded-xl shadow-lg transform transition-transform hover:scale-105 text-center">
+                        <h3 class="text-xl font-semibold text-DarkTeal">Herramientas Centralizadas</h3>
+                        <p class="mt-2 text-2E3944">Evita la falta de herramientas adecuadas. Nuestra plataforma integra todo lo necesario para planificar, ejecutar y monitorear proyectos en un solo lugar.</p>
                     </div>
-                </div>
-            </div>
-            <div class="w-full sm:w-1/2 px-2 flex flex-col">
-                <div class="w-full flex flex-col sm:flex-row sm:px-4 gap-2 sm:gap-0">
-                    <div class="bg-white  min-h-[230px] p-6 rounded-lg shadow-xl">
-                        <h2 class="text-lg font-semibold mb-4 text-DarkTeal border-b border-SteelBlue">Gestión de Tareas</h2>
-                        <div class="bg-white h-fit w-full rounded-lg flex flex-col justify-center items-center">
-                            <h1 class="text-[#124E66] font-semibold text-xl uppercase pb-2">Organiza, asigna y da seguimiento a cada tarea en un solo lugar.</h1>
-                            <label class="text-base">
-                                Establece prioridades, define plazos y mejora la productividad con flujos de trabajo optimizados.</label>
-                        </div>
+                    <!-- Beneficio 2: Comunicación Efectiva -->
+                    <div class="bg-white p-6 rounded-xl shadow-lg transform transition-transform hover:scale-105 text-center">
+                        <h3 class="text-xl font-semibold text-DarkTeal">Comunicación Efectiva</h3>
+                        <p class="mt-2 text-2E3944">Mejora la colaboración entre equipos con una comunicación clara y constante, evitando malentendidos y retrasos.</p>
                     </div>
-                </div>
-            </div>
-            <div class="w-full sm:w-1/2 mt-[2rem] px-2 flex flex-col">
-                <div class="w-full flex flex-col sm:flex-row sm:px-4 gap-2 sm:gap-0">
-                    <div class="bg-white  min-h-[230px] p-6 rounded-lg shadow-xl">
-                        <h2 class="text-lg font-semibold mb-4 text-DarkTeal border-b border-SteelBlue">Colaboración</h2>
-                        <div class="bg-white h-fit w-full rounded-lg flex flex-col justify-center items-center">
-                            <h1 class="text-[#124E66] font-semibold text-xl uppercase pb-2">Comunícate de muchas formas distintas desde un solo lugar.</h1>
-                            <label class="text-base">Todo pensado para facilitar la conexión entre las personas y la información, pon tus ideas por escrito.</label>
-                        </div>
+                    <!-- Beneficio 3: Registro Preciso -->
+                    <div class="bg-white p-6 rounded-xl shadow-lg transform transition-transform hover:scale-105 text-center">
+                        <h3 class="text-xl font-semibold text-DarkTeal">Registro Preciso</h3>
+                        <p class="mt-2 text-2E3944">Lleva un control exacto de las horas trabajadas, nóminas y avances, eliminando errores y optimizando recursos.</p>
                     </div>
-                </div>
-            </div>
-            <div class="w-full sm:w-1/2 px-2 pt-[2rem] flex flex-col">
-                <div class="w-full flex flex-col sm:flex-row sm:px-4 gap-2 sm:gap-0">
-                    <div class="bg-white  min-h-[230px] p-6 rounded-lg shadow-xl">
-                        <h2 class="text-lg font-semibold mb-4 text-DarkTeal border-b border-SteelBlue">Inventariado de Stock</h2>
-                        <div class="bg-white h-fit w-full rounded-lg flex flex-col justify-center items-start">
-                            <h1 class="text-[#124E66] font-semibold text-xl uppercase pb-2">Mantén un control preciso de tus productos.</h1>
-                            <label class="text-base">
-                                Gestiona entradas y salidas, automatiza actualizaciones y toma decisiones basadas en datos en tiempo real.</label>
-                        </div>
+                    <div class="flex col-span-3 gap-10">
+                        <!-- Beneficio 4: Visibilidad en Tiempo Real -->
+                    <div class="w-1/2 bg-white p-6 rounded-xl shadow-lg transform transition-transform hover:scale-105 text-center">
+                        <h3 class="text-xl font-semibold text-DarkTeal">Visibilidad en Tiempo Real</h3>
+                        <p class="mt-2 text-2E3944">Obtén una visión clara del progreso de los proyectos, identificando cuellos de botella y tomando decisiones informadas.</p>
                     </div>
+                    <!-- Beneficio 5: Sincronización de Equipos -->
+                    <div class="w-1/2 bg-white p-6 rounded-xl shadow-lg transform transition-transform hover:scale-105 text-center">
+                        <h3 class="text-xl font-semibold text-DarkTeal">Sincronización de Equipos</h3>
+                        <p class="mt-2 text-2E3944">Coordina tareas y recursos de manera eficiente, evitando retrasos y maximizando la productividad.</p>
+                    </div>
+                    </div>
+
                 </div>
             </div>
         </section>
-        <section class="w-full bg-[#2E3944] py-[2rem] flex flex-col items-center justify-center">
-            <div class="w-full text-center p-2">
-                <h1 class="text-[#D3D9D4] text-3xl font-bold uppercase mb-5">Nuestro objetivo es impulsar el crecimiento de los proyectos</h1>
+
+        <!-- Tercera sección: Testimonio -->
+        <section class="w-full bg-Gunmetal">
+            <div class="w-full max-w-6xl mx-auto px-4">
+                <!-- Encabezado -->
+                <div class="text-center mb-8">
+                    <h2 class="text-white text-3xl md:text-4xl font-bold uppercase">Lo que dicen los expertos</h2>
+                    <p class="text-white mt-4">La gestión adecuada del alcance es esencial para el éxito de un proyecto.</p>
+                </div>
+                <img src="/src/assets/images/home/experts.svg" alt="los expertos" class="w-[500px] mx-auto my-4" />
+
+                <!-- Testimonio -->
+                <div class="bg-white p-8 rounded-xl text-CharcoalBlue">
+                    <blockquote class="text-lg italic">
+                        “La gestión adecuada del alcance es esencial para el éxito de un proyecto. La mala gestión de alcance puede tener graves consecuencias y puede llevar a la falla del proyecto. Para superar estos problemas, es necesario definir el alcance de manera clara, documentar los requisitos y utilizar herramientas efectivas de gestión.”
+                    </blockquote>
+                    <p class="mt-4 font-semibold">— Rodríguez Rodrigo, Gerente de Deloitte Consulting</p>
+                </div>
             </div>
-            <div class="w-1/2 h-fit flex items-center justify-center">
-                <img src="../assets/Imagenes/LandingCrecimiento.avif" alt="Imagen de Portada Inicio" class="w-5/6 object-cover bg-white p-6 rounded-lg shadow-xl" />
+        </section>
+
+        <!-- Cuarta sección: Características Clave -->
+        <section class="w-full bg-[#F0F4F8] py-16">
+            <div class="w-full max-w-6xl mx-auto px-4">
+                <!-- Encabezado -->
+                <div class="text-center mb-12">
+                    <h2 class="text-Gunmetal text-3xl md:text-4xl font-bold uppercase">Características Clave</h2>
+                    <p class="text-2E3944 mt-4">Todo lo que necesitas para gestionar proyectos exitosos.</p>
+                </div>
+
+                <!-- Características -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Característica 1: Planificación Efectiva -->
+                    <div class="bg-white p-6 rounded-xl shadow-lg transform transition-transform hover:scale-105 text-center">
+                        <h3 class="text-xl font-semibold text-DarkTeal">Planificación Efectiva</h3>
+                        <p class="mt-2 text-2E3944">Define el alcance de tus proyectos de manera clara y específica, asegurando que todos los requisitos estén documentados.</p>
+                    </div>
+                    <!-- Característica 2: Monitoreo en Tiempo Real -->
+                    <div class="bg-white p-6 rounded-xl shadow-lg transform transition-transform hover:scale-105 text-center">
+                        <h3 class="text-xl font-semibold text-DarkTeal">Monitoreo en Tiempo Real</h3>
+                        <p class="mt-2 text-2E3944">Controla el progreso de tus proyectos con herramientas que te permiten tomar decisiones informadas.</p>
+                    </div>
+                    <!-- Característica 3: Automatización de Procesos -->
+                    <div class="bg-white p-6 rounded-xl shadow-lg transform transition-transform hover:scale-105 text-center">
+                        <h3 class="text-xl font-semibold text-DarkTeal">Automatización de Procesos</h3>
+                        <p class="mt-2 text-2E3944">Optimiza flujos de trabajo y reduce errores con procesos automatizados.</p>
+                    </div>
+                </div>
+
+                <div class="flex justify-between items-center my-5">
+                <img src="/src/assets/images/home/work.svg" alt="los expertos" class="w-[30%]" />
+                <img src="/src/assets/images/home/collaboration.svg" alt="los expertos" class="w-[30%]" />
+                <img src="/src/assets/images/home/automatization2.svg" alt="los expertos" class="w-[30%]" />
+
+                </div>
+
             </div>
         </section>
     </main>
