@@ -2,6 +2,7 @@ import type { ResourceModel } from "@/interfaces/resources/ResourceModel"
 import { genericRequest } from "@/utils/genericRequest"
 import type { ResponseHelperArray } from "@/interfaces/helpers/ResponseHelperArray"
 import type { ResponseHelper } from "@/interfaces/helpers/ResponseHelper"
+import type { ResourceDashboardDataModel } from "@/Interfaces/resources/ResourceDashboardDataModel"
 
 const controller = "Resource"
 
@@ -18,7 +19,7 @@ export const getResourceWithProjects = async (id: string) => {
   return await genericRequest(`${controller}/GetResourceWithProjects?Id=${id}`, 'GET')
 }
 
-export const GetDashboardDataResources = async () => {
+export const GetDashboardDataResources = async (): Promise<ResponseHelper<ResourceDashboardDataModel>> => {
   return await genericRequest(`${controller}/GetDashboardDataResources`, 'GET')
 }
 
