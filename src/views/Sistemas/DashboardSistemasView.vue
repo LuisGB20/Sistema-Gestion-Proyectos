@@ -1,13 +1,14 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
-import { Bar, Doughnut, Line, Pie } from 'vue-chartjs'
+import { Bar } from 'vue-chartjs'
 import { meses } from '@/Data/Meses';
 import { Chart, registerables } from 'chart.js';
 import { computed } from '@vue/reactivity';
 import { GetDashboardDataResources } from '@/Services/recursosService';
+import type { ResourceDashboardDataModel } from '@/Interfaces/resources/ResourceDashboardDataModel';
 Chart.register(...registerables);
 
-const dashboardData = ref({
+const dashboardData = ref<ResourceDashboardDataModel>({
   totalResources: 0,
   assignedResources: 0,
   projectsWithResources: 0,
@@ -16,7 +17,6 @@ const dashboardData = ref({
 });
 
 const resourcesQuantityMonth = ref<Number[]>([]);
-
 
 onMounted(async () => {
   const response = await GetDashboardDataResources();
@@ -39,7 +39,7 @@ const chartData = computed(() => ({
     label: 'Cantidad de proyectos',
     data: resourcesQuantityMonth.value,
     fill: false,
-    backgroundColor: '#124E66',
+    backgroundColor: '#212A31',
     tension: 0.1
   }]
 }));
@@ -56,25 +56,22 @@ const chartData = computed(() => ({
           <p class="text-gainsboro text-4xl font-bold">{{ dashboardData.totalResources }}</p>
         </div>
 
-        <!-- Proyecto Total -->
         <div
           class="bg-linear-to-r from-DarkTeal to-CharcoalBlue text-white p-6 rounded-lg shadow-lg flex flex-col items-center">
           <h3 class="text-gainsboro text-xl font-semibold mb-2">Recursos asignados</h3>
           <p class="text-gainsboro text-4xl font-bold">{{ dashboardData.assignedResources }}</p>
         </div>
 
-        <!-- Equipos Totales -->
         <div
           class="bg-linear-to-r from-DarkTeal to-CharcoalBlue text-white p-6 rounded-lg shadow-lg flex flex-col items-center">
           <h3 class="text-gainsboro text-xl font-semibold mb-2">Proyectos con recursos</h3>
           <p class="text-gainsboro text-4xl font-bold">{{ dashboardData.projectsWithResources }}</p>
         </div>
 
-        <!-- Logs generados -->
         <div
           class="bg-linear-to-r from-DarkTeal to-CharcoalBlue text-white p-6 rounded-lg shadow-lg flex flex-col items-center">
           <h3 class="text-gainsboro text-xl font-semibold mb-2">Recurso más utilizado</h3>
-          <p class="text-gainsboro text-4xl font-bold">{{ dashboardData.mostUsedResource }}</p>
+          <p class="text-gainsboro text-2xl font-bold">{{ dashboardData.mostUsedResource }}</p>
         </div>
       </div>
 
@@ -85,7 +82,7 @@ const chartData = computed(() => ({
               class="text-2xl font-semibold mb-4 text-transparent bg-clip-text bg-gradient-to-b from-DarkTeal to-CharcoalBlue">
               Actividad mensual de recursos</h2>
             <div class="bg-white h-[300px] md:h-[500px] w-full rounded-lg flex flex-col justify-center items-center">
-              <Bar id="grafica-proyectos" :data="chartData"
+              <Bar id="grafica-proyectos" :data="chartData as any"
                 :options="{ responsive: true, maintainAspectRatio: false }" />
             </div>
           </div>

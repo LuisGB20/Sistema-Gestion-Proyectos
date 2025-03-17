@@ -2,6 +2,8 @@ import type { ResourceModel } from "@/interfaces/resources/ResourceModel"
 import { genericRequest } from "@/Utils/genericRequest"
 import type { ResponseHelperArray } from "@/interfaces/helpers/ResponseHelperArray"
 import type { ResponseHelper } from "@/interfaces/helpers/ResponseHelper"
+import type { ResourceModel } from "@/Interfaces/resources/ResourceModel"
+import type { ResponseHelperArray } from "@/Interfaces/helpers/ResponseHelperArray"
 
 const controller = "Resource"
 
@@ -13,22 +15,25 @@ export const getResource = async (id: string): Promise<ResponseHelper<ResourceMo
   return await genericRequest(`${controller}/${id}`, 'GET')
 }
 
-export const getResourceWithProjects = async (id: string) => {
+// Pendientes
+export const getResourceWithProjects = async (id: string): Promise<ResponseHelper<ResourceWithProjectsModel>> => {
   return await genericRequest(`${controller}/GetResourceWithProjects?Id=${id}`, 'GET')
 }
 
-export const GetDashboardDataResources = async () => {
+export const GetDashboardDataResources = async (): Promise<ResponseHelper<ResourceDashboardDataModel>> => {
   return await genericRequest(`${controller}/GetDashboardDataResources`, 'GET')
 }
 
-export const createResource = async (name: string, description: string, quantity: number) => {
-  return await genericRequest(`${controller}`, 'POST', {name, description, quantity})
+export const createResource = async (data: ResourceModel): Promise<ResponseHelper<ResourceModel>> => {
+  const { name, description, quantity } = data;
+  return await genericRequest(`${controller}`, 'POST', { name, description, quantity })
 }
 
-export const updateResource = async (id: string, name: string, description: string, quantity: number) => {
-  return await genericRequest(`${controller}/${id}`, 'PUT', {id, name, description, quantity})
+export const updateResource = async (data: ResourceModel): Promise<ResponseHelper<ResourceModel>> => {
+  const { id, name, description, quantity } = data;
+  return await genericRequest(`${controller}/${id}`, 'PUT', { id, name, description, quantity })
 }
 
-export const deleteResource = async (id: string) => {
+export const deleteResource = async (id: string): Promise<ResponseHelper<ResourceModel>> => {
   return await genericRequest(`${controller}/${id}`, 'DELETE')
 }

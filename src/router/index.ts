@@ -16,16 +16,14 @@ import SobreNosotrosView from '@/views/SobreNosotrosView.vue'
 import ContactoView from '@/views/ContactoView.vue'
 import PoliticasView from '@/views/legal/PoliticasView.vue'
 import TerminosCondicionesView from '@/views/legal/TerminosCondicionesView.vue'
-import NotAuthorizedView from '@/views/Error/NotAuthorizedView.vue'
+import NotAuthorizedView from '@/views/error/NotAuthorizedView.vue'
 import PoliticasCookiesView from '@/views/legal/PoliticasCookiesView.vue'
 import SubTareasView from '@/views/Admin/SubTareas/SubTareasView.vue'
 import AgregarUsuarioView from '@/views/Admin/AgregarUsuario/AgregarUsuarioView.vue'
 import Layout from '@/layouts/Layout.vue'
-import RecursosSistemasView from '@/views/Sistemas/Recursos/RecursosSistemasView.vue'
-import DetalleRecursoSistemasView from '@/views/Sistemas/Recursos/DetalleRecursoSistemasView.vue'
-import AgregarRecursoView from '@/views/Sistemas/Recursos/AgregarRecursoView.vue'
-import EditarRecursoView from '@/views/Sistemas/Recursos/EditarRecursoView.vue'
-import DashboardSistemasView from '@/views/Sistemas/DashboardSistemasView.vue'
+import RecursosSistemasView from '@/views/sistemas/Recursos/RecursosSistemasView.vue'
+import DetalleRecursoSistemasView from '@/views/sistemas/Recursos/DetalleRecursoSistemasView.vue'
+import DashboardSistemasView from '@/views/sistemas/DashboardSistemasView.vue'
 
 const router = createRouter({
   linkActiveClass: 'underline underline-offset-2',
@@ -168,16 +166,6 @@ const router = createRouter({
               path: '',
               name: 'sistemas-recursos',
               component: RecursosSistemasView,
-            },
-            {
-              path: 'agregar',
-              name: 'sistemas-recursos-agregar',
-              component: AgregarRecursoView
-            },
-            {
-              path: 'editar/:id',
-              name: 'recursos-editar',
-              component: EditarRecursoView
             },
             {
               path: ':id',
