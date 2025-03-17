@@ -55,7 +55,7 @@ const handleInput = (fieldId: string, event: Event) => {
 watch(
   () => props.formData,
   (newData) => {
-    data.value = newData; 
+    data.value = newData;
     formDataLocal = JSON.parse(JSON.stringify(props.formData));
     resetFormData();
   },
