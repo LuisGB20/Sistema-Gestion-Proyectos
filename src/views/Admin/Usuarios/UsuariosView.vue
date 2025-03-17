@@ -19,7 +19,7 @@ const exportCSV = () => {
 };
 
 onMounted(() => {
-    
+
     usuarios.value = [
         {
             nombre: 'Juan Pérez',

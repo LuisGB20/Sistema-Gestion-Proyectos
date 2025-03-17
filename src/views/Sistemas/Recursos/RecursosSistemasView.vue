@@ -8,7 +8,7 @@ import InputIcon from 'primevue/inputicon';
 import IconField from 'primevue/iconfield';
 import InputText from 'primevue/inputtext';
 import LinkComponent from '@/components/ui/LinkButton.vue';
-import { deleteResource, getResources } from '@/services/recursosService';
+import { deleteResource, getResources } from '@/Services/recursosService';
 import router from '@/router';
 import { ConfirmDialog, Toast } from 'primevue';
 import { useConfirm } from "primevue/useconfirm";

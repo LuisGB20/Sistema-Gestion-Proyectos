@@ -1,24 +1,42 @@
 <script setup lang="ts">
 import { ChartBarIcon, DocumentTextIcon, FolderIcon, Square3Stack3DIcon, UserGroupIcon, UsersIcon, BriefcaseIcon, PuzzlePieceIcon } from '@heroicons/vue/16/solid';
-import { computed, ref } from 'vue';
+import { computed, onBeforeMount, onMounted, ref } from 'vue'
 import { RouterLink, useRoute } from 'vue-router';
+import { GetRoleNameService, LoginService } from '@/Services/authService.ts'
+import { logService } from '@/Services/logService.ts'
 
 const route = useRoute();
 const rol = ref('sistemas');
 
+
+onMounted(async () => {
+  try {
+    const response = await GetRoleNameService();
+    console.log("rol", response);
+    if (response.success) {
+      rol.value = response.message
+    }
+    console.log("rol", rol.value);
+
+  } catch (error: unknown) {
+    const errorMessage = error instanceof Error ? error.message : 'Ocurrió un error desconocido';
+    await logService.log('error', errorMessage, { error, email });
+  }
+});
+
 // Rutas disponibles para cada rol
 const routes = [
     {
-        role: 'admin',
+        role: 'Admin',
         links: [
-            { to: '/admin', label: 'Dashboard', icon: ChartBarIcon },
-            { to: '/admin/usuarios', label: 'Usuarios', icon: UsersIcon },
-            { to: '/admin/equipos', label: 'Equipos', icon: UserGroupIcon },
-            { to: '/admin/proyectos', label: 'Proyectos', icon: FolderIcon },
-            { to: '/admin/tareas', label: 'Tareas', icon: BriefcaseIcon },
-            { to: '/admin/actividades', label: 'Actividades', icon: PuzzlePieceIcon },
-            { to: '/admin/recursos', label: 'Recursos', icon: Square3Stack3DIcon },
-            { to: '/admin/logs', label: 'Logs', icon: DocumentTextIcon },
+            { to: '/Admin', label: 'Dashboard', icon: ChartBarIcon },
+            { to: '/Admin/usuarios', label: 'Usuarios', icon: UsersIcon },
+            { to: '/Admin/equipos', label: 'Equipos', icon: UserGroupIcon },
+            { to: '/Admin/proyectos', label: 'Proyectos', icon: FolderIcon },
+            { to: '/Admin/tareas', label: 'Tareas', icon: BriefcaseIcon },
+            { to: '/Admin/actividades', label: 'Actividades', icon: PuzzlePieceIcon },
+            { to: '/Admin/recursos', label: 'Recursos', icon: Square3Stack3DIcon },
+            { to: '/Admin/logs', label: 'Logs', icon: DocumentTextIcon },
         ]
     },
     {
@@ -63,8 +81,10 @@ const routes = [
     },
 ];
 
-const indexRoutes = routes.findIndex(r => r.role == rol.value);
-const userLinks = routes[indexRoutes].links;
+const indexRoutes = computed(() => routes.findIndex(r => r.role.toLowerCase() === rol.value.toLowerCase()));
+
+const userLinks = computed(() => (indexRoutes.value !== -1 ? routes[indexRoutes.value].links : []));
+
 </script>
 
 <template>

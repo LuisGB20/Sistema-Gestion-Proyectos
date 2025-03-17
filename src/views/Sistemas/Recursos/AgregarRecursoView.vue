@@ -2,7 +2,7 @@
 import { ref } from 'vue';
 import { useForm } from 'vee-validate';
 import * as yup from 'yup';
-import { createResource } from '@/services/recursosService';
+import { createResource } from '@/Services/recursosService';
 import { useToast } from 'primevue/usetoast';
 import Toast from 'primevue/toast';
 import router from '@/router';

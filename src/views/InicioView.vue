@@ -9,8 +9,8 @@ import AdminLayout from '@/layouts/Layout.vue';
             <div class="w-full sm:w-2/6 p-2 flex flex-col px-[1rem] sm:py-[3rem]">
                 <h1 class="text-[#D3D9D4] text-2xl sm:text-5xl font-bold">Optimiza tu flujo de trabajo y aumenta la productividad de tu equipo.</h1>
                 <p class="text-[#D3D9D4] text-sm sm:text-base pt-2 sm:pt-4">
-                    Tu equipo trabajará de forma más organizada y eficiente, con toda la información en un solo lugar. 
-                    Asigna tareas, haz seguimiento en tiempo real y colabora sin esfuerzo, evitando malentendidos y optimizando cada proceso. 
+                    Tu equipo trabajará de forma más organizada y eficiente, con toda la información en un solo lugar.
+                    Asigna tareas, haz seguimiento en tiempo real y colabora sin esfuerzo, evitando malentendidos y optimizando cada proceso.
                     Con herramientas intuitivas y automatización inteligente, lograrás mejores resultados en menos tiempo.
                 </p>
             </div>

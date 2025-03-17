@@ -1,5 +1,5 @@
 import type { ResourceModel } from "@/interfaces/resources/ResourceModel"
-import { genericRequest } from "@/utils/genericRequest"
+import { genericRequest } from "@/Utils/genericRequest"
 import type { ResponseHelperArray } from "@/interfaces/helpers/ResponseHelperArray"
 import type { ResponseHelper } from "@/interfaces/helpers/ResponseHelper"
 
