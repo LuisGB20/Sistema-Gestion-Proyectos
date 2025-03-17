@@ -32,13 +32,13 @@ api.interceptors.response.use(
               data: { user: response.data.user }
             }
 
-            return { success: true, message: "Autenticación exitosa", data: responseAuth
-            };
+            return responseAuth;
         }
 
-        return { success: true, message: response.data.message, data: response.data,
+        return { success: true, message: response.data.message, data: response.data.data,
         };
     },
+
     async (error) => {
 
       const authStore = useAuthStore();

@@ -39,6 +39,7 @@ const handleLogin = async () => {
   const isValid = await validate();
   if (isValid.valid) {
     const response = await authStore.login(email.value, password.value);
+    console.log(response)
     if(!response?.success){
       toast.add({ severity: 'error', summary: 'Algo salió mal', detail: response?.message, life: 3000 });
     } else{

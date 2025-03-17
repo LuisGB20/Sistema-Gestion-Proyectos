@@ -8,13 +8,12 @@ export const genericRequest = async <T, B = unknown>(
   body?: B
 ): Promise<ResponseHelper<T>> => {
   try {
-    const response = await api({
+    const response: ResponseHelper<T> = await api({
       url: url,
       method: method,
       data: body,
     });
-
-    return response.data as ResponseHelper<T>;
+    return response;
   } catch (error: unknown) {
     await logService.log('error', `Error in genericRequest: ${error}`, {
       url,
