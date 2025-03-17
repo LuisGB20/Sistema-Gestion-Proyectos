@@ -1,7 +1,7 @@
-import { genericRequest } from "@/utils/genericRequest"
+import type { ResourceModel } from "@/interfaces/resources/ResourceModel"
+import { genericRequest } from "@/Utils/genericRequest"
+import type { ResponseHelperArray } from "@/interfaces/helpers/ResponseHelperArray"
 import type { ResponseHelper } from "@/interfaces/helpers/ResponseHelper"
-import type { ResourceDashboardDataModel } from "@/Interfaces/resources/ResourceDashboardDataModel"
-import type { ResourceWithProjectsModel } from "@/Interfaces/resources/ProjectWithResourceModel"
 import type { ResourceModel } from "@/Interfaces/resources/ResourceModel"
 import type { ResponseHelperArray } from "@/Interfaces/helpers/ResponseHelperArray"
 

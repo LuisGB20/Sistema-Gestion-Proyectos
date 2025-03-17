@@ -8,7 +8,7 @@ import InputIcon from 'primevue/inputicon';
 import IconField from 'primevue/iconfield';
 import InputText from 'primevue/inputtext';
 import Select from 'primevue/select';
-import { meses } from '@/data/meses';
+import { meses } from '@/Data/Meses.ts';
 import { Line } from 'vue-chartjs'
 import { Chart, registerables } from 'chart.js';
 Chart.register(...registerables);

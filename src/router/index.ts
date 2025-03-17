@@ -1,25 +1,25 @@
 import AdminLayout from '@/layouts/Layout.vue'
-import DashboardView from '@/views/admin/DashboardView.vue'
-import EquiposView from '@/views/admin/Equipos/EquiposView.vue'
-import LogsView from '@/views/admin/LogsView.vue'
-import UsuariosView from '@/views/admin/Usuarios/UsuariosView.vue'
-import LoginView from '@/views/auth/LoginView.vue'
-import RegistroView from '@/views/auth/RegistroView.vue'
-import NotFoundView from '@/views/error/NotFoundView.vue'
+import DashboardView from '@/views/Admin/DashboardView.vue'
+import EquiposView from '@/views/Admin/Equipos/EquiposView.vue'
+import LogsView from '@/views/Admin/LogsView.vue'
+import UsuariosView from '@/views/Admin/Usuarios/UsuariosView.vue'
+import LoginView from '@/views/Auth/LoginView.vue'
+import RegistroView from '@/views/Auth/RegistroView.vue'
+import NotFoundView from '@/views/Error/NotFoundView.vue'
 import InicioView from '@/views/InicioView.vue'
-import ProyectosView from '@/views/admin/Proyectos/ProyectosView.vue'
+import ProyectosView from '@/views/Admin/Proyectos/ProyectosView.vue'
 import { createRouter, createWebHistory } from 'vue-router'
-import TareasView from '@/views/admin/Tareas/TareasView.vue'
-import ActividadesView from '@/views/admin/Actividades/ActividadesView.vue'
-import RecursosView from '@/views/admin/Recursos/RecursosView.vue'
+import TareasView from '@/views/Admin/Tareas/TareasView.vue'
+import ActividadesView from '@/views/Admin/Actividades/ActividadesView.vue'
+import RecursosView from '@/views/Admin/Recursos/RecursosView.vue'
 import SobreNosotrosView from '@/views/SobreNosotrosView.vue'
 import ContactoView from '@/views/ContactoView.vue'
 import PoliticasView from '@/views/legal/PoliticasView.vue'
 import TerminosCondicionesView from '@/views/legal/TerminosCondicionesView.vue'
 import NotAuthorizedView from '@/views/error/NotAuthorizedView.vue'
 import PoliticasCookiesView from '@/views/legal/PoliticasCookiesView.vue'
-import SubTareasView from '@/views/admin/SubTareas/SubTareasView.vue'
-import AgregarUsuarioView from '@/views/admin/AgregarUsuario/AgregarUsuarioView.vue'
+import SubTareasView from '@/views/Admin/SubTareas/SubTareasView.vue'
+import AgregarUsuarioView from '@/views/Admin/AgregarUsuario/AgregarUsuarioView.vue'
 import Layout from '@/layouts/Layout.vue'
 import RecursosSistemasView from '@/views/sistemas/Recursos/RecursosSistemasView.vue'
 import DetalleRecursoSistemasView from '@/views/sistemas/Recursos/DetalleRecursoSistemasView.vue'
@@ -84,59 +84,59 @@ const router = createRouter({
       component: RegistroView,
     },
     {
-      path: '/admin',
-      name: 'admin',
+      path: '/Admin',
+      name: 'Admin',
       component: Layout,
       // meta: { requiresAuth: true, roles: ['Administrador'] },
       children: [
         {
           path: '',
-          name: 'admin-dash',
+          name: 'Admin-dash',
           component: DashboardView
         },
         {
-          path: '/admin/usuarios',
-          name: 'admin-usuarios',
+          path: '/Admin/usuarios',
+          name: 'Admin-usuarios',
           component: UsuariosView
         },
         {
-          path: '/admin/agregar-usuario',
-          name: 'admin-agregar-usuario',
+          path: '/Admin/agregar-usuario',
+          name: 'Admin-agregar-usuario',
           component: AgregarUsuarioView,
         },
         {
-          path: '/admin/equipos',
-          name: 'admin-equipos',
+          path: '/Admin/equipos',
+          name: 'Admin-equipos',
           component: EquiposView
         },
         {
-          path: '/admin/proyectos',
-          name: 'admin-proyectos',
+          path: '/Admin/proyectos',
+          name: 'Admin-proyectos',
           component: ProyectosView,
         },
         {
-          path: '/admin/tareas',
-          name: 'admin-tareas',
+          path: '/Admin/tareas',
+          name: 'Admin-tareas',
           component: TareasView,
         },
         {
-          path: '/admin/sub-tareas',
-          name: 'admin-sub-tareas',
+          path: '/Admin/sub-tareas',
+          name: 'Admin-sub-tareas',
           component: SubTareasView,
         },
         {
-          path: '/admin/actividades',
-          name: 'admin-actividades',
+          path: '/Admin/actividades',
+          name: 'Admin-actividades',
           component: ActividadesView,
         },
         {
-          path: '/admin/recursos',
-          name: 'admin-recursos',
+          path: '/Admin/recursos',
+          name: 'Admin-recursos',
           component: RecursosView,
         },
         {
-          path: '/admin/logs',
-          name: 'admin-logs',
+          path: '/Admin/logs',
+          name: 'Admin-logs',
           component: LogsView
         },
       ]

@@ -1,18 +1,13 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
+import DataTable from 'primevue/datatable';
 import { createResource, deleteResource, getResources, updateResource } from '@/services/recursosService';
 import router from '@/router';
 import { ConfirmDialog, Toast } from 'primevue';
 import { useConfirm } from "primevue/useconfirm";
 import { useToast } from "primevue/usetoast";
 import { useNotificationStore } from '@/stores/notificationsStore';
-import type { ResourceModel } from '@/interfaces/resources/ResourceModel';
-import CreateForm from '@/components/forms/CreateForm.vue';
-import OpenCreateButton from '@/components/ui/OpenCreateButton.vue';
-import { ResourceValidationSchema } from '@/validationSchemas/ValidationSchemas';
-import DataTable from '@/components/ui/DataTable.vue';
-import EditForm from '@/components/forms/EditForm.vue';
-import { useModalStore } from '@/stores/modalStore';
+import type { ResourceModel } from '@/Interfaces/resources/ResourceModel';
 
 const resources = ref<ResourceModel[]>([]);
 const loading = ref(true);
@@ -108,7 +103,7 @@ const confirmDelete = (data: ResourceModel) => {
 const confirmDeleteResource = async (id: string) => {
     console.log("Eliminar recurso", id);
     const response = await deleteResource(id);
-    if (response.success) {
+    if(response.success){
         toast.add({ severity: 'success', summary: 'Eliminado', detail: 'Recurso eliminado', life: 3000 });
         const indexResource = resources.value.findIndex(r => r.id == id);
         resources.value.splice(indexResource, 1);
@@ -134,13 +129,13 @@ const confirmDeleteResource = async (id: string) => {
             :columns="['name', 'description', 'quantity']"
             :columnsEs="['Nombre', 'Descripción', 'Cantidad']"
             :data="resources"
-            @show-element="data => showResource(data)" 
-            @edit-element="data => showEditModal(data)" 
-            @confirm-delete="data => confirmDelete(data)" 
+            @show-element="data => showResource(data)"
+            @edit-element="data => showEditModal(data)"
+            @confirm-delete="data => confirmDelete(data)"
         />
 
-        <CreateForm title='Crear recurso' 
-            @submit="values => addResource(values)" 
+        <CreateForm title='Crear recurso'
+            @submit="values => addResource(values)"
             :fields="[
                 { id: 'name', label: 'Nombre', typeField: 'text', placeholder: 'Escribe el nombre' },
                 { id: 'description', label: 'Descripción', typeField: 'textarea', placeholder: 'Descripción del recurso' },
@@ -150,8 +145,8 @@ const confirmDeleteResource = async (id: string) => {
             :formData="formData"
         />
 
-        <EditForm title='Editar recurso' 
-            @submit="value => editResource(value)" 
+        <EditForm title='Editar recurso'
+            @submit="value => editResource(value)"
             :fields="[
                 { id: 'name', label: 'Nombre', typeField: 'text', placeholder: 'Escribe el nombre' },
                 { id: 'description', label: 'Descripción', typeField: 'textarea', placeholder: 'Descripción del recurso' },

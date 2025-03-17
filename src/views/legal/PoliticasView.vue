@@ -36,8 +36,8 @@
                     Política de Control de Acceso
                 </h1>
                 <label class="text-[#D3D9D4] text-sm sm:text-base">
-                    Los permisos de usuario se asignarán según su rol (administrador, gestor, colaborador).
-                    Solo los administradores podrán modificar configuraciones del sistema.
+                    Los permisos de usuario se asignarán según su rol (Administrador, gestor, colaborador).
+                    Solo los Administradores podrán modificar configuraciones del sistema.
                     Los cambios críticos en los proyectos requerirán doble validación.
                 </label>
 

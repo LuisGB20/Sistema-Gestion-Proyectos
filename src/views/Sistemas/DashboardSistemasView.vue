@@ -4,7 +4,7 @@ import { Bar } from 'vue-chartjs'
 import { meses } from '@/Data/Meses';
 import { Chart, registerables } from 'chart.js';
 import { computed } from '@vue/reactivity';
-import { GetDashboardDataResources } from '@/services/recursosService';
+import { GetDashboardDataResources } from '@/Services/recursosService';
 import type { ResourceDashboardDataModel } from '@/Interfaces/resources/ResourceDashboardDataModel';
 Chart.register(...registerables);
 
