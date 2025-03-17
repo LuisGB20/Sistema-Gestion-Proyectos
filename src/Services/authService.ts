@@ -1,6 +1,6 @@
 import type { LoginResponse } from "@/interfaces/Login"
 import type { ResponseHelper } from "@/interfaces/helpers/ResponseHelper"
-import { genericRequest } from "@/Utils/genericRequest"
+import { genericRequest } from "@/utils/genericRequest"
 
 const controller = "Auth"
 

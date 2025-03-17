@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
 import { useRoute } from 'vue-router';
-import { getResource, getResourceWithProjects } from '@/Services/recursosService';
-import { formatDate } from '@/Utils/formatDate';
-import type { ProjectWithResourceModel } from '@/Interfaces/resources/ProjectWithResourceModel';
-import type { ResourceModel } from '@/Interfaces/resources/ResourceModel';
+import { getResource, getResourceWithProjects } from '@/services/recursosService';
+import { formatDate } from '@/utils/formatDate';
+import type { ProjectWithResourceModel } from '@/interfaces/resources/ProjectWithResourceModel';
+import type { ResourceModel } from '@/interfaces/resources/ResourceModel';
 
 const route = useRoute();
 const resource = ref<ResourceModel>();

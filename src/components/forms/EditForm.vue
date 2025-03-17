@@ -2,7 +2,7 @@
 import { useForm } from 'vee-validate';
 import { defineProps, defineEmits, ref, computed, onMounted, watch } from 'vue';
 import { useModalStore } from '@/stores/modalStore';
-import type { FieldsForm } from '@/Interfaces/forms/FieldsForm';
+import type { FieldsForm } from '@/interfaces/forms/FieldsForm';
 import { Button, Dialog } from 'primevue';
 import * as yup from 'yup';
 
