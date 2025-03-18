@@ -26,7 +26,6 @@ onMounted(async () => {
         <div class="w-full bg-white shadow-lg rounded-lg p-6">
             <div class="mb-5">
                 <p class="text-sm text-SteelBlue">Recurso ID-{{ resource?.id }}</p>
-                <!-- Encabezado -->
                 <h1
                     class="text-transparent bg-clip-text bg-gradient-to-b from-DarkTeal to-CharcoalBlue text-start text-3xl font-bold">
                     Detalles del recurso

@@ -4,11 +4,13 @@ import { logService } from '@/Services/logService'
 import type { User } from '@/interfaces/User'
 import { LoginService, LogoutService, ValidateSession } from '@/Services/authService'
 import router from '@/router'
+import { useToast } from 'primevue'
 
 export const useAuthStore = defineStore('auth', () => {
 
   const user = ref<User | null>(null)
   const isInitialized = ref(false)
+  const toast = useToast();
 
   const isLoggedIn = computed(() => {
     return !!user.value?.id
@@ -38,7 +40,7 @@ export const useAuthStore = defineStore('auth', () => {
 
       if (response.success) {
         user.value = {} as User
-
+        toast.add({ severity: 'success', summary: '¡Nos vemos pronto!', detail: 'Has cerrado sesión correctamente.', life: 3000 });
         router.push('/');
       }
     } catch (error: unknown) {

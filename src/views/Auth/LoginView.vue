@@ -40,6 +40,7 @@ const handleLogin = async () => {
   const isValid = await validate();
   if (isValid.valid) {
     const response = await authStore.login(email.value, password.value);
+    console.log(response)
     if(!response?.success){
       toast.add({ severity: 'error', summary: 'Algo salió mal', detail: response?.message, life: 3000 });
     } else{
@@ -58,7 +59,6 @@ const handleLogin = async () => {
 
 <template>
   <main class="flex min-h-screen p-10 justify-center items-center">
-    <Toast />
     <img src="/src/assets/images/auth/access.svg" alt="Imagen de Login" class="size-[500px] mx-auto" />
 
     <div class="w-1/2 flex justify-center items-center">

@@ -5,7 +5,6 @@ import router from '@/router';
 import { ConfirmDialog, Toast } from 'primevue';
 import { useConfirm } from "primevue/useconfirm";
 import { useToast } from "primevue/usetoast";
-import { useNotificationStore } from '@/stores/notificationsStore';
 import type { ResourceModel } from '@/interfaces/resources/ResourceModel';
 import CreateForm from '@/components/forms/CreateForm.vue';
 import OpenCreateButton from '@/components/ui/OpenCreateButton.vue';
@@ -16,8 +15,6 @@ import { useModalStore } from '@/stores/modalStore';
 
 const resources = ref<ResourceModel[]>([]);
 const loading = ref(true);
-
-const notificationStore = useNotificationStore();
 const modalStore = useModalStore();
 
 
@@ -25,7 +22,6 @@ onMounted(async () => {
     const response = await getResources();
     resources.value = response.data;
     loading.value = false;
-    notificationStore.showAlert();
 });
 
 
@@ -48,9 +44,7 @@ const addResource = async (data: ResourceModel) => {
         if (!response.success) {
             toast.add({ severity: 'error', summary: 'Algo salió mal', detail: response.message, life: 3000 });
         } else {
-            notificationStore.showSuccess = true;
-            notificationStore.message = 'Recurso agregado con exito';
-            notificationStore.showAlertSuccess();
+        toast.add({ severity: 'success', summary: 'Operación Exitosa', detail: 'Recurso agregado con exito', life: 3000 });
             resources.value.push(response.data)
         }
 };
@@ -65,14 +59,12 @@ const showEditModal = (data: ResourceModel) => {
 const editResource = async (data: ResourceModel) => {
     const response = await updateResource(data);
     if (!response.success) {
-      toast.add({ severity: 'error', summary: 'Algo salió mal', detail: response.message, life: 3000 });
+        toast.add({ severity: 'error', summary: 'Algo salió mal', detail: response.message, life: 3000 });
     } else {
-      notificationStore.showSuccess = true;
-      notificationStore.message = 'Recurso editado con exito';
-      notificationStore.showAlertSuccess();
-      modalStore.isEditModalOpen = false;
-      const resourceIndex = resources.value.findIndex(r => r.id == data.id);
-      resources.value.splice(resourceIndex, 1, response.data);
+        toast.add({ severity: 'success', summary: 'Operación Exitosa', detail: 'Recurso editado con exito', life: 3000 });
+        modalStore.isEditModalOpen = false;
+        const resourceIndex = resources.value.findIndex(r => r.id == data.id);
+        resources.value.splice(resourceIndex, 1, response.data);
     }
 };
 
@@ -127,7 +119,6 @@ const confirmDeleteResource = async (id: string) => {
             </h1>
             <OpenCreateButton />
         </div>
-        <Toast />
         <ConfirmDialog></ConfirmDialog>
 
         <DataTable

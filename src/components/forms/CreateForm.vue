@@ -57,7 +57,6 @@ const handleInput = (fieldId: string, event: Event) => {
             <div v-for="(field, index) in fields" :key="index" class="mb-4">
                 <label :for="field.id" class="font-semibold block text-sm text-CharcoalBlue mb-1">{{ field.label }}</label>
                 
-                <!-- Input normal -->
                 <input
                     v-if="field.typeField !== 'textarea'"
                     :id="field.id"
@@ -68,7 +67,6 @@ const handleInput = (fieldId: string, event: Event) => {
                     :placeholder="field.placeholder"
                 />
 
-                <!-- Textarea -->
                 <textarea
                     v-else
                     :id="field.id"
@@ -79,12 +77,10 @@ const handleInput = (fieldId: string, event: Event) => {
                     rows="4"
                 ></textarea>
                 
-                <!-- Error message -->
                 <p v-if="errors[field.id] && isSubmited" class="text-rojo-error text-sm mt-1">{{ errors[field.id] }}</p>
             </div>
         </form>
 
-        <!-- Footer con botones -->
         <template #footer>
             <Button class="btn-cancel" label="Cancelar" text severity="secondary" @click="modalStore.isCreateModalOpen = false" />
             <Button class="btn-submit" label="Guardar" outlined severity="secondary" @click="handleSubmit" />
