@@ -13,8 +13,8 @@ export const genericRequest = async <T, B = unknown>(
       method: method,
       data: body,
     });
-    console.log(response)
-    return response;
+
+    return response as ResponseHelper<T>;
   } catch (error: unknown) {
     await logService.log('error', `Error in genericRequest: ${error}`, {
       url,

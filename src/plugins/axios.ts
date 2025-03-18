@@ -23,7 +23,7 @@ api.interceptors.response.use(
       return {
         success: response.data.success,
         message: response.data.message,
-        ...(response.data.success ? { data: response.data } : { status: response.status })
+        ...(response.data.success ? { data: response.data.data } : { status: response.status })
     };
 
     },
