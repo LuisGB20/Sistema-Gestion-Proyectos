@@ -1,30 +1,30 @@
-import AdminLayout from '@/layouts/Layout.vue'
-import DashboardView from '@/views/Admin/DashboardView.vue'
-import EquiposView from '@/views/Admin/Equipos/EquiposView.vue'
-import LogsView from '@/views/Admin/LogsView.vue'
-import UsuariosView from '@/views/Admin/Usuarios/UsuariosView.vue'
-import LoginView from '@/views/Auth/LoginView.vue'
-import RegistroView from '@/views/Auth/RegistroView.vue'
-import NotFoundView from '@/views/Error/NotFoundView.vue'
+import DashboardView from '@/views/admin/DashboardView.vue'
+import EquiposView from '@/views/admin/Equipos/EquiposView.vue'
+import LogsView from '@/views/admin/LogsView.vue'
+import UsuariosView from '@/views/admin/Usuarios/UsuariosView.vue'
+import LoginView from '@/views/auth/LoginView.vue'
+import RegistroView from '@/views/auth/RegistroView.vue'
+import NotFoundView from '@/views/error/NotFoundView.vue'
 import InicioView from '@/views/InicioView.vue'
-import ProyectosView from '@/views/Admin/Proyectos/ProyectosView.vue'
+import ProyectosView from '@/views/admin/Proyectos/ProyectosView.vue'
 import { createRouter, createWebHistory } from 'vue-router'
-import TareasView from '@/views/Admin/Tareas/TareasView.vue'
-import ActividadesView from '@/views/Admin/Actividades/ActividadesView.vue'
-import RecursosView from '@/views/Admin/Recursos/RecursosView.vue'
+import TareasView from '@/views/admin/Tareas/TareasView.vue'
+import ActividadesView from '@/views/admin/Actividades/ActividadesView.vue'
+import RecursosView from '@/views/admin/Recursos/RecursosView.vue'
 import SobreNosotrosView from '@/views/SobreNosotrosView.vue'
 import ContactoView from '@/views/ContactoView.vue'
 import PoliticasView from '@/views/legal/PoliticasView.vue'
 import TerminosCondicionesView from '@/views/legal/TerminosCondicionesView.vue'
-import NotAuthorizedView from '@/views/error/NotAuthorizedView.vue'
 import PoliticasCookiesView from '@/views/legal/PoliticasCookiesView.vue'
-import SubTareasView from '@/views/Admin/SubTareas/SubTareasView.vue'
-import AgregarUsuarioView from '@/views/Admin/AgregarUsuario/AgregarUsuarioView.vue'
+import SubTareasView from '@/views/admin/SubTareas/SubTareasView.vue'
+import AgregarUsuarioView from '@/views/admin/AgregarUsuario/AgregarUsuarioView.vue'
 import Layout from '@/layouts/Layout.vue'
-import RecursosSistemasView from '@/views/sistemas/Recursos/RecursosSistemasView.vue'
-import DetalleRecursoSistemasView from '@/views/sistemas/Recursos/DetalleRecursoSistemasView.vue'
+import RecursosSistemasView from '@/views/sistemas/recursos/RecursosSistemasView.vue'
+import DetalleRecursoSistemasView from '@/views/sistemas/recursos/DetalleRecursoSistemasView.vue'
 import DashboardSistemasView from '@/views/sistemas/DashboardSistemasView.vue'
 import EmployeesView from '@/views/employees/EmployeesView.vue'
+import ConfigView from '@/views/admin/configuraciones/ConfigView.vue'
+import NotAuthorizedView from '@/views/error/NotAuthorizedView.vue'
 
 const router = createRouter({
   linkActiveClass: 'underline underline-offset-2',
@@ -34,6 +34,11 @@ const router = createRouter({
   },
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
+    {
+      path: '/test',
+      name: 'test-paginas',
+      component: ConfigView
+    },
     {
       path: '/:pathMatch(.*)*',
       name: 'No-encontrado',

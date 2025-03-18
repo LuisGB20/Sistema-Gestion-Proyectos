@@ -17,7 +17,10 @@ const props = defineProps<{
 
 }>();
 
-const {title, fields, validationSchema, formData} = props;
+const { validationSchema, formData} = props;
+
+const title = computed(() => props.title)
+const fields = computed(() => props.fields)
 
 const data = ref(props.formData);
 let formDataLocal = reactive({ ...formData });
