@@ -21,7 +21,7 @@ console.log(data)
 watch(
   () => props.data,
   (newData) => {
-    data.value = newData; 
+    data.value = newData;
   },
   { immediate: true }
 );
@@ -76,7 +76,7 @@ const filters = ref({
                 </template>
             </Column>
 
-            <template #footer> En total son: {{ data ? data.length : 0 }} recursos. </template>
+            <template #footer> En total son: {{ data ? data.length : 0 }} elementos. </template>
         </DataTable>
     </div>
 </template>

@@ -20,24 +20,12 @@ api.interceptors.response.use(
   //@ts-expect-error
     (response) => {
 
-        if(!response.data.success){
-            return { success: false, message: response.data.message, status: response.status }
-        }
+      return {
+        success: response.data.success,
+        message: response.data.message,
+        ...(response.data.success ? { data: response.data } : { status: response.status })
+    };
 
-        if (response.config?.url?.includes('Auth')) {
-
-            const responseAuth = {
-              success: true,
-              message: "Autenticación exitosa",
-              data: { user: response.data.user }
-            }
-
-            return { success: true, message: "Autenticación exitosa", data: responseAuth
-            };
-        }
-
-        return { success: true, message: response.data.message, data: response.data,
-        };
     },
     async (error) => {
 

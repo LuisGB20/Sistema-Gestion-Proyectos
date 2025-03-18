@@ -18,9 +18,11 @@ export const useAuthStore = defineStore('auth', () => {
     try {
       const response = await LoginService(email, password)
       if (response.success) {
-        user.value = response.data.user
+        const getSession = await ValidateSession()
+        if (getSession.success) {
+          user.value = getSession.data
+        }
       }
-      console.log(response)
 
       return response;
 
@@ -50,7 +52,7 @@ export const useAuthStore = defineStore('auth', () => {
       const response = await ValidateSession();
 
       if (response.success) {
-        user.value = (response.data as { user: User }).user;
+        user.value = response.data;
         return true
       }
       return false

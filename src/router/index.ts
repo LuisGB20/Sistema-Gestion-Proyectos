@@ -24,6 +24,7 @@ import Layout from '@/layouts/Layout.vue'
 import RecursosSistemasView from '@/views/sistemas/Recursos/RecursosSistemasView.vue'
 import DetalleRecursoSistemasView from '@/views/sistemas/Recursos/DetalleRecursoSistemasView.vue'
 import DashboardSistemasView from '@/views/sistemas/DashboardSistemasView.vue'
+import EmployeesView from '@/views/employees/EmployeesView.vue'
 
 const router = createRouter({
   linkActiveClass: 'underline underline-offset-2',
@@ -173,6 +174,18 @@ const router = createRouter({
               component: DetalleRecursoSistemasView
             },
           ]
+        }
+      ]
+    },
+    {
+      path: '/recursos-humanos',
+      name: 'recursos-humanos',
+      component: Layout,
+      children: [
+        {
+          path: 'empleados',
+          name: 'empleados',
+          component: EmployeesView
         }
       ]
     }

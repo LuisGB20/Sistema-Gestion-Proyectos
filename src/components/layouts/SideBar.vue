@@ -49,6 +49,8 @@ const routes = [
         links: [
             { to: '/sistemas', label: 'Dashboard', icon: ChartBarIcon },
             { to: '/sistemas/recursos', label: 'Recursos', icon: Square3Stack3DIcon },
+            { to: '/recursos-humanos/empleados', label: 'Empleados', icon: UsersIcon },
+
         ]
     },
     {
