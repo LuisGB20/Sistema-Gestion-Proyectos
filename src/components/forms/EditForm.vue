@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useForm } from 'vee-validate';
-import { defineProps, defineEmits, ref, computed, onMounted, watch } from 'vue';
+import { defineProps, defineEmits, ref, computed, onMounted, watch, reactive } from 'vue';
 import { useModalStore } from '@/stores/modalStore';
 import type { FieldsForm } from '@/interfaces/forms/FieldsForm';
 import { Button, Dialog } from 'primevue';
@@ -17,10 +17,10 @@ const props = defineProps<{
 
 }>();
 
-const {title, fields, validationSchema} = props;
+const {title, fields, validationSchema, formData} = props;
 
 const data = ref(props.formData);
-let formDataLocal = JSON.parse(JSON.stringify(props.formData));
+let formDataLocal = reactive({ ...formData });
 
 const emit = defineEmits(["submit"]);
 
@@ -72,7 +72,7 @@ watch(
                 <input
                     v-if="field.typeField !== 'textarea'"
                     :id="field.id"
-                    v-model="values[field.id]"
+                    :value="values[field.id]"
                     @input="(e) => handleInput(field.id, e)"
                     :type="field.typeField"
                     class="w-full p-2 border rounded-md text-DarkTeal border-DarkTeal focus:border-2 focus:border-CharcoalBlue outline-none"
@@ -81,7 +81,7 @@ watch(
                 <textarea
                     v-else
                     :id="field.id"
-                    v-model="values[field.id]"
+                    :value="values[field.id]"
                     @input="(e) => handleInput(field.id, e)"
                     class="w-full p-2 border rounded-md text-DarkTeal border-DarkTeal focus:border-2 focus:border-CharcoalBlue outline-none"
                     :placeholder="field.placeholder"
@@ -91,8 +91,8 @@ watch(
             </div>
         </form>
         <template #footer>
-            <Button label="Cancelar" text severity="secondary" @click="modalStore.isEditModalOpen = false" />
-            <Button label="Guardar" outlined severity="secondary" @click="handleSubmit" />
+            <Button class="btn-cancel" label="Cancelar" text severity="secondary" @click="modalStore.isEditModalOpen = false" />
+            <Button class="btn-submit" label="Guardar" outlined severity="secondary" @click="handleSubmit" />
         </template>
     </Dialog>
 </template>
