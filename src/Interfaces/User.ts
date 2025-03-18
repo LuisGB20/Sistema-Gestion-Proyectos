@@ -1,7 +1,7 @@
 export interface User {
-    id: number,
-    name: string,
-    email: string,
-    rol: string,
-    avatarURL: string,
-  }
+  id: number
+  name: string
+  email: string
+  rol: string
+  avatarURL: string
+}
