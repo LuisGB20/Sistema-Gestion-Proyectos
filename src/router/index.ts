@@ -24,6 +24,7 @@ import Layout from '@/layouts/Layout.vue'
 import RecursosSistemasView from '@/views/sistemas/Recursos/RecursosSistemasView.vue'
 import DetalleRecursoSistemasView from '@/views/sistemas/Recursos/DetalleRecursoSistemasView.vue'
 import DashboardSistemasView from '@/views/sistemas/DashboardSistemasView.vue'
+import EstatusView from '@/views/valierTest/EstatusView.vue'
 
 const router = createRouter({
   linkActiveClass: 'underline underline-offset-2',
@@ -37,6 +38,11 @@ const router = createRouter({
       path: '/:pathMatch(.*)*',
       name: 'No-encontrado',
       component: NotFoundView
+    },
+    {
+      path: '/gestion-estatus',
+      name: 'estatus',
+      component: EstatusView
     },
     {
       path: '/acceso-denegado',
