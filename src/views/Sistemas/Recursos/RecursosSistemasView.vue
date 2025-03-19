@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
 import DataTable from 'primevue/datatable';
-import { createResource, deleteResource, getResources, updateResource } from '@/services/recursosService';
+import { createResource, deleteResource, getResources, updateResource } from '@/Services/recursosService';
 import router from '@/router';
 import { ConfirmDialog, Toast } from 'primevue';
 import { useConfirm } from "primevue/useconfirm";
