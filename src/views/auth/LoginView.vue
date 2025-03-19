@@ -7,7 +7,7 @@ import SubmitButton from '@/components/ui/SubmitButton.vue';
 import { useToast } from 'primevue/usetoast';
 import router from '@/router';
 import Toast from 'primevue/toast';
-import { ValidateSession } from '@/services/authService';
+import { ValidateSession } from '@/services/auth/authService';
 
 const authStore = useAuthStore();
 
@@ -41,9 +41,9 @@ const handleLogin = async () => {
   if (isValid.valid) {
     const response = await authStore.login(email.value, password.value);
     console.log(response)
-    if(!response?.success){
+    if (!response?.success) {
       toast.add({ severity: 'error', summary: 'Algo salió mal', detail: response?.message, life: 3000 });
-    } else{
+    } else {
       toast.add({ severity: 'success', summary: '¡Bienvenido!', detail: 'Inicio de sesión exitoso.', life: 3000 });
       const getInfoUser = await ValidateSession();
       if (getInfoUser?.success) {
@@ -69,8 +69,7 @@ const handleLogin = async () => {
 
         <form @submit.prevent="handleLogin" class="space-y-4">
           <div class="relative z-0 w-full mb-5 group">
-            <input name="email" id="email" v-model="email" v-bind="emailAttrs"
-            autocomplete="off"
+            <input name="email" id="email" v-model="email" v-bind="emailAttrs" autocomplete="off"
               :class="`block py-2.5 px-0 w-full text-sm text-DarkTeal bg-transparent border-0 border-b-2 border-DarkTeal !appearance-none focus:outline-none focus:ring-0 focus:border-DarkTeal peer  ${errors.email ? 'border-rojo-error' : ''}`"
               placeholder=" " />
             <label for="email"

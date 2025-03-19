@@ -2,26 +2,26 @@
 import { ChartBarIcon, DocumentTextIcon, FolderIcon, Square3Stack3DIcon, UserGroupIcon, UsersIcon, BriefcaseIcon, PuzzlePieceIcon } from '@heroicons/vue/16/solid';
 import { computed, onMounted, ref } from 'vue'
 import { RouterLink, useRoute } from 'vue-router';
-import { GetRoleNameService } from '@/services/authService.ts'
-import { logService } from '@/services/logService.ts'
+import { GetRoleNameService } from '@/services/auth/authService'
+import { logService } from '@/services/logs/logService'
 
 const route = useRoute();
 const rol = ref('sistemas');
 
 
 onMounted(async () => {
-  try {
-    const response = await GetRoleNameService();
-    console.log("rol", response);
-    if (response.success) {
-      rol.value = response.message
-    }
-    console.log("rol", rol.value);
+    try {
+        const response = await GetRoleNameService();
+        console.log("rol", response);
+        if (response.success) {
+            rol.value = response.message
+        }
+        console.log("rol", rol.value);
 
-  } catch (error: unknown) {
-    const errorMessage = error instanceof Error ? error.message : 'Ocurrió un error desconocido';
-    await logService.log('error', errorMessage, { error, email });
-  }
+    } catch (error: unknown) {
+        const errorMessage = error instanceof Error ? error.message : 'Ocurrió un error desconocido';
+        await logService.log('error', errorMessage, { error, email });
+    }
 });
 
 // Rutas disponibles para cada rol
@@ -94,8 +94,7 @@ const userLinks = computed(() => (indexRoutes.value !== -1 ? routes[indexRoutes.
         class="bg-white font-semibold w-[220px] text-CharcoalBlue py-6 px-5 flex flex-col items-center shadow-[10px_0_15px_rgba(0,0,0,0.1)]">
         <ul>
             <li v-for="link in userLinks" class="mb-4 text-center">
-                <RouterLink :to="link.to"
-                    activeClass="!bg-linear-to-r !from-DarkTeal !to-CharcoalBlue !text-white"
+                <RouterLink :to="link.to" activeClass="!bg-linear-to-r !from-DarkTeal !to-CharcoalBlue !text-white"
                     exactActiveClass="!bg-linear-to-r !from-DarkTeal !to-CharcoalBlue !text-white"
                     class="flex text-lg py-2 px-4 rounded-lg hover:bg-linear-to-r hover:from-DarkTeal hover:to-CharcoalBlue hover:text-white transition duration-200">
                     <component :is="link.icon" class="size-6" />

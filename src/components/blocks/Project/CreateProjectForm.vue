@@ -3,23 +3,23 @@ import { useModalStore } from '@/stores/modalStore';
 import { ref } from 'vue';
 import FormModal from '@/components/forms/CreateForm.vue';
 import * as yup from 'yup';
-import { CreateProject } from '@/services/projectService.ts'
+import { CreateProject } from '@/services/projects/projectService'
 import Button from 'primevue/button'
 
 const modalStore = useModalStore();
 
 const fields = [
-    {
-      id: 'name', label: 'Nombre del Proyecto',
-      typeField: 'text',
-      placeholder: 'Ingrese el nombre'
-    },
-    {
-      id: 'description',
-      label: 'Descripción',
-      typeField: 'textarea',
-      placeholder: 'Ingrese una descripción'
-    },
+  {
+    id: 'name', label: 'Nombre del Proyecto',
+    typeField: 'text',
+    placeholder: 'Ingrese el nombre'
+  },
+  {
+    id: 'description',
+    label: 'Descripción',
+    typeField: 'textarea',
+    placeholder: 'Ingrese una descripción'
+  },
 ];
 
 const validationSchema = yup.object({
@@ -49,21 +49,12 @@ const handleSubmit = async (values) => {
 
 <template>
 
-    <Button @click="modalStore.isCreateModalOpen = true"
-      label="Crear Proyecto"
-      class="text-white px-4 py-2 rounded-md shadow-md"
-    />
+  <Button @click="modalStore.isCreateModalOpen = true" label="Crear Proyecto"
+    class="text-white px-4 py-2 rounded-md shadow-md" />
 
-  <FormModal
-    title="Crear Proyecto"
-    :fields="fields"
-    :validationSchema="validationSchema"
-    :formData="formData"
-    @submit="handleSubmit"
-  />
+  <FormModal title="Crear Proyecto" :fields="fields" :validationSchema="validationSchema" :formData="formData"
+    @submit="handleSubmit" />
 
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>

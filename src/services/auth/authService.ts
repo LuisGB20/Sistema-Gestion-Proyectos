@@ -1,4 +1,4 @@
-import type { LoginResponse } from "@/interfaces/Login"
+import type { LoginResponse } from "@/interfaces/auth/Login"
 import type { User } from "@/interfaces/User"
 import type { ResponseHelper } from "@/interfaces/helpers/ResponseHelper"
 import { genericRequest } from "@/utils/genericRequest"

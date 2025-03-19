@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
-import { createResource, deleteResource, getResources, updateResource } from '@/services/recursosService';
+import { createResource, deleteResource, getResources, updateResource } from '@/services/resources/recursosService';
 import router from '@/router';
 import { ConfirmDialog, Toast } from 'primevue';
 import { useConfirm } from "primevue/useconfirm";
@@ -40,13 +40,13 @@ const showResource = (data: ResourceModel) => {
 
 const addResource = async (data: ResourceModel) => {
     const response = await createResource(data);
-        console.log(response)
-        if (!response.success) {
-            toast.add({ severity: 'error', summary: 'Algo salió mal', detail: response.message, life: 3000 });
-        } else {
+    console.log(response)
+    if (!response.success) {
+        toast.add({ severity: 'error', summary: 'Algo salió mal', detail: response.message, life: 3000 });
+    } else {
         toast.add({ severity: 'success', summary: 'Operación Exitosa', detail: 'Recurso agregado con exito', life: 3000 });
-            resources.value.push(response.data)
-        }
+        resources.value.push(response.data)
+    }
 };
 
 
@@ -121,36 +121,21 @@ const confirmDeleteResource = async (id: string) => {
         </div>
         <ConfirmDialog></ConfirmDialog>
 
-        <DataTable
-            :columns="['name', 'description', 'quantity']"
-            :columnsEs="['Nombre', 'Descripción', 'Cantidad']"
-            :data="resources"
-            @show-element="data => showResource(data)" 
-            @edit-element="data => showEditModal(data)" 
-            @confirm-delete="data => confirmDelete(data)" 
-        />
+        <DataTable :columns="['name', 'description', 'quantity']" :columnsEs="['Nombre', 'Descripción', 'Cantidad']"
+            :data="resources" @show-element="data => showResource(data)" @edit-element="data => showEditModal(data)"
+            @confirm-delete="data => confirmDelete(data)" />
 
-        <CreateForm title='Crear recurso' 
-            @submit="values => addResource(values)" 
-            :fields="[
-                { id: 'name', label: 'Nombre', typeField: 'text', placeholder: 'Escribe el nombre' },
-                { id: 'description', label: 'Descripción', typeField: 'textarea', placeholder: 'Descripción del recurso' },
-                { id: 'quantity', label: 'Cantidad', typeField: 'number', placeholder: '0' }
-            ]"
-            :validationSchema="ResourceValidationSchema"
-            :formData="formData"
-        />
+        <CreateForm title='Crear recurso' @submit="values => addResource(values)" :fields="[
+            { id: 'name', label: 'Nombre', typeField: 'text', placeholder: 'Escribe el nombre' },
+            { id: 'description', label: 'Descripción', typeField: 'textarea', placeholder: 'Descripción del recurso' },
+            { id: 'quantity', label: 'Cantidad', typeField: 'number', placeholder: '0' }
+        ]" :validationSchema="ResourceValidationSchema" :formData="formData" />
 
-        <EditForm title='Editar recurso' 
-            @submit="value => editResource(value)" 
-            :fields="[
-                { id: 'name', label: 'Nombre', typeField: 'text', placeholder: 'Escribe el nombre' },
-                { id: 'description', label: 'Descripción', typeField: 'textarea', placeholder: 'Descripción del recurso' },
-                { id: 'quantity', label: 'Cantidad', typeField: 'number', placeholder: '0' }
-            ]"
-            :validationSchema="ResourceValidationSchema"
-            :formData="formData"
-        />
+        <EditForm title='Editar recurso' @submit="value => editResource(value)" :fields="[
+            { id: 'name', label: 'Nombre', typeField: 'text', placeholder: 'Escribe el nombre' },
+            { id: 'description', label: 'Descripción', typeField: 'textarea', placeholder: 'Descripción del recurso' },
+            { id: 'quantity', label: 'Cantidad', typeField: 'number', placeholder: '0' }
+        ]" :validationSchema="ResourceValidationSchema" :formData="formData" />
 
     </main>
 </template>

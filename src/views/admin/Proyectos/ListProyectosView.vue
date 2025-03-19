@@ -2,7 +2,7 @@
 import { ref, computed, onMounted, onBeforeMount } from 'vue'
 import Button from 'primevue/button';
 import ListOfProject from '@/components/blocks/Project/ListOfProject.vue'
-import { GetProject } from '@/services/projectService.ts'
+import { GetProject } from '@/services/projects/projectService'
 import CreateProjectForm from '@/components/blocks/Project/CreateProjectForm.vue'
 
 const itemsPerPage = 6;
@@ -11,12 +11,12 @@ const currentPage = ref(1);
 
 const projects = ref([]);
 
-onBeforeMount( async () => {
+onBeforeMount(async () => {
 
   const projectsFetch = await GetProject();
   console.log(projects);
 
-  if(projectsFetch.success){
+  if (projectsFetch.success) {
     projects.value = projectsFetch.data;
     console.log(projects.value)
   }
@@ -48,8 +48,8 @@ const prevPage = () => {
   <div class="flex flex-col items-center pt-10">
 
     <div class="flex items-center justify-between w-full pr-10 mb-8">
-        <h1 class="text-4xl font-bold text-CharcoalBlue">Proyectos</h1>
-        <CreateProjectForm></CreateProjectForm>
+      <h1 class="text-4xl font-bold text-CharcoalBlue">Proyectos</h1>
+      <CreateProjectForm></CreateProjectForm>
     </div>
 
 
@@ -65,13 +65,16 @@ const prevPage = () => {
     <nav aria-label="Page navigation example">
       <ul class="inline-flex -space-x-px text-md mt-8">
         <li>
-          <button @click="prevPage" :disabled="currentPage === 1" class="px-3 h-8 bg-DarkTeal text-white border border-CharcoalBlue rounded-s-lg hover:bg-DarkTeal">Anterior</button>
+          <button @click="prevPage" :disabled="currentPage === 1"
+            class="px-3 h-8 bg-DarkTeal text-white border border-CharcoalBlue rounded-s-lg hover:bg-DarkTeal">Anterior</button>
         </li>
         <li v-for="page in totalPages" :key="page">
-          <button @click="currentPage = page" :class="{'bg-DarkTeal text-white': currentPage === page}" class="px-3 h-8 border border-CharcoalBlue hover:bg-DarkTeal">{{ page }}</button>
+          <button @click="currentPage = page" :class="{ 'bg-DarkTeal text-white': currentPage === page }"
+            class="px-3 h-8 border border-CharcoalBlue hover:bg-DarkTeal">{{ page }}</button>
         </li>
         <li>
-          <button @click="nextPage" :disabled="currentPage === totalPages" class="px-3 h-8 bg-DarkTeal text-white border border-CharcoalBlue rounded-e-lg hover:bg-DarkTeal">Siguiente</button>
+          <button @click="nextPage" :disabled="currentPage === totalPages"
+            class="px-3 h-8 bg-DarkTeal text-white border border-CharcoalBlue rounded-e-lg hover:bg-DarkTeal">Siguiente</button>
         </li>
       </ul>
     </nav>
