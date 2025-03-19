@@ -1,8 +1,9 @@
 import type { LoginResponse } from "@/interfaces/Login"
+import type { User } from "@/interfaces/User"
 import type { ResponseHelper } from "@/interfaces/helpers/ResponseHelper"
-import { genericRequest } from "@/Utils/genericRequest"
+import { genericRequest } from "@/utils/genericRequest"
 
-const controller = "Auth"
+const controller = "auth"
 
 
 export const LoginService = async (email: string, password: string): Promise<ResponseHelper<LoginResponse>> => {
@@ -13,12 +14,11 @@ export const LogoutService = async () => {
   return await genericRequest(`${controller}/logout`, 'POST')
 }
 
-
 export const RefreshTokenService = async (): Promise<ResponseHelper<boolean>> => {
   return await genericRequest(`${controller}/refresh`, 'POST')
 }
 
-export const ValidateSession = async () => {
+export const ValidateSession = async (): Promise<ResponseHelper<User>> => {
   return await genericRequest(`${controller}/validate-session`, 'GET')
 }
 

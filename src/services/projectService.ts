@@ -1,4 +1,4 @@
-import { genericRequest } from "@/Utils/genericRequest"
+import { genericRequest } from "@/utils/genericRequest"
 
 const controller = "Project"
 

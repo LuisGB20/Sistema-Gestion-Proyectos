@@ -11,3 +11,9 @@ export const ResourceValidationSchema = yup.object(
             .max(1000, 'La cantidad no puede exceder 1000'),
     }
 );
+
+export const ConfigValidationSchema = yup.object(
+    {
+        config: yup.string().nullable(),
+    }
+);

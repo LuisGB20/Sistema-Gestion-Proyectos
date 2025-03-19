@@ -1,14 +1,16 @@
 import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
-import { logService } from '@/Services/logService'
+import { logService } from '@/services/logService'
 import type { User } from '@/interfaces/User'
-import { LoginService, LogoutService, ValidateSession } from '@/Services/authService'
+import { LoginService, LogoutService, ValidateSession } from '@/services/authService'
 import router from '@/router'
+import { useToast } from 'primevue'
 
 export const useAuthStore = defineStore('auth', () => {
 
   const user = ref<User | null>(null)
   const isInitialized = ref(false)
+  const toast = useToast();
 
   const isLoggedIn = computed(() => {
     return !!user.value?.id
@@ -18,9 +20,11 @@ export const useAuthStore = defineStore('auth', () => {
     try {
       const response = await LoginService(email, password)
       if (response.success) {
-        user.value = response.data.user
+        const getSession = await ValidateSession()
+        if (getSession.success) {
+          user.value = getSession.data
+        }
       }
-      console.log(response)
 
       return response;
 
@@ -36,11 +40,11 @@ export const useAuthStore = defineStore('auth', () => {
 
       if (response.success) {
         user.value = {} as User
-
+        toast.add({ severity: 'success', summary: '¡Nos vemos pronto!', detail: 'Has cerrado sesión correctamente.', life: 3000 });
         router.push('/');
       }
     } catch (error: unknown) {
-      const errorMessage = 'Error during logout'
+      const errorMessage = 'error during logout'
       await logService.log('error', errorMessage, { error })
     }
   }
@@ -50,7 +54,7 @@ export const useAuthStore = defineStore('auth', () => {
       const response = await ValidateSession();
 
       if (response.success) {
-        user.value = (response.data as { user: User }).user;
+        user.value = response.data;
         return true
       }
       return false

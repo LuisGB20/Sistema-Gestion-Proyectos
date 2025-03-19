@@ -8,7 +8,7 @@ import InputIcon from 'primevue/inputicon';
 import IconField from 'primevue/iconfield';
 import InputText from 'primevue/inputtext';
 import Select from 'primevue/select';
-import { meses } from '@/Data/Meses.ts';
+import { meses } from '@/data/meses';
 import { Line } from 'vue-chartjs'
 import { Chart, registerables } from 'chart.js';
 Chart.register(...registerables);
@@ -70,7 +70,7 @@ onMounted(() => {
             estado: 'Éxito'
         },
         {
-            descripcion: 'Error al intentar procesar el pago del usuario.',
+            descripcion: 'error al intentar procesar el pago del usuario.',
             fecha: '2025-03-08 09:40:00',
             estado: 'Error'
         }
@@ -87,15 +87,15 @@ const filters = ref({
 
 const cantLogsMes = ref([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12])
 const chartData = computed(() => ({
-  labels: meses,
-  datasets: [{
-    label: 'Cantidad de usuarios',
-    data: cantLogsMes.value,
-    fill: false,
-    borderColor: '#124E66',
-    backgroundColor: '#D3D9D4',
-    tension: 0.1
-  }]
+    labels: meses,
+    datasets: [{
+        label: 'Cantidad de usuarios',
+        data: cantLogsMes.value,
+        fill: false,
+        borderColor: '#124E66',
+        backgroundColor: '#D3D9D4',
+        tension: 0.1
+    }]
 }));
 </script>
 
@@ -127,8 +127,7 @@ const chartData = computed(() => ({
         <div class="card">
             <DataTable v-model:filters="filters" :value="logs" removableSort ref="dt" paginator :rows="5"
                 :rowsPerPageOptions="[5, 10, 20]" :loading="loading"
-                :globalFilterFields="['fecha', 'estado', 'descripcion']" filterDisplay="row"
-                class="rounded-lg">
+                :globalFilterFields="['fecha', 'estado', 'descripcion']" filterDisplay="row" class="rounded-lg">
                 <template #header>
                     <div class="flex justify-between">
                         <div class="flex flex-wrap items-center justify-start gap-2">
@@ -180,13 +179,15 @@ const chartData = computed(() => ({
 
 
         <div class="flex-1 mt-5">
-        <div class="bg-white p-6 rounded-lg shadow-xl">
-          <h2 class="text-2xl font-semibold mb-4 text-gun-metal">Logs mensuales</h2>
-          <div class="bg-white h-[300px] md:h-[500px] w-full rounded-lg flex flex-col justify-center items-center">
-            <Line id="grafica-usuarios" :data="chartData" :options="{ responsive: true, maintainAspectRatio: false }" />
-          </div>
+            <div class="bg-white p-6 rounded-lg shadow-xl">
+                <h2 class="text-2xl font-semibold mb-4 text-gun-metal">Logs mensuales</h2>
+                <div
+                    class="bg-white h-[300px] md:h-[500px] w-full rounded-lg flex flex-col justify-center items-center">
+                    <Line id="grafica-usuarios" :data="chartData"
+                        :options="{ responsive: true, maintainAspectRatio: false }" />
+                </div>
+            </div>
         </div>
-      </div>
 
     </main>
 </template>

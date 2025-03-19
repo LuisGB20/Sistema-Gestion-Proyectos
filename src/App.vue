@@ -7,6 +7,7 @@ import GuestHeader from './components/layouts/GuestHeader.vue';
 import { useAuthStore } from './stores/authStore';
 import AuthHeader from './components/layouts/AuthHeader.vue';
 import ProgressSpinner from 'primevue/progressspinner';
+import { Toast } from 'primevue';
 
 const authStore = useAuthStore();
 const isInitializing = ref(true);
@@ -15,7 +16,7 @@ onMounted(async () => {
   try {
     await authStore.initialize();
   } catch (error) {
-    console.error('Error inicializando sesión:', error);
+    console.error('error inicializando sesión:', error);
   } finally {
     isInitializing.value = false;
   }
@@ -28,6 +29,7 @@ onMounted(async () => {
   </div>
 
   <template v-else>
+    <Toast />
     <AuthHeader v-if="authStore.isLoggedIn" />
     <GuestHeader v-else />
     <RouterView />

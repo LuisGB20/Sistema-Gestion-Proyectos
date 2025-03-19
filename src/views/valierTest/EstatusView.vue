@@ -26,7 +26,7 @@
 
 <!-- Script para el funcionamiento de las graficas de tiempo -->
 <script>
-import { getStatusData, getServicesList } from '@/Services/test/statusService';
+import { getStatusData, getServicesList } from '@/services/test/statusService';
 import UptimeChart from '@/components/__tests__/UptimeChart.vue';
 import ResponseTimeChart from '@/components/__tests__/ResponseTimeChart.vue'
 
@@ -76,7 +76,7 @@ export default {
               }
             } catch (err) {
               console.error(`Error al obtener datos de estado para el servicio ${service.name}:`, err);
-              service.serviceStatusText = 'Error al obtener datos';
+              service.serviceStatusText = 'error al obtener datos';
             }
 
             return service;
@@ -85,7 +85,7 @@ export default {
         // Asignar servicios con sus datos actualizados
         this.services = servicesWithDetails;
       } catch (err) {
-        console.error('Error al obtener la lista de servicios:', err);
+        console.error('error al obtener la lista de servicios:', err);
       }
     },
   },

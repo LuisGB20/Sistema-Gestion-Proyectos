@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
 import { useRoute } from 'vue-router';
-import { getResource, getResourceWithProjects } from '@/Services/recursosService';
-import { formatDate } from '@/Utils/formatDate';
-import type { ProjectWithResourceModel } from '@/Interfaces/resources/ProjectWithResourceModel';
-import type { ResourceModel } from '@/Interfaces/resources/ResourceModel';
+import { getResource, getResourceWithProjects } from '@/services/recursosService';
+import { formatDate } from '@/utils/formatDate';
+import type { ProjectWithResourceModel } from '@/interfaces/resources/ProjectWithResourceModel';
+import type { ResourceModel } from '@/interfaces/resources/ResourceModel';
 
 const route = useRoute();
 const resource = ref<ResourceModel>();
@@ -26,7 +26,6 @@ onMounted(async () => {
         <div class="w-full bg-white shadow-lg rounded-lg p-6">
             <div class="mb-5">
                 <p class="text-sm text-SteelBlue">Recurso ID-{{ resource?.id }}</p>
-                <!-- Encabezado -->
                 <h1
                     class="text-transparent bg-clip-text bg-gradient-to-b from-DarkTeal to-CharcoalBlue text-start text-3xl font-bold">
                     Detalles del recurso

@@ -7,6 +7,7 @@ import SubmitButton from '@/components/ui/SubmitButton.vue';
 import { useToast } from 'primevue/usetoast';
 import router from '@/router';
 import Toast from 'primevue/toast';
+import { ValidateSession } from '@/services/authService';
 
 const authStore = useAuthStore();
 
@@ -39,13 +40,15 @@ const handleLogin = async () => {
   const isValid = await validate();
   if (isValid.valid) {
     const response = await authStore.login(email.value, password.value);
+    console.log(response)
     if(!response?.success){
       toast.add({ severity: 'error', summary: 'Algo salió mal', detail: response?.message, life: 3000 });
     } else{
       toast.add({ severity: 'success', summary: '¡Bienvenido!', detail: 'Inicio de sesión exitoso.', life: 3000 });
-      setTimeout(() => {
-        router.push(`/${response.data.user.rol.toLowerCase()}`)
-      }, 1500)
+      const getInfoUser = await ValidateSession();
+      if (getInfoUser?.success) {
+        router.push(`/${getInfoUser.data.rol.toLowerCase()}`)
+      }
     }
   } else {
     return;
@@ -56,7 +59,6 @@ const handleLogin = async () => {
 
 <template>
   <main class="flex min-h-screen p-10 justify-center items-center">
-    <Toast />
     <img src="/src/assets/images/auth/access.svg" alt="Imagen de Login" class="size-[500px] mx-auto" />
 
     <div class="w-1/2 flex justify-center items-center">

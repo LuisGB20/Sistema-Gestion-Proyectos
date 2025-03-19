@@ -1,9 +1,9 @@
 import type { ResourceModel } from "@/interfaces/resources/ResourceModel"
-import { genericRequest } from "@/Utils/genericRequest"
+import { genericRequest } from "@/utils/genericRequest"
 import type { ResponseHelperArray } from "@/interfaces/helpers/ResponseHelperArray"
 import type { ResponseHelper } from "@/interfaces/helpers/ResponseHelper"
-import type { ResourceModel } from "@/Interfaces/resources/ResourceModel"
-import type { ResponseHelperArray } from "@/Interfaces/helpers/ResponseHelperArray"
+import type { ProjectWithResourceModel } from "@/interfaces/resources/ProjectWithResourceModel"
+import type { ResourceDashboardDataModel } from "@/interfaces/resources/ResourceDashboardDataModel"
 
 const controller = "Resource"
 
@@ -16,7 +16,7 @@ export const getResource = async (id: string): Promise<ResponseHelper<ResourceMo
 }
 
 // Pendientes
-export const getResourceWithProjects = async (id: string): Promise<ResponseHelper<ResourceWithProjectsModel>> => {
+export const getResourceWithProjects = async (id: string): Promise<ResponseHelper<ProjectWithResourceModel>> => {
   return await genericRequest(`${controller}/GetResourceWithProjects?Id=${id}`, 'GET')
 }
 

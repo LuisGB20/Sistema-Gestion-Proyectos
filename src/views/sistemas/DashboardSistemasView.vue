@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
-import { Bar } from 'vue-chartjs'
-import { meses } from '@/Data/Meses';
+import { meses } from '@/data/meses';
 import { Chart, registerables } from 'chart.js';
 import { computed } from '@vue/reactivity';
-import { GetDashboardDataResources } from '@/Services/recursosService';
-import type { ResourceDashboardDataModel } from '@/Interfaces/resources/ResourceDashboardDataModel';
+import { GetDashboardDataResources } from '@/services/recursosService';
+import type { ResourceDashboardDataModel } from '@/interfaces/resources/ResourceDashboardDataModel';
+import { Bar } from 'vue-chartjs';
 Chart.register(...registerables);
 
 const dashboardData = ref<ResourceDashboardDataModel>({
@@ -79,11 +79,9 @@ const chartData = computed(() => ({
         <div class="flex-1">
           <div class="bg-white p-6 rounded-lg shadow-xl">
             <h2
-              class="text-2xl font-semibold mb-4 text-transparent bg-clip-text bg-gradient-to-b from-DarkTeal to-CharcoalBlue">
-              Actividad mensual de recursos</h2>
+              class="text-2xl font-semibold mb-4 text-transparent bg-clip-text bg-gradient-to-b from-DarkTeal to-CharcoalBlue">Actividad mensual de recursos</h2>
             <div class="bg-white h-[300px] md:h-[500px] w-full rounded-lg flex flex-col justify-center items-center">
-              <Bar id="grafica-proyectos" :data="chartData as any"
-                :options="{ responsive: true, maintainAspectRatio: false }" />
+              <Bar id="grafica-proyectos" :data="chartData" :options="{ responsive: true, maintainAspectRatio: false }" />
             </div>
           </div>
         </div>

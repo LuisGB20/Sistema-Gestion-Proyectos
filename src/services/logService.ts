@@ -1,5 +1,3 @@
-import axios from 'axios'
-
 class LogService {
   private static instance: LogService
   private baseUrl: string

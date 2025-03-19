@@ -1,31 +1,30 @@
 import AdminLayout from '@/layouts/Layout.vue'
-import DashboardView from '@/views/Admin/DashboardView.vue'
-import EquiposView from '@/views/Admin/Equipos/EquiposView.vue'
-import LogsView from '@/views/Admin/LogsView.vue'
-import UsuariosView from '@/views/Admin/Usuarios/UsuariosView.vue'
-import LoginView from '@/views/Auth/LoginView.vue'
-import RegistroView from '@/views/Auth/RegistroView.vue'
-import NotFoundView from '@/views/Error/NotFoundView.vue'
+import DashboardView from '@/views/admin/DashboardView.vue'
+import EquiposView from '@/views/admin/Equipos/EquiposView.vue'
+import LogsView from '@/views/admin/LogsView.vue'
+import UsuariosView from '@/views/admin/Usuarios/UsuariosView.vue'
+import LoginView from '@/views/auth/LoginView.vue'
+import RegistroView from '@/views/auth/RegistroView.vue'
+import NotFoundView from '@/views/error/NotFoundView.vue'
 import InicioView from '@/views/InicioView.vue'
+import ProyectosView from '@/views/admin/Proyectos/ProyectosView.vue'
 import { createRouter, createWebHistory } from 'vue-router'
-import TareasView from '@/views/Admin/Tareas/TareasView.vue'
-import ActividadesView from '@/views/Admin/Actividades/ActividadesView.vue'
-import RecursosView from '@/views/Admin/Recursos/RecursosView.vue'
+import TareasView from '@/views/admin/Tareas/TareasView.vue'
+import ActividadesView from '@/views/admin/Actividades/ActividadesView.vue'
+import RecursosView from '@/views/admin/Recursos/RecursosView.vue'
 import SobreNosotrosView from '@/views/SobreNosotrosView.vue'
 import ContactoView from '@/views/ContactoView.vue'
 import PoliticasView from '@/views/legal/PoliticasView.vue'
 import TerminosCondicionesView from '@/views/legal/TerminosCondicionesView.vue'
-import NotAuthorizedView from '@/views/Error/NotAuthorizedView.vue'
+import NotAuthorizedView from '@/views/error/NotAuthorizedView.vue'
 import PoliticasCookiesView from '@/views/legal/PoliticasCookiesView.vue'
-import SubTareasView from '@/views/Admin/SubTareas/SubTareasView.vue'
-import AgregarUsuarioView from '@/views/Admin/AgregarUsuario/AgregarUsuarioView.vue'
+import SubTareasView from '@/views/admin/SubTareas/SubTareasView.vue'
+import AgregarUsuarioView from '@/views/admin/AgregarUsuario/AgregarUsuarioView.vue'
 import Layout from '@/layouts/Layout.vue'
-import RecursosSistemasView from '@/views/Sistemas/Recursos/RecursosSistemasView.vue'
-import DetalleRecursoSistemasView from '@/views/Sistemas/Recursos/DetalleRecursoSistemasView.vue'
-import DashboardSistemasView from '@/views/Sistemas/DashboardSistemasView.vue'
-import ListProyectosView from '@/views/Admin/Proyectos/ListProyectosView.vue'
-import ProyectoView from '@/views/Admin/Proyectos/ProyectoView.vue'
-import EstatusView from '@/views/valierTest/EstatusView.vue'
+import RecursosSistemasView from '@/views/sistemas/Recursos/RecursosSistemasView.vue'
+import DetalleRecursoSistemasView from '@/views/sistemas/Recursos/DetalleRecursoSistemasView.vue'
+import DashboardSistemasView from '@/views/sistemas/DashboardSistemasView.vue'
+import ProyectoView from '@/views/admin/Proyectos/ProyectoView.vue'
 
 const router = createRouter({
   linkActiveClass: 'underline underline-offset-2',
@@ -39,11 +38,6 @@ const router = createRouter({
       path: '/:pathMatch(.*)*',
       name: 'No-encontrado',
       component: NotFoundView
-    },
-    {
-      path: '/gestion-estatus',
-      name: 'estatus',
-      component: EstatusView
     },
     {
       path: '/acceso-denegado',
@@ -91,29 +85,29 @@ const router = createRouter({
       component: RegistroView,
     },
     {
-      path: '/Admin',
-      name: 'Admin',
+      path: '/admin',
+      name: 'admin',
       component: Layout,
-      // meta: { requiresAuth: true, roles: ['Administrador'] },
+      // meta: { requiresAuth: true, roles: ['administrador'] },
       children: [
         {
           path: '',
-          name: 'Admin-dash',
+          name: 'admin-dash',
           component: DashboardView
         },
         {
-          path: '/Admin/usuarios',
-          name: 'Admin-usuarios',
+          path: '/admin/usuarios',
+          name: 'admin-usuarios',
           component: UsuariosView
         },
         {
-          path: '/Admin/agregar-usuario',
-          name: 'Admin-agregar-usuario',
+          path: '/admin/agregar-usuario',
+          name: 'admin-agregar-usuario',
           component: AgregarUsuarioView,
         },
         {
-          path: '/Admin/equipos',
-          name: 'Admin-equipos',
+          path: '/admin/equipos',
+          name: 'admin-equipos',
           component: EquiposView
         },
         {
@@ -122,7 +116,7 @@ const router = createRouter({
             {
               path: "",
               name: "Admin-proyectos",
-              component: ListProyectosView
+              component: ProyectosView
             },
             {
               path: ":id",
@@ -132,28 +126,28 @@ const router = createRouter({
           ]
         },
         {
-          path: '/Admin/tareas',
-          name: 'Admin-tareas',
+          path: '/admin/tareas',
+          name: 'admin-tareas',
           component: TareasView,
         },
         {
-          path: '/Admin/sub-tareas',
-          name: 'Admin-sub-tareas',
+          path: '/admin/sub-tareas',
+          name: 'admin-sub-tareas',
           component: SubTareasView,
         },
         {
-          path: '/Admin/actividades',
-          name: 'Admin-actividades',
+          path: '/admin/actividades',
+          name: 'admin-actividades',
           component: ActividadesView,
         },
         {
-          path: '/Admin/recursos',
-          name: 'Admin-recursos',
+          path: '/admin/recursos',
+          name: 'admin-recursos',
           component: RecursosView,
         },
         {
-          path: '/Admin/logs',
-          name: 'Admin-logs',
+          path: '/admin/logs',
+          name: 'admin-logs',
           component: LogsView
         },
       ]

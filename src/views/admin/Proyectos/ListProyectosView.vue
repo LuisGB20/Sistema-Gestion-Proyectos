@@ -2,7 +2,7 @@
 import { ref, computed, onMounted, onBeforeMount } from 'vue'
 import Button from 'primevue/button';
 import ListOfProject from '@/components/blocks/Project/ListOfProject.vue'
-import { GetProject } from '@/Services/projectService.ts'
+import { GetProject } from '@/services/projectService.ts'
 import CreateProjectForm from '@/components/blocks/Project/CreateProjectForm.vue'
 
 const itemsPerPage = 6;

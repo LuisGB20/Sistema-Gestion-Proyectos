@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { useForm } from 'vee-validate';
-import { defineProps, defineEmits, ref, computed, onMounted } from 'vue';
+import { defineProps, defineEmits, ref, reactive } from 'vue';
 import { useModalStore } from '@/stores/modalStore';
-import type { FieldsForm } from '@/Interfaces/forms/FieldsForm';
+import type { FieldsForm } from '@/interfaces/forms/FieldsForm';
 import { Button, Dialog } from 'primevue';
 import * as yup from 'yup';
 
@@ -15,32 +15,34 @@ const props = defineProps<{
     fields: Array<FieldsForm>,
     validationSchema: yup.AnyObject,
     formData: Record<string, any>
-
 }>();
 
-const {title, fields, validationSchema, formData} = props;
+const { title, fields, validationSchema, formData } = props;
 
-const formDataLocal = JSON.parse(JSON.stringify(formData));
+// Creamos una copia reactiva de formData para evitar problemas de solo lectura.
+const formDataLocal = reactive({ ...formData });
 
 const emit = defineEmits(["submit"]);
 
+// Usamos useForm para manejar la validación y los valores del formulario.
 const { values, errors, validate, setFieldValue } = useForm({
     validationSchema,
     initialValues: formDataLocal
 });
 
+// Función para manejar el submit del formulario.
 const handleSubmit = async () => {
     isSubmited.value = true;
     const isValid = await validate();
     if (isValid.valid) {
         emit("submit", values);
         modalStore.isCreateModalOpen = false;
-    } else{
-        return
+    } else {
+        return;
     }
 };
 
-
+// Función para manejar los cambios en los campos del formulario.
 const handleInput = (fieldId: string, event: Event) => {
     const target = event.target as HTMLInputElement | HTMLTextAreaElement;
     if (target) {
@@ -49,33 +51,36 @@ const handleInput = (fieldId: string, event: Event) => {
 };
 </script>
 
-
 <template>
     <Dialog v-model:visible="modalStore.isCreateModalOpen" modal :header="title" :style="{ width: '30rem' }">
         <form @submit.prevent>
             <div v-for="(field, index) in fields" :key="index" class="mb-4">
                 <label :for="field.id" class="font-semibold block text-sm text-CharcoalBlue mb-1">{{ field.label }}</label>
+                
                 <input
                     v-if="field.typeField !== 'textarea'"
                     :id="field.id"
-                    v-model="values[field.id]"
+                    :value="values[field.id]"
                     @input="(e) => handleInput(field.id, e)"
                     :type="field.typeField"
                     class="w-full p-2 border rounded-md text-DarkTeal border-DarkTeal focus:border-2 focus:border-CharcoalBlue outline-none"
                     :placeholder="field.placeholder"
                 />
+
                 <textarea
                     v-else
                     :id="field.id"
-                    v-model="values[field.id]"
+                    :value="values[field.id]"
                     @input="(e) => handleInput(field.id, e)"
                     class="w-full p-2 border rounded-md text-DarkTeal border-DarkTeal focus:border-2 focus:border-CharcoalBlue"
                     :placeholder="field.placeholder"
                     rows="4"
                 ></textarea>
+                
                 <p v-if="errors[field.id] && isSubmited" class="text-rojo-error text-sm mt-1">{{ errors[field.id] }}</p>
             </div>
         </form>
+
         <template #footer>
             <Button class="btn-cancel" label="Cancelar" text severity="secondary" @click="modalStore.isCreateModalOpen = false" />
             <Button class="btn-submit" label="Guardar" outlined severity="secondary" @click="handleSubmit" />

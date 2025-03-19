@@ -3,7 +3,8 @@ import { useModalStore } from '@/stores/modalStore';
 import { ref } from 'vue';
 import FormModal from '@/components/forms/CreateForm.vue';
 import * as yup from 'yup';
-import { CreateProject } from '@/Services/projectService.ts'
+import { CreateProject } from '@/services/projectService.ts'
+import Button from 'primevue/button'
 
 const modalStore = useModalStore();
 
@@ -48,9 +49,10 @@ const handleSubmit = async (values) => {
 
 <template>
 
-  <button @click="modalStore.isCreateModalOpen = true" class="bg-blue-500 text-white px-4 py-2 rounded">
-    Crear Proyecto
-  </button>
+    <Button @click="modalStore.isCreateModalOpen = true"
+      label="Crear Proyecto"
+      class="text-white px-4 py-2 rounded-md shadow-md"
+    />
 
   <FormModal
     title="Crear Proyecto"

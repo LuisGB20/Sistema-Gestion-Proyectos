@@ -20,7 +20,7 @@ export const getStatusData = async (serviceName: string): Promise<IStatusData | 
         const response = await axios.get(`testStatus/${apiname}.json`);
         return response.data;
     } catch (error) {
-        console.error('Error fetching status data:', error);
+        console.error('error fetching status data:', error);
         return null;
     }
 };

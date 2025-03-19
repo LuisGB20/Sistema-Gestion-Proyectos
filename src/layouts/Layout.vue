@@ -6,7 +6,6 @@ import SideBar from '@/components/layouts/SideBar.vue';
 <template>
     <div class="flex">
         <SideBar />
-
         <div class="flex-1 p-10 content">
             <router-view></router-view>
         </div>

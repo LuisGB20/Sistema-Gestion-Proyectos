@@ -1,7 +1,7 @@
 <script setup lang="ts">
 
 import { onBeforeMount, onMounted, ref } from 'vue'
-  import { GetProject, GetProjectById } from '@/Services/projectService.ts'
+  import { GetProject, GetProjectById } from '@/services/projectService.ts'
 import { useRoute } from 'vue-router'
 
   const route = useRoute();
@@ -21,7 +21,7 @@ import { useRoute } from 'vue-router'
         project.value = getProject.data;
       }
     } catch (error) {
-      console.error("Error fetching project:", error);
+      console.error("error fetching project:", error);
     }
   });
 

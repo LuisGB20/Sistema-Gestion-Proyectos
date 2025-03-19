@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { onBeforeMount, ref } from 'vue';
 import { Bar, Doughnut, Line, Pie } from 'vue-chartjs'
-import { meses } from '@/Data/Meses';
+import { meses } from '@/data/meses';
 import { Chart, registerables } from 'chart.js';
 import { computed } from '@vue/reactivity';
 Chart.register(...registerables);
@@ -91,41 +91,41 @@ const chartData = computed(() => ({
 
       <div class="grid grid-cols-2 gap-6">
         <div class="flex-1">
-        <div class="bg-white p-6 rounded-lg shadow-xl">
-          <h2 class="text-2xl font-semibold mb-4 text-DarkTeal">Actividad mensual de usuarios</h2>
-          <div class="bg-white h-[300px] md:h-[400px] w-full rounded-lg flex flex-col justify-center items-center">
-            <Line id="grafica-proyectos" :data="chartData"
-              :options="{ responsive: true, maintainAspectRatio: false }" />
+          <div class="bg-white p-6 rounded-lg shadow-xl">
+            <h2 class="text-2xl font-semibold mb-4 text-DarkTeal">Actividad mensual de usuarios</h2>
+            <div class="bg-white h-[300px] md:h-[400px] w-full rounded-lg flex flex-col justify-center items-center">
+              <Line id="grafica-proyectos" :data="chartData"
+                :options="{ responsive: true, maintainAspectRatio: false }" />
+            </div>
           </div>
         </div>
-      </div>
-      <div class="flex-1">
-        <div class="bg-white p-6 rounded-lg shadow-xl">
-          <h2 class="text-2xl font-semibold mb-4 text-DarkTeal">Actividad mensual de proyectos</h2>
-          <div class="bg-white h-[300px] md:h-[400px] w-full rounded-lg flex flex-col justify-center items-center">
-            <Pie id="grafica-proyectos" :data="chartData"
-              :options="{ responsive: true, maintainAspectRatio: false }" />
+        <div class="flex-1">
+          <div class="bg-white p-6 rounded-lg shadow-xl">
+            <h2 class="text-2xl font-semibold mb-4 text-DarkTeal">Actividad mensual de proyectos</h2>
+            <div class="bg-white h-[300px] md:h-[400px] w-full rounded-lg flex flex-col justify-center items-center">
+              <Pie id="grafica-proyectos" :data="chartData"
+                :options="{ responsive: true, maintainAspectRatio: false }" />
+            </div>
           </div>
         </div>
-      </div>
-      <div class="flex-1">
-        <div class="bg-white p-6 rounded-lg shadow-xl">
-          <h2 class="text-2xl font-semibold mb-4 text-DarkTeal">Actividad mensual de equipos</h2>
-          <div class="bg-white h-[300px] md:h-[400px] w-full rounded-lg flex flex-col justify-center items-center">
-            <Bar id="grafica-proyectos" :data="chartData"
-              :options="{ responsive: true, maintainAspectRatio: false }" />
+        <div class="flex-1">
+          <div class="bg-white p-6 rounded-lg shadow-xl">
+            <h2 class="text-2xl font-semibold mb-4 text-DarkTeal">Actividad mensual de equipos</h2>
+            <div class="bg-white h-[300px] md:h-[400px] w-full rounded-lg flex flex-col justify-center items-center">
+              <Bar id="grafica-proyectos" :data="chartData"
+                :options="{ responsive: true, maintainAspectRatio: false }" />
+            </div>
           </div>
         </div>
-      </div>
-      <div class="flex-1">
-        <div class="bg-white p-6 rounded-lg shadow-xl">
-          <h2 class="text-2xl font-semibold mb-4 text-DarkTeal">Actividad mensual de logs</h2>
-          <div class="bg-white h-[300px] md:h-[400px] w-full rounded-lg flex flex-col justify-center items-center">
-            <Doughnut id="grafica-proyectos" :data="chartData"
-              :options="{ responsive: true, maintainAspectRatio: false }" />
+        <div class="flex-1">
+          <div class="bg-white p-6 rounded-lg shadow-xl">
+            <h2 class="text-2xl font-semibold mb-4 text-DarkTeal">Actividad mensual de logs</h2>
+            <div class="bg-white h-[300px] md:h-[400px] w-full rounded-lg flex flex-col justify-center items-center">
+              <Doughnut id="grafica-proyectos" :data="chartData"
+                :options="{ responsive: true, maintainAspectRatio: false }" />
+            </div>
           </div>
         </div>
-      </div>
       </div>
     </div>
   </main>
