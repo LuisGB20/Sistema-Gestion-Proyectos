@@ -25,6 +25,7 @@ import DetalleRecursoSistemasView from '@/views/Sistemas/Recursos/DetalleRecurso
 import DashboardSistemasView from '@/views/Sistemas/DashboardSistemasView.vue'
 import ListProyectosView from '@/views/Admin/Proyectos/ListProyectosView.vue'
 import ProyectoView from '@/views/Admin/Proyectos/ProyectoView.vue'
+import EstatusView from '@/views/valierTest/EstatusView.vue'
 
 const router = createRouter({
   linkActiveClass: 'underline underline-offset-2',
