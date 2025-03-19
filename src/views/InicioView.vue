@@ -14,7 +14,7 @@ import AdminLayout from '@/layouts/Layout.vue';
             </div>
             <div class="w-full sm:w-4/6 px-2 py-[1rem] flex flex-col m-auto">
                 <div class="w-full flex flex-col sm:flex-row sm:px-4 gap-2 sm:gap-0">
-                    <img src="../assets/Imagenes/LandingPortada.jpg" alt="Imagen de Portada Inicio" class="w-full sm:w-4/6 sm:rounded-l-full sm:rounded rounded-full object-cover" />
+                    <img src="../assets/images/landing/LandingPortada.jpg" alt="Imagen de Portada Inicio" class="w-full sm:w-4/6 sm:rounded-l-full sm:rounded rounded-full object-cover" />
                     <div class="w-full sm:w-2/6 rounded-4xl sm:rounded-r-2xl sm:rounded-none bg-white py-2 px-3 flex flex-col justify-center gap-2">
                         <label class="text-DarkTeal font-semibold uppercase text-sm">Registro de Actividades</label>
                         <h1 class="text-DarkTeal font-semibold text-xl">Lleva un control detallado de cada acción en tu sistema.</h1>

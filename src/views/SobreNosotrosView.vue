@@ -1,6 +1,6 @@
 
 <script setup lang="ts">
-import backgroundImage from '@/assets/Imagenes/AboutNosotros.png';
+import backgroundImage from '@/assets/images/landing/AboutNosotros.png';
 </script>
 
 <template>
