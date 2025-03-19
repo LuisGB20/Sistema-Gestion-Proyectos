@@ -3,7 +3,7 @@ import { ChartBarIcon, DocumentTextIcon, FolderIcon, Square3Stack3DIcon, UserGro
 import { computed, onMounted, ref } from 'vue'
 import { RouterLink, useRoute } from 'vue-router';
 import { GetRoleNameService } from '@/services/auth/authService'
-import { logService } from '@/services/logs/logService'
+import { logService } from '@/services/logRequests/logService'
 
 const route = useRoute();
 const rol = ref('sistemas');
