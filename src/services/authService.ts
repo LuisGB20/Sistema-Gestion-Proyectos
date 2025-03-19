@@ -3,7 +3,7 @@ import type { User } from "@/interfaces/User"
 import type { ResponseHelper } from "@/interfaces/helpers/ResponseHelper"
 import { genericRequest } from "@/utils/genericRequest"
 
-const controller = "Auth"
+const controller = "auth"
 
 
 export const LoginService = async (email: string, password: string): Promise<ResponseHelper<LoginResponse>> => {

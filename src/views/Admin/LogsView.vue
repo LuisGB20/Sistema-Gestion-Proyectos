@@ -70,7 +70,7 @@ onMounted(() => {
             estado: 'Éxito'
         },
         {
-            descripcion: 'Error al intentar procesar el pago del usuario.',
+            descripcion: 'error al intentar procesar el pago del usuario.',
             fecha: '2025-03-08 09:40:00',
             estado: 'Error'
         }

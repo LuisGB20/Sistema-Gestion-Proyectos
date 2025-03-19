@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { onBeforeMount, ref } from 'vue';
 import { Bar, Doughnut, Line, Pie } from 'vue-chartjs'
-import { meses } from '@/Data/Meses';
+import { meses } from '@/data/meses.ts';
 import { Chart, registerables } from 'chart.js';
 import { computed } from '@vue/reactivity';
 Chart.register(...registerables);

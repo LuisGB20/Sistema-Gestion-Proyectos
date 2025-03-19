@@ -7,7 +7,7 @@ export const useNotificationStore = defineStore('notification', () => {
     const showError = ref(false);
 
     const message = ref('');
-    
+
     const toast = useToast();
 
     const showAlertSuccess = () => {
@@ -15,13 +15,13 @@ export const useNotificationStore = defineStore('notification', () => {
     }
 
     const showAlertError = () => {
-      toast.add({ severity: 'error', summary: 'Error en la Operación', detail: message.value, life: 3000 });
+      toast.add({ severity: 'error', summary: 'error en la Operación', detail: message.value, life: 3000 });
     }
 
     const showAlert = () => {
       if(showSuccess.value){
         showAlertSuccess();
-      } 
+      }
 
       if(showError.value) {
         showAlertError();
@@ -30,7 +30,7 @@ export const useNotificationStore = defineStore('notification', () => {
       showSuccess.value = false;
       showError.value = false;
       message.value = '';
-      
+
     }
 
   return {showSuccess, showError, message, showAlertSuccess, showAlertError, showAlert}

@@ -25,6 +25,7 @@ import DashboardSistemasView from '@/views/sistemas/DashboardSistemasView.vue'
 import EmployeesView from '@/views/employees/EmployeesView.vue'
 import ConfigView from '@/views/admin/configuraciones/ConfigView.vue'
 import NotAuthorizedView from '@/views/error/NotAuthorizedView.vue'
+import ProyectoView from '@/views/admin/Proyectos/ProyectoView.vue'
 import EstatusView from '@/views/valierTest/EstatusView.vue'
 
 const router = createRouter({
@@ -41,14 +42,14 @@ const router = createRouter({
       component: ConfigView
     },
     {
+      path: '/gestion-estatus',
+      name: 'test-paginas',
+      component: EstatusView
+    },
+    {
       path: '/:pathMatch(.*)*',
       name: 'No-encontrado',
       component: NotFoundView
-    },
-    {
-      path: '/gestion-estatus',
-      name: 'estatus',
-      component: EstatusView
     },
     {
       path: '/acceso-denegado',
@@ -96,59 +97,69 @@ const router = createRouter({
       component: RegistroView,
     },
     {
-      path: '/Admin',
-      name: 'Admin',
+      path: '/admin',
+      name: 'admin',
       component: Layout,
-      // meta: { requiresAuth: true, roles: ['Administrador'] },
+      // meta: { requiresAuth: true, roles: ['administrador'] },
       children: [
         {
           path: '',
-          name: 'Admin-dash',
+          name: 'admin-dash',
           component: DashboardView
         },
         {
-          path: '/Admin/usuarios',
-          name: 'Admin-usuarios',
+          path: '/admin/usuarios',
+          name: 'admin-usuarios',
           component: UsuariosView
         },
         {
-          path: '/Admin/agregar-usuario',
-          name: 'Admin-agregar-usuario',
+          path: '/admin/agregar-usuario',
+          name: 'admin-agregar-usuario',
           component: AgregarUsuarioView,
         },
         {
-          path: '/Admin/equipos',
-          name: 'Admin-equipos',
+          path: '/admin/equipos',
+          name: 'admin-equipos',
           component: EquiposView
         },
         {
           path: '/Admin/proyectos',
-          name: 'Admin-proyectos',
-          component: ProyectosView,
+          children: [
+            {
+              path: "",
+              name: "Admin-proyectos",
+              component: ProyectosView
+            },
+            {
+              path: ":id",
+              name: "proyectos-detalle",
+              component: ProyectoView,
+            }
+          ]
         },
         {
-          path: '/Admin/tareas',
-          name: 'Admin-tareas',
+          path: '/admin/tareas',
+          name: 'admin-tareas',
           component: TareasView,
         },
         {
-          path: '/Admin/sub-tareas',
-          name: 'Admin-sub-tareas',
+          path: '/admin/sub-tareas',
+          name: 'admin-sub-tareas',
           component: SubTareasView,
         },
         {
-          path: '/Admin/actividades',
-          name: 'Admin-actividades',
+          path: '/admin/actividades',
+          name: 'admin-actividades',
           component: ActividadesView,
         },
         {
-          path: '/Admin/recursos',
-          name: 'Admin-recursos',
+          path: '/admin/recursos',
+          name: 'admin-recursos',
           component: RecursosView,
         },
         {
-          path: '/Admin/logs',
-          name: 'Admin-logs',
+          path: '/admin/logs',
+          name: 'admin-logs',
           component: LogsView
         },
       ]

@@ -2,8 +2,6 @@
 import { ref, computed } from 'vue';
 import Tag from 'primevue/tag';
 import Button from 'primevue/button';
-import { UserCircleIcon } from '@heroicons/vue/24/outline';
-
 
 const itemsPerPage = 6;
 const currentPage = ref(1);

@@ -16,7 +16,7 @@ onMounted(async () => {
   try {
     await authStore.initialize();
   } catch (error) {
-    console.error('Error inicializando sesión:', error);
+    console.error('error inicializando sesión:', error);
   } finally {
     isInitializing.value = false;
   }

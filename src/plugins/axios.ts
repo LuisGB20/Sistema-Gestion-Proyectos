@@ -1,5 +1,5 @@
 import router from "@/router";
-import { RefreshTokenService } from "@/Services/authService";
+import { RefreshTokenService } from "@/services/authService";
 import { useAuthStore } from "@/stores/authStore";
 import axios from "axios";
 

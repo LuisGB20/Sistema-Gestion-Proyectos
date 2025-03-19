@@ -2,8 +2,8 @@
 import { ChartBarIcon, DocumentTextIcon, FolderIcon, Square3Stack3DIcon, UserGroupIcon, UsersIcon, BriefcaseIcon, PuzzlePieceIcon } from '@heroicons/vue/16/solid';
 import { computed, onMounted, ref } from 'vue'
 import { RouterLink, useRoute } from 'vue-router';
-import { GetRoleNameService } from '@/Services/authService.ts'
-import { logService } from '@/Services/logService.ts'
+import { GetRoleNameService } from '@/services/authService.ts'
+import { logService } from '@/services/logService.ts'
 
 const route = useRoute();
 const rol = ref('sistemas');
@@ -27,16 +27,16 @@ onMounted(async () => {
 // Rutas disponibles para cada rol
 const routes = [
     {
-        role: 'Admin',
+        role: 'admin',
         links: [
-            { to: '/Admin', label: 'Dashboard', icon: ChartBarIcon },
-            { to: '/Admin/usuarios', label: 'Usuarios', icon: UsersIcon },
-            { to: '/Admin/equipos', label: 'Equipos', icon: UserGroupIcon },
-            { to: '/Admin/proyectos', label: 'Proyectos', icon: FolderIcon },
-            { to: '/Admin/tareas', label: 'Tareas', icon: BriefcaseIcon },
-            { to: '/Admin/actividades', label: 'Actividades', icon: PuzzlePieceIcon },
-            { to: '/Admin/recursos', label: 'Recursos', icon: Square3Stack3DIcon },
-            { to: '/Admin/logs', label: 'Logs', icon: DocumentTextIcon },
+            { to: '/admin', label: 'Dashboard', icon: ChartBarIcon },
+            { to: '/admin/usuarios', label: 'Usuarios', icon: UsersIcon },
+            { to: '/admin/equipos', label: 'Equipos', icon: UserGroupIcon },
+            { to: '/admin/proyectos', label: 'Proyectos', icon: FolderIcon },
+            { to: '/admin/tareas', label: 'Tareas', icon: BriefcaseIcon },
+            { to: '/admin/actividades', label: 'Actividades', icon: PuzzlePieceIcon },
+            { to: '/admin/recursos', label: 'Recursos', icon: Square3Stack3DIcon },
+            { to: '/admin/logs', label: 'Logs', icon: DocumentTextIcon },
         ]
     },
     {

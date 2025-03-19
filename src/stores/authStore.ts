@@ -1,8 +1,8 @@
 import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
-import { logService } from '@/Services/logService'
+import { logService } from '@/services/logService'
 import type { User } from '@/interfaces/User'
-import { LoginService, LogoutService, ValidateSession } from '@/Services/authService'
+import { LoginService, LogoutService, ValidateSession } from '@/services/authService'
 import router from '@/router'
 import { useToast } from 'primevue'
 
@@ -44,7 +44,7 @@ export const useAuthStore = defineStore('auth', () => {
         router.push('/');
       }
     } catch (error: unknown) {
-      const errorMessage = 'Error during logout'
+      const errorMessage = 'error during logout'
       await logService.log('error', errorMessage, { error })
     }
   }

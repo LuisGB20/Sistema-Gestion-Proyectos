@@ -1,6 +1,6 @@
 import type { ResponseHelper } from '@/interfaces/helpers/ResponseHelper';
 import api from '@/plugins/axios'
-import { logService } from '@/Services/logService'
+import { logService } from '@/services/logService'
 
 export const genericRequest = async <T, B = unknown>(
   url: string,
@@ -25,7 +25,7 @@ export const genericRequest = async <T, B = unknown>(
 
     return {
       success: false,
-      message: 'Error desconocido',
+      message: 'error desconocido',
       data: null as T,
     };
   }
