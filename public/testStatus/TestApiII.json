@@ -1,0 +1,21 @@
+{
+  "serviceName": "API3",
+  "status": "operational",
+  "uptime": 20.79,
+  "uptimeData": [
+    { "status": "operational" },
+    { "status": "partial" },
+    { "status": "operational" },
+    { "status": "operational" },
+    { "status": "operational" },
+    { "status": "partial" },
+    { "status": "partial" },
+    { "status": "partial" },
+    { "status": "partial" }
+  ],
+  "details": {
+    "uptimePercentage": 100.00,
+    "lastUpdated": "Ultimos 60 días",
+    "today": "Hoy"
+  }
+}

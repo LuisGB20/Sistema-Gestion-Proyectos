@@ -25,6 +25,7 @@ import DashboardSistemasView from '@/views/sistemas/DashboardSistemasView.vue'
 import EmployeesView from '@/views/employees/EmployeesView.vue'
 import ConfigView from '@/views/admin/configuraciones/ConfigView.vue'
 import NotAuthorizedView from '@/views/error/NotAuthorizedView.vue'
+import EstatusView from '@/views/valierTest/EstatusView.vue'
 
 const router = createRouter({
   linkActiveClass: 'underline underline-offset-2',
@@ -43,6 +44,11 @@ const router = createRouter({
       path: '/:pathMatch(.*)*',
       name: 'No-encontrado',
       component: NotFoundView
+    },
+    {
+      path: '/gestion-estatus',
+      name: 'estatus',
+      component: EstatusView
     },
     {
       path: '/acceso-denegado',
