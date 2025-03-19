@@ -24,72 +24,72 @@
   </div>
 </template>
 
-<!-- Script para el funcionamiento de las graficas de tiempo -->
-<script>
+<script setup lang="ts">
+import { ref, onMounted } from 'vue';
 import { getStatusData, getServicesList } from '@/services/test/statusService';
 import UptimeChart from '@/components/__tests__/UptimeChart.vue';
-import ResponseTimeChart from '@/components/__tests__/ResponseTimeChart.vue'
+import ResponseTimeChart from '@/components/__tests__/ResponseTimeChart.vue';
 
-export default {
-  components: {
-    UptimeChart,
-    ResponseTimeChart,
-  },
-  data() {
-    return {
-      services: [],
-      serviceName: '',
-      serviceStatus: '',
-      serviceStatusText: ''
-    };
-  },
-  mounted() {
-    this.fetchServiceStatus();
-  },
-  methods: {
-    async fetchServiceStatus() {
-      try {
-        // Obtener la lista de servicios desde la API
-        const servicesList = await getServicesList();
+interface ServiceDetails {
+  uptimePercentage: string;
+  lastUpdated: string;
+  today: string;
+}
 
-        // Usamos Promise.all para ejecutar las solicitudes de manera concurrente
-        const servicesWithDetails = await Promise.all(
-          servicesList.map(async (service) => {
-            // Aseguramos que details esté correctamente inicializado
-            service.details = service.details || {
-              uptimePercentage: 'N/A',
-              lastUpdated: 'N/A',
-              today: 'N/A'
-            };
+interface Service {
+  name: string;
+  uptimeData?: any;
+  details: ServiceDetails;
+  serviceStatusText: string;
+}
 
-            try {
-              const data = await getStatusData(service.name);  // Se usa el nombre del servicio para obtener los datos
+const services = ref<Service[]>([]);
 
-              if (data) {
-                // Asignamos los datos obtenidos a las propiedades correspondientes
-                service.uptimeData = data.uptimeData;
-                service.details.uptimePercentage = data.uptime || 'N/A';
-                service.details.lastUpdated = data.details?.lastUpdated || 'N/A';
-                service.details.today = data.details?.today || 'N/A';
-                service.serviceStatus = data.status || 'N/A';
-                service.serviceStatusText = data.status === 'operational' ? 'Operational' : 'Partial Outage';
-              }
-            } catch (err) {
-              console.error(`Error al obtener datos de estado para el servicio ${service.name}:`, err);
-              service.serviceStatusText = 'error al obtener datos';
-            }
+const fetchServiceStatus = async () => {
+  try {
+    // Obtener la lista de servicios desde la API
+    const servicesList = await getServicesList();
 
-            return service;
-          })
-        );
-        // Asignar servicios con sus datos actualizados
-        this.services = servicesWithDetails;
-      } catch (err) {
-        console.error('error al obtener la lista de servicios:', err);
-      }
-    },
-  },
+    // Usamos Promise.all para ejecutar las solicitudes de manera concurrente
+    const servicesWithDetails = await Promise.all(
+      servicesList.map(async (service: Service) => {
+        // Aseguramos que details esté correctamente inicializado
+        service.details = service.details || {
+          uptimePercentage: 'N/A',
+          lastUpdated: 'N/A',
+          today: 'N/A'
+        };
+
+        try {
+          const data = await getStatusData(service.name);  // Se usa el nombre del servicio para obtener los datos
+
+          if (data) {
+            // Asignamos los datos obtenidos a las propiedades correspondientes
+            service.uptimeData = data.uptimeData;
+            service.details.uptimePercentage = data.uptime || 'N/A';
+            service.details.lastUpdated = data.details?.lastUpdated || 'N/A';
+            service.details.today = data.details?.today || 'N/A';
+            service.serviceStatusText = data.status === 'operational' ? 'Operational' : 'Partial Outage';
+          }
+        } catch (err) {
+          console.error(`Error al obtener datos de estado para el servicio ${service.name}:`, err);
+          service.serviceStatusText = 'error al obtener datos';
+        }
+
+        return service;
+      })
+    );
+
+    // Asignar servicios con sus datos actualizados
+    services.value = servicesWithDetails;
+  } catch (err) {
+    console.error('Error al obtener la lista de servicios:', err);
+  }
 };
+
+onMounted(() => {
+  fetchServiceStatus();
+});
 </script>
 
 <style scoped>
@@ -102,8 +102,6 @@ export default {
   justify-content: space-between;
   font-weight: bold;
 }
-
-
 
 .status.operational {
   color: green;
