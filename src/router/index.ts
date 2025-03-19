@@ -40,6 +40,11 @@ const router = createRouter({
       component: NotFoundView
     },
     {
+      path: '/gestion-estatus',
+      name: 'estatus',
+      component: EstatusView
+    },
+    {
       path: '/acceso-denegado',
       name: 'No-autorizado',
       component: NotAuthorizedView
