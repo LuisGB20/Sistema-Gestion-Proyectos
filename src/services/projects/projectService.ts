@@ -3,7 +3,7 @@ import { genericRequest } from "@/utils/genericRequest"
 const controller = "Project"
 
 export const GetProject = async () => {
-  return await genericRequest(`${controller}`, 'GET')
+  return await genericRequest(`${controller}/GetAll`, 'GET')
 }
 
 export const GetProjectById = async (id : string) => {
