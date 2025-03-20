@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { Project } from '@/Interfaces/Project.ts'
+import type { Project } from '@/interfaces/Project.ts'
 import IndividualProject from '@/components/blocks/Project/IndividualProject.vue'
 
 defineProps<{ projects: Project[] }>();

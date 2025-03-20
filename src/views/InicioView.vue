@@ -56,9 +56,9 @@ import AdminLayout from '@/layouts/Layout.vue';
                         <h3 class="text-xl font-semibold text-DarkTeal">Visibilidad en Tiempo Real</h3>
                         <p class="mt-2 text-2E3944">Obtén una visión clara del progreso de los proyectos, identificando cuellos de botella y tomando decisiones informadas.</p>
                     </div>
-                    <!-- Beneficio 5: Sincronización de Equipos -->
+                    <!-- Beneficio 5: Sincronización de equipos -->
                     <div class="w-1/2 bg-white p-6 rounded-xl shadow-lg transform transition-transform hover:scale-105 text-center">
-                        <h3 class="text-xl font-semibold text-DarkTeal">Sincronización de Equipos</h3>
+                        <h3 class="text-xl font-semibold text-DarkTeal">Sincronización de equipos</h3>
                         <p class="mt-2 text-2E3944">Coordina tareas y recursos de manera eficiente, minimizando retrasos y maximizando la productividad de tu equipo en cada proyecto.</p>
                     </div>
                     </div>

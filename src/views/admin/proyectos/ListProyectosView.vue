@@ -55,11 +55,9 @@ const prevPage = () => {
 
     <div class="overflow-y-auto max-h-screen w-full">
 
-      <div class="grid grid-cols-3 gap-4 w-full">
 
         <ListOfProject :projects="paginatedProjects" />
 
-      </div>
     </div>
 
     <nav aria-label="Page navigation example">

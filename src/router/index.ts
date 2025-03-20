@@ -1,32 +1,33 @@
 import DashboardView from '@/views/admin/DashboardView.vue'
-import EquiposView from '@/views/admin/Equipos/EquiposView.vue'
+import equiposView from '@/views/admin/equipos/EquiposView.vue'
 import LogsView from '@/views/admin/LogsView.vue'
-import UsuariosView from '@/views/admin/Usuarios/UsuariosView.vue'
+import UsuariosView from '@/views/admin/usuarios/UsuariosView.vue'
 import LoginView from '@/views/auth/LoginView.vue'
 import RegistroView from '@/views/auth/RegistroView.vue'
 import NotFoundView from '@/views/error/NotFoundView.vue'
 import InicioView from '@/views/InicioView.vue'
-import ProyectosView from '@/views/admin/Proyectos/ProyectosView.vue'
+import ProyectosView from '@/views/admin/proyectos/ProyectosView.vue'
 import { createRouter, createWebHistory } from 'vue-router'
-import TareasView from '@/views/admin/Tareas/TareasView.vue'
-import ActividadesView from '@/views/admin/Actividades/ActividadesView.vue'
-import RecursosView from '@/views/admin/Recursos/RecursosView.vue'
+import TareasView from '@/views/admin/tareas/TareasView.vue'
+import ActividadesView from '@/views/admin/actividades/ActividadesView.vue'
+import RecursosView from '@/views/admin/recursos/RecursosView.vue'
 import SobreNosotrosView from '@/views/SobreNosotrosView.vue'
 import ContactoView from '@/views/ContactoView.vue'
 import PoliticasView from '@/views/legal/PoliticasView.vue'
 import TerminosCondicionesView from '@/views/legal/TerminosCondicionesView.vue'
 import PoliticasCookiesView from '@/views/legal/PoliticasCookiesView.vue'
-import SubTareasView from '@/views/admin/SubTareas/SubTareasView.vue'
-import AgregarUsuarioView from '@/views/admin/AgregarUsuario/AgregarUsuarioView.vue'
+import SubTareasView from '@/views/admin/subTareas/SubTareasView.vue'
+import AgregarUsuarioView from '@/views/admin/agregarUsuario/AgregarUsuarioView.vue'
 import Layout from '@/layouts/Layout.vue'
 import DashboardSistemasView from '@/views/sistemas/DashboardSistemasView.vue'
 import EmployeesView from '@/views/employees/EmployeesView.vue'
 import ConfigView from '@/views/admin/configuraciones/ConfigView.vue'
 import NotAuthorizedView from '@/views/error/NotAuthorizedView.vue'
-import ProyectoView from '@/views/admin/Proyectos/ProyectoView.vue'
-import RecursosSistemasView from '@/views/sistemas/Recursos/RecursosSistemasView.vue'
-import DetalleRecursoSistemasView from '@/views/sistemas/Recursos/DetalleRecursoSistemasView.vue'
+import ProyectoView from '@/views/admin/proyectos/ProyectoView.vue'
+import RecursosSistemasView from '@/views/sistemas/recursos/RecursosSistemasView.vue'
+import DetalleRecursoSistemasView from '@/views/sistemas/recursos/DetalleRecursoSistemasView.vue'
 import EstatusView from '@/views/valierTest/EstatusView.vue'
+import ListProyectosView from '@/views/admin/proyectos/ListProyectosView.vue'
 
 const router = createRouter({
   linkActiveClass: 'underline underline-offset-2',
@@ -120,7 +121,7 @@ const router = createRouter({
         {
           path: '/admin/equipos',
           name: 'admin-equipos',
-          component: EquiposView
+          component: equiposView
         },
         {
           path: '/Admin/proyectos',
@@ -128,7 +129,7 @@ const router = createRouter({
             {
               path: "",
               name: "Admin-proyectos",
-              component: ProyectosView
+              component: ListProyectosView
             },
             {
               path: ":id",

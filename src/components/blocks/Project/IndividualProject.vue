@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { Project } from '@/Interfaces/Project.ts'
+import type { Project } from '@/interfaces/Project.ts'
 import { useRouter } from 'vue-router'
 import { formatDate } from '@/utils/formatDate.ts'
 import Tag from 'primevue/tag'
