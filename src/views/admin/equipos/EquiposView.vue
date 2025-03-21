@@ -85,7 +85,7 @@ const options = ref(['list', 'grid']);
 <template>
     <main>
         <div class="flex justify-between mb-4">
-            <h1 class="text-2xl font-bold">Equipos</h1>
+            <h1 class="text-2xl font-bold">equipos</h1>
             <LinkComponent to="" texto="Crear" />
         </div>
         <div class="card">

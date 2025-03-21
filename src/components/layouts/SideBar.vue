@@ -28,6 +28,7 @@ const routes = [
         links: [
             { to: '/admin', label: 'Dashboard', icon: ChartBarIcon },
             { to: '/admin/usuarios', label: 'Usuarios', icon: UsersIcon },
+            { to: '/admin/equipos', label: 'equipos', icon: UserGroupIcon },
             { to: '/admin/proyectos', label: 'Proyectos', icon: FolderIcon },
             { to: '/admin/tareas', label: 'Tareas', icon: BriefcaseIcon },
             { to: '/admin/actividades', label: 'Actividades', icon: PuzzlePieceIcon },
@@ -40,7 +41,7 @@ const routes = [
         links: [
             { to: '/gerente', label: 'Dashboard', icon: ChartBarIcon },
             { to: '/gerente/proyectos', label: 'Proyectos', icon: FolderIcon },
-            { to: '/gerente/equipos', label: 'Equipos', icon: UserGroupIcon },
+            { to: '/gerente/equipos', label: 'equipos', icon: UserGroupIcon },
             { to: '/gerente/empleados', label: 'Empleados', icon: UsersIcon },
             { to: '/gerente/tareas', label: 'Tareas', icon: BriefcaseIcon },
             { to: '/gerente/actividades', label: 'Actividades', icon: PuzzlePieceIcon },

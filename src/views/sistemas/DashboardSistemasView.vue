@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
-import { meses } from '@/Data/Meses';
+import { meses } from '@/data/meses';
 import { Chart, registerables } from 'chart.js';
 import { computed } from '@vue/reactivity';
 import { GetDashboardDataResources } from '@/services/resources/recursosService';

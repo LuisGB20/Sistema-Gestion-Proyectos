@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import type { Project } from '@/interfaces/Projects/ProjectModel'
 import IndividualProject from '@/components/blocks/Project/IndividualProject.vue'
+import type { ProjectModel } from '@/interfaces/Projects/ProjectModel';
 
-defineProps<{ projects: Project[] }>();
+defineProps<{ projects: ProjectModel[] }>();
 </script>
 
 <template>

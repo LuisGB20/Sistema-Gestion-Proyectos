@@ -1,5 +1,5 @@
 import axios from "axios";
-import type { IStatusData } from '@/Interfaces/testStatus/IStatusData';
+import type { IStatusData } from '@/interfaces/testStatus/IStatusData';
 
 const constStatusData: Record<string, string> = {
     Api: 'TestApi',

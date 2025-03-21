@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { onBeforeMount, ref } from 'vue';
 import { Bar, Doughnut, Line, Pie } from 'vue-chartjs'
-import { meses } from '@/Data/Meses';
+import { meses } from '@/data/meses';
 import { Chart, registerables } from 'chart.js';
 import { computed } from '@vue/reactivity';
 Chart.register(...registerables);
@@ -9,7 +9,7 @@ Chart.register(...registerables);
 const dashboardData = ref({
   cantidadUsuarios: 0,
   cantidadProyectos: 0,
-  cantidadEquipos: 0,
+  cantidadequipos: 0,
   cantidadLogs: 0,
   proyectosPorMes: []
 });
@@ -22,7 +22,7 @@ onBeforeMount(async () => {
   dashboardData.value = {
     cantidadUsuarios: 150,
     cantidadProyectos: 120,
-    cantidadEquipos: 15,
+    cantidadequipos: 15,
     cantidadLogs: 3500,
     proyectosPorMes: [
       { mes: 'Enero', cantidad: 10 },
@@ -74,11 +74,11 @@ const chartData = computed(() => ({
           <p class="text-gainsboro text-4xl font-bold">{{ dashboardData.cantidadProyectos }}</p>
         </div>
 
-        <!-- Equipos Totales -->
+        <!-- equipos Totales -->
         <div
           class="bg-linear-to-r from-DarkTeal to-CharcoalBlue text-white p-6 rounded-lg shadow-lg flex flex-col items-center">
-          <h3 class="text-gainsboro text-xl font-semibold mb-2">Equipos Registrados</h3>
-          <p class="text-gainsboro text-4xl font-bold">{{ dashboardData.cantidadEquipos }}</p>
+          <h3 class="text-gainsboro text-xl font-semibold mb-2">equipos Registrados</h3>
+          <p class="text-gainsboro text-4xl font-bold">{{ dashboardData.cantidadequipos }}</p>
         </div>
 
         <!-- Logs generados -->

@@ -1,5 +1,5 @@
 <script setup lang='ts'>
-import { ref, computed, onMounted, onBeforeMount } from 'vue'
+import { ref, computed, onBeforeMount } from 'vue'
 import Button from 'primevue/button';
 import ListOfProject from '@/components/blocks/Project/ListOfProject.vue'
 import { GetProject } from '@/services/projects/projectService'
@@ -14,11 +14,11 @@ const projects = ref([]);
 onBeforeMount(async () => {
 
   const projectsFetch = await GetProject();
-  console.log(projects);
+  console.log("projectos", projectsFetch);
 
   if (projectsFetch.success) {
     projects.value = projectsFetch.data;
-    console.log(projects.value)
+    console.log("Proyectos", projects.value)
   }
 
 });
@@ -55,11 +55,8 @@ const prevPage = () => {
 
     <div class="overflow-y-auto max-h-screen w-full">
 
-      <div class="grid grid-cols-3 gap-4 w-full">
-
         <ListOfProject :projects="paginatedProjects" />
 
-      </div>
     </div>
 
     <nav aria-label="Page navigation example">
