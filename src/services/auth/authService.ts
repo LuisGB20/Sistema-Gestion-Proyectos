@@ -25,4 +25,3 @@ export const ValidateSession = async (): Promise<ResponseHelper<User>> => {
 export const GetRoleNameService = async () => {
   return await genericRequest(`Validation/get-role`, 'GET')
 }
-

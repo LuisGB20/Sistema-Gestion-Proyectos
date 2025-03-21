@@ -5,9 +5,11 @@ import type { User } from '@/interfaces/User'
 import { LoginService, LogoutService, ValidateSession } from '@/services/auth/authService'
 import router from '@/router'
 import { useToast } from 'primevue'
+import type { EmployeeModel } from '@/interfaces/employees/EmployeeModel'
+import { GetEmployeeData } from '@/services/employees/EmployeeService'
 
 export const useAuthStore = defineStore('auth', () => {
-
+  const employee = ref<EmployeeModel | null>(null);
   const user = ref<User | null>(null)
   const isInitialized = ref(false)
   const toast = useToast();
@@ -55,6 +57,12 @@ export const useAuthStore = defineStore('auth', () => {
 
       if (response.success) {
         user.value = response.data;
+        if(response.data.rol == 'Empleado'){
+          const getEmployeeData = await GetEmployeeData(response.data.id);
+          console.log(getEmployeeData)
+          employee.value = getEmployeeData.data;
+          console.log(employee.value)
+        }
         return true
       }
       return false
@@ -71,5 +79,5 @@ export const useAuthStore = defineStore('auth', () => {
     }
   }
 
-  return { login, logout, isLoggedIn, user, validateSession, initialize }
+  return { login, logout, isLoggedIn, user, validateSession, initialize, employee }
 })
