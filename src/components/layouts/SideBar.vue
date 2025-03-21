@@ -12,12 +12,9 @@ const rol = ref('sistemas');
 onMounted(async () => {
     try {
         const response = await GetRoleNameService();
-        console.log("rol", response);
         if (response.success) {
             rol.value = response.message
         }
-        console.log("rol", rol.value);
-
     } catch (error: unknown) {
         const errorMessage = error instanceof Error ? error.message : 'Ocurrió un error desconocido';
         await logService.log('error', errorMessage, { error, email });
@@ -54,12 +51,12 @@ const routes = [
     {
         role: 'supervisor',
         links: [
-            { to: '/gerente', label: 'Dashboard', icon: ChartBarIcon },
-            { to: '/gerente/proyecto', label: 'Proyecto', icon: FolderIcon },
-            { to: '/gerente/equipo', label: 'Equipo', icon: UserGroupIcon },
-            { to: '/gerente/tareas', label: 'Tareas', icon: BriefcaseIcon },
-            { to: '/gerente/actividades', label: 'Actividades', icon: PuzzlePieceIcon },
-            { to: '/gerente/recursos', label: 'Recursos', icon: Square3Stack3DIcon },
+            { to: '/supervisor', label: 'Dashboard', icon: ChartBarIcon },
+            { to: '/supervisor/proyecto', label: 'Proyecto', icon: FolderIcon },
+            { to: '/supervisor/equipo', label: 'Equipo', icon: UserGroupIcon },
+            { to: '/supervisor/tareas', label: 'Tareas', icon: BriefcaseIcon },
+            { to: '/supervisor/actividades', label: 'Actividades', icon: PuzzlePieceIcon },
+            { to: '/supervisor/recursos', label: 'Recursos', icon: Square3Stack3DIcon },
         ]
     },
     {
@@ -76,7 +73,6 @@ const routes = [
         links: [
             { to: '/empleado', label: 'Dashboard', icon: ChartBarIcon },
             { to: '/empleado/proyecto', label: 'Proyecto', icon: FolderIcon },
-            { to: '/empleado/equipo', label: 'Equipo', icon: UserGroupIcon },
             { to: '/empleado/tareas', label: 'Tareas', icon: BriefcaseIcon },
             { to: '/empleado/actividades', label: 'Actividades', icon: PuzzlePieceIcon },
         ]

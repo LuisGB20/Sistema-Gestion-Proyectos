@@ -27,6 +27,12 @@ import ProyectoView from '@/views/admin/proyectos/ProyectoView.vue'
 import RecursosSistemasView from '@/views/sistemas/recursos/RecursosSistemasView.vue'
 import DetalleRecursoSistemasView from '@/views/sistemas/recursos/DetalleRecursoSistemasView.vue'
 import EstatusView from '@/views/valierTest/EstatusView.vue'
+import DashboardSupervisorView from '@/views/supervisor/DashboardSupervisorView.vue'
+import ProyectoSupervisorView from '@/views/supervisor/proyecto/ProyectoSupervisorView.vue'
+import DashboardEmpleadoView from '@/views/empleado/DashboardEmpleadoView.vue'
+import ProyectoEmpleadoView from '@/views/empleado/ProyectoEmpleadoView.vue'
+import TareasEmpleadoView from '@/views/empleado/TareasEmpleadoView.vue'
+import ActividadesEmpleadoView from '@/views/empleado/ActividadesEmpleadoView.vue'
 import ListProyectosView from '@/views/admin/proyectos/ListProyectosView.vue'
 
 const router = createRouter({
@@ -125,7 +131,7 @@ const router = createRouter({
         },
 
         {
-          path: '/Admin/proyectos',
+          path: '/admin/proyectos',
           children: [
             {
               path: "",
@@ -173,6 +179,26 @@ const router = createRouter({
       // meta: { requiresAuth: true, roles: ['Administrador'] },
       children: []
     },
+
+    {
+      path: '/supervisor',
+      name: 'supervisor',
+      component: Layout,
+      // meta: { requiresAuth: true, roles: ['Administrador'] },
+      children: [
+        {
+          path: '',
+          name: 'supervisor-dash',
+          component: DashboardSupervisorView,
+        },
+        {
+          path: '/supervisor/proyecto',
+          name: 'supervisor-proyecto',
+          component: ProyectoSupervisorView,
+        },
+      ]
+    },
+    
     {
       path: '/sistemas',
       name: 'sistemas',
@@ -212,7 +238,36 @@ const router = createRouter({
           component: EmployeesView
         }
       ]
-    }
+    },
+
+    {
+      path: '/empleado',
+      name: 'empleado',
+      component: Layout,
+      // meta: { requiresAuth: true, roles: ['Administrador'] },
+      children: [
+        {
+          path: '',
+          name: 'empleado-dash',
+          component: DashboardEmpleadoView,
+        },
+        {
+          path: '/empleado/proyecto',
+          name: 'empleado-proyecto',
+          component: ProyectoEmpleadoView,
+        },
+        {
+          path: '/empleado/tareas',
+          name: 'empleado-tareas',
+          component: TareasEmpleadoView,
+        },
+        {
+          path: '/empleado/actividades',
+          name: 'empleado-actividades',
+          component: ActividadesEmpleadoView,
+        },
+      ]
+    },
   ],
 })
 

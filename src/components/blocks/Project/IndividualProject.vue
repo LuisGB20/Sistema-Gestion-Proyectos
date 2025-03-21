@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import type { Project } from '@/interfaces/Project.ts'
 import { useRouter } from 'vue-router'
 import { formatDate } from '@/utils/formatDate.ts'
 import Tag from 'primevue/tag'
+import type { ProjectModel } from '@/interfaces/Projects/ProjectModel';
 
-defineProps<{ project: Project }>();
+defineProps<{ project: ProjectModel }>();
 
 </script>
 
@@ -43,6 +43,4 @@ defineProps<{ project: Project }>();
 
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>

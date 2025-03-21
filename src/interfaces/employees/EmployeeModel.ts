@@ -9,4 +9,5 @@ export interface EmployeeModel {
   salary: string
   isDeleted: boolean
   createdAt: string
+  projectId: string
 }
