@@ -4,7 +4,7 @@ import { ref } from "vue";
 export const useModalStore = defineStore('modal', () => {
     const isCreateModalOpen = ref(false);
     const isEditModalOpen = ref(false);
-    const isEmployeeActivityModalOpen = ref(true);
+    const isEmployeeActivityModalOpen = ref(false);
 
     return { isCreateModalOpen, isEditModalOpen, isEmployeeActivityModalOpen}
 
