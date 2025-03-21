@@ -34,6 +34,8 @@ import ProyectoEmpleadoView from '@/views/empleado/ProyectoEmpleadoView.vue'
 import TareasEmpleadoView from '@/views/empleado/TareasEmpleadoView.vue'
 import ActividadesEmpleadoView from '@/views/empleado/ActividadesEmpleadoView.vue'
 import ListProyectosView from '@/views/admin/proyectos/ListProyectosView.vue'
+import { useAuthStore } from '@/stores/authStore'
+import DashboardRecursosHumanosView from '@/views/recursosHumanos/DashboardRecursosHumanosView.vue'
 
 const router = createRouter({
   linkActiveClass: 'underline underline-offset-2',
@@ -55,7 +57,7 @@ const router = createRouter({
     },
     {
       path: '/:pathMatch(.*)*',
-      name: 'No-encontrado',
+      name: 'NoEncontrado',
       component: NotFoundView
     },
     {
@@ -197,12 +199,12 @@ const router = createRouter({
         },
       ]
     },
-    
+
     {
       path: '/sistemas',
       name: 'sistemas',
       component: Layout,
-      // meta: { requiresAuth: true, roles: ['Administrador'] },
+      meta: { requiresAuth: true, roles: ['Sistemas'] },
       children: [
         {
           path: '',
@@ -230,7 +232,13 @@ const router = createRouter({
       path: '/recursos-humanos',
       name: 'recursos-humanos',
       component: Layout,
+      meta: { requiresAuth: true, roles: ['Recursos Humanos'] },
       children: [
+        {
+          path: '',
+          name: 'recursos-humanos-dash',
+          component: DashboardRecursosHumanosView,
+        },
         {
           path: 'empleados',
           name: 'empleados',
@@ -238,12 +246,11 @@ const router = createRouter({
         }
       ]
     },
-
     {
       path: '/empleado',
       name: 'empleado',
       component: Layout,
-      // meta: { requiresAuth: true, roles: ['Administrador'] },
+      meta: { requiresAuth: true, roles: ['Empleado'] },
       children: [
         {
           path: '',
@@ -269,5 +276,32 @@ const router = createRouter({
     },
   ],
 })
+
+// Guard de rutas para proteger con autenticación y roles
+router.beforeEach(async (to, from, next) => {
+  const authStore = useAuthStore();
+
+  if (authStore.isLoading) {
+    await authStore.validateSession();
+  }
+
+  // Si la ruta requiere autenticación
+  if (to.matched.some(record => record.meta.requiresAuth)) {
+    if (!authStore.isLoggedIn) {
+      next({ name: 'NoEncontrado' });
+      return;
+    }
+
+    // Verificar si el rol está permitido para esta ruta
+    if (to.matched.some(record => Array.isArray(record.meta.roles) && !record.meta.roles.includes(authStore.user?.rol))) {
+      next({ name: 'Inicio' });  // Redirige si el rol no tiene acceso
+      return;
+    }
+
+    next();  // Permitir acceso si pasa todas las verificaciones
+  } else {
+    next();  // Si la ruta no requiere autenticación, continuar
+  }
+});
 
 export default router

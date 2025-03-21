@@ -6,13 +6,14 @@ import { GetRoleNameService } from '@/services/auth/authService'
 import { logService } from '@/services/logRequests/logService'
 
 const route = useRoute();
-const rol = ref('sistemas');
+const rol = ref('');
 
 
 onMounted(async () => {
     try {
         const response = await GetRoleNameService();
         if (response.success) {
+            console.log(response)
             rol.value = response.message
         }
     } catch (error: unknown) {
@@ -60,12 +61,17 @@ const routes = [
         ]
     },
     {
+        role: 'Recursos Humanos',
+        links: [
+            { to: '/recursos-humanos', label: 'Dashboard', icon: ChartBarIcon },
+            { to: '/recursos-humanos/empleados', label: 'Empleados', icon: UsersIcon },
+        ]
+    },
+    {
         role: 'sistemas',
         links: [
             { to: '/sistemas', label: 'Dashboard', icon: ChartBarIcon },
             { to: '/sistemas/recursos', label: 'Recursos', icon: Square3Stack3DIcon },
-            { to: '/recursos-humanos/empleados', label: 'Empleados', icon: UsersIcon },
-
         ]
     },
     {

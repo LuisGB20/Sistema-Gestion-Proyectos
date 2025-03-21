@@ -46,8 +46,11 @@ const handleLogin = async () => {
     } else {
       toast.add({ severity: 'success', summary: '¡Bienvenido!', detail: 'Inicio de sesión exitoso.', life: 3000 });
       const getInfoUser = await ValidateSession();
+      console.log(getInfoUser)
       if (getInfoUser?.success) {
-        router.push(`/${getInfoUser.data.rol.toLowerCase()}`)
+        let rol = getInfoUser.data.rol.toLowerCase().replace(' ', '-');
+        console.log(rol)
+        router.push(`/${rol}`)
       }
     }
   } else {
