@@ -1,10 +1,11 @@
 import type { ActivityModel } from "@/interfaces/Activities/ActivityModel"
 import type { ResponseHelper } from "@/interfaces/helpers/ResponseHelper"
+import type { ResponseHelperArray } from "@/interfaces/helpers/ResponseHelperArray"
 import { genericRequest } from "@/utils/genericRequest"
 
 const controller = "Activity"
 
-export const GetEmployeeActivities = async (id: string): Promise<ResponseHelper<ActivityModel>> => {
+export const GetEmployeeActivities = async (id: string): Promise<ResponseHelperArray<ActivityModel>> => {
   return await genericRequest(`${controller}/GetEmployeeActivities?EmployeeId=${id}`, 'GET')
 }
 

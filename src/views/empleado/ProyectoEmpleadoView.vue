@@ -26,7 +26,6 @@ onMounted(async () => {
     project.value = responseProject.data
 
     const responseEmployeesFromProject = await GetEmployeesFromProject(projectId);
-    console.log(responseEmployeesFromProject)
     employees.value = responseEmployeesFromProject.data;
 
 })

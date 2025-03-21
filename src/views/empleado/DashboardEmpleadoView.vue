@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { onBeforeMount, ref } from 'vue';
-import { Bar, Line } from 'vue-chartjs';
+import { Line } from 'vue-chartjs';
 import { Chart, registerables } from 'chart.js';
 import { computed } from '@vue/reactivity';
 import type { EmployeeDashboardDataModel } from '@/interfaces/employees/EmployeeDashboardDataModel';

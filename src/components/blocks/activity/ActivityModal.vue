@@ -1,17 +1,37 @@
+<script setup lang="ts">
+import { computed } from 'vue';
+import { useModalStore } from '@/stores/modalStore';
+import { Avatar, Button, Dialog } from 'primevue';
+import type { ActivityModel } from '@/interfaces/Activities/ActivityModel';
+import { translateStatusActivity } from '@/utils/statusActivity';
+
+// Props
+const props = defineProps<{
+  activity: ActivityModel;
+}>();
+
+const activity = computed(() => props.activity);
+
+// Emit
+const emit = defineEmits(['markAsCompleted']);
+
+// Store
+const modalStore = useModalStore();
+
+// Función para marcar como completada
+const markAsCompleted = () => {
+  emit('markAsCompleted', activity.value.id);
+  modalStore.isEmployeeActivityModalOpen = false;
+};
+</script>
+
 <template>
   <div class="card flex justify-center">
-    <Dialog
-      v-model:visible="modalStore.isEmployeeActivityModalOpen"
-      modal
-      header="Información de la actividad"
-      :style="{ width: '25rem' }"
-    >
+    <Dialog v-model:visible="modalStore.isEmployeeActivityModalOpen" v-if="activity" modal header="Información de la actividad"
+      :style="{ width: '25rem' }">
       <template #header>
         <div class="inline-flex items-center justify-center gap-2">
-          <Avatar
-            image="https://primefaces.org/cdn/primevue/images/avatar/amyelsner.png"
-            shape="circle"
-          />
+          <Avatar image="https://primefaces.org/cdn/primevue/images/avatar/amyelsner.png" shape="circle" />
           <span class="font-bold whitespace-nowrap">{{ activity.name }}</span>
         </div>
       </template>
@@ -54,55 +74,12 @@
         </div>
       </div>
 
-      <!-- Botón para marcar como completada -->
       <template #footer>
-        <Button
-        class="btn-cancel"
-          label="Cancelar"
-          text
-          severity="secondary"
-          @click="modalStore.isEmployeeActivityModalOpen = false"
-        />
-        <Button
-        class="btn-submit"
-          label="Marcar como completada"
-          outlined
-          severity="success"
-          @click="markAsCompleted"
-          :disabled="activity.status === 'COMPLETED'"
-        />
+        <Button class="btn-cancel" label="Cancelar" text severity="secondary"
+          @click="modalStore.isEmployeeActivityModalOpen = false" />
+        <Button class="btn-submit" label="Marcar como completada" outlined severity="success" @click="markAsCompleted"
+          :disabled="activity.status === 'COMPLETED'" />
       </template>
     </Dialog>
   </div>
 </template>
-
-<script setup lang="ts">
-import { computed } from 'vue';
-import { useModalStore } from '@/stores/modalStore';
-import { Avatar, Button, Dialog } from 'primevue';
-import type { ActivityModel } from '@/interfaces/Activities/ActivityModel';
-import { translateStatusActivity } from '@/utils/statusActivity';
-
-// Props
-const props = defineProps<{
-  activity: ActivityModel;
-}>();
-
-const activity = computed(() => props.activity);
-
-// Emit
-const emit = defineEmits(['markAsCompleted']);
-
-// Store
-const modalStore = useModalStore();
-
-// Función para marcar como completada
-const markAsCompleted = () => {
-  emit('markAsCompleted', props.activity.id);
-  modalStore.isEmployeeActivityModalOpen = false;
-};
-</script>
-
-<style scoped>
-/* Estilos personalizados si es necesario */
-</style>
