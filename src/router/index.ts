@@ -123,6 +123,7 @@ const router = createRouter({
           name: 'admin-equipos',
           component: equiposView
         },
+
         {
           path: '/Admin/proyectos',
           children: [

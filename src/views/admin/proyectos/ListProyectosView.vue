@@ -12,16 +12,20 @@ const currentPage = ref(1);
 const projects = ref([]);
 
 onBeforeMount(async () => {
+  try {
+    const projectsFetch = await GetProject();
+    console.log("Respuesta de la API:", projectsFetch);
 
-  const projectsFetch = await GetProject();
-  console.log("projectos", projectsFetch);
-
-  if (projectsFetch.success) {
-    projects.value = projectsFetch.data;
-    console.log("Proyectos", projects.value)
+    if (projectsFetch.success) {
+      projects.value = projectsFetch.data.data;
+    } else {
+      console.warn("No se pudieron obtener los proyectos.");
+    }
+  } catch (error) {
+    console.error("Error en onBeforeMount:", error);
   }
-
 });
+
 
 
 const totalPages = computed(() => Math.ceil(projects.value.length / itemsPerPage));
