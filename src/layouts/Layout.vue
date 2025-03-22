@@ -1,20 +1,12 @@
 <script setup lang="ts">
 import SideBar from '@/components/layouts/SideBar.vue';
-
 </script>
 
 <template>
     <div class="flex">
         <SideBar />
-        <div class="flex-1 p-10 content">
+        <div class="flex-1 p-10 w-auto">
             <router-view></router-view>
         </div>
     </div>
 </template>
-
-<style scoped>
-.content {
-    width: calc(100% - 220px);
-    min-height: 100vh;
-}
-</style>
