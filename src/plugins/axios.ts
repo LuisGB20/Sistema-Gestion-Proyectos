@@ -1,5 +1,8 @@
+import type { LogModel } from "@/interfaces/logs/LogModel";
+import { AuditLogLevel, HttpMethod } from "@/interfaces/logs/Logs";
 import router from "@/router";
 import { RefreshTokenService } from "@/services/auth/authService";
+import { CreateLog } from "@/services/logRequests/logService";
 import { useAuthStore } from "@/stores/authStore";
 import axios from "axios";
 
@@ -19,12 +22,29 @@ api.interceptors.response.use(
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     //@ts-expect-error
     (response) => {
+      const authStore = useAuthStore();
 
-        return {
-            success: response.data.success,
-            message: response.data.message,
-            ...(response.data.success ? { data: response.data.data } : { status: response.status })
-        };
+      const axiosMethod = response.config.method?.toUpperCase();
+
+      const httpMethodValue: HttpMethod = (axiosMethod && HttpMethod[axiosMethod as keyof typeof HttpMethod]) || HttpMethod.GET;
+
+      const logData: LogModel = {
+
+        message: response.data.message,
+        httpMethod: httpMethodValue,
+        endpoint: response.config.url || '',
+        level: response.data.success ? AuditLogLevel.SUCCESS : AuditLogLevel.ERROR,
+        userId: authStore.user?.id,
+        timeStamp: new Date(),
+      };
+
+      CreateLog(logData);
+
+      return {
+          success: response.data.success,
+          message: response.data.message,
+          ...(response.data.success ? { data: response.data.data } : { status: response.status })
+      };
 
     },
 

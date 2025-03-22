@@ -6,7 +6,6 @@ import { ref } from 'vue';
 import SubmitButton from '@/components/ui/SubmitButton.vue';
 import { useToast } from 'primevue/usetoast';
 import router from '@/router';
-import Toast from 'primevue/toast';
 import { ValidateSession } from '@/services/auth/authService';
 
 const authStore = useAuthStore();
@@ -40,16 +39,13 @@ const handleLogin = async () => {
   const isValid = await validate();
   if (isValid.valid) {
     const response = await authStore.login(email.value, password.value);
-    console.log(response)
     if (!response?.success) {
       toast.add({ severity: 'error', summary: 'Algo salió mal', detail: response?.message, life: 3000 });
     } else {
       toast.add({ severity: 'success', summary: '¡Bienvenido!', detail: 'Inicio de sesión exitoso.', life: 3000 });
       const getInfoUser = await ValidateSession();
-      console.log(getInfoUser)
       if (getInfoUser?.success) {
-        let rol = getInfoUser.data.rol.toLowerCase().replace(' ', '-');
-        console.log(rol)
+        const rol = getInfoUser.data.rol.toLowerCase().replace(' ', '-');
         router.push(`/${rol}`)
       }
     }

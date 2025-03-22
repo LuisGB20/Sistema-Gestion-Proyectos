@@ -3,7 +3,6 @@ import { ChartBarIcon, DocumentTextIcon, FolderIcon, Square3Stack3DIcon, UserGro
 import { computed, onMounted, ref } from 'vue'
 import { RouterLink, useRoute } from 'vue-router';
 import { GetRoleNameService } from '@/services/auth/authService'
-import { logService } from '@/services/logRequests/logService'
 
 const route = useRoute();
 const rol = ref('');
@@ -18,7 +17,7 @@ onMounted(async () => {
         }
     } catch (error: unknown) {
         const errorMessage = error instanceof Error ? error.message : 'Ocurrió un error desconocido';
-        await logService.log('error', errorMessage, { error, email });
+        console.error(errorMessage);
     }
 });
 

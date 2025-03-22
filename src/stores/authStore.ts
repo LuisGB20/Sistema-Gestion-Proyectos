@@ -1,6 +1,5 @@
 import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
-import { logService } from '@/services/logRequests/logService'
 import type { User } from '@/interfaces/User'
 import { LoginService, LogoutService, ValidateSession } from '@/services/auth/authService'
 import router from '@/router'
@@ -38,7 +37,7 @@ export const useAuthStore = defineStore('auth', () => {
 
     } catch (error: unknown) {
       const errorMessage = error instanceof Error ? error.message : 'Ocurrió un error desconocido';
-      await logService.log('error', errorMessage, { error, email });
+      console.error(errorMessage)
     }
   }
 
@@ -52,8 +51,8 @@ export const useAuthStore = defineStore('auth', () => {
         router.push('/');
       }
     } catch (error: unknown) {
-      const errorMessage = 'error during logout'
-      await logService.log('error', errorMessage, { error })
+      const errorMessage = error instanceof Error ? error.message : 'Ocurrió un error desconocido';
+      console.error(errorMessage)
     }
   }
 
