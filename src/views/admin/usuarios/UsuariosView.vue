@@ -86,7 +86,7 @@ const confirmDeleteUser = (data: any) => {
     <main>
         <div class="flex justify-between mb-4">
             <h1 class="text-2xl font-bold">Usuarios</h1>
-            <LinkComponent to="" texto="Crear" />
+            <LinkComponent to="" text="Crear" />
         </div>
 
         <!-- Tabla -->

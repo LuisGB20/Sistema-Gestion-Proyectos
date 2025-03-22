@@ -20,13 +20,13 @@ const menuAbierto = ref(false);
 
         <!-- Botón de iniciar sesión (visible en pantallas grandes) -->
         <div class="hidden md:block ml-auto">
-            <LinkComponent to="/iniciar-sesion" texto="Iniciar sesión" class="text-sm sm:text-base px-4 py-2" />
+            <LinkComponent to="/iniciar-sesion" text="Iniciar sesión" class="text-sm sm:text-base px-4 py-2" />
         </div>
     </header>
 
     <!-- Menú desplegable en móviles -->
     <div v-if="menuAbierto" class="bg-white drop-shadow-md p-4 flex flex-col items-center md:hidden">
-        <LinkComponent to="/iniciar-sesion" texto="Iniciar sesión"
+        <LinkComponent to="/iniciar-sesion" text="Iniciar sesión"
             class="text-sm sm:text-base px-4 py-2 w-full text-center" />
     </div>
 </template>
