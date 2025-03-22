@@ -1,17 +1,15 @@
 <template>
-  <router-link :to="to"
-    class="flex text-lg py-2 font-semibold px-4 rounded-lg border-2 border-DarkTeal bg-gradient-to-r from-DarkTeal to-CharcoalBlue text-white transition duration-150 ease-in
-      hover:bg-transparent hover:border-DarkTeal hover:text-transparent hover:bg-clip-text hover:from-DarkTeal hover:to-CharcoalBlue">
+  <router-link :to="to" class="flex justify-center items-center text-sm sm:text-lg px-3 sm:px-5 py-2 sm:py-3 font-semibold rounded-lg border-2 
+      border-DarkTeal bg-gradient-to-r from-DarkTeal to-CharcoalBlue text-white 
+      transition-all duration-300 ease-in-out
+      hover:bg-white hover:text-DarkTeal hover:border-DarkTeal">
     {{ texto }}
   </router-link>
 </template>
 
 <script setup lang="ts">
-
-const props = defineProps<{
+defineProps<{
   to: string,
   texto: string
 }>();
-
-const { to, texto } = props
 </script>

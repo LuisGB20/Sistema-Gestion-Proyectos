@@ -11,8 +11,6 @@ import { createRouter, createWebHistory } from 'vue-router'
 import TareasView from '@/views/admin/tareas/TareasView.vue'
 import ActividadesView from '@/views/admin/actividades/ActividadesView.vue'
 import RecursosView from '@/views/admin/recursos/RecursosView.vue'
-import SobreNosotrosView from '@/views/SobreNosotrosView.vue'
-import ContactoView from '@/views/ContactoView.vue'
 import PoliticasView from '@/views/legal/PoliticasView.vue'
 import TerminosCondicionesView from '@/views/legal/TerminosCondicionesView.vue'
 import PoliticasCookiesView from '@/views/legal/PoliticasCookiesView.vue'
@@ -69,16 +67,6 @@ const router = createRouter({
       path: '/',
       name: 'inicio',
       component: InicioView,
-    },
-    {
-      path: '/sobre-nosotros',
-      name: 'sobre-nosotros',
-      component: SobreNosotrosView
-    },
-    {
-      path: '/contactanos',
-      name: 'contactanos',
-      component: ContactoView
     },
     {
       path: '/politicas-de-privacidad',

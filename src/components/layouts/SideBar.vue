@@ -29,7 +29,6 @@ const routes = [
         links: [
             { to: '/admin', label: 'Dashboard', icon: ChartBarIcon },
             { to: '/admin/usuarios', label: 'Usuarios', icon: UsersIcon },
-            { to: '/admin/equipos', label: 'equipos', icon: UserGroupIcon },
             { to: '/admin/proyectos', label: 'Proyectos', icon: FolderIcon },
             { to: '/admin/tareas', label: 'Tareas', icon: BriefcaseIcon },
             { to: '/admin/actividades', label: 'Actividades', icon: PuzzlePieceIcon },
