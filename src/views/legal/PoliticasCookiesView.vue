@@ -1,5 +1,5 @@
 <template>
-    <div class="max-w-screen-lg mx-auto text-CharcoalBlue">
+    <main class="max-w-screen-lg mx-auto text-CharcoalBlue">
         <section class="text-center">
             <h1 class="text-3xl font-semibold text-Gunmetal">Política de Cookies</h1>
             <p class="text-lg text-gray-600 mt-4">Esta Política de Cookies explica cómo utilizamos las cookies y tecnologías similares para mejorar tu experiencia en nuestro sitio web. Al usar nuestra plataforma, aceptas el uso de cookies de acuerdo con esta política.</p>
@@ -53,5 +53,5 @@
             <p class="text-lg text-CharcoalBlue mt-4">Si tienes alguna pregunta sobre nuestra Política de Cookies o sobre el uso de tus datos, no dudes en contactarnos:</p>
             <p class="text-lg text-CharcoalBlue mt-2"><strong>Correo electrónico:</strong> soporte@sgp.com</p>
         </section>
-    </div>
+    </main>
 </template>

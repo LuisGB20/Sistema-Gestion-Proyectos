@@ -53,63 +53,53 @@ const handleLogin = async () => {
     return;
   }
 }
-
 </script>
 
 <template>
-  <main class="flex min-h-screen p-10 justify-center items-center">
-    <img src="/src/assets/images/auth/access.svg" alt="Imagen de Login" class="size-[500px] mx-auto" />
+  <main class="flex flex-col lg:flex-row min-h-screen p-4 lg:p-10 justify-center items-center">
+    <img src="/src/assets/images/auth/access.svg" alt="Imagen de Login"
+      class="w-full max-w-[300px] lg:max-w-[500px] mx-auto mb-8 lg:mb-0" />
 
-    <div class="w-1/2 flex justify-center items-center">
+    <div class="w-full md:w-1/2 flex justify-center items-center">
       <div class="w-full max-w-md">
-        <h2 class="text-3xl font-semibold text-center mb-8 -mt-8 text-CharcoalBlue">Inicio de sesión</h2>
-        <h1 class="text-1xl font-semibold text-center mb-10 text-CharcoalBlue ">Bienvenido, Por favor ingresa tus datos
-        </h1>
+        <h2 class="text-2xl md:text-3xl font-semibold text-center mb-6 text-CharcoalBlue">Inicio de sesión</h2>
+        <h1 class="text-lg md:text-xl font-semibold text-center mb-8 text-CharcoalBlue">Bienvenido, por favor ingresa tus datos</h1>
 
         <form @submit.prevent="handleLogin" class="space-y-4">
           <div class="relative z-0 w-full mb-5 group">
             <input name="email" id="email" v-model="email" v-bind="emailAttrs" autocomplete="off"
-              :class="`block py-2.5 px-0 w-full text-sm text-DarkTeal bg-transparent border-0 border-b-2 border-DarkTeal !appearance-none focus:outline-none focus:ring-0 focus:border-DarkTeal peer  ${errors.email ? 'border-rojo-error' : ''}`"
+              :class="`block py-2.5 px-0 w-full text-sm text-DarkTeal bg-transparent border-0 border-b-2 border-DarkTeal !appearance-none focus:outline-none focus:ring-0 focus:border-DarkTeal peer ${errors.email ? 'border-rojo-error' : ''}`"
               placeholder=" " />
             <label for="email"
-              :class="`peer-focus:font-medium absolute text-sm text-DarkTeal duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-DarkTeal peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6 ${errors.email ? 'text-rojo-error' : ''}`">Ingresa
-              tu correo</label>
-            <p v-if="errors.email" class="text-rojo-error">{{ errors.email }}</p>
+              :class="`peer-focus:font-medium absolute text-sm text-DarkTeal duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-DarkTeal peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6 ${errors.email ? 'text-rojo-error' : ''}`">
+              Ingresa tu correo
+            </label>
+            <p v-if="errors.email" class="text-rojo-error text-sm mt-1">{{ errors.email }}</p>
           </div>
-          <div class="relative z-0 w-full mb-10 group">
+
+          <div class="relative z-0 w-full mb-8 group">
             <input :type="isPasswordVisible ? 'text' : 'password'" name="password" id="password" v-model="password"
               v-bind="passwordAttrs"
-              :class="`block py-2.5 px-0 w-full text-sm text-DarkTeal bg-transparent border-0 border-b-2 border-DarkTeal appearance-none   focus:outline-none focus:ring-0 focus:border-DarkTeal peer ${errors.password ? 'border-rojo-error' : ''}`"
+              :class="`block py-2.5 px-0 w-full text-sm text-DarkTeal bg-transparent border-0 border-b-2 border-DarkTeal appearance-none focus:outline-none focus:ring-0 focus:border-DarkTeal peer ${errors.password ? 'border-rojo-error' : ''}`"
               placeholder=" " />
             <label for="password"
-              :class="`peer-focus:font-medium absolute text-sm text-DarkTeal duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-DarkTeal peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6 ${errors.password ? 'text-rojo-error' : ''}`">Ingresa
-              tu contraseña</label>
-            <p v-if="errors.password" class="text-rojo-error">{{ errors.password }}</p>
+              :class="`peer-focus:font-medium absolute text-sm text-DarkTeal duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-DarkTeal peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6 ${errors.password ? 'text-rojo-error' : ''}`">
+              Ingresa tu contraseña
+            </label>
+            <p v-if="errors.password" class="text-rojo-error text-sm mt-1">{{ errors.password }}</p>
 
             <button type="button" @click="togglePasswordVisibility"
               :class="`absolute right-0 top-1/2 transform -translate-y-1/2 mr-3 cursor-pointer ${errors.password ? 'top-1/3' : ''}`">
               <i v-if="!isPasswordVisible" class="pi pi-eye-slash text-CharcoalBlue"></i>
-              <i v-else class="pi pi-eye-slash text-DarkTeal"></i>
+              <i v-else class="pi pi-eye text-DarkTeal"></i>
             </button>
           </div>
 
-          <div class="card flex justify-center ">
-            <SubmitButton :text="`Iniciar Sesion`" />
+          <div class="card flex justify-center">
+            <SubmitButton :text="`Iniciar Sesión`" />
           </div>
-
         </form>
-
       </div>
     </div>
   </main>
 </template>
-
-<style scoped>
-main {
-  display: flex;
-}
-
-section {
-  padding: 40px;
-}
-</style>
