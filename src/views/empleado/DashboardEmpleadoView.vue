@@ -34,7 +34,7 @@ onBeforeMount(async () => {
     return {
       year: activity?.year ?? (new Date().getFullYear()),
       month: (index + 1),
-      activityCount: activity?.activityCount ?? 0 
+      activityCount: activity?.activityCount ?? 0
     };
   });
 

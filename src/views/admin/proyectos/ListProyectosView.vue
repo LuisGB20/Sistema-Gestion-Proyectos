@@ -23,7 +23,6 @@ onBeforeMount(async () => {
 
 });
 
-
 const totalPages = computed(() => Math.ceil(projects.value.length / itemsPerPage));
 
 const paginatedProjects = computed(() => {
@@ -54,9 +53,7 @@ const prevPage = () => {
 
 
     <div class="overflow-y-auto max-h-screen w-full">
-
-        <ListOfProject :projects="paginatedProjects" />
-
+       <ListOfProject :projects="paginatedProjects" />
     </div>
 
     <nav aria-label="Page navigation example">
