@@ -1,81 +1,86 @@
 <script setup lang="ts">
 import ActivityModal from '@/components/blocks/activity/ActivityModal.vue';
 import type { ActivityModel } from '@/interfaces/Activities/ActivityModel';
-import { GetEmployeeActivities } from '@/services/activities/ActivityService';
+import { GetEmployeeActivities, MarkAsCompletedActivity } from '@/services/activities/ActivityService';
 import { useAuthStore } from '@/stores/authStore';
-import { formatDate } from '@/utils/formatDate';
+import { useModalStore } from '@/stores/modalStore';
+import { getStatusACtivityColor } from '@/utils/getStatusActivityColor';
 import { translateStatusActivity } from '@/utils/statusActivity';
 import { useToast } from 'primevue';
 import { onMounted, ref } from 'vue';
 
 const toast = useToast();
 const authStore = useAuthStore();
-
+const modalStore = useModalStore();
 const activities = ref<ActivityModel[]>([]);
-
+const activitySelected = ref<ActivityModel>({} as ActivityModel);
 const searchQuery = ref('');
+const statusFilter = ref('');
 
 const filteredActivities = () => {
-  return activities.value.filter(
-    (activity) =>
+  return activities.value.filter((activity) => {
+    const matchesSearch =
       activity.name.toLowerCase().includes(searchQuery.value.toLowerCase()) ||
-      activity.description.toLowerCase().includes(searchQuery.value.toLowerCase())
-  );
+      activity.description.toLowerCase().includes(searchQuery.value.toLowerCase());
+
+    const matchesStatus = statusFilter.value ? activity.status === statusFilter.value : true;
+
+    return matchesSearch && matchesStatus;
+  });
 };
 
-
-const getStatusColor = (status: string) => {
-  switch (status) {
-    case 'BEGIN':
-      return 'bg-yellow-100 text-yellow-800';
-    case 'ON_HOLD':
-      return 'bg-blue-100 text-blue-800';
-    case 'CANCELED':
-      return 'bg-green-100 text-green-800';
-    case 'COMPLETED':
-      return 'bg-green-100 text-green-800';
-    default:
-      return 'bg-gray-100 text-gray-800';
+onMounted(async () => {
+  const { id } = authStore.employee || {};
+  if (!id) {
+    toast.add({ severity: 'error', summary: 'Algo salió mal', detail: 'Intentalo de nuevo más tarde', life: 3000 });
+    return;
   }
+
+  const response = await GetEmployeeActivities(id);
+  activities.value = response.data;
+});
+
+const showActivityData = (data: ActivityModel) => {
+  activitySelected.value = data;
+  modalStore.isEmployeeActivityModalOpen = true;
 };
 
-onMounted(async() => {
-    const { id } = authStore.employee || {};
-    if (!id) {
-        toast.add({ severity: 'error', summary: 'Algo salió mal', detail: 'Intentalo de nuevo más tarde', life: 3000 });
-        return;
-    }
-
-    const response = await GetEmployeeActivities(id);
-
-    activities.value = response.data;
-    console.log(response)
-})
+const updateActivityStatus = async (activityId: string) => {
+  const response = await MarkAsCompletedActivity(activityId);
+  const activityModifiedIndex = activities.value.findIndex(x => x.id == activityId);
+  toast.add({ severity: 'success', summary: 'Operación exitosa', detail: 'La tarea ha sido marcada como completada correctamente', life: 3000 });
+  activities.value.splice(activityModifiedIndex, 1, response.data);
+};
 </script>
 
 <template>
-    <ActivityModal />
+  <ActivityModal :activity="activitySelected" @mark-as-completed="(value) => updateActivityStatus(value)" />
+
   <div class="p-6 bg-gray-50 min-h-screen">
     <h2 class="text-2xl font-semibold mb-6 text-gray-800">Mis Actividades</h2>
-    <div class="mb-6">
-      <input
-        v-model="searchQuery"
-        type="text"
-        placeholder="Buscar actividades..."
-        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-      />
+
+    <!-- Filtros -->
+    <div class="mb-6 flex flex-col md:flex-row gap-4">
+      <input v-model="searchQuery" type="text" placeholder="Buscar actividades..."
+        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" />
+
+      <select v-model="statusFilter"
+        class="w-full md:w-1/3 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+        <option value="">Todos los estados</option>
+        <option value="BEGIN">Pendiente</option>
+        <option value="ON_HOLD">En espera</option>
+        <option value="CANCELED">Cancelada</option>
+        <option value="COMPLETED">Completada</option>
+      </select>
     </div>
+
+    <!-- Lista de actividades -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-      <div
-        v-for="activity in filteredActivities()"
-        :key="activity.id"
-        class="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow"
-      >
+      <div v-for="activity in filteredActivities()" :key="activity.id" @click="showActivityData(activity)"
+        class="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow cursor-pointer">
         <div class="flex justify-between items-start">
           <h4 class="font-medium text-gray-800">{{ activity.name }}</h4>
-          <span
-            :class="['px-3 py-1 rounded-full text-xs', getStatusColor(activity.status)]"
-          >
+          <span :class="['px-3 py-1 rounded-full text-xs', getStatusACtivityColor(activity.status)]">
             {{ translateStatusActivity(activity.status) }}
           </span>
         </div>

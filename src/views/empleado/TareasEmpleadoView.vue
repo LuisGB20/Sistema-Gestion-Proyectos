@@ -28,7 +28,6 @@ onMounted(async () => {
     }
 
     const response = await getTaskByProject(projectId);
-
     tasks.value = response.data;
 })
 </script>

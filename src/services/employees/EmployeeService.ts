@@ -4,6 +4,7 @@ import type { ResponseHelperArray } from "@/interfaces/helpers/ResponseHelperArr
 import type { EmployeeModel } from "@/interfaces/employees/EmployeeModel"
 import type { ProjectModel } from "@/interfaces/Projects/ProjectModel"
 import type { EmployeeBasicModel } from "@/interfaces/employees/EmployeeBasicModel"
+import type { EmployeeDashboardDataModel } from "@/interfaces/employees/EmployeeDashboardDataModel"
 
 const controller = "Employee"
 
@@ -29,6 +30,11 @@ export const updateEmployee = async (data: EmployeeModel): Promise<ResponseHelpe
 export const deleteEmployee = async (id: string): Promise<ResponseHelper<EmployeeModel>> => {
   return await genericRequest(`${controller}/${id}`, 'DELETE')
 }
+
+export const GetEmployeeDataDashboard = async (id: string): Promise<ResponseHelper<EmployeeDashboardDataModel>> => {
+  return await genericRequest(`${controller}/GetEmployeeDataDashboard?EmployeeId=${id}`, 'GET')
+}
+
 
 export const GetEmployeeProject = async (id: string): Promise<ResponseHelper<ProjectModel>> => {
   return await genericRequest(`${controller}/GetEmployeeProject?employeeId=${id}`, 'GET')

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue';
+import { onBeforeMount, onMounted, ref } from 'vue';
 import { RouterView } from 'vue-router';
 import 'primeicons/primeicons.css';
 import Footer from './components/layouts/Footer.vue';
@@ -12,7 +12,7 @@ import { Toast } from 'primevue';
 const authStore = useAuthStore();
 const isInitializing = ref(true);
 
-onMounted(async () => {
+onBeforeMount(async () => {
   try {
     await authStore.initialize();
   } catch (error) {

@@ -3,21 +3,21 @@ import { ChartBarIcon, DocumentTextIcon, FolderIcon, Square3Stack3DIcon, UserGro
 import { computed, onMounted, ref } from 'vue'
 import { RouterLink, useRoute } from 'vue-router';
 import { GetRoleNameService } from '@/services/auth/authService'
-import { logService } from '@/services/logRequests/logService'
 
 const route = useRoute();
-const rol = ref('sistemas');
+const rol = ref('');
 
 
 onMounted(async () => {
     try {
         const response = await GetRoleNameService();
         if (response.success) {
+            console.log(response)
             rol.value = response.message
         }
     } catch (error: unknown) {
         const errorMessage = error instanceof Error ? error.message : 'Ocurrió un error desconocido';
-        await logService.log('error', errorMessage, { error, email });
+        console.error(errorMessage);
     }
 });
 
@@ -28,7 +28,6 @@ const routes = [
         links: [
             { to: '/admin', label: 'Dashboard', icon: ChartBarIcon },
             { to: '/admin/usuarios', label: 'Usuarios', icon: UsersIcon },
-            { to: '/admin/equipos', label: 'equipos', icon: UserGroupIcon },
             { to: '/admin/proyectos', label: 'Proyectos', icon: FolderIcon },
             { to: '/admin/tareas', label: 'Tareas', icon: BriefcaseIcon },
             { to: '/admin/actividades', label: 'Actividades', icon: PuzzlePieceIcon },
@@ -60,12 +59,17 @@ const routes = [
         ]
     },
     {
+        role: 'Recursos Humanos',
+        links: [
+            { to: '/recursos-humanos', label: 'Dashboard', icon: ChartBarIcon },
+            { to: '/recursos-humanos/empleados', label: 'Empleados', icon: UsersIcon },
+        ]
+    },
+    {
         role: 'sistemas',
         links: [
             { to: '/sistemas', label: 'Dashboard', icon: ChartBarIcon },
             { to: '/sistemas/recursos', label: 'Recursos', icon: Square3Stack3DIcon },
-            { to: '/recursos-humanos/empleados', label: 'Empleados', icon: UsersIcon },
-
         ]
     },
     {

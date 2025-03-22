@@ -1,6 +1,5 @@
 import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
-import { logService } from '@/services/logRequests/logService'
 import type { User } from '@/interfaces/User'
 import { LoginService, LogoutService, ValidateSession } from '@/services/auth/authService'
 import router from '@/router'
@@ -13,6 +12,7 @@ export const useAuthStore = defineStore('auth', () => {
   const user = ref<User | null>(null)
   const isInitialized = ref(false)
   const toast = useToast();
+  const isLoading = ref(true);
 
   const isLoggedIn = computed(() => {
     return !!user.value?.id
@@ -24,7 +24,12 @@ export const useAuthStore = defineStore('auth', () => {
       if (response.success) {
         const getSession = await ValidateSession()
         if (getSession.success) {
+          if (getSession.data.rol == 'Empleado') {
+            const getEmployeeData = await GetEmployeeData(getSession.data.id);
+            employee.value = getEmployeeData.data;
+          }
           user.value = getSession.data
+          isLoading.value = false;
         }
       }
 
@@ -32,7 +37,7 @@ export const useAuthStore = defineStore('auth', () => {
 
     } catch (error: unknown) {
       const errorMessage = error instanceof Error ? error.message : 'Ocurrió un error desconocido';
-      await logService.log('error', errorMessage, { error, email });
+      console.error(errorMessage)
     }
   }
 
@@ -46,23 +51,21 @@ export const useAuthStore = defineStore('auth', () => {
         router.push('/');
       }
     } catch (error: unknown) {
-      const errorMessage = 'error during logout'
-      await logService.log('error', errorMessage, { error })
+      const errorMessage = error instanceof Error ? error.message : 'Ocurrió un error desconocido';
+      console.error(errorMessage)
     }
   }
 
   async function validateSession() {
     try {
       const response = await ValidateSession();
-
       if (response.success) {
         user.value = response.data;
-        if(response.data.rol == 'Empleado'){
+        if (response.data.rol == 'Empleado') {
           const getEmployeeData = await GetEmployeeData(response.data.id);
-          console.log(getEmployeeData)
           employee.value = getEmployeeData.data;
-          console.log(employee.value)
         }
+        isLoading.value = false;
         return true
       }
       return false
@@ -79,5 +82,5 @@ export const useAuthStore = defineStore('auth', () => {
     }
   }
 
-  return { login, logout, isLoggedIn, user, validateSession, initialize, employee }
+  return { login, logout, isLoggedIn, user, validateSession, initialize, employee, isLoading }
 })

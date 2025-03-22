@@ -114,3 +114,16 @@ button{
 .btn-export:hover, .p-dialog-close-button:hover{
     color: #212A31 !important;
 }
+
+.p-carousel-indicator-active .p-carousel-indicator-button{
+    background: linear-gradient(to bottom, #124E66, #212A31) !important;
+    color: white !important;
+}
+
+.p-carousel-next-button, .p-carousel-prev-button{
+    color: #212A31 !important;
+}
+
+.p-carousel-viewport{
+    padding: 10px 0px;
+}

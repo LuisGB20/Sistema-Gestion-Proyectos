@@ -1,6 +1,5 @@
 import type { ResponseHelper } from '@/interfaces/helpers/ResponseHelper';
 import api from '@/plugins/axios'
-import { logService } from '@/services/logRequests/logService'
 
 export const genericRequest = async <T, B = unknown>(
   url: string,
@@ -16,13 +15,7 @@ export const genericRequest = async <T, B = unknown>(
 
     return response as ResponseHelper<T>;
   } catch (error: unknown) {
-    await logService.log('error', `Error in genericRequest: ${error}`, {
-      url,
-      method,
-      body,
-      error,
-    });
-
+    console.error(error);
     return {
       success: false,
       message: 'error desconocido',

@@ -8,5 +8,6 @@ export interface ActivityModel {
     taskId: string,
     employeeId:string,
     isDeleted: boolean,
+    createdAt: Date
     task: TaskModel
   }
