@@ -8,6 +8,10 @@ import type { EmployeeDashboardDataModel } from "@/interfaces/employees/Employee
 
 const controller = "Employee"
 
+export const getEmployeesWithoutProject = async (): Promise<ResponseHelperArray<EmployeeModel>> => {
+  return await genericRequest(`${controller}/GetAllWithoutProject`, 'GET')
+}
+
 export const getEmployees = async (): Promise<ResponseHelperArray<EmployeeModel>> => {
   return await genericRequest(`${controller}`, 'GET')
 }

@@ -1,113 +1,119 @@
 <script setup lang="ts">
-import { onBeforeMount, ref } from 'vue'
-import { GetProjectById } from '@/services/projects/projectService'
-import { useRoute } from 'vue-router'
+import { onBeforeMount, ref } from 'vue';
+import { GetProjectById } from '@/services/projects/projectService';
+import { useRoute } from 'vue-router';
+import AddEmployeeToProject from '@/components/blocks/project/employees/AddEmployeeToProject.vue'
+import CreateResourceForProject
+  from '@/components/blocks/project/resources/CreateResourceForProject.vue'
 
 const route = useRoute();
-const project = ref({} as Project);
-
-// Datos de las tareas para cada actividad
-const tasks = ref([
-  'Actividad 1', 'Actividad 2', 'Actividad 3', 'Actividad 4'
-]);
-
-// Datos de las actividades
-const activities = ref([
-  { name: 'Tareas 1', showTasks: false, tasks: tasks.value },
-  { name: 'Tareas 2', showTasks: false, tasks: tasks.value },
-  { name: 'Tareas 3', showTasks: false, tasks: tasks.value },
-  { name: 'Tareas 4', showTasks: false, tasks: tasks.value },
-]);
-
-
-const resources = ref([
-  'Recurso 1', 'Recurso 2', 'Recurso 3'
-]);
-
-const members = ref([
-  'Empleado 1', 'Empleado 2', 'Empleado 3'
-]);
+const project = ref<Project | null>(null);
+const tasks = ref<{ name: string; description:string; showActivities?: boolean; activities: { name: string; description: string }[], users: string[] }[]>([]);
+const resources = ref<{name: string; quantity: number}[]>([]);
+const members = ref<string[]>([]);
 
 onBeforeMount(async () => {
-  const id = route.params.id;
+  const id = route.params.id as string;
   console.log("projectId", id);
 
   try {
     const getProject = await GetProjectById(id);
-
     console.log("getProject", getProject);
 
     if (getProject.success) {
       project.value = getProject.data;
-      // members.value = getProject.data.employee;
+      members.value = getProject.data.employee.map((employee: any) => `${employee.name} ${employee.lastName}`);
+      resources.value = getProject.data.projectResources.map((resource: any) => ({ name : resource.resource.name, quantity: resource.quantity}) );
+      tasks.value = getProject.data.tasks.map((task: any) => ({
+        name: task.name,
+        description: task.description,
+        users: task.taskEmployees.map((act: any) => `${act.employee.name} ${act.employee.lastName}`),
+        activities: task.activities.map((act: any) => ({ name: act.name, description: act.description })),
+        showActivities: false
+      }));
+
+      console.log("tareas", tasks.value);
     }
   } catch (error) {
-    console.error("error fetching project:", error);
+    console.error("Error fetching project:", error);
   }
 });
 
-
 const toggleTasks = (index: number) => {
-  activities.value[index].showTasks = !activities.value[index].showTasks;
+  tasks.value[index].showActivities = !tasks.value[index].showActivities;
 };
 </script>
 
 <template>
   <div class="p-4">
-    <div v-if="project" class=" p-4 rounded-lg flex justify-between items-center bg-white mb-4">
+    <div v-if="project" class="p-4 rounded-lg flex justify-between items-center bg-white mb-4">
       <div>
-        <p class="text-lg font-semibold text-DarkTeal">Nombre: {{ project.name }}</p>
-        <p class="text-md">Descripción: {{project.description}}</p>
+        <p class="text-2xl font-semibold text-DarkTeal">Nombre: {{ project.name }}</p>
+        <p class="text-md pl-5">Descripción: {{ project.description }}</p>
       </div>
-
       <div class="text-right text-sm text-gray-500">
         Encargado: Empleado 1
       </div>
     </div>
 
     <div class="grid grid-cols-2 gap-4 mb-4">
-
-      <div class=" p-4 rounded-lg bg-white">
-        <h3 class="text-lg font-semibold mb-2">Recursos</h3>
+      <div class="p-4 rounded-lg bg-white">
+        <div class="flex justify-between items-center">
+          <h3 class="text-lg font-semibold mb-2">Recursos</h3>
+          <CreateResourceForProject/>
+        </div>
         <ul class="list-disc pl-5">
-          <li v-for="(resource, index) in resources" :key="index">{{ resource }}</li>
+          <li v-for="(resource, index) in resources" :key="index">{{ resource.name }} ( cantidad: {{resource.quantity}} ) </li>
         </ul>
       </div>
+      <div class="p-4 rounded-lg bg-white">
 
-
-      <div class=" p-4 rounded-lg bg-white">
-        <h3 class="text-lg font-semibold mb-2">Integrantes</h3>
+        <div class="flex justify-between items-center">
+          <h3 class="text-lg font-semibold mb-2">Integrantes</h3>
+          <AddEmployeeToProject/>
+        </div>
         <ul class="list-disc pl-5">
           <li v-for="(member, index) in members" :key="index">{{ member }}</li>
-          <!-- <li v-for="(employee, index) in members" :key="index">
-            Nombre: {{ employee.name }} Apellido: {{ employee.lastName }} Edad: {{ employee.age }}
-</li> -->
         </ul>
       </div>
     </div>
 
-
-    <div class=" p-4 rounded-lg bg-white mb-4">
+    <div class="p-4 rounded-lg bg-white mb-4">
       <div class="flex justify-between items-center">
-        <p class="text-lg font-semibold">Lista De tareas</p>
+        <p class="text-lg font-semibold">Lista de tareas</p>
         <div class="text-right text-sm text-gray-500">Detalles</div>
       </div>
-
-
-      <div class="mt-4" style="max-height: 300px; overflow-y: auto;">
-        <div v-for="(activity, index) in activities" :key="index" class=" p-4 rounded-lg bg-slate-100 mt-4">
-          <h3 class="text-md font-semibold cursor-pointer" @click="toggleTasks(index)">
-            {{ activity.name }}
-          </h3>
-
-
-          <div v-if="activity.showTasks" class="mt-4" :style="activity.tasks.length > 4 ? 'max-height: 140px; overflow-y: auto;' : ''">
-            <div class="grid grid-cols-2 gap-4">
-              <div v-for="(task, taskIndex) in activity.tasks" :key="taskIndex" class=" p-4 rounded-lg bg-white">
-                <p>{{ task }}</p>
-              </div>
+      <div class="mt-4 max-h-72 overflow-y-auto">
+        <div v-for="(task, index) in tasks" :key="index" class="p-4 rounded-lg bg-slate-100 mt-4">
+          <div @click="toggleTasks(index)" class="cursor-pointer grid grid-cols-5 gap-4">
+            <div class="col-span-3">
+              <h3 class="text-md font-semibold cursor-pointer" >
+                {{ task.name }}
+              </h3>
+              <p class="pl-5">{{ task.description }}</p>
+            </div>
+            <div class="col-span-2">
+              <h3 class="text-md font-semibold cursor-pointer" >
+                Integrantes
+              </h3>
+              <ul v-for="(user, i) in task.users" :key="i" class="list-disc pl-10">
+                <li class="text-md ">{{ user}}</li>
+              </ul>
             </div>
           </div>
+
+          <div v-if="task.showActivities" class="mt-4" :style="task.activities.length > 4 ? 'max-height: 140px; overflow-y: auto;' : ''">
+            <div class="grid grid-cols-1 gap-4">
+              <div v-for="(activity, i) in task.activities" :key="i" class="p-4 rounded-lg bg-white">
+                <p class="text-md font-semibold">{{ activity.name }}</p>
+                <p class="pl-5">{{activity.description}}</p>
+              </div>
+            </div>
+            <div class="flex justify-end mt-4 ">
+              <button @click="toggleTasks(index)" class="text-sm text-DarkTeal bg-white px-10  ">Ver más...</button>
+            </div>
+          </div>
+
         </div>
       </div>
     </div>
@@ -115,5 +121,5 @@ const toggleTasks = (index: number) => {
 </template>
 
 <style scoped>
-/* Aquí puedes personalizar el estilo si lo necesitas */
+/* Personaliza los estilos si es necesario */
 </style>

@@ -1,9 +1,9 @@
 <script setup lang='ts'>
 import { ref, computed, onBeforeMount } from 'vue'
 
-import ListOfProject from '@/components/blocks/Project/ListOfProject.vue'
+import ListOfProject from '@/components/blocks/project/ListOfProject.vue'
 import { GetProject } from '@/services/projects/projectService'
-import CreateProjectForm from '@/components/blocks/Project/CreateProjectForm.vue'
+import CreateProjectForm from '@/components/blocks/project/CreateProjectForm.vue'
 
 
 const itemsPerPage = 6;
@@ -18,7 +18,7 @@ onBeforeMount(async () => {
     console.log("Respuesta de la API:", projectsFetch);
 
     if (projectsFetch.success) {
-      projects.value = projectsFetch.data.data;
+      projects.value = projectsFetch.data;
 
 
     } else {

@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { formatDate } from '@/utils/formatDate.ts'
 import type { ProjectModel } from '@/interfaces/Projects/ProjectModel';
+import EditProjectForm from '@/components/blocks/project/EditProjectForm.vue'
 
 defineProps<{ project: ProjectModel }>();
 
@@ -12,7 +13,7 @@ defineProps<{ project: ProjectModel }>();
     <div class="flex items-center justify-between">
       <div class="flex items-center space-x-2">
         <h2 class="text-3xl font-semibold text-CharcoalBlue">{{ project.name }}</h2>
-        <i class="pi pi-pen-to-square text-CharcoalBlue ml-4"></i>
+        <EditProjectForm :project-id="project.id" />
       </div>
       <div class="px-2 py-2 bg-DarkTeal text-white text-sm rounded-2xl">
         <h2>Estado: {{project.status}}</h2>
@@ -29,12 +30,12 @@ defineProps<{ project: ProjectModel }>();
       </div>
 
       <router-link :to="{ name: 'proyectos-detalle', params: { id: project.id } }">
-        <button class=" px-1 py-1 bg-LightGray text-black hover:bg-SteelBlue text-sm rounded-2xl text-center" style="max-width: 90px; white-space: normal;" >
+        <button class=" px-5 py-1 bg-gray-500 text-white hover:bg-SteelBlue text-sm rounded-2xl text-center" style="max-width: 140px; white-space: normal;" >
           Ver Detalles
         </button>
       </router-link>
 
-      
+
 
     </div>
 

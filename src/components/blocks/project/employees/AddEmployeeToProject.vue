@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import { useModalStore } from '@/stores/modalStore';
-import { ref } from 'vue';
+import { ref, watch } from 'vue'
 import FormModal from '@/components/forms/CreateForm.vue';
 import * as yup from 'yup';
 import { CreateProject } from '@/services/projects/projectService'
-import Button from 'primevue/button'
-import CustomLink from '@/components/ui/OpenCreateButton.vue'
+import { getEmployeesWithoutProject } from '@/services/employees/EmployeeService.ts'
 
+const isOpen = ref(false);
 const modalStore = useModalStore();
 
 const fields = [
@@ -25,16 +25,25 @@ const fields = [
 
 const validationSchema = yup.object({
   name: yup.
-    string().
-    required('El nombre es obligatorio'),
+  string().
+  required('El nombre es obligatorio'),
   description: yup.
-    string().
-    required('La descripción es obligatoria'),
+  string().
+  required('La descripción es obligatoria'),
 });
 
 const formData = ref({
   name: '',
   description: ''
+});
+
+watch(async () => {
+  if (isOpen || modalStore.isCreateModalOpen) {
+    
+    const data =  await getEmployeesWithoutProject();
+    console.log(data);
+    formData.value = { name: '', description: '' };
+  }
 });
 
 const handleSubmit = async (values) => {
@@ -43,19 +52,21 @@ const handleSubmit = async (values) => {
   const res = await CreateProject(values.name, values.description);
   console.log(res);
 
-
-  modalStore.isCreateModalOpen = false; 
+  isOpen.value = false;
+  modalStore.isCreateModalOpen = false;
 };
 </script>
 
 <template>
 
 
-  <CustomLink @click="modalStore.isCreateModalOpen = true" texto="Crear Proyecto" />
+  <i @click="isOpen= true; modalStore.isCreateModalOpen = true" class="rounded-full h-5 w-5 bg-blue-500 flex items-center justify-center text-white cursor-pointer">+</i>
 
-  <FormModal title="Crear Proyecto" :fields="fields" :validationSchema="validationSchema" :formData="formData"
-    @submit="handleSubmit" />
+  <div v-if="isOpen">
+    <FormModal title="Crear Proyecto" :fields="fields" :validationSchema="validationSchema" :formData="formData"
+               @submit="handleSubmit" />
 
+  </div>
 </template>
 
 <style scoped></style>
