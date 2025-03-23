@@ -1,9 +1,10 @@
 <script setup lang='ts'>
 import { ref, computed, onBeforeMount } from 'vue'
-import Button from 'primevue/button';
-import ListOfProject from '@/components/blocks/Project/ListOfProject.vue'
+
+import ListOfProject from '@/components/blocks/project/ListOfProject.vue'
 import { GetProject } from '@/services/projects/projectService'
-import CreateProjectForm from '@/components/blocks/Project/CreateProjectForm.vue'
+import CreateProjectForm from '@/components/blocks/project/CreateProjectForm.vue'
+
 
 const itemsPerPage = 6;
 const currentPage = ref(1);
@@ -12,16 +13,23 @@ const currentPage = ref(1);
 const projects = ref([]);
 
 onBeforeMount(async () => {
+  try {
+    const projectsFetch = await GetProject();
+    console.log("Respuesta de la API:", projectsFetch);
 
-  const projectsFetch = await GetProject();
-  console.log("projectos", projectsFetch);
+    if (projectsFetch.success) {
+      projects.value = projectsFetch.data;
 
-  if (projectsFetch.success) {
-    projects.value = projectsFetch.data;
-    console.log("Proyectos", projects.value)
+
+    } else {
+      console.warn("No se pudieron obtener los proyectos.");
+    }
+  } catch (error) {
+    console.error("Error en onBeforeMount:", error);
   }
-
 });
+
+
 
 const totalPages = computed(() => Math.ceil(projects.value.length / itemsPerPage));
 
@@ -49,11 +57,14 @@ const prevPage = () => {
     <div class="flex items-center justify-between w-full pr-10 mb-8">
       <h1 class="text-4xl font-bold text-CharcoalBlue">Proyectos</h1>
       <CreateProjectForm></CreateProjectForm>
+
     </div>
 
 
     <div class="overflow-y-auto max-h-screen w-full">
-       <ListOfProject :projects="paginatedProjects" />
+
+        <ListOfProject :projects="paginatedProjects" />
+
     </div>
 
     <nav aria-label="Page navigation example">

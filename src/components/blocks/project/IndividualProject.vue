@@ -1,8 +1,7 @@
 <script setup lang="ts">
-import { useRouter } from 'vue-router'
 import { formatDate } from '@/utils/formatDate.ts'
-import Tag from 'primevue/tag'
 import type { ProjectModel } from '@/interfaces/Projects/ProjectModel';
+import EditProjectForm from '@/components/blocks/project/EditProjectForm.vue'
 
 defineProps<{ project: ProjectModel }>();
 
@@ -14,28 +13,29 @@ defineProps<{ project: ProjectModel }>();
     <div class="flex items-center justify-between">
       <div class="flex items-center space-x-2">
         <h2 class="text-3xl font-semibold text-CharcoalBlue">{{ project.name }}</h2>
-        <i class="pi pi-pen-to-square text-CharcoalBlue"></i>
+        <EditProjectForm :project-id="project.id" />
       </div>
-      <div class="px-4 py-3 bg-red-200 text-red-900 text-sm rounded-2xl">
-        <Tag severity="danger" value="Danger"></Tag>
+      <div class="px-2 py-2 bg-DarkTeal text-white text-sm rounded-2xl">
+        <h2>Estado: {{project.status}}</h2>
       </div>
 
     </div>
     <div class="mt-3 border-t-2 border-CharcoalBlue mb-6"></div>
     <p class="mt-2 text-sm text-CharcoalBlue">{{project.description}}</p>
-    <div class="mt-8 text-xs text-red-500 flex items-center justify-between space-x-2">
+    <div class="mt-6 text-xs text-red-500 flex items-center justify-between space-x-2">
 
-      <div>
-        <i class="pi pi-hourglass" style="color: red"></i>
-
-        <span>{{ formatDate(project.startDate) }}</span>
+      <div class="whitespace-nowrap">
+        <i class="pi pi-calendar-clock mr-1" style="color: red"></i>
+        <span class=" text-sm">{{ formatDate(project.startDate) }}</span>
       </div>
 
       <router-link :to="{ name: 'proyectos-detalle', params: { id: project.id } }">
-        <button class="px-4 py-3 bg-green-200 text-slate-900 text-sm rounded-2xl">
-          See more...
+        <button class=" px-5 py-1 bg-gray-500 text-white hover:bg-SteelBlue text-sm rounded-2xl text-center" style="max-width: 140px; white-space: normal;" >
+          Ver Detalles
         </button>
       </router-link>
+
+
 
     </div>
 
