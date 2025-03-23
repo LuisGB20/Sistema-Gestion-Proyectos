@@ -3,7 +3,6 @@ import equiposView from '@/views/admin/equipos/EquiposView.vue'
 import LogsView from '@/views/admin/LogsView.vue'
 import UsuariosView from '@/views/admin/usuarios/UsuariosView.vue'
 import LoginView from '@/views/auth/LoginView.vue'
-import RegistroView from '@/views/auth/RegistroView.vue'
 import NotFoundView from '@/views/error/NotFoundView.vue'
 import InicioView from '@/views/InicioView.vue'
 import ProyectosView from '@/views/admin/proyectos/ProyectosView.vue'
@@ -11,8 +10,6 @@ import { createRouter, createWebHistory } from 'vue-router'
 import TareasView from '@/views/admin/tareas/TareasView.vue'
 import ActividadesView from '@/views/admin/actividades/ActividadesView.vue'
 import RecursosView from '@/views/admin/recursos/RecursosView.vue'
-import SobreNosotrosView from '@/views/SobreNosotrosView.vue'
-import ContactoView from '@/views/ContactoView.vue'
 import PoliticasView from '@/views/legal/PoliticasView.vue'
 import TerminosCondicionesView from '@/views/legal/TerminosCondicionesView.vue'
 import PoliticasCookiesView from '@/views/legal/PoliticasCookiesView.vue'
@@ -71,16 +68,6 @@ const router = createRouter({
       component: InicioView,
     },
     {
-      path: '/sobre-nosotros',
-      name: 'sobre-nosotros',
-      component: SobreNosotrosView
-    },
-    {
-      path: '/contactanos',
-      name: 'contactanos',
-      component: ContactoView
-    },
-    {
       path: '/politicas-de-privacidad',
       name: 'politicas-privacidad',
       component: PoliticasView
@@ -99,11 +86,6 @@ const router = createRouter({
       path: '/iniciar-sesion',
       name: 'iniciar-sesion',
       component: LoginView,
-    },
-    {
-      path: '/registro',
-      name: 'registro',
-      component: RegistroView,
     },
     {
       path: '/admin',
@@ -131,6 +113,7 @@ const router = createRouter({
           name: 'admin-equipos',
           component: equiposView
         },
+
         {
           path: '/admin/proyectos',
           children: [

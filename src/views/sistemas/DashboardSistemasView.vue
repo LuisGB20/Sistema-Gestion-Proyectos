@@ -29,14 +29,24 @@ onMounted(async () => {
     resourcesByMonth: response.data.resourcesByMonth
   }
 
-  resourcesQuantityMonth.value = dashboardData.value.resourcesByMonth.map(resource => resource.resourceQuantityMonth);
-  console.log(resourcesQuantityMonth.value)
+  const resourcesByMonth = meses.map((month, index) => {
+    const activity = dashboardData.value?.resourcesByMonth.find(item => item.month === (index + 1));
+    return {
+      year: activity?.year ?? (new Date().getFullYear()),
+      month: (index + 1),
+      resourceQuantityMonth: activity?.resourceQuantityMonth ?? 0 
+    };
+  });
+
+  dashboardData.value.resourcesByMonth = resourcesByMonth;
+  resourcesQuantityMonth.value = dashboardData.value.resourcesByMonth.map(month => month.resourceQuantityMonth);
+
 });
 
 const chartData = computed(() => ({
   labels: meses,
   datasets: [{
-    label: 'Cantidad de proyectos',
+    label: 'Cantidad de recursos',
     data: resourcesQuantityMonth.value,
     fill: false,
     backgroundColor: '#212A31',

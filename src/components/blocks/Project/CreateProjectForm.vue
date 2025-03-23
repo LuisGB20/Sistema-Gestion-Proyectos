@@ -5,6 +5,7 @@ import FormModal from '@/components/forms/CreateForm.vue';
 import * as yup from 'yup';
 import { CreateProject } from '@/services/projects/projectService'
 import Button from 'primevue/button'
+import CustomLink from '@/components/ui/OpenCreateButton.vue'
 
 const modalStore = useModalStore();
 
@@ -43,14 +44,14 @@ const handleSubmit = async (values) => {
   console.log(res);
 
 
-  modalStore.isCreateModalOpen = false; // Cerrar modal después de crear
+  modalStore.isCreateModalOpen = false; 
 };
 </script>
 
 <template>
 
-  <Button @click="modalStore.isCreateModalOpen = true" label="Crear Proyecto"
-    class="text-white px-4 py-2 rounded-md shadow-md" />
+
+  <CustomLink @click="modalStore.isCreateModalOpen = true" texto="Crear Proyecto" />
 
   <FormModal title="Crear Proyecto" :fields="fields" :validationSchema="validationSchema" :formData="formData"
     @submit="handleSubmit" />

@@ -1,83 +1,100 @@
 <template>
-    <main class="flex flex-col gap-[2rem]">
-        <div class="my-[1rem] sm:px-[6rem] w-full flex sm:flex-row flex-col items-center justify-center relative bg-cover bg-center">
-            <div class="w-full sm:w-4/6 p-2 flex flex-col px-[1rem] sm:py-[3rem] bg-[#2E3944]/80">
-                <h1 class="text-[#D3D9D4] text-2xl sm:text-4xl font-bold uppercase">
-                    Conoce las políticas dentro de nuestra aplicación
-                </h1>
-                <h1 class="text-[#D3D9D4] text-2xl font-bold uppercase sm:pt-4 mt-4">
-                    Política de Seguridad de la Información
-                </h1>
-                <label class="text-[#D3D9D4] text-sm sm:text-base">
-                    Todos los datos de los proyectos serán almacenados de forma segura con cifrado y acceso restringido.
-                    Se implementarán controles de autenticación robustos (MFA, contraseñas seguras).
-                    Se realizará un monitoreo continuo para detectar y mitigar amenazas de seguridad.
-                </label>
+    <main class="max-w-screen-lg mx-auto text-CharcoalBlue">
+        <section class="text-center">
+            <h1 class="text-3xl font-bold text-Gunmetal">Políticas de Nuestra Plataforma</h1>
+            <p class="text-lg text-gray-600 mt-4">
+                En nuestra plataforma, nos comprometemos a ofrecer un entorno seguro, transparente y eficiente para la gestión de proyectos. 
+                Estas políticas están diseñadas para garantizar que todos los usuarios comprendan sus responsabilidades, derechos y las medidas que implementamos 
+                para proteger la información y optimizar el uso del sistema.
+            </p>
+        </section>
 
-                <h1 class="text-[#D3D9D4] text-2xl font-bold uppercase sm:pt-4">
-                    Política de Uso del Sistema
-                </h1>
-                <label class="text-[#D3D9D4] text-sm sm:text-base">
-                    Solo los usuarios autorizados pueden acceder al sistema de gestión de proyectos.
-                    El uso indebido del sistema, como la manipulación de datos sin autorización, resultará en restricciones de acceso.
-                    Cada usuario es responsable de la confidencialidad de sus credenciales de acceso.
-                </label>
+        <section>
+            <h2 class="text-2xl font-bold text-Gunmetal border-b-2 border-DarkTeal pb-2 text-center md:text-start">
+                Política de Seguridad de la Información
+            </h2>
+            <p class="text-lg text-CharcoalBlue mt-4">
+                Todos los datos de los proyectos serán almacenados de forma segura con cifrado y acceso restringido.
+                Se implementarán controles de autenticación robustos (MFA, contraseñas seguras).
+                Se realizará un monitoreo continuo para detectar y mitigar amenazas de seguridad.
+            </p>
+        </section>
 
-                <h1 class="text-[#D3D9D4] text-2xl font-bold uppercase sm:pt-4">
-                    Política de Gestión de Proyectos
-                </h1>
-                <label class="text-[#D3D9D4] text-sm sm:text-base">
-                    Todos los proyectos deben contar con un responsable asignado y un plan de trabajo definido.
-                    Se establecerán hitos y plazos para el seguimiento del avance del proyecto.
-                    La documentación del proyecto debe actualizarse regularmente en el sistema.
-                </label>
+        <section>
+            <h2 class="text-2xl font-bold text-Gunmetal border-b-2 border-DarkTeal pb-2 text-center md:text-start">
+                Política de Uso del Sistema
+            </h2>
+            <p class="text-lg text-CharcoalBlue mt-4">
+                Solo los usuarios autorizados pueden acceder al sistema de gestión de proyectos.
+                El uso indebido del sistema, como la manipulación de datos sin autorización, resultará en restricciones de acceso.
+                Cada usuario es responsable de la confidencialidad de sus credenciales de acceso.
+            </p>
+        </section>
 
-                <h1 class="text-[#D3D9D4] text-2xl font-bold uppercase sm:pt-4">
-                    Política de Control de Acceso
-                </h1>
-                <label class="text-[#D3D9D4] text-sm sm:text-base">
-                    Los permisos de usuario se asignarán según su rol (Administrador, gestor, colaborador).
-                    Solo los Administradores podrán modificar configuraciones del sistema.
-                    Los cambios críticos en los proyectos requerirán doble validación.
-                </label>
+        <section>
+            <h2 class="text-2xl font-bold text-Gunmetal border-b-2 border-DarkTeal pb-2 text-center md:text-start">
+                Política de Gestión de Proyectos
+            </h2>
+            <p class="text-lg text-CharcoalBlue mt-4">
+                Todos los proyectos deben contar con un responsable asignado y un plan de trabajo definido.
+                Se establecerán hitos y plazos para el seguimiento del avance del proyecto.
+                La documentación del proyecto debe actualizarse regularmente en el sistema.
+            </p>
+        </section>
 
-                <h1 class="text-[#D3D9D4] text-2xl font-bold uppercase sm:pt-4">
-                    Política de Respaldo y Recuperación
-                </h1>
-                <label class="text-[#D3D9D4] text-sm sm:text-base">
-                    Se realizará un respaldo automático de la base de datos diariamente.
-                    En caso de falla del sistema, se activará un plan de recuperación de datos en un tiempo máximo de 24 horas.
-                    Los respaldos estarán protegidos contra accesos no autorizados.
-                </label>
+        <section>
+            <h2 class="text-2xl font-bold text-Gunmetal border-b-2 border-DarkTeal pb-2 text-center md:text-start">
+                Política de Control de Acceso
+            </h2>
+            <p class="text-lg text-CharcoalBlue mt-4">
+                Los permisos de usuario se asignarán según su rol (Administrador, gestor, colaborador).
+                Solo los Administradores podrán modificar configuraciones del sistema.
+                Los cambios críticos en los proyectos requerirán doble validación.
+            </p>
+        </section>
 
-                <h1 class="text-[#D3D9D4] text-2xl font-bold uppercase sm:pt-4">
-                    Política de Actualización y Mantenimiento
-                </h1>
-                <label class="text-[#D3D9D4] text-sm sm:text-base">
-                    El sistema se actualizará periódicamente para mejorar la seguridad y el rendimiento.
-                    Se informará a los usuarios con anticipación sobre mantenimientos programados.
-                    Se realizarán pruebas antes de implementar nuevas funciones para evitar interrupciones.
-                </label>
+        <section>
+            <h2 class="text-2xl font-bold text-Gunmetal border-b-2 border-DarkTeal pb-2 text-center md:text-start">
+                Política de Respaldo y Recuperación
+            </h2>
+            <p class="text-lg text-CharcoalBlue mt-4">
+                Se realizará un respaldo automático de la base de datos diariamente.
+                En caso de falla del sistema, se activará un plan de recuperación de datos en un tiempo máximo de 24 horas.
+                Los respaldos estarán protegidos contra accesos no autorizados.
+            </p>
+        </section>
 
-                <h1 class="text-[#D3D9D4] text-2xl font-bold uppercase sm:pt-4">
-                    Política de Privacidad y Protección de Datos
-                </h1>
-                <label class="text-[#D3D9D4] text-sm sm:text-base">
-                    La información de los proyectos y usuarios será tratada con estricta confidencialidad.
-                    No se compartirán datos con terceros sin autorización explícita.
-                    Se cumplirá con normativas de protección de datos aplicables (ej. GDPR, Leyes locales).
-                </label>
+        <section>
+            <h2 class="text-2xl font-bold text-Gunmetal border-b-2 border-DarkTeal pb-2 text-center md:text-start">
+                Política de Actualización y Mantenimiento
+            </h2>
+            <p class="text-lg text-CharcoalBlue mt-4">
+                El sistema se actualizará periódicamente para mejorar la seguridad y el rendimiento.
+                Se informará a los usuarios con anticipación sobre mantenimientos programados.
+                Se realizarán pruebas antes de implementar nuevas funciones para evitar interrupciones.
+            </p>
+        </section>
 
-                <h1 class="text-[#D3D9D4] text-2xl font-bold uppercase sm:pt-4">
-                    Política de Soporte y Atención al Cliente
-                </h1>
-                <label class="text-[#D3D9D4] text-sm sm:text-base">
-                    Se brindará soporte técnico en horarios definidos y se establecerán tiempos de respuesta según la urgencia del problema.
-                    Los usuarios podrán reportar problemas mediante un sistema de tickets integrado.
-                    Se ofrecerán guías y capacitaciones para un uso eficiente del sistema.
-                </label>
+        <section>
+            <h2 class="text-2xl font-bold text-Gunmetal border-b-2 border-DarkTeal pb-2 text-center md:text-start">
+                Política de Privacidad y Protección de Datos
+            </h2>
+            <p class="text-lg text-CharcoalBlue mt-4">
+                La información de los proyectos y usuarios será tratada con estricta confidencialidad.
+                No se compartirán datos con terceros sin autorización explícita.
+                Se cumplirá con normativas de protección de datos aplicables (ej. GDPR, Leyes locales).
+            </p>
+        </section>
 
-            </div>
-        </div>
+        <section class="text-center">
+            <h2 class="text-2xl font-bold text-Gunmetal border-b-2 border-DarkTeal pb-2">
+                Política de Soporte y Atención al Cliente
+            </h2>
+            <p class="text-lg text-CharcoalBlue mt-4">
+                Se brindará soporte técnico en horarios definidos y se establecerán tiempos de respuesta según la urgencia del problema.
+                Los usuarios podrán reportar problemas mediante un sistema de tickets integrado.
+                Se ofrecerán guías y capacitaciones para un uso eficiente del sistema.
+            </p>
+        </section>
     </main>
 </template>
