@@ -3,53 +3,60 @@ import { useModalStore } from '@/stores/modalStore';
 import { ref, watch } from 'vue'
 import FormModal from '@/components/forms/CreateForm.vue';
 import * as yup from 'yup';
-import { CreateProject } from '@/services/projects/projectService'
-import { getEmployeesWithoutProject } from '@/services/employees/EmployeeService.ts'
+import {
+  asignProjectToEmployee,
+  getEmployeesWithoutProject
+} from '@/services/employees/EmployeeService.ts'
+import { useRoute } from 'vue-router'
 
 const isOpen = ref(false);
 const modalStore = useModalStore();
+const route = useRoute();
+const id : string = route.params.id.toString();
 
 const fields = [
   {
-    id: 'name', label: 'Nombre del Proyecto',
-    typeField: 'text',
-    placeholder: 'Ingrese el nombre'
+    id: 'employee', label: 'Empleado', typeField: 'select', placeholder: 'Seleccione un empleado', options: []
   },
   {
-    id: 'description',
-    label: 'Descripción',
-    typeField: 'textarea',
-    placeholder: 'Ingrese una descripción'
+    id: 'role', label: 'Rol', typeField: 'select', placeholder: 'Seleccione un rol', options: []
   },
 ];
 
 const validationSchema = yup.object({
-  name: yup.
-  string().
-  required('El nombre es obligatorio'),
-  description: yup.
-  string().
-  required('La descripción es obligatoria'),
+  employee: yup.string().required('Debe seleccionar un empleado')
 });
 
 const formData = ref({
-  name: '',
-  description: ''
+  employee: '',
+  role: '',
 });
 
-watch(async () => {
+const fetchEmployees = async () => {
+  const data = await getEmployeesWithoutProject();
+  console.log("data", data)
+  if (data.success) {
+    fields[0].options = data.data.map((employee: any) => ({
+      label: `${employee.name} ${employee.lastName}`,
+      value: employee.id
+    }));
+  } else {
+    console.error('Error al obtener empleados:', data);
+  }
+};
+
+// Carga los empleados cuando se abre el modal
+watch(() => {
   if (isOpen || modalStore.isCreateModalOpen) {
-    
-    const data =  await getEmployeesWithoutProject();
-    console.log(data);
-    formData.value = { name: '', description: '' };
+    fetchEmployees();
+    formData.value = { name: '', description: '', employee: '' }; // Reset form
   }
 });
 
-const handleSubmit = async (values) => {
+const handleSubmit = async (values: any) => {
   console.log('Proyecto creado:', values);
 
-  const res = await CreateProject(values.name, values.description);
+  const res = await asignProjectToEmployee(values.employee, id, values.role ) // Envía el empleado
   console.log(res);
 
   isOpen.value = false;
@@ -58,15 +65,16 @@ const handleSubmit = async (values) => {
 </script>
 
 <template>
-
-
-  <i @click="isOpen= true; modalStore.isCreateModalOpen = true" class="rounded-full h-5 w-5 bg-blue-500 flex items-center justify-center text-white cursor-pointer">+</i>
+  <i @click="isOpen = true; modalStore.isCreateModalOpen = true" class="rounded-full h-5 w-5 bg-blue-500 flex items-center justify-center text-white cursor-pointer">+</i>
 
   <div v-if="isOpen">
-    <FormModal title="Crear Proyecto" :fields="fields" :validationSchema="validationSchema" :formData="formData"
-               @submit="handleSubmit" />
-
+    <FormModal
+      title="Agregar Empleado a Proyecto"
+      :fields="fields"
+      :validationSchema="validationSchema"
+      :formData="formData"
+      @submit="handleSubmit"
+    />
   </div>
 </template>
 
-<style scoped></style>

@@ -12,6 +12,11 @@ export const getEmployeesWithoutProject = async (): Promise<ResponseHelperArray<
   return await genericRequest(`${controller}/GetAllWithoutProject`, 'GET')
 }
 
+export const asignProjectToEmployee = async ( employeeId : string, projectId: string,role: string) => {
+  return await genericRequest(`${controller}/AssignProject`, 'POST', { employeeId, projectId, role})
+}
+
+
 export const getEmployees = async (): Promise<ResponseHelperArray<EmployeeModel>> => {
   return await genericRequest(`${controller}`, 'GET')
 }
