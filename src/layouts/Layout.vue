@@ -6,8 +6,15 @@ import SideBar from '@/components/layouts/SideBar.vue';
 <template>
     <div class="flex">
         <SideBar />
-        <div class="flex-1 p-10 w-auto mt-16">
+        <div class="flex-1 p-10 content mt-16">
             <router-view></router-view>
         </div>
     </div>
 </template>
+
+<style scoped>
+.content {
+    width: calc(100% - 219px);
+    min-height: 100vh;
+}
+</style>
