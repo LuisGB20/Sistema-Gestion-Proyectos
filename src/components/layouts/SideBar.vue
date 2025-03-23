@@ -11,7 +11,6 @@ onMounted(async () => {
     try {
         const response = await GetRoleNameService();
         if (response.success) {
-            console.log(response)
             rol.value = response.message
         }
     } catch (error: unknown) {
