@@ -1,5 +1,5 @@
 <template>
-    <main class="flex flex-col gap-8 max-w-screen-lg mx-auto text-CharcoalBlue px-6 py-10">
+    <main class="max-w-screen-lg mx-auto text-CharcoalBlue">
         <section class="text-center">
             <h1 class="text-3xl font-bold text-Gunmetal">Políticas de Nuestra Plataforma</h1>
             <p class="text-lg text-gray-600 mt-4">

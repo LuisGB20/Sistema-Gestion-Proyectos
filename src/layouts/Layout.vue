@@ -1,12 +1,12 @@
+<!-- eslint-disable vue/multi-word-component-names -->
 <script setup lang="ts">
 import SideBar from '@/components/layouts/SideBar.vue';
-
 </script>
 
 <template>
     <div class="flex">
         <SideBar />
-        <div class="flex-1 p-10 content">
+        <div class="flex-1 p-10 content mt-16">
             <router-view></router-view>
         </div>
     </div>
@@ -14,7 +14,7 @@ import SideBar from '@/components/layouts/SideBar.vue';
 
 <style scoped>
 .content {
-    width: calc(100% - 220px);
+    width: calc(100% - 219px);
     min-height: 100vh;
 }
 </style>

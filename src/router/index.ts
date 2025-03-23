@@ -3,7 +3,6 @@ import equiposView from '@/views/admin/equipos/EquiposView.vue'
 import LogsView from '@/views/admin/LogsView.vue'
 import UsuariosView from '@/views/admin/usuarios/UsuariosView.vue'
 import LoginView from '@/views/auth/LoginView.vue'
-import RegistroView from '@/views/auth/RegistroView.vue'
 import NotFoundView from '@/views/error/NotFoundView.vue'
 import InicioView from '@/views/InicioView.vue'
 import ProyectosView from '@/views/admin/proyectos/ProyectosView.vue'
@@ -87,11 +86,6 @@ const router = createRouter({
       path: '/iniciar-sesion',
       name: 'iniciar-sesion',
       component: LoginView,
-    },
-    {
-      path: '/registro',
-      name: 'registro',
-      component: RegistroView,
     },
     {
       path: '/admin',
