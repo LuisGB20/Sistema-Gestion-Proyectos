@@ -79,7 +79,7 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <header class="px-4 sm:px-6 py-4 flex justify-between items-center bg-white shadow-lg">
+  <header class="px-4 sm:px-6 py-4 flex justify-between items-center bg-white shadow-lg h-16 fixed top-0 left-0 w-full z-50">
     <div class="flex items-center space-x-4">
       <img src="../../assets/Icons/logo.png" alt="logo" class="size-10">
       <h1 class="font-bold text-2xl text-DarkTeal tracking-tight hidden sm:block">

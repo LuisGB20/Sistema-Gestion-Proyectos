@@ -106,17 +106,13 @@ onMounted(() => {
 
 <template>
     <nav ref="sidebar"
-    class="group bg-white font-semibold w-[80px] text-CharcoalBlue py-6 px-5 flex flex-col items-center shadow-2xl transition-all duration-300 lg:hover:w-[220px]">
+    class="sticky top-16 left-0 h-screen group bg-white font-semibold w-[80px] text-CharcoalBlue py-6 px-5 flex flex-col items-center shadow-2xl transition-all duration-300 lg:hover:w-[220px]">
     <ul>
             <li v-for="link in userLinks" class="mb-4 text-center">
                 <RouterLink :to="link.to" activeClass="!bg-linear-to-r !from-DarkTeal !to-CharcoalBlue !text-white"
                     exactActiveClass="!bg-linear-to-r !from-DarkTeal !to-CharcoalBlue !text-white"
                     class="flex text-lg py-2 px-4 rounded-lg hover:bg-linear-to-r hover:from-DarkTeal hover:to-CharcoalBlue hover:text-white transition duration-100">
                     <component :is="link.icon" class="size-6" />
-                    <!-- <span v-show="!isCollapsed" :class="{ 'ml-3': !isCollapsed }"
-                    class="hidden lg:block opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-hover:delay-300">
-                    {{ link.label }}
-                    </span> -->
                     <span
                         :class="{ 'ml-3': !isCollapsed }"
                         class="hidden lg:block opacity-0 transition-opacity duration-300 delay-100 group-hover:opacity-100">

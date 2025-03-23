@@ -30,7 +30,6 @@ const { values, errors, validate, setFieldValue } = useForm({
     initialValues: formDataLocal
 });
 
-// Función para manejar el submit del formulario.
 const handleSubmit = async () => {
     isSubmited.value = true;
     const isValid = await validate();
@@ -52,37 +51,25 @@ const handleInput = (fieldId: string, event: Event) => {
 </script>
 
 <template>
-    <Dialog v-model:visible="modalStore.isCreateModalOpen" modal :header="title" :style="{ width: '30rem' }">
+    <Dialog v-model:visible="modalStore.isCreateModalOpen" modal :header="title" :style="{ width: '25rem' }">
         <form @submit.prevent>
             <div v-for="(field, index) in fields" :key="index" class="mb-4">
-                <label :for="field.id" class="font-semibold block text-sm text-CharcoalBlue mb-1">{{ field.label }}</label>
-                
-                <input
-                    v-if="field.typeField !== 'textarea'"
-                    :id="field.id"
-                    :value="values[field.id]"
-                    @input="(e) => handleInput(field.id, e)"
-                    :type="field.typeField"
+                <label :for="field.id" class="font-semibold block text-sm text-CharcoalBlue mb-1">{{ field.label
+                    }}</label>
+                <input v-if="field.typeField !== 'textarea'" :id="field.id" :value="values[field.id]"
+                    @input="(e) => handleInput(field.id, e)" :type="field.typeField"
                     class="w-full p-2 border rounded-md text-DarkTeal border-DarkTeal focus:border-2 focus:border-CharcoalBlue outline-none"
-                    :placeholder="field.placeholder"
-                />
-
-                <textarea
-                    v-else
-                    :id="field.id"
-                    :value="values[field.id]"
-                    @input="(e) => handleInput(field.id, e)"
+                    :placeholder="field.placeholder" />
+                <textarea v-else :id="field.id" :value="values[field.id]" @input="(e) => handleInput(field.id, e)"
                     class="w-full p-2 border rounded-md text-DarkTeal border-DarkTeal focus:border-2 focus:border-CharcoalBlue"
-                    :placeholder="field.placeholder"
-                    rows="4"
-                ></textarea>
-                
+                    :placeholder="field.placeholder" rows="4"></textarea>
                 <p v-if="errors[field.id] && isSubmited" class="text-rojo-error text-sm mt-1">{{ errors[field.id] }}</p>
             </div>
         </form>
 
         <template #footer>
-            <Button class="btn-cancel" label="Cancelar" text severity="secondary" @click="modalStore.isCreateModalOpen = false" />
+            <Button class="btn-cancel" label="Cancelar" text severity="secondary"
+                @click="modalStore.isCreateModalOpen = false" />
             <Button class="btn-submit" label="Guardar" outlined severity="secondary" @click="handleSubmit" />
         </template>
     </Dialog>
