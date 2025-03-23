@@ -57,7 +57,7 @@ const updateActivityStatus = async (activityId: string) => {
   <ActivityModal :activity="activitySelected" @mark-as-completed="(value) => updateActivityStatus(value)" />
 
   <div class="p-6 bg-gray-50 min-h-screen">
-    <h2 class="text-2xl font-semibold mb-6 text-gray-800">Mis Actividades</h2>
+    <h2 class="text-2xl font-semibold mb-4 text-DarkTeal">Mis Actividades</h2>
 
     <!-- Filtros -->
     <div class="mb-6 flex flex-col md:flex-row gap-4">

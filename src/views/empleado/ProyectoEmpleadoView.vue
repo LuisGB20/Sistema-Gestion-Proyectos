@@ -34,10 +34,13 @@ onMounted(async () => {
 
 <template>
     <main class="space-y-6">
-        <h1 class="text-3xl font-bold text-gray-800">Gestión del Proyecto</h1>
+        <header class="text-center">
+            <h1 class="text-3xl font-bold text-DarkTeal">Gestión del Proyecto</h1>
+            <p class="text-gray-600 mt-2">Visualiza el progreso y la información relevante del proyecto</p>
+        </header>
 
         <section class="bg-white shadow-lg rounded-lg p-6">
-            <h2 class="text-2xl font-bold text-gray-700">{{ project?.name }}</h2>
+            <h2 class="text-2xl font-semibold text-DarkTeal">{{ project?.name }}</h2>
             <p class="mt-2 text-gray-600">{{ project?.description }}</p>
             <div class="mt-4 text-sm">
                 <p><span class="font-semibold">Estado:</span> {{ project?.status ? translateStatus(project.status) :
@@ -49,7 +52,7 @@ onMounted(async () => {
         </section>
 
         <section class="bg-white shadow-lg rounded-lg p-6">
-            <h2 class="text-2xl font-bold text-gray-700 mb-4">Empleados Asignados</h2>
+            <h2 class="text-2xl font-semibold mb-4 text-DarkTeal">Compañeros Asignados</h2>
             <div class="overflow-x-auto">
                 <table class="w-full border-collapse border border-gray-300">
                     <thead>
