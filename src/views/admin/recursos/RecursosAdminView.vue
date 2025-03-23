@@ -111,31 +111,55 @@ const confirmDeleteResource = async (id: string) => {
 </script>
 
 <template>
-    <main>
-        <div class="flex justify-between mb-4">
-            <h1
-                class="text-transparent bg-clip-text bg-gradient-to-b from-DarkTeal to-CharcoalBlue text-start text-3xl font-bold">
-                Recursos
-            </h1>
-            <OpenCreateButton />
-        </div>
-        <ConfirmDialog></ConfirmDialog>
+  <main class="container mx-auto p-4">
+      <!-- Header -->
+      <div class="flex flex-col sm:flex-row justify-between items-center mb-4">
+          <h1 class="text-2xl sm:text-3xl font-bold text-CharcoalBlue">Recursos</h1>
+          <OpenCreateButton class="mt-2 sm:mt-0" />
+      </div>
 
-        <DataTable :columns="['name', 'description', 'quantity']" :columnsEs="['Nombre', 'Descripción', 'Cantidad']"
-            :data="resources" @show-element="data => showResource(data)" @edit-element="data => showEditModal(data)"
-            @confirm-delete="data => confirmDelete(data)" />
+      <!-- Modal de confirmación -->
+      <ConfirmDialog></ConfirmDialog>
 
-        <CreateForm title='Crear recurso' @submit="values => addResource(values)" :fields="[
-            { id: 'name', label: 'Nombre', typeField: 'text', placeholder: 'Escribe el nombre' },
-            { id: 'description', label: 'Descripción', typeField: 'textarea', placeholder: 'Descripción del recurso' },
-            { id: 'quantity', label: 'Cantidad', typeField: 'number', placeholder: '0' }
-        ]" :validationSchema="ResourceValidationSchema" :formData="formData" />
 
-        <EditForm title='Editar recurso' @submit="value => editResource(value)" :fields="[
-            { id: 'name', label: 'Nombre', typeField: 'text', placeholder: 'Escribe el nombre' },
-            { id: 'description', label: 'Descripción', typeField: 'textarea', placeholder: 'Descripción del recurso' },
-            { id: 'quantity', label: 'Cantidad', typeField: 'number', placeholder: '0' }
-        ]" :validationSchema="ResourceValidationSchema" :formData="formData" />
+      <div class="overflow-x-auto">
+          <DataTable
+              :columns="['name', 'description', 'quantity']"
+              :columnsEs="['Nombre', 'Descripción', 'Cantidad']"
+              :data="resources"
+              @show-element="showResource"
+              @edit-element="showEditModal"
+              @confirm-delete="confirmDelete"
+              class="min-w-full"
+          />
+      </div>
 
-    </main>
+      <!-- Formulario de creación -->
+      <CreateForm
+          title="Crear recurso"
+          @submit="addResource"
+          :fields="[
+              { id: 'name', label: 'Nombre', typeField: 'text', placeholder: 'Escribe el nombre' },
+              { id: 'description', label: 'Descripción', typeField: 'textarea', placeholder: 'Descripción del recurso' },
+              { id: 'quantity', label: 'Cantidad', typeField: 'number', placeholder: '0' }
+          ]"
+          :validationSchema="ResourceValidationSchema"
+          :formData="formData"
+          class="mt-4"
+      />
+
+      <!-- Formulario de edición -->
+      <EditForm
+          title="Editar recurso"
+          @submit="editResource"
+          :fields="[
+              { id: 'name', label: 'Nombre', typeField: 'text', placeholder: 'Escribe el nombre' },
+              { id: 'description', label: 'Descripción', typeField: 'textarea', placeholder: 'Descripción del recurso' },
+              { id: 'quantity', label: 'Cantidad', typeField: 'number', placeholder: '0' }
+          ]"
+          :validationSchema="ResourceValidationSchema"
+          :formData="formData"
+          class="mt-4"
+      />
+  </main>
 </template>

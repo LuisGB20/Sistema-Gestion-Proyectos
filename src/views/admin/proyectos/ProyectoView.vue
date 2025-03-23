@@ -46,31 +46,34 @@ const toggleTasks = (index: number) => {
 
 <template>
   <div class="p-4">
-    <div v-if="project" class="p-4 rounded-lg flex justify-between items-center bg-white mb-4">
+
+    <div v-if="project" class="p-4 rounded-lg flex flex-col md:flex-row justify-between items-start md:items-center bg-white mb-4">
       <div>
         <p class="text-2xl font-semibold text-DarkTeal">Nombre: {{ project.name }}</p>
         <p class="text-md pl-5">Descripción: {{ project.description }}</p>
       </div>
-      <div class="text-right text-sm text-gray-500">
+      <div class="text-right text-sm text-gray-500 mt-4 md:mt-0">
         Encargado: Empleado 1
       </div>
     </div>
 
-    <div class="grid grid-cols-2 gap-4 mb-4">
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+      <!-- Recursos -->
       <div class="p-4 rounded-lg bg-white">
         <div class="flex justify-between items-center">
           <h3 class="text-lg font-semibold mb-2">Recursos</h3>
-          <CreateResourceForProject/>
+          <CreateResourceForProject />
         </div>
         <ul class="list-disc pl-5">
-          <li v-for="(resource, index) in resources" :key="index">{{ resource.name }} ( cantidad: {{resource.quantity}} ) </li>
+          <li v-for="(resource, index) in resources" :key="index">{{ resource.name }} ( cantidad: {{ resource.quantity }} )</li>
         </ul>
       </div>
-      <div class="p-4 rounded-lg bg-white">
 
+      <div class="p-4 rounded-lg bg-white">
         <div class="flex justify-between items-center">
           <h3 class="text-lg font-semibold mb-2">Integrantes</h3>
-          <AddEmployeeToProject/>
+          <AddEmployeeToProject />
         </div>
         <ul class="list-disc pl-5">
           <li v-for="(member, index) in members" :key="index">{{ member }}</li>
@@ -78,6 +81,7 @@ const toggleTasks = (index: number) => {
       </div>
     </div>
 
+    
     <div class="p-4 rounded-lg bg-white mb-4">
       <div class="flex justify-between items-center">
         <p class="text-lg font-semibold">Lista de tareas</p>
@@ -85,19 +89,19 @@ const toggleTasks = (index: number) => {
       </div>
       <div class="mt-4 max-h-72 overflow-y-auto">
         <div v-for="(task, index) in tasks" :key="index" class="p-4 rounded-lg bg-slate-100 mt-4">
-          <div @click="toggleTasks(index)" class="cursor-pointer grid grid-cols-5 gap-4">
+          <div @click="toggleTasks(index)" class="cursor-pointer grid grid-cols-1 md:grid-cols-5 gap-4">
             <div class="col-span-3">
-              <h3 class="text-md font-semibold cursor-pointer" >
+              <h3 class="text-md font-semibold cursor-pointer">
                 {{ task.name }}
               </h3>
               <p class="pl-5">{{ task.description }}</p>
             </div>
             <div class="col-span-2">
-              <h3 class="text-md font-semibold cursor-pointer" >
+              <h3 class="text-md font-semibold cursor-pointer">
                 Integrantes
               </h3>
               <ul v-for="(user, i) in task.users" :key="i" class="list-disc pl-10">
-                <li class="text-md ">{{ user}}</li>
+                <li class="text-md">{{ user }}</li>
               </ul>
             </div>
           </div>
@@ -106,14 +110,13 @@ const toggleTasks = (index: number) => {
             <div class="grid grid-cols-1 gap-4">
               <div v-for="(activity, i) in task.activities" :key="i" class="p-4 rounded-lg bg-white">
                 <p class="text-md font-semibold">{{ activity.name }}</p>
-                <p class="pl-5">{{activity.description}}</p>
+                <p class="pl-5">{{ activity.description }}</p>
               </div>
             </div>
-            <div class="flex justify-end mt-4 ">
-              <button @click="toggleTasks(index)" class="text-sm text-DarkTeal bg-white px-10  ">Ver más...</button>
+            <div class="flex justify-end mt-4">
+              <button @click="toggleTasks(index)" class="text-sm text-DarkTeal bg-white px-10">Ver más...</button>
             </div>
           </div>
-
         </div>
       </div>
     </div>
@@ -121,5 +124,5 @@ const toggleTasks = (index: number) => {
 </template>
 
 <style scoped>
-/* Personaliza los estilos si es necesario */
 </style>
+

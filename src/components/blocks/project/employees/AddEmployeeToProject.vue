@@ -39,7 +39,7 @@ const formData = ref({
 
 watch(async () => {
   if (isOpen || modalStore.isCreateModalOpen) {
-    
+
     const data =  await getEmployeesWithoutProject();
     console.log(data);
     formData.value = { name: '', description: '' };
@@ -60,11 +60,11 @@ const handleSubmit = async (values) => {
 <template>
 
 
-  <i @click="isOpen= true; modalStore.isCreateModalOpen = true" class="rounded-full h-5 w-5 bg-blue-500 flex items-center justify-center text-white cursor-pointer">+</i>
+  <i @click="isOpen= true; modalStore.isCreateModalOpen = true" class="lg:absolute md:absolute sm:absolute lg:ml-136 md:ml-60 sm:ml-50 rounded-full h-5 w-5 bg-DarkTeal flex items-center justify-center text-white cursor-pointer">+</i>
 
   <div v-if="isOpen">
     <FormModal title="Crear Proyecto" :fields="fields" :validationSchema="validationSchema" :formData="formData"
-               @submit="handleSubmit" />
+                @submit="handleSubmit" />
 
   </div>
 </template>

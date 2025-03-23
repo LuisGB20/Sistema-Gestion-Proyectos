@@ -107,22 +107,22 @@ const chartDataProjects = computed(() => ({
       </div>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
       <div class="bg-white p-6 rounded-lg shadow-xl">
         <h2 class="text-2xl font-semibold mb-4 text-DarkTeal">Actividad mensual de recursos</h2>
-        <div class="bg-white h-[300px] md:h-[400px] w-full rounded-lg flex flex-col justify-center items-center">
+        <div class="bg-white h-[250px] sm:h-[200px]  md:h-[400px] w-full rounded-lg flex flex-col justify-center items-center">
           <Bar :data="chartDataResources" :options="{ responsive: true, maintainAspectRatio: false }" />
         </div>
       </div>
       <div class="bg-white p-6 rounded-lg shadow-xl">
         <h2 class="text-2xl font-semibold mb-4 text-DarkTeal">Actividad mensual de proyectos</h2>
-        <div class="bg-white h-[300px] md:h-[400px] w-full rounded-lg flex flex-col justify-center items-center">
+        <div class="bg-white h-[250px] sm:h-[300px] md:h-[400px] w-full rounded-lg flex flex-col justify-center items-center">
           <Pie :data="chartDataProjects" :options="{ responsive: true, maintainAspectRatio: false }" />
         </div>
       </div>
-      <div class="bg-white p-6 rounded-lg shadow-xl col-span-2">
+      <div class="bg-white p-6 rounded-lg shadow-xl col-span-1 sm:col-span-2">
         <h2 class="text-2xl font-semibold mb-4 text-DarkTeal">Actividad mensual de logs</h2>
-        <div class="bg-white h-[300px] md:h-[400px] w-full rounded-lg flex flex-col justify-center items-center">
+        <div class="bg-white h-[250px] sm:h-[300px] md:h-[400px] w-full rounded-lg flex flex-col justify-center items-center">
           <Line :data="chartDataLogs" :options="{ responsive: true, maintainAspectRatio: false }" />
         </div>
       </div>
