@@ -33,7 +33,7 @@ onBeforeMount(async () => {
     <AuthHeader v-if="authStore.isLoggedIn" />
     <GuestHeader v-else />
     <RouterView />
-    <Footer v-if="!authStore.isLoggedIn" /> <!-- Me parecio mejor sin footer para los autenticados xd -->
+    <Footer />
   </template>
 </template>
 

@@ -272,19 +272,19 @@ const responsiveOptions2 = ref([
         <template #item="slotProps">
             <div class="bg-white p-3 rounded-lg shadow-md transform transition-transform hover:scale-105 text-center mx-auto w-[90%] max-w-[320px] min-h-[150px] flex flex-col justify-center">
 
-                <!-- Imagen solo visible en pantallas medianas y grandes -->
+              
                 <img
                     :src="slotProps.data.img"
                     alt="Imagen"
                     class="hidden sm:block w-full h-auto max-h-[200px] object-contain mb-2"
                 />
 
-                <!-- Títulos más pequeños en móviles -->
+
                 <h3 class="text-sm sm:text-lg font-semibold text-DarkTeal">
                     {{ slotProps.data.title }}
                 </h3>
 
-                <!-- Descripción más compacta en móviles -->
+
                 <p class="mt-1 text-xs sm:text-sm text-2E3944 leading-snug">
                     {{ slotProps.data.description }}
                 </p>
