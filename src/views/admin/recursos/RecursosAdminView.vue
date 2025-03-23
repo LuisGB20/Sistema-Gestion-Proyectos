@@ -35,7 +35,7 @@ const formData = ref<ResourceModel>({
 });
 
 const showResource = (data: ResourceModel) => {
-    router.push(`/sistemas/recursos/${data.id}`);
+    router.push(`/admin/recursos/${data.id}`);
 };
 
 const addResource = async (data: ResourceModel) => {

@@ -9,7 +9,6 @@ import ProyectosView from '@/views/admin/proyectos/ProyectosView.vue'
 import { createRouter, createWebHistory } from 'vue-router'
 import TareasView from '@/views/admin/tareas/TareasView.vue'
 import ActividadesView from '@/views/admin/actividades/ActividadesView.vue'
-import RecursosView from '@/views/admin/recursos/RecursosView.vue'
 import PoliticasView from '@/views/legal/PoliticasView.vue'
 import TerminosCondicionesView from '@/views/legal/TerminosCondicionesView.vue'
 import PoliticasCookiesView from '@/views/legal/PoliticasCookiesView.vue'
@@ -33,6 +32,8 @@ import ActividadesEmpleadoView from '@/views/empleado/ActividadesEmpleadoView.vu
 import ListProyectosView from '@/views/admin/proyectos/ListProyectosView.vue'
 import { useAuthStore } from '@/stores/authStore'
 import DashboardRecursosHumanosView from '@/views/recursosHumanos/DashboardRecursosHumanosView.vue'
+import RecursosAdminView from '@/views/admin/recursos/RecursosAdminView.vue'
+import DetallesRecursoAdminView from '@/views/admin/recursos/DetallesRecursoAdminView.vue'
 
 const router = createRouter({
   linkActiveClass: 'underline underline-offset-2',
@@ -91,7 +92,7 @@ const router = createRouter({
       path: '/admin',
       name: 'admin',
       component: Layout,
-      // meta: { requiresAuth: true, roles: ['administrador'] },
+      meta: { requiresAuth: true, roles: ['Admin'] },
       children: [
         {
           path: '',
@@ -146,8 +147,18 @@ const router = createRouter({
         },
         {
           path: '/admin/recursos',
-          name: 'admin-recursos',
-          component: RecursosView,
+          children: [
+            {
+              path: '',
+              name: 'admin-recursos',
+              component: RecursosAdminView,
+            },
+            {
+              path: ':id',
+              name: 'admin-recursos-detalle',
+              component: DetallesRecursoAdminView
+            },
+          ]
         },
         {
           path: '/admin/logs',
