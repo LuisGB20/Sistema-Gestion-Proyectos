@@ -33,6 +33,8 @@ import { useAuthStore } from '@/stores/authStore'
 import DashboardRecursosHumanosView from '@/views/recursosHumanos/DashboardRecursosHumanosView.vue'
 import RecursosAdminView from '@/views/admin/recursos/RecursosAdminView.vue'
 import DetallesRecursoAdminView from '@/views/admin/recursos/DetallesRecursoAdminView.vue'
+import { GetRoleNameService, ValidateSession } from '@/services/auth/authService'
+import { computed, watch } from 'vue'
 import LogsEntitiesView from '@/views/admin/logs/LogsEntitiesView.vue'
 
 const router = createRouter({
@@ -60,12 +62,12 @@ const router = createRouter({
     },
     {
       path: '/acceso-denegado',
-      name: 'No-autorizado',
+      name: 'NoAutorizado',
       component: NotAuthorizedView
     },
     {
       path: '/',
-      name: 'inicio',
+      name: 'Inicio',
       component: InicioView,
     },
     {
@@ -285,19 +287,19 @@ const router = createRouter({
 router.beforeEach(async (to, from, next) => {
   const authStore = useAuthStore();
 
-  if (authStore.isLoading) {
-    await authStore.validateSession();
-  }
+  const rol = (await GetRoleNameService()).data;
+  const isLoggedIn = await authStore.getIsLoggedIn();
 
   // Si la ruta requiere autenticación
   if (to.matched.some(record => record.meta.requiresAuth)) {
-    if (!authStore.isLoggedIn) {
+
+    if (!isLoggedIn) {
       next({ name: 'NoEncontrado' });
       return;
     }
 
     // Verificar si el rol está permitido para esta ruta
-    if (to.matched.some(record => Array.isArray(record.meta.roles) && !record.meta.roles.includes(authStore.user?.rol))) {
+    if (to.matched.some(record => Array.isArray(record.meta.roles) && !record.meta.roles.includes(rol))) {
       next({ name: 'Inicio' });  // Redirige si el rol no tiene acceso
       return;
     }

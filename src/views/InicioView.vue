@@ -1,6 +1,9 @@
 <script setup>
+import { useAuthStore } from "@/stores/authStore";
 import { Carousel } from "primevue";
 import { ref } from "vue";
+
+const authStore = useAuthStore()
 
 const benefits = ref([
     {
@@ -99,7 +102,7 @@ const responsiveOptions2 = ref([
 </script>
 
 <template>
-    <main class="flex flex-col">
+    <main class="flex flex-col" :class="authStore.isLoggedIn ? 'mt-12' : ''">
         <section class="p-3 sm:py-[6rem] sm:px-[6rem] w-full flex sm:flex-row flex-col bg-Gunmetal">
             <!-- Texto Principal -->
             <div class="w-full lg:w-2/6 p-2 flex flex-col px-[1rem] sm:py-[3rem] text-center lg:text-left">

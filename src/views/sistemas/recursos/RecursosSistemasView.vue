@@ -111,31 +111,57 @@ const confirmDeleteResource = async (id: string) => {
 </script>
 
 <template>
-    <main>
-        <div class="flex justify-between mb-4">
+    <main class="p-4 sm:p-6">
+        <!-- Contenedor del título y botón -->
+        <div class="flex flex-col sm:flex-row justify-between items-center mb-6 gap-4">
             <h1
-                class="text-transparent bg-clip-text bg-gradient-to-b from-DarkTeal to-CharcoalBlue text-start text-3xl font-bold">
+                class="text-transparent bg-clip-text bg-gradient-to-b from-DarkTeal to-CharcoalBlue text-2xl sm:text-3xl font-bold w-full sm:w-auto text-center sm:text-start">
                 Recursos
             </h1>
-            <OpenCreateButton />
+            <div class="w-full max-w-[400px] sm:max-w-none">
+                <OpenCreateButton class="w-full sm:w-auto md:ml-auto" />
+            </div>
         </div>
-        <ConfirmDialog></ConfirmDialog>
 
-        <DataTable :columns="['name', 'description', 'quantity']" :columnsEs="['Nombre', 'Descripción', 'Cantidad']"
-            :data="resources" @show-element="data => showResource(data)" @edit-element="data => showEditModal(data)"
-            @confirm-delete="data => confirmDelete(data)" />
+        <ConfirmDialog />
 
-        <CreateForm title='Crear recurso' @submit="values => addResource(values)" :fields="[
-            { id: 'name', label: 'Nombre', typeField: 'text', placeholder: 'Escribe el nombre' },
-            { id: 'description', label: 'Descripción', typeField: 'textarea', placeholder: 'Descripción del recurso' },
-            { id: 'quantity', label: 'Cantidad', typeField: 'number', placeholder: '0' }
-        ]" :validationSchema="ResourceValidationSchema" :formData="formData" />
+        <!-- Contenedor de la tabla con scroll horizontal en móviles -->
+        <div class="w-full overflow-x-auto rounded-lg border border-gray-200 shadow-sm">
+            <DataTable 
+                class="min-w-[500px] sm:min-w-0 w-full table-auto"
+                :columns="['name', 'description', 'quantity']" 
+                :columnsEs="['Nombre', 'Descripción', 'Cantidad']"
+                :data="resources" 
+                @show-element="data => showResource(data)" 
+                @edit-element="data => showEditModal(data)"
+                @confirm-delete="data => confirmDelete(data)" 
+            />
+        </div>
 
-        <EditForm title='Editar recurso' @submit="value => editResource(value)" :fields="[
-            { id: 'name', label: 'Nombre', typeField: 'text', placeholder: 'Escribe el nombre' },
-            { id: 'description', label: 'Descripción', typeField: 'textarea', placeholder: 'Descripción del recurso' },
-            { id: 'quantity', label: 'Cantidad', typeField: 'number', placeholder: '0' }
-        ]" :validationSchema="ResourceValidationSchema" :formData="formData" />
+        <!-- Formulario para crear recursos -->
+        <CreateForm 
+            title="Crear recurso" 
+            @submit="values => addResource(values)" 
+            :fields="[
+                { id: 'name', label: 'Nombre', typeField: 'text', placeholder: 'Escribe el nombre' },
+                { id: 'description', label: 'Descripción', typeField: 'textarea', placeholder: 'Descripción del recurso' },
+                { id: 'quantity', label: 'Cantidad', typeField: 'number', placeholder: '0' }
+            ]" 
+            :validationSchema="ResourceValidationSchema" 
+            :formData="formData" 
+        />
 
+        <!-- Formulario para editar recursos -->
+        <EditForm 
+            title="Editar recurso" 
+            @submit="value => editResource(value)" 
+            :fields="[
+                { id: 'name', label: 'Nombre', typeField: 'text', placeholder: 'Escribe el nombre' },
+                { id: 'description', label: 'Descripción', typeField: 'textarea', placeholder: 'Descripción del recurso' },
+                { id: 'quantity', label: 'Cantidad', typeField: 'number', placeholder: '0' }
+            ]" 
+            :validationSchema="ResourceValidationSchema" 
+            :formData="formData" 
+        />
     </main>
 </template>

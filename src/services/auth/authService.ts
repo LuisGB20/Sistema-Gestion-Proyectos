@@ -22,6 +22,6 @@ export const ValidateSession = async (): Promise<ResponseHelper<User>> => {
   return await genericRequest(`${controller}/validate-session`, 'GET')
 }
 
-export const GetRoleNameService = async () => {
+export const GetRoleNameService = async () : Promise<ResponseHelper<string>> => {
   return await genericRequest(`Validation/get-role`, 'GET')
 }
