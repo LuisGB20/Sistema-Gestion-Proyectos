@@ -1,6 +1,6 @@
 import DashboardView from '@/views/admin/DashboardView.vue'
 import equiposView from '@/views/admin/equipos/EquiposView.vue'
-import LogsView from '@/views/admin/LogsView.vue'
+import LogsView from '@/views/admin/logs/LogsView.vue'
 import UsuariosView from '@/views/admin/usuarios/UsuariosView.vue'
 import LoginView from '@/views/auth/LoginView.vue'
 import NotFoundView from '@/views/error/NotFoundView.vue'
@@ -35,6 +35,7 @@ import RecursosAdminView from '@/views/admin/recursos/RecursosAdminView.vue'
 import DetallesRecursoAdminView from '@/views/admin/recursos/DetallesRecursoAdminView.vue'
 import { GetRoleNameService, ValidateSession } from '@/services/auth/authService'
 import { computed, watch } from 'vue'
+import LogsEntitiesView from '@/views/admin/logs/LogsEntitiesView.vue'
 
 const router = createRouter({
   linkActiveClass: 'underline underline-offset-2',
@@ -166,6 +167,16 @@ const router = createRouter({
           name: 'admin-logs',
           component: LogsView
         },
+        {
+          path: '/admin/configuraciones',
+          name: 'admin-configuraciones',
+          component: ConfigView
+        },
+        {
+          path: '/admin/logs-entidades',
+          name: 'admin-logs-entidades',
+          component: LogsEntitiesView
+        }
       ]
     },
     {
