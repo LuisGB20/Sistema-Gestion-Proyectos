@@ -292,9 +292,8 @@ const gaugeOptions = computed(() => ({
 
 <template>
   <main>
-    <h1 class="text-transparent bg-clip-text bg-gradient-to-b from-DarkTeal to-CharcoalBlue text-start text-3xl font-bold mb-3">
-      Dashboard de Logs
-    </h1>
+    <h1 class="text-2xl font-bold mb-4">Dashboard de Logs</h1>
+
     <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6 text-white">
       <div class="p-4 bg-blue-100 text-blue-800 shadow rounded-lg">
         <h2 class="text-lg font-semibold">Informativos</h2>
@@ -316,15 +315,26 @@ const gaugeOptions = computed(() => ({
     </div>
 
     <div class="card">
-      <DataTable v-model:filters="filters" :value="logs" removableSort ref="dt" paginator :rows="7"
-        :rowsPerPageOptions="[5, 10, 20]" :loading="loading" :globalFilterFields="[
+      <DataTable
+        v-model:filters="filters"
+        :value="logs"
+        removableSort
+        ref="dt"
+        paginator
+        :rows="7"
+        :rowsPerPageOptions="[5, 10, 20]"
+        :loading="loading"
+        :globalFilterFields="[
           'timeStamp',
           'level',
           'message',
           'httpMethod',
           'endpoint',
           'userEmail',
-        ]" filterDisplay="row" class="rounded-lg">
+        ]"
+        filterDisplay="row"
+        class="rounded-lg"
+      >
         <template #header>
           <div class="flex justify-between">
             <div class="flex flex-wrap items-center justify-start gap-2">
@@ -332,7 +342,7 @@ const gaugeOptions = computed(() => ({
             </div>
             <div class="flex">
               <div class="text-end mr-4">
-                <Button class="btn-export" icon="pi pi-external-link" label="Exportar" @click="exportCSV" />
+                <Button icon="pi pi-external-link" label="Exportar" @click="exportCSV" />
               </div>
               <IconField>
                 <InputIcon>
@@ -349,15 +359,29 @@ const gaugeOptions = computed(() => ({
 
         <Column field="level" header="Nivel" :showFilterMenu="false" style="min-width: 12rem">
           <template #body="{ data }">
-            <span class="text-sm font-medium me-2 px-2.5 py-0.5 rounded-full" :class="getLevelColor(data.level)">
+            <span
+              class="text-sm font-medium me-2 px-2.5 py-0.5 rounded-full"
+              :class="getLevelColor(data.level)"
+            >
               {{ mapLevel(data.level) }}
             </span>
           </template>
           <template #filter="{ filterModel, filterCallback }">
-            <Select v-model="filterModel.value" @change="filterCallback()" :options="levelOptions" optionLabel="label"
-              optionValue="value" placeholder="Selecciona nivel" style="min-width: 12rem" :showClear="true">
+            <Select
+              v-model="filterModel.value"
+              @change="filterCallback()"
+              :options="levelOptions"
+              optionLabel="label"
+              optionValue="value"
+              placeholder="Selecciona nivel"
+              style="min-width: 12rem"
+              :showClear="true"
+            >
               <template #option="slotProps">
-                <span class="text-sm font-medium px-2 py-1 rounded-full" :class="getLevelColor(slotProps.option.value)">
+                <span
+                  class="text-sm font-medium px-2 py-1 rounded-full"
+                  :class="getLevelColor(slotProps.option.value)"
+                >
                   {{ slotProps.option.label }}
                 </span>
               </template>
@@ -370,23 +394,40 @@ const gaugeOptions = computed(() => ({
             {{ data.message }}
           </template>
           <template #filter="{ filterModel, filterCallback }">
-            <InputText v-model="filterModel.value" type="text" @input="filterCallback()"
-              placeholder="Buscar por mensaje" />
+            <InputText
+              v-model="filterModel.value"
+              type="text"
+              @input="filterCallback()"
+              placeholder="Buscar por mensaje"
+            />
           </template>
         </Column>
 
         <Column field="httpMethod" header="Método HTTP" sortable style="min-width: 10rem">
           <template #body="{ data }">
-            <span class="text-sm font-medium me-2 px-2.5 py-0.5 rounded-full" :class="getMethodColor(data.httpMethod)">
+            <span
+              class="text-sm font-medium me-2 px-2.5 py-0.5 rounded-full"
+              :class="getMethodColor(data.httpMethod)"
+            >
               {{ mapHttpMethod(data.httpMethod) }}
             </span>
           </template>
           <template #filter="{ filterModel, filterCallback }">
-            <Select v-model="filterModel.value" @change="filterCallback()" :options="httpOptions" optionLabel="label"
-              optionValue="value" placeholder="Selecciona método" style="min-width: 12rem" :showClear="true">
+            <Select
+              v-model="filterModel.value"
+              @change="filterCallback()"
+              :options="httpOptions"
+              optionLabel="label"
+              optionValue="value"
+              placeholder="Selecciona método"
+              style="min-width: 12rem"
+              :showClear="true"
+            >
               <template #option="slotProps">
-                <span class="text-sm font-medium px-2 py-1 rounded-full"
-                  :class="getMethodColor(slotProps.option.value)">
+                <span
+                  class="text-sm font-medium px-2 py-1 rounded-full"
+                  :class="getMethodColor(slotProps.option.value)"
+                >
                   {{ slotProps.option.label }}
                 </span>
               </template>
@@ -399,8 +440,12 @@ const gaugeOptions = computed(() => ({
             {{ data.endpoint }}
           </template>
           <template #filter="{ filterModel, filterCallback }">
-            <InputText v-model="filterModel.value" type="text" @input="filterCallback()"
-              placeholder="Buscar por endpoint" />
+            <InputText
+              v-model="filterModel.value"
+              type="text"
+              @input="filterCallback()"
+              placeholder="Buscar por endpoint"
+            />
           </template>
         </Column>
 
@@ -409,8 +454,12 @@ const gaugeOptions = computed(() => ({
             {{ data.userEmail || 'Sistema' }}
           </template>
           <template #filter="{ filterModel, filterCallback }">
-            <InputText v-model="filterModel.value" type="text" @input="filterCallback()"
-              placeholder="Buscar por usuario" />
+            <InputText
+              v-model="filterModel.value"
+              type="text"
+              @input="filterCallback()"
+              placeholder="Buscar por usuario"
+            />
           </template>
         </Column>
 
@@ -429,39 +478,55 @@ const gaugeOptions = computed(() => ({
         <h2 class="text-2xl font-semibold mb-4 text-gun-metal">
           Distribución de niveles de registro
         </h2>
-        <div class="bg-white h-[300px] md:h-[500px] w-full rounded-lg flex flex-col justify-center items-center">
-          <Doughnut :data="levelsChartData" :options="{ responsive: true, maintainAspectRatio: false }" />
+        <div
+          class="bg-white h-[300px] md:h-[500px] w-full rounded-lg flex flex-col justify-center items-center"
+        >
+          <Doughnut
+            :data="levelsChartData"
+            :options="{ responsive: true, maintainAspectRatio: false }"
+          />
         </div>
       </div>
 
       <div class="bg-white p-6 rounded-lg shadow-xl">
         <h2 class="text-2xl font-semibold mb-4 text-gun-metal">Frecuencia de logs</h2>
-        <div class="bg-white h-[300px] md:h-[500px] w-full rounded-lg flex flex-col justify-center items-center">
+        <div
+          class="bg-white h-[300px] md:h-[500px] w-full rounded-lg flex flex-col justify-center items-center"
+        >
           <Line :data="timeChartData" :options="{ responsive: true, maintainAspectRatio: false }" />
         </div>
       </div>
 
       <div class="bg-white p-6 rounded-lg shadow-xl">
         <h2 class="text-2xl font-semibold mb-4 text-gun-metal">Métodos HTTP más utilizados</h2>
-        <div class="bg-white h-[300px] md:h-[500px] w-full rounded-lg flex flex-col justify-center items-center">
+        <div
+          class="bg-white h-[300px] md:h-[500px] w-full rounded-lg flex flex-col justify-center items-center"
+        >
           <Bar :data="httpChartData" :options="{ responsive: true, maintainAspectRatio: false }" />
         </div>
       </div>
 
       <div class="bg-white p-6 rounded-lg shadow-xl">
         <h2 class="text-2xl font-semibold mb-4 text-gun-metal">Endpoints más utilizados</h2>
-        <div class="bg-white h-[300px] md:h-[500px] w-full rounded-lg flex flex-col justify-center items-center">
-          <Bar :data="endpointsChartData" :options="{
-            responsive: true,
-            maintainAspectRatio: false,
-            indexAxis: 'y',
-          }" />
+        <div
+          class="bg-white h-[300px] md:h-[500px] w-full rounded-lg flex flex-col justify-center items-center"
+        >
+          <Bar
+            :data="endpointsChartData"
+            :options="{
+              responsive: true,
+              maintainAspectRatio: false,
+              indexAxis: 'y',
+            }"
+          />
         </div>
       </div>
 
       <div class="bg-white p-6 rounded-lg shadow-xl">
         <h2 class="text-2xl font-semibold mb-4 text-gun-metal">Actividad por usuario</h2>
-        <div class="bg-white h-[300px] md:h-[500px] w-full rounded-lg flex flex-col justify-center items-center">
+        <div
+          class="bg-white h-[300px] md:h-[500px] w-full rounded-lg flex flex-col justify-center items-center"
+        >
           <Pie :data="usersChartData" :options="{ responsive: true, maintainAspectRatio: false }" />
         </div>
       </div>
@@ -486,9 +551,9 @@ const gaugeOptions = computed(() => ({
 
 <style scoped>
 .grid-2-col {
-  margin-top: 1rem;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-  gap: 1rem;
+    margin-top: 1rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(700px, 1fr));
+    gap: 1rem;
 }
 </style>
