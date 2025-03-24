@@ -290,6 +290,11 @@ router.beforeEach(async (to, from, next) => {
   const rol = (await GetRoleNameService()).data;
   const isLoggedIn = await authStore.getIsLoggedIn();
 
+  if(to.path.includes('iniciar-sesion') && isLoggedIn){
+      next({ name: 'Inicio' });  // Redirige si esta logueado
+      return
+  }
+
   // Si la ruta requiere autenticación
   if (to.matched.some(record => record.meta.requiresAuth)) {
 
