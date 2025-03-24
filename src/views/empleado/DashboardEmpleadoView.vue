@@ -48,8 +48,8 @@ const chartData = computed(() => ({
     label: 'Tareas por Mes',
     data: activityByMonthQuantity.value,
     fill: false,
-    borderColor: '#1A1A19',
-    backgroundColor: '#929AAB',
+    borderColor: '#6A0DAD', // Púrpura oscuro
+    backgroundColor: '#B19CD9', // Púrpura claro
     tension: 0.1
   }]
 }));
@@ -57,7 +57,7 @@ const chartData = computed(() => ({
 
 <template>
   <main class=" min-h-screen">
-    <div class="max-w-7xl mx-auto space-y-8">
+    <div class="max-w-7xl mx-auto">
 
       <!-- Header Section -->
       <header class="text-center">
@@ -66,46 +66,46 @@ const chartData = computed(() => ({
       </header>
 
       <!-- Stats Grid -->
-      <section class="grid grid-cols-1 sm:grid-cols-3 gap-6">
-        <div class="bg-gradient-to-r from-DarkTeal to-CharcoalBlue text-white p-6 rounded-lg shadow-lg flex flex-col items-center justify-center text-center">
-          <h3 class="text-lg font-semibold">Tareas A Las Que Perteneces</h3>
-          <p class="text-4xl font-bold mt-2">{{ dashboardData?.tasksAssignedToEmployee }}</p>
+      <section class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div
+          class="bg-gradient-to-r from-DarkTeal to-CharcoalBlue text-white p-6 rounded-lg shadow-lg flex flex-col items-center justify-center text-center">
+          <h3 class="text-sm md:text-lg font-semibold">Tareas A Las Que Perteneces</h3>
+          <p class="text-2xl md:text-4xl font-bold mt-2">{{ dashboardData?.tasksAssignedToEmployee }}</p>
         </div>
 
-        <div class="bg-gradient-to-r from-DarkTeal to-CharcoalBlue text-white p-6 rounded-lg shadow-lg flex flex-col items-center justify-center text-center">
-          <h3 class="text-lg font-semibold">Actividades Pendientes</h3>
-          <p class="text-4xl font-bold mt-2">{{ dashboardData?.pendingTasks }}</p>
+        <div
+          class="bg-gradient-to-r from-DarkTeal to-CharcoalBlue text-white p-6 rounded-lg shadow-lg flex flex-col items-center justify-center text-center">
+          <h3 class="text-sm md:text-lg font-semibold">Actividades Pendientes</h3>
+          <p class="text-2xl md:text-4xl font-bold mt-2">{{ dashboardData?.pendingTasks }}</p>
         </div>
 
-        <div class="bg-gradient-to-r from-DarkTeal to-CharcoalBlue text-white p-6 rounded-lg shadow-lg flex flex-col items-center justify-center text-center">
-          <h3 class="text-lg font-semibold">Actividades Completadas</h3>
-          <p class="text-4xl font-bold mt-2">{{ dashboardData?.completedTasks }}</p>
+        <div
+          class="bg-gradient-to-r from-DarkTeal to-CharcoalBlue text-white p-6 rounded-lg shadow-lg flex flex-col items-center justify-center text-center">
+          <h3 class="text-sm md:text-lg font-semibold">Actividades Completadas</h3>
+          <p class="text-2xl md:text-4xl font-bold mt-2">{{ dashboardData?.completedTasks }}</p>
         </div>
       </section>
 
       <!-- Main Content Grid -->
-      <section class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <!-- Monthly Activity Chart -->
+      <div class="grid grid-cols-1 xl:grid-cols-2 gap-6">
         <div class="bg-white p-6 rounded-lg shadow-lg">
-          <h2 class="text-xl font-semibold text-DarkTeal mb-4">Actividad Mensual de Tareas</h2>
+          <h2 class="text-2xl font-semibold mb-4 text-DarkTeal">Actividad Mensual de Tareas</h2>
           <div class="h-[300px] md:h-[400px] w-full rounded-lg bg-white flex justify-center items-center">
             <Line id="grafica-tareas" :data="chartData" :options="{ responsive: true, maintainAspectRatio: false }" />
           </div>
         </div>
-
-        <!-- Latest Assigned Tasks -->
         <div class="bg-white p-6 rounded-lg shadow-lg">
-          <h2 class="text-xl font-semibold text-DarkTeal mb-4">Últimas Tareas Asignadas</h2>
+          <h2 class="text-2xl font-semibold mb-4 text-DarkTeal">Últimas Tareas Asignadas</h2>
           <ul class="space-y-4">
-            <li v-for="activity in dashboardData?.lastActivities" :key="activity.id" class="flex flex-col space-y-2 p-4 hover:bg-gray-100 rounded-lg transition-colors duration-200">
+            <li v-for="activity in dashboardData?.lastActivities" :key="activity.id"
+              class="flex flex-col space-y-2 p-4 hover:bg-gray-100 rounded-lg transition-colors duration-200">
               <span class="font-semibold text-lg text-DarkTeal">{{ activity.name }}</span>
               <span class="text-sm text-gray-600">{{ activity.description }}</span>
               <span class="text-sm text-gray-500">- {{ formatDate(activity.createdAt) }}</span>
             </li>
           </ul>
         </div>
-      </section>
-
+      </div>
     </div>
   </main>
 </template>

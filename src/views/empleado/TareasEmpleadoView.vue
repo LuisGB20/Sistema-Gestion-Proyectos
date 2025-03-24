@@ -35,7 +35,7 @@ onMounted(async () => {
 <template>
     <div class=" min-h-screen">
         <div class="bg-white p-6 rounded-2xl drop-shadow-2xl min-h-screen">
-            <h2 class="text-2xl font-semibold mb-6 text-gray-800">Tasks</h2>
+            <h2 class="text-2xl font-semibold mb-4 text-DarkTeal">Tareas</h2>
         <div class="mb-6">
             <input v-model="searchQuery" type="text" placeholder="Search tasks..."
                 class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" />

@@ -18,4 +18,4 @@ export interface AdminDashboardDataModel {
         "month": number,
         "dataQuantity": number
     }>
-}
+} 

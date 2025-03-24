@@ -1,5 +1,5 @@
 <template>
-    <main class="max-w-screen-lg mx-auto text-CharcoalBlue">
+    <main >
         <section class="text-center">
             <h1 class="text-3xl font-semibold text-Gunmetal">Política de Cookies</h1>
             <p class="text-lg text-gray-600 mt-4">Esta Política de Cookies explica cómo utilizamos las cookies y tecnologías similares para mejorar tu experiencia en nuestro sitio web. Al usar nuestra plataforma, aceptas el uso de cookies de acuerdo con esta política.</p>

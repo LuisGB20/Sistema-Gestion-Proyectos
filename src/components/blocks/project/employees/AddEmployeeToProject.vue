@@ -3,11 +3,8 @@ import { useModalStore } from '@/stores/modalStore';
 import { ref, watch } from 'vue'
 import FormModal from '@/components/forms/CreateForm.vue';
 import * as yup from 'yup';
-import {
-  asignProjectToEmployee,
-  getEmployeesWithoutProject
-} from '@/services/employees/EmployeeService.ts'
-import { useRoute } from 'vue-router'
+import { CreateProject } from '@/services/projects/projectService'
+import { getEmployeesWithoutProject } from '@/services/employees/EmployeeService.ts'
 
 const isOpen = ref(false);
 const modalStore = useModalStore();
@@ -32,6 +29,12 @@ const formData = ref({
   role: '',
 });
 
+watch(async () => {
+  if (isOpen || modalStore.isCreateModalOpen) {
+
+    const data =  await getEmployeesWithoutProject();
+    console.log(data);
+    formData.value = { name: '', description: '' };
 const fetchEmployees = async () => {
   const data = await getEmployeesWithoutProject();
   console.log("data", data)
@@ -78,3 +81,4 @@ const handleSubmit = async (values: any) => {
   </div>
 </template>
 
+<style scoped></style>
