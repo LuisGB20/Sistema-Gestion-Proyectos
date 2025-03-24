@@ -273,11 +273,7 @@ const router = createRouter({
 // Guard de rutas para proteger con autenticación y roles
 router.beforeEach(async (to, from, next) => {
   const authStore = useAuthStore();
-
-  if (authStore.isLoading) {
-    await authStore.validateSession();
-  }
-
+  
   // Si la ruta requiere autenticación
   if (to.matched.some(record => record.meta.requiresAuth)) {
     if (!authStore.isLoggedIn) {
