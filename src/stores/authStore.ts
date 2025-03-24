@@ -1,4 +1,4 @@
-import { ref, computed } from 'vue'
+import { ref, computed, watch, onMounted } from 'vue'
 import { defineStore } from 'pinia'
 import type { User } from '@/interfaces/User'
 import { LoginService, LogoutService, ValidateSession } from '@/services/auth/authService'
@@ -68,6 +68,8 @@ export const useAuthStore = defineStore('auth', () => {
         isLoading.value = false;
         return true
       }
+      user.value = {} as User
+      isLoading.value = false
       return false
     } catch (error: unknown) {
       return error
@@ -82,5 +84,13 @@ export const useAuthStore = defineStore('auth', () => {
     }
   }
 
-  return { login, logout, isLoggedIn, user, validateSession, initialize, employee, isLoading, isInitialized }
+  async function getIsLoggedIn(): Promise<boolean> {
+    while (!isInitialized.value) {
+      await new Promise(resolve => setTimeout(resolve, 100));
+    }
+    return isLoggedIn.value;
+  }
+  
+
+  return { login, logout, isLoggedIn, user, validateSession, initialize, employee, isLoading, isInitialized, getIsLoggedIn }
 })

@@ -48,18 +48,23 @@ const chartData = computed(() => ({
   datasets: [{
     label: 'Cantidad de recursos',
     data: resourcesQuantityMonth.value,
-    fill: false,
-    backgroundColor: '#212A31',
-    tension: 0.1
+    backgroundColor: 'rgba(153, 102, 255, 0.2)', // Color de fondo con transparencia
+    borderColor: '#9966FF', // Color del borde
+    borderWidth: 2,
+    borderRadius: 5, // Bordes redondeados en las barras
+    hoverBackgroundColor: '#9966FF', // Color al pasar el mouse
   }]
 }));
 </script>
 
 <template>
   <main class="p-4 sm:p-6">
-    <div class="flex flex-col gap-6">
+    <div class="max-w-7xl mx-auto flex flex-col gap-6">
 
-      <!-- Tarjetas de estadísticas -->
+      <div class="text-center md:text-start">
+        <h1 class="text-xl md:text-3xl font-bold text-DarkTeal">Panel de Recursos</h1>
+      </div>
+
       <div class="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-6">
         <div
           class="bg-gradient-to-r from-DarkTeal to-CharcoalBlue text-white p-4 sm:p-6 rounded-lg shadow-lg flex flex-col items-center text-center">
@@ -86,7 +91,6 @@ const chartData = computed(() => ({
         </div>
       </div>
 
-      <!-- Gráfica -->
       <div class="grid grid-cols-1 gap-6">
         <div class="flex-1">
           <div class="bg-white p-4 sm:p-6 rounded-lg shadow-xl">
@@ -94,8 +98,7 @@ const chartData = computed(() => ({
               Actividad mensual de recursos
             </h2>
             <div class="bg-white h-[250px] sm:h-[350px] md:h-[500px] w-full rounded-lg flex flex-col justify-center items-center">
-              <Bar id="grafica-proyectos" :data="chartData"
-                :options="{ responsive: true, maintainAspectRatio: false }" />
+              <Bar id="grafica-proyectos" :data="chartData" :options="{ responsive: true, maintainAspectRatio: false }" />
             </div>
           </div>
         </div>

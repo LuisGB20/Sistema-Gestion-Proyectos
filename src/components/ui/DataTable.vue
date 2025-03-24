@@ -16,8 +16,6 @@ const props = defineProps<{
 
 const data = ref(props.data);
 
-console.log(data);
-
 watch(
   () => props.data,
   (newData) => {
@@ -37,18 +35,19 @@ const filters = ref({
 </script>
 
 <template>
-    <div class="card">
+    <div class="card shadow-lg bg-white rounded-lg">
         <DataTable v-model:filters="filters" :value="data" removableSort ref="dt" paginator :rows="5"
             :rowsPerPageOptions="[5, 10]" :globalFilterFields="props.columns" class="rounded-lg">
             
             <template #header>
                 <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-4 sm:mb-0">
-                    <div class="flex mb-4 sm:mb-0">
-                        <IconField>
+                    <div class="flex mb-4 sm:mb-0 items-center gap-2">
+                        <IconField class="flex-1">
                             <InputIcon>
                                 <i class="pi pi-search" />
                             </InputIcon>
-                            <InputText v-model="filters['global'].value" placeholder="Buscar" class="w-full sm:w-auto" />
+                            <InputText v-model="filters['global'].value" placeholder="Buscar"
+                                class="w-full sm:w-auto text-sm sm:text-base p-2" />
                         </IconField>
                     </div>
                     <div class="flex flex-wrap items-center justify-start gap-2">
@@ -56,12 +55,12 @@ const filters = ref({
                     </div>
                 </div>
             </template>
-            
+
             <template #empty>
-                No se encontraron elementos.
+                <div class="text-center text-sm sm:text-base">No se encontraron elementos.</div>
             </template>
             <template #loading>
-                Cargando elementos, por favor espere.
+                <div class="text-center text-sm sm:text-base">Cargando elementos, por favor espere.</div>
             </template>
 
             <template v-for="(column, index) in props.columns" :key="column">
@@ -71,20 +70,62 @@ const filters = ref({
             <!-- Acciones -->
             <Column header="Acciones" :exportable="false">
                 <template #body="slotProps">
-                    <div class="flex flex-wrap gap-2 justify-center">
-                        <Button class="btn-detail mr-2" icon="pi pi-eye" outlined rounded
-                            @click="$emit('showElement', (slotProps.data))" />
-                        <Button class="btn-edit mr-2" icon="pi pi-pencil" outlined rounded
-                            @click="$emit('editElement', (slotProps.data))" />
+                    <div class="flex justify-center items-center gap-2">
+                        <Button class="btn-detail" icon="pi pi-eye" outlined rounded 
+                            @click="$emit('showElement', slotProps.data)" />
+                        <Button class="btn-edit" icon="pi pi-pencil" outlined rounded 
+                            @click="$emit('editElement', slotProps.data)" />
                         <Button class="btn-delete" icon="pi pi-trash" outlined rounded severity="danger"
-                            @click="$emit('confirmDelete', (slotProps.data))" />
+                            @click="$emit('confirmDelete', slotProps.data)" />
                     </div>
                 </template>
             </Column>
 
             <template #footer>
-                <div class="text-sm sm:text-base">En total son: {{ data ? data.length : 0 }} elementos.</div>
+                <div class="text-sm sm:text-base text-right">En total son: {{ data ? data.length : 0 }} elementos.</div>
             </template>
         </DataTable>
     </div>
 </template>
+
+<style scoped>
+.card {
+    border: 1px solid #e0e0e0;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.btn-export, .btn-detail, .btn-edit, .btn-delete {
+    min-width: 2rem;
+    font-size: 0.875rem;
+}
+
+.text-sm {
+    font-size: 0.875rem;
+}
+
+.sm\:text-base {
+    font-size: 1rem;
+}
+
+.pi {
+    font-size: 1.25rem;
+}
+
+.table thead th {
+    background-color: #f9fafb;
+}
+
+.table tbody tr:nth-child(even) {
+    background-color: #f3f4f6;
+}
+
+@media (max-width: 640px) {
+    .sm\:text-base {
+        font-size: 0.875rem;
+    }
+
+    .sm\:w-auto {
+        width: 100%;
+    }
+}
+</style>

@@ -22,29 +22,29 @@ api.interceptors.response.use(
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     //@ts-expect-error
     (response) => {
-      const authStore = useAuthStore();
+        const authStore = useAuthStore();
 
-      const axiosMethod = response.config.method?.toUpperCase();
+        const axiosMethod = response.config.method?.toUpperCase();
 
-      const httpMethodValue: HttpMethod = (axiosMethod && HttpMethod[axiosMethod as keyof typeof HttpMethod]) || HttpMethod.GET;
+        const httpMethodValue: HttpMethod = (axiosMethod && HttpMethod[axiosMethod as keyof typeof HttpMethod]) || HttpMethod.GET;
 
-      const logData: LogModel = {
+        const logData: LogModel = {
 
-        message: response.data.message,
-        httpMethod: httpMethodValue,
-        endpoint: response.config.url || '',
-        level: response.data.success ? AuditLogLevel.SUCCESS : AuditLogLevel.ERROR,
-        userId: authStore.user?.id,
-        timeStamp: new Date(),
-      };
+            message: response.data.message,
+            httpMethod: httpMethodValue,
+            endpoint: response.config.url || '',
+            level: response.data.success ? AuditLogLevel.SUCCESS : AuditLogLevel.ERROR,
+            userId: authStore.user?.id,
+            timeStamp: new Date(),
+        };
 
-      CreateLog(logData);
+        CreateLog(logData);
 
-      return {
-          success: response.data.success,
-          message: response.data.message,
-          ...(response.data.success ? { data: response.data.data } : { status: response.status })
-      };
+        return {
+            success: response.data.success,
+            message: response.data.message,
+            ...(response.data.success ? { data: response.data.data } : { status: response.status })
+        };
 
     },
 
@@ -55,7 +55,7 @@ api.interceptors.response.use(
 
         if (error.response?.status === 401 && !originalRequest._retry) {
 
-            
+
             if (isRefreshing) {
                 return new Promise((resolve) => {
                     failedRequestsQueue.push(() => {
@@ -72,7 +72,9 @@ api.interceptors.response.use(
 
                 if (!refresh.success) {
                     authStore.logout();
-                    router.push('/iniciar-sesion');
+                    if (authStore.isInitialized) {
+                        router.push('/iniciar-sesion');
+                    }
                     return Promise.reject(error);
                 }
 
@@ -82,7 +84,9 @@ api.interceptors.response.use(
             } catch (refreshError) {
                 failedRequestsQueue = [];
                 authStore.logout();
-                router.push('/iniciar-sesion');
+                if (authStore.isInitialized) {
+                    router.push('/iniciar-sesion');
+                }
                 return Promise.reject(refreshError);
             } finally {
                 isRefreshing = false;
