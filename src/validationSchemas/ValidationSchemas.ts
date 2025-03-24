@@ -68,3 +68,33 @@ export const ConfigValidationSchema = yup.object(
         config: yup.string().nullable(),
     }
 );
+export const DiscordValidationSchema = yup.object({
+  config: yup
+    .string()
+    .nullable()
+    .matches(
+      /^https:\/\/(discord(?:app)?\.com)\/api\/webhooks\/\d+\/[\w-]+$/,
+      'No es una URL válida de Discord webhook',
+    ),
+})
+
+export const SlackValidationSchema = yup.object({
+  config: yup
+    .string()
+    .nullable()
+    .matches(
+      /^https:\/\/hooks\.slack\.com\/services\/[A-Za-z0-9]+\/[A-Za-z0-9]+\/[A-Za-z0-9]+$/,
+      'No es una URL válida de Slack webhook',
+    ),
+})
+
+export const SMTPConfigValidationSchema = yup.object({
+  config: yup
+  .string()
+  .nullable()
+  .matches(
+    /^(smtp:\/\/[A-Za-z0-9]+:[A-Za-z0-9]+@[A-Za-z0-9.-]+:[0-9]+|smtp\.[A-Za-z0-9.-]+\.[A-Za-z]{2,})$/i,
+    'No es una URL válida de SMTP',
+  ),
+
+})
