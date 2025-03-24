@@ -5,6 +5,7 @@ import FormModal from '@/components/forms/CreateForm.vue';
 import * as yup from 'yup';
 import { CreateProject } from '@/services/projects/projectService'
 import { getEmployeesWithoutProject } from '@/services/employees/EmployeeService.ts'
+import { useRoute } from 'vue-router'
 
 const isOpen = ref(false);
 const modalStore = useModalStore();
@@ -29,12 +30,7 @@ const formData = ref({
   role: '',
 });
 
-watch(async () => {
-  if (isOpen || modalStore.isCreateModalOpen) {
 
-    const data =  await getEmployeesWithoutProject();
-    console.log(data);
-    formData.value = { name: '', description: '' };
 const fetchEmployees = async () => {
   const data = await getEmployeesWithoutProject();
   console.log("data", data)
@@ -50,7 +46,7 @@ const fetchEmployees = async () => {
 
 // Carga los empleados cuando se abre el modal
 watch(() => {
-  if (isOpen || modalStore.isCreateModalOpen) {
+  if (isOpen.value == true || modalStore.isCreateModalOpen) {
     fetchEmployees();
     formData.value = { name: '', description: '', employee: '' }; // Reset form
   }
@@ -59,18 +55,26 @@ watch(() => {
 const handleSubmit = async (values: any) => {
   console.log('Proyecto creado:', values);
 
-  const res = await asignProjectToEmployee(values.employee, id, values.role ) // Envía el empleado
+  const res = await asignProjectToEmployee(values.employee, id, values.role)
   console.log(res);
 
   isOpen.value = false;
   modalStore.isCreateModalOpen = false;
-};
+}
+
+watch(() => {
+  if (!modalStore.isCreateModalOpen) {
+    isOpen.value = false;
+  }
+});
+
 </script>
 
 <template>
-  <i @click="isOpen = true; modalStore.isCreateModalOpen = true" class="rounded-full h-5 w-5 bg-blue-500 flex items-center justify-center text-white cursor-pointer">+</i>
 
-  <div v-if="isOpen">
+  <i @click="isOpen= true; modalStore.isCreateModalOpen = true" class=" rounded-full h-5 w-5 bg-DarkTeal flex items-center justify-center text-white cursor-pointer">+</i>
+
+  <div class="absolute" v-if="isOpen">
     <FormModal
       title="Agregar Empleado a Proyecto"
       :fields="fields"

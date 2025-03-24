@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useModalStore } from '@/stores/modalStore';
-import { ref } from 'vue';
+import { ref, watch } from 'vue'
 import FormModal from '@/components/forms/CreateForm.vue';
 import * as yup from 'yup';
 import { CreateProject } from '@/services/projects/projectService'
@@ -45,14 +45,21 @@ const handleSubmit = async (values) => {
   isOpen.value = false;
   modalStore.isCreateModalOpen = false;
 };
+
+watch(() => {
+  if (!modalStore.isCreateModalOpen) {
+    isOpen.value = false;
+  }
+});
+
 </script>
 
 <template>
 
 
-  <i @click="isOpen= true; modalStore.isCreateModalOpen = true" class="lg:absolute md:absolute sm:absolute lg:ml-136 md:ml-60 sm:ml-50 rounded-full h-5 w-5 bg-DarkTeal flex items-center justify-center text-white cursor-pointer">+</i>
+  <i @click="isOpen= true; modalStore.isCreateModalOpen = true" class=" rounded-full h-5 w-5 bg-DarkTeal flex items-center justify-center text-white cursor-pointer">+</i>
 
-  <div v-if="isOpen" >
+  <div class="absolute" v-if="isOpen" >
     <FormModal title="Crear Proyecto" :fields="fields" :validationSchema="validationSchema" :formData="formData"
                 @submit="handleSubmit" />
 

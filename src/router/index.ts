@@ -243,7 +243,6 @@ const router = createRouter({
       path: '/empleado',
       name: 'empleado',
       component: Layout,
-      meta: { requiresAuth: true, roles: ['Empleado'] },
       children: [
         {
           path: '',

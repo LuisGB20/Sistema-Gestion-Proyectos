@@ -6,9 +6,10 @@ export const GetProject = async () => {
   return await genericRequest(`${controller}/GetAll`, 'GET')
 }
 
-export const GetSmallProjectById = async (id : string) => {
-  return await genericRequest(`${controller}/${id}`, 'GET')
+export const GetProjectByUser = async () => {
+  return await genericRequest(`${controller}/GetByUser`, 'GET')
 }
+
 
 export const GetProjectById = async (id : string) => {
   return await genericRequest(`${controller}/GetById/${id}`, 'GET')

@@ -1,76 +1,145 @@
 <script setup lang="ts">
-import { onMounted, ref } from "vue";
-import { formatDate } from "@/utils/formatDate";
-import type { ProjectModel } from "@/interfaces/Projects/ProjectModel";
-import { GetEmployeeProject, GetEmployeesFromProject } from "@/services/employees/EmployeeService";
-import { useAuthStore } from "@/stores/authStore";
-import { translateStatus } from "@/utils/statusProject";
-import type { EmployeeBasicModel } from "@/interfaces/employees/EmployeeBasicModel";
-import { useToast } from "primevue";
+import { onBeforeMount, ref } from 'vue';
+import { GetProjectByUser } from '@/services/projects/projectService'
+import AddEmployeeToProject from '@/components/blocks/project/employees/AddEmployeeToProject.vue'
+import CreateResourceForProject from '@/components/blocks/project/resources/CreateResourceForProject.vue'
+import CreateTask from '@/components/blocks/project/task/CreateTask.vue'
 
-const authStore = useAuthStore();
+const project = ref<Project | null>(null);
+const tasks = ref<{ name: string; description:string; showActivities?: boolean; activities: { name: string; description: string }[], users: string[] }[]>([]);
+const resources = ref<{name: string; quantity: number}[]>([]);
+const members = ref<{name: string; role:string}[]>([]);
+const encharge = ref<string | null>( null);
 
-const toast = useToast();
-const project = ref<ProjectModel>();
-const employees = ref<Array<EmployeeBasicModel>>()
+onBeforeMount(async () => {
+  try {
+    const getProject = await GetProjectByUser();
+    console.log("getProject", getProject);
 
-onMounted(async () => {
-    const { id, projectId } = authStore.employee || {};
+    if (getProject.success) {
+      project.value = getProject.data.project;
+      encharge.value = getProject.data.encharge && getProject.data.encharge.length > 0 ? `${getProject.data.encharge[0].employee.name} ${getProject.data.encharge[0].employee.lastName}` : "";
+      members.value = getProject.data.employees.map((employee: any) => ({name: `${employee.employee.name} ${employee.employee.lastName}`, role: employee.roles[0]}));
+      resources.value = getProject.data.project.projectResources.map((resource: any) => ({ name : resource.resource.name, quantity: resource.quantity}) );
+      tasks.value = getProject.data.project.tasks.map((task: any) => ({
+        name: task.name,
+        description: task.description,
+        users: task.taskEmployees.map((act: any) => `${act.employee.name} ${act.employee.lastName}`),
+        activities: task.activities.map((act: any) => ({ name: act.name, description: act.description })),
+        showActivities: false
+      }));
 
-    if (!id || !projectId) {
-        toast.add({ severity: 'error', summary: 'Algo salió mal', detail: 'Intentalo de nuevo más tarde', life: 3000 });
-        return;
+      console.log("tareas", tasks.value);
     }
+  } catch (error) {
+    console.error("Error fetching project:", error);
+  }
+});
 
-    const responseProject = await GetEmployeeProject(id);
-    project.value = responseProject.data
-
-    const responseEmployeesFromProject = await GetEmployeesFromProject(projectId);
-    employees.value = responseEmployeesFromProject.data;
-
-})
-
+const toggleTasks = (index: number) => {
+  tasks.value[index].showActivities = !tasks.value[index].showActivities;
+};
 </script>
 
 <template>
-    <main class="space-y-6">
-        <header class="text-center">
-            <h1 class="text-3xl font-bold text-DarkTeal">Gestión del Proyecto</h1>
-            <p class="text-gray-600 mt-2">Visualiza el progreso y la información relevante del proyecto</p>
-        </header>
+  <div class="p-4">
 
-        <section class="bg-white shadow-lg rounded-lg p-6">
-            <h2 class="text-2xl font-semibold text-DarkTeal">{{ project?.name }}</h2>
-            <p class="mt-2 text-gray-600">{{ project?.description }}</p>
-            <div class="mt-4 text-sm">
-                <p><span class="font-semibold">Estado:</span> {{ project?.status ? translateStatus(project.status) :
-                    'Estatus no disponible' }}</p>
-                <p><span class="font-semibold">Inicio:</span> {{ project?.startDate ? formatDate(project?.startDate) :
-                    'Fecha no disponible' }}</p>
-                <p><span class="font-semibold">Fin:</span> {{ project?.endTime ? formatDate(project?.endTime) : 'Fecha no disponible'}}</p>
-            </div>
-        </section>
+    <div v-if="project" class="p-4 rounded-lg flex flex-col md:flex-row justify-between items-start md:items-center bg-white mb-4">
+      <div>
+        <p class="text-2xl font-semibold text-DarkTeal">Nombre: {{ project.name }}</p>
+        <p class="text-md pl-5">Descripción: {{ project.description }}</p>
+      </div>
+      <div class="text-right text-sm text-gray-500 mt-4 md:mt-0">
+        Encargado: {{ encharge ? encharge : "N/A" }}
+      </div>
+    </div>
 
-        <section class="bg-white shadow-lg rounded-lg p-6">
-            <h2 class="text-2xl font-semibold mb-4 text-DarkTeal">Compañeros Asignados</h2>
-            <div class="overflow-x-auto">
-                <table class="w-full border-collapse border border-gray-300">
-                    <thead>
-                        <tr class="bg-gray-100">
-                            <th class="border border-gray-300 px-4 py-2 text-left">Nombre</th>
-                            <th class="border border-gray-300 px-4 py-2 text-left">Apellidos</th>
-                            <th class="border border-gray-300 px-4 py-2 text-left">Email</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr v-for="employee in employees" :key="employee.email" class="hover:bg-gray-50">
-                            <td class="border border-gray-300 px-4 py-2">{{ employee.name }}</td>
-                            <td class="border border-gray-300 px-4 py-2">{{ employee.lastName }}</td>
-                            <td class="border border-gray-300 px-4 py-2">{{ employee.email }}</td>
-                        </tr>
-                    </tbody>
-                </table>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+      <!-- Recursos -->
+      <div class="p-4 rounded-lg bg-white">
+        <div class="flex justify-between items-center mb-3">
+          <h3 class="text-lg font-semibold mb-2">Recursos</h3>
+          <CreateResourceForProject />
+        </div>
+
+        <div class="grid grid-cols-1  gap-4">
+          <div
+            v-for="(resource, index) in resources"
+            :key="index"
+            class="p-4  rounded-lg bg-slate-100"
+          >
+            <p class="font-medium text-CharcoalBlue">{{ resource.name }}</p>
+            <p class="text-sm text-gray-600">Cantidad: {{ resource.quantity }}</p>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="p-4 rounded-lg bg-white">
+        <div class="flex justify-between items-center mb-3">
+          <h3 class="text-lg font-semibold mb-2">Integrantes</h3>
+          <AddEmployeeToProject />
+        </div>
+
+        <div class="grid grid-cols-1  gap-4">
+          <div
+            v-for="(member, index) in members"
+            :key="index"
+            class="p-4  rounded-lg bg-slate-100"
+          >
+            <p class="font-medium text-CharcoalBlue">{{ member.name }}</p>
+            <p class="text-sm text-gray-600">Rol: {{ member.role }}</p>
+          </div>
+        </div>
+
+      </div>
+
+
+    </div>
+
+
+    <div class="p-4 rounded-lg bg-white mb-4">
+      <div class="flex justify-between items-center">
+        <p class="text-lg font-semibold">Lista de tareas</p>
+        <CreateTask />
+      </div>
+      <div class="mt-4 max-h-72 overflow-y-auto">
+        <div v-for="(task, index) in tasks" :key="index" class="p-4 rounded-lg bg-slate-100 mt-4">
+          <div @click="toggleTasks(index)" class="cursor-pointer grid grid-cols-1 md:grid-cols-5 gap-4">
+            <div class="col-span-3">
+              <h3 class="text-md font-semibold cursor-pointer">
+                {{ task.name }}
+              </h3>
+              <p class="pl-5">{{ task.description }}</p>
             </div>
-        </section>
-    </main>
+            <div class="col-span-2">
+              <h3 class="text-md font-semibold cursor-pointer">
+                Integrantes
+              </h3>
+              <ul v-for="(user, i) in task.users" :key="i" class="list-disc pl-10">
+                <li class="text-md">{{ user }}</li>
+              </ul>
+            </div>
+          </div>
+
+          <div v-if="task.showActivities" class="mt-4" :style="task.activities.length > 4 ? 'max-height: 140px; overflow-y: auto;' : ''">
+            <div class="grid grid-cols-1 gap-4">
+              <div v-for="(activity, i) in task.activities" :key="i" class="p-4 rounded-lg bg-white">
+                <p class="text-md font-semibold">{{ activity.name }}</p>
+                <p class="pl-5">{{ activity.description }}</p>
+              </div>
+            </div>
+            <div class="flex justify-end mt-4">
+              <button @click="toggleTasks(index)" class="text-sm text-DarkTeal bg-white px-10">Ver más...</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
+
+<style scoped>
+</style>
+

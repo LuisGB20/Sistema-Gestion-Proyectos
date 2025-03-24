@@ -9,6 +9,7 @@ import IconField from 'primevue/iconfield';
 import InputText from 'primevue/inputtext';
 import Select from 'primevue/select';
 import LinkComponent from '@/components/ui/LinkButton.vue';
+import { GetEmployeeData } from '@/services/employees/EmployeeService.ts'
 
 const usuarios = ref();
 const loading = ref(true);
@@ -18,45 +19,15 @@ const exportCSV = () => {
     dt.value.exportCSV();
 };
 
-onMounted(() => {
+onMounted(async () => {
 
-    usuarios.value = [
-        {
-            nombre: 'Juan Pérez',
-            correo: 'juan.perez@email.com',
-            estado: 'Activo',
-            fechaRegistro: '2025-03-01 08:00:00',
-            rol: 'Administrador'
-        },
-        {
-            nombre: 'Ana López',
-            correo: 'ana.lopez@email.com',
-            estado: 'Inactivo',
-            fechaRegistro: '2025-02-25 10:15:00',
-            rol: 'Escritor'
-        },
-        {
-            nombre: 'Carlos García',
-            correo: 'carlos.garcia@email.com',
-            estado: 'Pendiente',
-            fechaRegistro: '2025-03-05 12:00:00',
-            rol: 'Lector'
-        },
-        {
-            nombre: 'María Fernández',
-            correo: 'maria.fernandez@email.com',
-            estado: 'Activo',
-            fechaRegistro: '2025-01-10 09:30:00',
-            rol: 'Administrador'
-        },
-        {
-            nombre: 'Luis Gómez',
-            correo: 'luis.gomez@email.com',
-            estado: 'Inactivo',
-            fechaRegistro: '2025-03-02 14:20:00',
-            rol: 'Lector'
-        }
-    ];
+    await GetEmployeeData().then((res) => {
+        usuarios.value = res.data;
+    }).catch((error) => {
+        console.error("Error en onMounted:", error);
+    });
+
+    console.log(usuarios.value)
 
     loading.value = false;
 });
@@ -84,7 +55,7 @@ const confirmDeleteUser = (data: any) => {
 
 <template>
   <main class="p-4">
-  
+
       <div class="flex flex-col sm:flex-row justify-between items-center mb-4">
           <h1 class="text-2xl sm:text-3xl font-bold text-gray-800">Usuarios</h1>
           <LinkComponent to="" text="Crear" class="mt-2 sm:mt-0" />

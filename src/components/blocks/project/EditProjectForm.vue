@@ -34,9 +34,8 @@ const fetchProjectData = async () => {
   }
 };
 
-// Carga los datos del proyecto solo cuando se abre el modal
 watch(() => {
-  if (isOpen || modalStore.isEditModalOpen) {
+  if (isOpen.value || modalStore.isEditModalOpen) {
     fetchProjectData();
   }
 });

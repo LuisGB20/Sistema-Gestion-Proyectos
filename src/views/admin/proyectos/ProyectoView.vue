@@ -3,14 +3,15 @@ import { onBeforeMount, ref } from 'vue';
 import { GetProjectById } from '@/services/projects/projectService';
 import { useRoute } from 'vue-router';
 import AddEmployeeToProject from '@/components/blocks/project/employees/AddEmployeeToProject.vue'
-import CreateResourceForProject
-  from '@/components/blocks/project/resources/CreateResourceForProject.vue'
+import CreateResourceForProject from '@/components/blocks/project/resources/CreateResourceForProject.vue'
+import CreateTask from '@/components/blocks/project/task/CreateTask.vue'
 
 const route = useRoute();
 const project = ref<Project | null>(null);
 const tasks = ref<{ name: string; description:string; showActivities?: boolean; activities: { name: string; description: string }[], users: string[] }[]>([]);
 const resources = ref<{name: string; quantity: number}[]>([]);
-const members = ref<string[]>([]);
+const members = ref<{name: string; role:string}[]>([]);
+const encharge = ref<string | null>( null);
 
 onBeforeMount(async () => {
   const id = route.params.id as string;
@@ -21,10 +22,11 @@ onBeforeMount(async () => {
     console.log("getProject", getProject);
 
     if (getProject.success) {
-      project.value = getProject.data;
-      members.value = getProject.data.employee.map((employee: any) => `${employee.name} ${employee.lastName}`);
-      resources.value = getProject.data.projectResources.map((resource: any) => ({ name : resource.resource.name, quantity: resource.quantity}) );
-      tasks.value = getProject.data.tasks.map((task: any) => ({
+      project.value = getProject.data.project;
+      encharge.value = getProject.data.encharge && getProject.data.encharge.length > 0 ? `${getProject.data.encharge[0].employee.name} ${getProject.data.encharge[0].employee.lastName}` : "";
+      members.value = getProject.data.employees.map((employee: any) => ({name: `${employee.employee.name} ${employee.employee.lastName}`, role: employee.roles[0]}));
+      resources.value = getProject.data.project.projectResources.map((resource: any) => ({ name : resource.resource.name, quantity: resource.quantity}) );
+      tasks.value = getProject.data.project.tasks.map((task: any) => ({
         name: task.name,
         description: task.description,
         users: task.taskEmployees.map((act: any) => `${act.employee.name} ${act.employee.lastName}`),
@@ -53,7 +55,7 @@ const toggleTasks = (index: number) => {
         <p class="text-md pl-5">Descripción: {{ project.description }}</p>
       </div>
       <div class="text-right text-sm text-gray-500 mt-4 md:mt-0">
-        Encargado: Empleado 1
+        Encargado: {{ encharge ? encharge : "N/A" }}
       </div>
     </div>
 
@@ -61,31 +63,51 @@ const toggleTasks = (index: number) => {
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
       <!-- Recursos -->
       <div class="p-4 rounded-lg bg-white">
-        <div class="flex justify-between items-center">
+        <div class="flex justify-between items-center mb-3">
           <h3 class="text-lg font-semibold mb-2">Recursos</h3>
           <CreateResourceForProject />
         </div>
-        <ul class="list-disc pl-5">
-          <li v-for="(resource, index) in resources" :key="index">{{ resource.name }} ( cantidad: {{ resource.quantity }} )</li>
-        </ul>
+
+        <div class="grid grid-cols-1  gap-4">
+          <div
+            v-for="(resource, index) in resources"
+            :key="index"
+            class="p-4  rounded-lg bg-slate-100"
+          >
+            <p class="font-medium text-CharcoalBlue">{{ resource.name }}</p>
+            <p class="text-sm text-gray-600">Cantidad: {{ resource.quantity }}</p>
+          </div>
+        </div>
+
       </div>
 
       <div class="p-4 rounded-lg bg-white">
-        <div class="flex justify-between items-center">
+        <div class="flex justify-between items-center mb-3">
           <h3 class="text-lg font-semibold mb-2">Integrantes</h3>
           <AddEmployeeToProject />
         </div>
-        <ul class="list-disc pl-5">
-          <li v-for="(member, index) in members" :key="index">{{ member }}</li>
-        </ul>
+
+        <div class="grid grid-cols-1  gap-4">
+          <div
+            v-for="(member, index) in members"
+            :key="index"
+            class="p-4  rounded-lg bg-slate-100"
+          >
+            <p class="font-medium text-CharcoalBlue">{{ member.name }}</p>
+            <p class="text-sm text-gray-600">Rol: {{ member.role }}</p>
+          </div>
+        </div>
+
       </div>
+
+
     </div>
 
-    
+
     <div class="p-4 rounded-lg bg-white mb-4">
       <div class="flex justify-between items-center">
         <p class="text-lg font-semibold">Lista de tareas</p>
-        <div class="text-right text-sm text-gray-500">Detalles</div>
+        <CreateTask />
       </div>
       <div class="mt-4 max-h-72 overflow-y-auto">
         <div v-for="(task, index) in tasks" :key="index" class="p-4 rounded-lg bg-slate-100 mt-4">
