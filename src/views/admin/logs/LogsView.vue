@@ -18,6 +18,7 @@ import type { ResponseHelper } from '@/interfaces/helpers/ResponseHelper'
 import type { LogModelWithUserEmail } from '@/interfaces/logs/LogModel'
 import type { ResponseHelperArray } from '@/interfaces/helpers/ResponseHelperArray'
 import { useLogsDataWebSocket } from '@/composables/useLogsDataWebsocket'
+import CustomTabs from '@/components/tabs/CustomTabs.vue'
 
 const logs = ref<LogModelWithUserEmail[]>([])
 const loading = ref(true)
@@ -290,9 +291,17 @@ const gaugeOptions = computed(() => ({
 }));
 </script>
 
+
+
+
 <template>
+  <div style="margin-bottom: 10px;">
+    <CustomTabs :tabs="[
+    { route: '/admin/logs', icon: 'pi pi-list', text: 'Registro de peticiones' },
+    { route: '/admin/logs-entidades', icon: 'pi pi-table', text: 'Registro de entidades' }
+  ]" />
+  </div>
   <main>
-    <h1 class="text-2xl font-bold mb-4">Dashboard de Logs</h1>
 
     <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6 text-white">
       <div class="p-4 bg-blue-100 text-blue-800 shadow rounded-lg">
@@ -315,30 +324,19 @@ const gaugeOptions = computed(() => ({
     </div>
 
     <div class="card">
-      <DataTable
-        v-model:filters="filters"
-        :value="logs"
-        removableSort
-        ref="dt"
-        paginator
-        :rows="7"
-        :rowsPerPageOptions="[5, 10, 20]"
-        :loading="loading"
-        :globalFilterFields="[
+      <DataTable v-model:filters="filters" :value="logs" removableSort ref="dt" paginator :rows="7"
+        :rowsPerPageOptions="[5, 10, 20]" :loading="loading" :globalFilterFields="[
           'timeStamp',
           'level',
           'message',
           'httpMethod',
           'endpoint',
           'userEmail',
-        ]"
-        filterDisplay="row"
-        class="rounded-lg"
-      >
+        ]" filterDisplay="row" class="rounded-lg">
         <template #header>
           <div class="flex justify-between">
             <div class="flex flex-wrap items-center justify-start gap-2">
-              <span class="text-xl font-bold">Logs</span>
+              <span class="text-xl font-bold">Registros de peticiones</span>
             </div>
             <div class="flex">
               <div class="text-end mr-4">
@@ -359,29 +357,15 @@ const gaugeOptions = computed(() => ({
 
         <Column field="level" header="Nivel" :showFilterMenu="false" style="min-width: 12rem">
           <template #body="{ data }">
-            <span
-              class="text-sm font-medium me-2 px-2.5 py-0.5 rounded-full"
-              :class="getLevelColor(data.level)"
-            >
+            <span class="text-sm font-medium me-2 px-2.5 py-0.5 rounded-full" :class="getLevelColor(data.level)">
               {{ mapLevel(data.level) }}
             </span>
           </template>
           <template #filter="{ filterModel, filterCallback }">
-            <Select
-              v-model="filterModel.value"
-              @change="filterCallback()"
-              :options="levelOptions"
-              optionLabel="label"
-              optionValue="value"
-              placeholder="Selecciona nivel"
-              style="min-width: 12rem"
-              :showClear="true"
-            >
+            <Select v-model="filterModel.value" @change="filterCallback()" :options="levelOptions" optionLabel="label"
+              optionValue="value" placeholder="Selecciona nivel" style="min-width: 12rem" :showClear="true">
               <template #option="slotProps">
-                <span
-                  class="text-sm font-medium px-2 py-1 rounded-full"
-                  :class="getLevelColor(slotProps.option.value)"
-                >
+                <span class="text-sm font-medium px-2 py-1 rounded-full" :class="getLevelColor(slotProps.option.value)">
                   {{ slotProps.option.label }}
                 </span>
               </template>
@@ -394,40 +378,23 @@ const gaugeOptions = computed(() => ({
             {{ data.message }}
           </template>
           <template #filter="{ filterModel, filterCallback }">
-            <InputText
-              v-model="filterModel.value"
-              type="text"
-              @input="filterCallback()"
-              placeholder="Buscar por mensaje"
-            />
+            <InputText v-model="filterModel.value" type="text" @input="filterCallback()"
+              placeholder="Buscar por mensaje" />
           </template>
         </Column>
 
         <Column field="httpMethod" header="Método HTTP" sortable style="min-width: 10rem">
           <template #body="{ data }">
-            <span
-              class="text-sm font-medium me-2 px-2.5 py-0.5 rounded-full"
-              :class="getMethodColor(data.httpMethod)"
-            >
+            <span class="text-sm font-medium me-2 px-2.5 py-0.5 rounded-full" :class="getMethodColor(data.httpMethod)">
               {{ mapHttpMethod(data.httpMethod) }}
             </span>
           </template>
           <template #filter="{ filterModel, filterCallback }">
-            <Select
-              v-model="filterModel.value"
-              @change="filterCallback()"
-              :options="httpOptions"
-              optionLabel="label"
-              optionValue="value"
-              placeholder="Selecciona método"
-              style="min-width: 12rem"
-              :showClear="true"
-            >
+            <Select v-model="filterModel.value" @change="filterCallback()" :options="httpOptions" optionLabel="label"
+              optionValue="value" placeholder="Selecciona método" style="min-width: 12rem" :showClear="true">
               <template #option="slotProps">
-                <span
-                  class="text-sm font-medium px-2 py-1 rounded-full"
-                  :class="getMethodColor(slotProps.option.value)"
-                >
+                <span class="text-sm font-medium px-2 py-1 rounded-full"
+                  :class="getMethodColor(slotProps.option.value)">
                   {{ slotProps.option.label }}
                 </span>
               </template>
@@ -440,12 +407,8 @@ const gaugeOptions = computed(() => ({
             {{ data.endpoint }}
           </template>
           <template #filter="{ filterModel, filterCallback }">
-            <InputText
-              v-model="filterModel.value"
-              type="text"
-              @input="filterCallback()"
-              placeholder="Buscar por endpoint"
-            />
+            <InputText v-model="filterModel.value" type="text" @input="filterCallback()"
+              placeholder="Buscar por endpoint" />
           </template>
         </Column>
 
@@ -454,12 +417,8 @@ const gaugeOptions = computed(() => ({
             {{ data.userEmail || 'Sistema' }}
           </template>
           <template #filter="{ filterModel, filterCallback }">
-            <InputText
-              v-model="filterModel.value"
-              type="text"
-              @input="filterCallback()"
-              placeholder="Buscar por usuario"
-            />
+            <InputText v-model="filterModel.value" type="text" @input="filterCallback()"
+              placeholder="Buscar por usuario" />
           </template>
         </Column>
 
@@ -473,66 +432,50 @@ const gaugeOptions = computed(() => ({
       </DataTable>
     </div>
 
-    <div class="grid-2-col">
-      <div class="bg-white p-6 rounded-lg shadow-xl">
-        <h2 class="text-2xl font-semibold mb-4 text-gun-metal">
-          Distribución de niveles de registro
-        </h2>
-        <div
-          class="bg-white h-[300px] md:h-[500px] w-full rounded-lg flex flex-col justify-center items-center"
-        >
-          <Doughnut
-            :data="levelsChartData"
-            :options="{ responsive: true, maintainAspectRatio: false }"
-          />
-        </div>
-      </div>
-
-      <div class="bg-white p-6 rounded-lg shadow-xl">
-        <h2 class="text-2xl font-semibold mb-4 text-gun-metal">Frecuencia de logs</h2>
-        <div
-          class="bg-white h-[300px] md:h-[500px] w-full rounded-lg flex flex-col justify-center items-center"
-        >
+    <!--  -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
+      <div class="card">
+        <h2 class="title">Frecuencia de logs</h2>
+        <div class="chart-container">
           <Line :data="timeChartData" :options="{ responsive: true, maintainAspectRatio: false }" />
         </div>
       </div>
 
-      <div class="bg-white p-6 rounded-lg shadow-xl">
-        <h2 class="text-2xl font-semibold mb-4 text-gun-metal">Métodos HTTP más utilizados</h2>
-        <div
-          class="bg-white h-[300px] md:h-[500px] w-full rounded-lg flex flex-col justify-center items-center"
-        >
+      <div class="card">
+        <h2 class="title">Distribución de niveles de registro</h2>
+        <div class="chart-container">
+          <Doughnut :data="levelsChartData" :options="{ responsive: true, maintainAspectRatio: false }" />
+        </div>
+      </div>
+
+      <div class="card">
+        <h2 class="title">Métodos HTTP más utilizados</h2>
+        <div class="chart-container">
           <Bar :data="httpChartData" :options="{ responsive: true, maintainAspectRatio: false }" />
+
         </div>
       </div>
 
-      <div class="bg-white p-6 rounded-lg shadow-xl">
-        <h2 class="text-2xl font-semibold mb-4 text-gun-metal">Endpoints más utilizados</h2>
-        <div
-          class="bg-white h-[300px] md:h-[500px] w-full rounded-lg flex flex-col justify-center items-center"
-        >
-          <Bar
-            :data="endpointsChartData"
-            :options="{
-              responsive: true,
-              maintainAspectRatio: false,
-              indexAxis: 'y',
-            }"
-          />
+      <div class="card">
+        <h2 class="title">Endpoints más utilizados</h2>
+        <div class="chart-container">
+          <Bar :data="endpointsChartData" :options="{
+            responsive: true,
+            maintainAspectRatio: false,
+            indexAxis: 'y',
+          }" />
         </div>
       </div>
 
-      <div class="bg-white p-6 rounded-lg shadow-xl">
-        <h2 class="text-2xl font-semibold mb-4 text-gun-metal">Actividad por usuario</h2>
-        <div
-          class="bg-white h-[300px] md:h-[500px] w-full rounded-lg flex flex-col justify-center items-center"
-        >
+      <div class="card">
+        <h2 class="title">Actividad por usuario</h2>
+        <div class="chart-container">
           <Pie :data="usersChartData" :options="{ responsive: true, maintainAspectRatio: false }" />
         </div>
       </div>
 
-      <div class="bg-white p-6 rounded-lg shadow-xl">
-        <h2 class="text-2xl font-semibold mb-4 text-gun-metal">Tasa de Éxito</h2>
+      <div class="card">
+        <h2 class="title">Tasa de Éxito</h2>
         <div class="h-48 relative">
           <Doughnut :data="gaugeData" :options="gaugeOptions" />
           <div class="absolute inset-0 flex flex-col items-center justify-center pt-8">
@@ -544,16 +487,31 @@ const gaugeOptions = computed(() => ({
           <span>100%</span>
         </div>
       </div>
+      <!--  -->
+
 
     </div>
   </main>
 </template>
 
 <style scoped>
-.grid-2-col {
-    margin-top: 1rem;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(700px, 1fr));
-    gap: 1rem;
+.card {
+  background: #fff;
+  border-radius: 8px;
+  padding: 1rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: #333;
+}
+
+.chart-container {
+  height: 400px;
+  position: relative;
 }
 </style>

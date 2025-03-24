@@ -11,6 +11,7 @@ import type { AuditEntitiesModel } from '@/interfaces/logs/AuditEntitiesModel'
 import { FilterMatchMode } from '@primevue/core'
 import Button from 'primevue/button';
 import Dialog from 'primevue/dialog';
+import CustomTabs from '@/components/tabs/CustomTabs.vue'
 import Tag from 'primevue/tag';
 import Select from 'primevue/select'
 import { Doughnut, Bar, Pie } from 'vue-chartjs'
@@ -113,11 +114,6 @@ onBeforeUnmount(() => {
 
 // Gráficas
 
-/* ==================== */
-/* Computed para gráficas */
-/* ==================== */
-
-// 1. Distribución de acciones (INSERT, UPDATE, DELETE, ALTER)
 const actionsCount = computed(() => {
   const counts: Record<string, number> = { INSERT: 0, UPDATE: 0, DELETE: 0, ALTER: 0 }
   logs.value.forEach(log => {
@@ -137,7 +133,6 @@ const actionsChartData = computed(() => ({
   ]
 }))
 
-// 2. Top 5 Tablas afectadas
 const tablesCount = computed(() => {
   const counts: Record<string, number> = {}
   logs.value.forEach(log => {
@@ -153,13 +148,13 @@ const tablesChartData = computed(() => ({
   datasets: [
     {
       label: 'Operaciones por Tabla',
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       data: tablesCount.value.map(([_, count]) => count),
       backgroundColor: '#60A5FA'
     }
   ]
 }))
 
-// 3. Distribución de roles
 const rolesCount = computed(() => {
   const counts: Record<string, number> = {}
   logs.value.forEach(log => {
@@ -179,7 +174,6 @@ const rolesChartData = computed(() => ({
   ]
 }))
 
-// 4. Serie temporal de registros
 const timeChartData = computed(() => ({
   labels: Array.from({ length: 15 }, (_, i) => `${i * 5} min`),
   datasets: [
@@ -192,7 +186,6 @@ const timeChartData = computed(() => ({
   ]
 }))
 
-// 5. Actividad por usuario
 const usersActivity = computed(() => {
   const counts: Record<string, number> = {}
   logs.value.forEach(log => {
@@ -213,7 +206,6 @@ const usersChartData = computed(() => ({
   ]
 }))
 
-// 6. Frecuencia de IPs (Top 5)
 const ipsCount = computed(() => {
   const counts: Record<string, number> = {}
   logs.value.forEach(log => {
@@ -230,6 +222,7 @@ const ipsChartData = computed(() => ({
   datasets: [
     {
       label: 'Frecuencia de IPs',
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       data: ipsCount.value.map(([_, count]) => count),
       backgroundColor: '#FCA5A5'
     }
@@ -239,11 +232,24 @@ const ipsChartData = computed(() => ({
 </script>
 
 <template>
+    <div style="margin-bottom: 10px;">
+    <CustomTabs :tabs="[
+    { route: '/admin/logs', icon: 'pi pi-list', text: 'Registro de peticiones' },
+    { route: '/admin/logs-entidades', icon: 'pi pi-table', text: 'Registro de entidades' }
+  ]" />
+  </div>
+
   <main>
-    <h1 class="text-2xl font-bold mb-4">Registros de operaciones en las entidades</h1>
     <div class="card">
-      <DataTable :value="logs" :paginator="true" :rows="10" :rowsPerPageOptions="[5, 10, 20]" v-model:filters="filters"
-        filterDisplay="row" :loading="loading" dataKey="idEntity">
+      <DataTable :value="logs" :paginator="true" :rows="7" :rowsPerPageOptions="[5, 10, 20]" v-model:filters="filters"
+        filterDisplay="row" :loading="loading"  dataKey="idEntity">
+        <template #header>
+          <div class="flex justify-between">
+            <div class="flex flex-wrap items-center justify-start gap-2">
+              <span class="text-xl font-bold">Registros de entidades</span>
+            </div>
+          </div>
+        </template>
 
         <Column field="action" header="Acción" :style="{ width: '15%' }">
           <template #body="{ data }">
@@ -333,44 +339,49 @@ const ipsChartData = computed(() => ({
       </Dialog>
     </div>
 
-    <!-- Gráficas -->
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-      <!-- 1. Distribución de Acciones -->
-      <div class="card p-4">
-        <h2 class="text-xl font-semibold mb-2">Distribución de Acciones</h2>
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
+    <div class="card">
+      <h2 class="title">Distribución de Acciones</h2>
+      <div class="chart-container">
         <Doughnut :data="actionsChartData" :options="{ responsive: true, maintainAspectRatio: false }" />
       </div>
+    </div>
 
-      <!-- 2. Top 5 Tablas Afectadas -->
-      <div class="card p-4">
-        <h2 class="text-xl font-semibold mb-2">Top 5 Tablas Afectadas</h2>
+    <div class="card">
+      <h2 class="title">Top 5 Tablas Afectadas</h2>
+      <div class="chart-container">
         <Bar :data="tablesChartData" :options="{ responsive: true, maintainAspectRatio: false, indexAxis: 'y' }" />
       </div>
+    </div>
 
-      <!-- 3. Distribución de Roles -->
-      <div class="card p-4">
-        <h2 class="text-xl font-semibold mb-2">Distribución de Roles</h2>
+    <div class="card">
+      <h2 class="title">Distribución de Roles</h2>
+      <div class="chart-container">
         <Pie :data="rolesChartData" :options="{ responsive: true, maintainAspectRatio: false }" />
       </div>
+    </div>
 
-      <!-- 4. Serie Temporal -->
-      <div class="card p-4">
-        <h2 class="text-xl font-semibold mb-2">Serie Temporal de Registros</h2>
+    <div class="card">
+      <h2 class="title">Serie Temporal de Registros</h2>
+      <div class="chart-container">
         <Line :data="timeChartData" :options="{ responsive: true, maintainAspectRatio: false }" />
       </div>
+    </div>
 
-      <!-- 5. Actividad por Usuario -->
-      <div class="card p-4">
-        <h2 class="text-xl font-semibold mb-2">Actividad por Usuario</h2>
+    <div class="card">
+      <h2 class="title">Actividad por Usuario</h2>
+      <div class="chart-container">
         <Pie :data="usersChartData" :options="{ responsive: true, maintainAspectRatio: false }" />
       </div>
+    </div>
 
-      <!-- 6. Frecuencia de IPs -->
-      <div class="card p-4">
-        <h2 class="text-xl font-semibold mb-2">Top 5 IPs</h2>
+    <div class="card">
+      <h2 class="title">Top 5 IPs</h2>
+      <div class="chart-container">
         <Bar :data="ipsChartData" :options="{ responsive: true, maintainAspectRatio: false, indexAxis: 'y' }" />
       </div>
     </div>
+  </div>
 
   </main>
 </template>
@@ -456,5 +467,25 @@ const ipsChartData = computed(() => ({
 
 .p-column-filter .p-dropdown-panel .p-dropdown-items .p-dropdown-item {
   padding: 0.5rem;
+}
+
+.card {
+  background: #fff;
+  border-radius: 8px;
+  padding: 1rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: #333;
+}
+
+.chart-container {
+  height: 400px;
+  position: relative;
 }
 </style>
