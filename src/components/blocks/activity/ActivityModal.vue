@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { useModalStore } from '@/stores/modalStore';
-import { Avatar, Button, Dialog } from 'primevue';
+import { Button, Dialog } from 'primevue';
 import type { ActivityModel } from '@/interfaces/Activities/ActivityModel';
 import { translateStatusActivity } from '@/utils/statusActivity';
 
@@ -11,9 +11,6 @@ const props = defineProps<{
 }>();
 
 const activity = computed(() => props.activity);
-
-// Emit
-const emit = defineEmits(['markAsCompleted']);
 
 // Store
 const modalStore = useModalStore();
@@ -27,58 +24,47 @@ const markAsCompleted = () => {
 
 <template>
   <div class="card flex justify-center">
-    <Dialog v-model:visible="modalStore.isEmployeeActivityModalOpen" v-if="activity" modal header="Información de la actividad"
-      :style="{ width: '25rem' }">
-      <template #header>
-        <div class="inline-flex items-center justify-center gap-2">
-          <Avatar image="https://primefaces.org/cdn/primevue/images/avatar/amyelsner.png" shape="circle" />
-          <span class="font-bold whitespace-nowrap">{{ activity.name }}</span>
-        </div>
-      </template>
+    <Dialog v-model:visible="modalStore.isEmployeeActivityModalOpen" v-if="activity" modal
+      header="Detalles de la actividad" :style="{ width: '30rem' }">
 
-      <!-- Detalles de la actividad -->
       <div class="space-y-4">
         <div>
-          <label class="font-semibold">Descripción:</label>
-          <p class="text-surface-600 dark:text-surface-400 mt-1">
+          <label class="font-semibold text-CharcoalBlue">Nombre:</label>
+          <p class="text-DarkTeal mt-1 text-lg font-medium">
+            {{ activity.name }}
+          </p>
+        </div>
+
+        <div>
+          <label class="font-semibold text-CharcoalBlue">Descripción:</label>
+          <p class="text-DarkTeal mt-1 text-base font-medium">
             {{ activity.description }}
           </p>
         </div>
 
         <div>
-          <label class="font-semibold">Estado:</label>
-          <p class="text-surface-600 dark:text-surface-400 mt-1">
+          <label class="font-semibold text-CharcoalBlue">Estado:</label>
+          <p class="text-DarkTeal mt-1 text-base font-medium">
             {{ translateStatusActivity(activity.status) }}
           </p>
         </div>
 
         <div>
-          <label class="font-semibold">Tarea asociada:</label>
-          <p class="text-surface-600 dark:text-surface-400 mt-1">
+          <label class="font-semibold text-gray-800">Tarea asociada:</label>
+          <p class="text-DarkTeal mt-1 text-base font-medium">
             {{ activity.task.name }}
-          </p>
-        </div>
-
-        <div v-if="activity.task.startDate">
-          <label class="font-semibold">Fecha de inicio:</label>
-          <p class="text-surface-600 dark:text-surface-400 mt-1">
-            {{ new Date(activity.task.startDate).toLocaleDateString() }}
-          </p>
-        </div>
-
-        <div v-if="activity.task.endTime">
-          <label class="font-semibold">Fecha de fin:</label>
-          <p class="text-surface-600 dark:text-surface-400 mt-1">
-            {{ new Date(activity.task.endTime).toLocaleDateString() }}
           </p>
         </div>
       </div>
 
       <template #footer>
-        <Button class="btn-cancel" label="Cancelar" text severity="secondary"
-          @click="modalStore.isEmployeeActivityModalOpen = false" />
-        <Button class="btn-submit" label="Marcar como completada" outlined severity="success" @click="markAsCompleted"
-          :disabled="activity.status === 'COMPLETED'" />
+        <div class="flex justify-between gap-4 mt-6">
+          <Button class="btn-cancel" label="Cancelar" text severity="secondary"
+            @click="modalStore.isEmployeeActivityModalOpen = false" />
+          <Button class="btn-submit" :class="{
+            '!bg-transparent !border-2 !border-CharcoalBlue !border-dashed !text-CharcoalBlue !cursor-not-allowed': activity.status === 'COMPLETED'
+          }" label="Terminar" severity="success" @click="markAsCompleted" :disabled="activity.status === 'COMPLETED'" />
+        </div>
       </template>
     </Dialog>
   </div>

@@ -111,31 +111,55 @@ const confirmDeleteResource = async (id: string) => {
 </script>
 
 <template>
-    <main>
-        <div class="flex justify-between mb-4">
+    <main class="p-6 sm:p-8">
+        <div class="flex flex-col sm:flex-row justify-between items-center mb-8 gap-6">
             <h1
-                class="text-transparent bg-clip-text bg-gradient-to-b from-DarkTeal to-CharcoalBlue text-start text-3xl font-bold">
+                class="text-transparent bg-clip-text bg-gradient-to-b from-DarkTeal to-CharcoalBlue text-3xl sm:text-4xl font-extrabold drop-shadow-md w-full sm:w-auto text-center sm:text-start">
                 Recursos
             </h1>
-            <OpenCreateButton />
+            <div class="w-full max-w-[400px] sm:max-w-none">
+                <OpenCreateButton class="w-full sm:w-auto md:ml-auto px-6 py-3 rounded-xl shadow-md" />
+            </div>
         </div>
-        <ConfirmDialog></ConfirmDialog>
 
-        <DataTable :columns="['name', 'description', 'quantity']" :columnsEs="['Nombre', 'Descripción', 'Cantidad']"
-            :data="resources" @show-element="data => showResource(data)" @edit-element="data => showEditModal(data)"
-            @confirm-delete="data => confirmDelete(data)" />
+        <ConfirmDialog />
 
-        <CreateForm title='Crear recurso' @submit="values => addResource(values)" :fields="[
-            { id: 'name', label: 'Nombre', typeField: 'text', placeholder: 'Escribe el nombre' },
-            { id: 'description', label: 'Descripción', typeField: 'textarea', placeholder: 'Descripción del recurso' },
-            { id: 'quantity', label: 'Cantidad', typeField: 'number', placeholder: '0' }
-        ]" :validationSchema="ResourceValidationSchema" :formData="formData" />
+        <div class="w-full overflow-hidden rounded-2xl border border-gray-200 shadow-md bg-white">
+            <DataTable 
+                class="w-full table-auto"
+                :columns="['name', 'description', 'quantity']" 
+                :columnsEs="['Nombre', 'Descripción', 'Cantidad']"
+                :data="resources" 
+                @show-element="data => showResource(data)" 
+                @edit-element="data => showEditModal(data)"
+                @confirm-delete="data => confirmDelete(data)" 
+            />
+        </div>
 
-        <EditForm title='Editar recurso' @submit="value => editResource(value)" :fields="[
-            { id: 'name', label: 'Nombre', typeField: 'text', placeholder: 'Escribe el nombre' },
-            { id: 'description', label: 'Descripción', typeField: 'textarea', placeholder: 'Descripción del recurso' },
-            { id: 'quantity', label: 'Cantidad', typeField: 'number', placeholder: '0' }
-        ]" :validationSchema="ResourceValidationSchema" :formData="formData" />
+        <!-- Formulario para crear recursos -->
+        <CreateForm 
+            title="Crear recurso" 
+            @submit="values => addResource(values)" 
+            :fields="[ 
+                { id: 'name', label: 'Nombre', typeField: 'text', placeholder: 'Escribe el nombre' }, 
+                { id: 'description', label: 'Descripción', typeField: 'textarea', placeholder: 'Descripción del recurso' }, 
+                { id: 'quantity', label: 'Cantidad', typeField: 'number', placeholder: '0' }
+            ]" 
+            :validationSchema="ResourceValidationSchema" 
+            :formData="formData" 
+        />
 
+        <!-- Formulario para editar recursos -->
+        <EditForm 
+            title="Editar recurso" 
+            @submit="value => editResource(value)" 
+            :fields="[ 
+                { id: 'name', label: 'Nombre', typeField: 'text', placeholder: 'Escribe el nombre' }, 
+                { id: 'description', label: 'Descripción', typeField: 'textarea', placeholder: 'Descripción del recurso' }, 
+                { id: 'quantity', label: 'Cantidad', typeField: 'number', placeholder: '0' }
+            ]" 
+            :validationSchema="ResourceValidationSchema" 
+            :formData="formData" 
+        />
     </main>
 </template>

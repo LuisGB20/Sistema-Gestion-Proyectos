@@ -28,15 +28,15 @@ export const getEmployee = async (id: string): Promise<ResponseHelper<EmployeeMo
   return await genericRequest(`${controller}/${id}`, 'GET')
 }
 
-export const createEmployee = async (data: EmployeeModel): Promise<ResponseHelper<EmployeeModel>> => {
-  const { name, age, sexo, curp, salary, createdAt, isDeleted } = data;
-  return await genericRequest(`${controller}`, 'POST', { name, age, sexo, curp, salary, createdAt, isDeleted})
+export const createEmployee = async (email: string, password: string, confirmPassword: string, data: EmployeeModel): Promise<ResponseHelper<EmployeeModel>> => {
+  const { name, lastName, age, sexo, curp, rfc, salary } = data;
+  return await genericRequest(`Auth/register`, 'POST', { email, password, confirmPassword, name, lastName, age, sexo, curp, rfc, salary})
 }
 
 export const updateEmployee = async (data: EmployeeModel): Promise<ResponseHelper<EmployeeModel>> => {
-  const { id, name, age, sexo, curp, salary, createdAt, isDeleted } = data;
+  const { id, name, lastName, age, sexo, curp, rfc, salary } = data;
 
-  return await genericRequest(`${controller}/${id}`, 'PUT', { name, age, sexo, curp, salary, createdAt, isDeleted })
+  return await genericRequest(`${controller}/${id}`, 'PUT', { id, name, lastName, age, sexo, curp, rfc, salary })
 }
 
 export const deleteEmployee = async (id: string): Promise<ResponseHelper<EmployeeModel>> => {
