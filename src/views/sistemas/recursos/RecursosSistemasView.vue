@@ -111,24 +111,22 @@ const confirmDeleteResource = async (id: string) => {
 </script>
 
 <template>
-    <main class="p-4 sm:p-6">
-        <!-- Contenedor del título y botón -->
-        <div class="flex flex-col sm:flex-row justify-between items-center mb-6 gap-4">
+    <main class="p-6 sm:p-8">
+        <div class="flex flex-col sm:flex-row justify-between items-center mb-8 gap-6">
             <h1
-                class="text-transparent bg-clip-text bg-gradient-to-b from-DarkTeal to-CharcoalBlue text-2xl sm:text-3xl font-bold w-full sm:w-auto text-center sm:text-start">
+                class="text-transparent bg-clip-text bg-gradient-to-b from-DarkTeal to-CharcoalBlue text-3xl sm:text-4xl font-extrabold drop-shadow-md w-full sm:w-auto text-center sm:text-start">
                 Recursos
             </h1>
             <div class="w-full max-w-[400px] sm:max-w-none">
-                <OpenCreateButton class="w-full sm:w-auto md:ml-auto" />
+                <OpenCreateButton class="w-full sm:w-auto md:ml-auto px-6 py-3 rounded-xl shadow-md" />
             </div>
         </div>
 
         <ConfirmDialog />
 
-        <!-- Contenedor de la tabla con scroll horizontal en móviles -->
-        <div class="w-full overflow-x-auto rounded-lg border border-gray-200 shadow-sm">
+        <div class="w-full overflow-hidden rounded-2xl border border-gray-200 shadow-md bg-white">
             <DataTable 
-                class="min-w-[500px] sm:min-w-0 w-full table-auto"
+                class="w-full table-auto"
                 :columns="['name', 'description', 'quantity']" 
                 :columnsEs="['Nombre', 'Descripción', 'Cantidad']"
                 :data="resources" 
@@ -142,9 +140,9 @@ const confirmDeleteResource = async (id: string) => {
         <CreateForm 
             title="Crear recurso" 
             @submit="values => addResource(values)" 
-            :fields="[
-                { id: 'name', label: 'Nombre', typeField: 'text', placeholder: 'Escribe el nombre' },
-                { id: 'description', label: 'Descripción', typeField: 'textarea', placeholder: 'Descripción del recurso' },
+            :fields="[ 
+                { id: 'name', label: 'Nombre', typeField: 'text', placeholder: 'Escribe el nombre' }, 
+                { id: 'description', label: 'Descripción', typeField: 'textarea', placeholder: 'Descripción del recurso' }, 
                 { id: 'quantity', label: 'Cantidad', typeField: 'number', placeholder: '0' }
             ]" 
             :validationSchema="ResourceValidationSchema" 
@@ -155,9 +153,9 @@ const confirmDeleteResource = async (id: string) => {
         <EditForm 
             title="Editar recurso" 
             @submit="value => editResource(value)" 
-            :fields="[
-                { id: 'name', label: 'Nombre', typeField: 'text', placeholder: 'Escribe el nombre' },
-                { id: 'description', label: 'Descripción', typeField: 'textarea', placeholder: 'Descripción del recurso' },
+            :fields="[ 
+                { id: 'name', label: 'Nombre', typeField: 'text', placeholder: 'Escribe el nombre' }, 
+                { id: 'description', label: 'Descripción', typeField: 'textarea', placeholder: 'Descripción del recurso' }, 
                 { id: 'quantity', label: 'Cantidad', typeField: 'number', placeholder: '0' }
             ]" 
             :validationSchema="ResourceValidationSchema" 

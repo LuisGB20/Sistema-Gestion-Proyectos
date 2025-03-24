@@ -13,62 +13,80 @@ import { useToast } from 'primevue/usetoast'
 import { useNotificationStore } from '@/stores/notificationsStore'
 import CreateForm from '@/components/forms/CreateForm.vue'
 import OpenCreateButton from '@/components/ui/OpenCreateButton.vue'
-import { ResourceValidationSchema } from '@/validationSchemas/ValidationSchemas'
+import { CreateEmployeeValidationSchema, ResourceValidationSchema } from '@/validationSchemas/ValidationSchemas'
 import DataTable from '@/components/ui/DataTable.vue'
 import EditForm from '@/components/forms/EditForm.vue'
 import { useModalStore } from '@/stores/modalStore'
-import type { EmployeeModel } from '@/interfaces/employees/EmployeeModel'
+import type { createEmployeeModel, EmployeeModel } from '@/interfaces/employees/EmployeeModel'
+import EmployeeModal from '@/components/blocks/employee/EmployeeModal.vue'
 
 const employees = ref<EmployeeModel[]>([])
+const employeeSelected = ref<EmployeeModel>({} as EmployeeModel);
 const loading = ref(true)
+
 
 const notificationStore = useNotificationStore()
 const modalStore = useModalStore()
 
 onMounted(async () => {
   const response = await getEmployees()
+  console.log(response)
   employees.value = response.data
   loading.value = false
   notificationStore.showAlert()
 })
 
-const formData = ref<EmployeeModel>({
+const formDataCreate = ref<createEmployeeModel>({
+  "email": "",
+  "password": "",
+  "confirmPassword": "",
+  "name": "",
+  "lastName": "",
+  "age": 0,
+  "sexo": "",
+  "curp": "",
+  "rfc": "",
+  "salary": 0
+})
+
+const formDataEdit = ref<EmployeeModel>({
   id: '',
   name: '',
   lastName: '',
   age: 0,
-  sexo: 0,
+  sexo: '',
   curp: '',
   rfc: '',
-  createdAt: '',
   salary: '',
-  isDeleted: false,
 })
 
 const showEmployee = (data: EmployeeModel) => {
-  router.push(`/recursos-humanos/empleados/${data.id}`)
+  console.log("Hola")
+  employeeSelected.value = data;
+  modalStore.isEmployeeDataModalOpen = true;
 }
 
 const addEmployee = async (data: EmployeeModel) => {
-  const response = await createEmployee(data)
-  if (!response.success) {
-    toast.add({
-      severity: 'error',
-      summary: 'Algo salió mal',
-      detail: response.message,
-      life: 3000,
-    })
-  } else {
-    notificationStore.showSuccess = true
-    notificationStore.message = 'Empleado creado con exito'
-    notificationStore.showAlertSuccess()
-    employees.value.push(response.data)
-  }
+  console.log(data)
+  // const response = await createEmployee(data)
+  // if (!response.success) {
+  //   toast.add({
+  //     severity: 'error',
+  //     summary: 'Algo salió mal',
+  //     detail: response.message,
+  //     life: 3000,
+  //   })
+  // } else {
+  //   notificationStore.showSuccess = true
+  //   notificationStore.message = 'Empleado creado con exito'
+  //   notificationStore.showAlertSuccess()
+  //   employees.value.push(response.data)
+  // }
 }
 
 const showEditModal = (data: EmployeeModel) => {
   modalStore.isEditModalOpen = true
-  formData.value = data
+  formDataEdit.value = data
 }
 
 const editEmployee = async (data: EmployeeModel) => {
@@ -145,79 +163,61 @@ const confirmDeleteEmployee = async (id: string) => {
 </script>
 
 <template>
-  <main>
-    <div class="flex justify-between mb-4">
+  <EmployeeModal :employee="employeeSelected" />
+
+  <main class="p-6 sm:p-8">
+    <div class="flex flex-col sm:flex-row justify-between items-center mb-8 gap-6">
       <h1
-        class="text-transparent bg-clip-text bg-gradient-to-b from-DarkTeal to-CharcoalBlue text-start text-3xl font-bold"
-      >
+        class="text-transparent bg-clip-text bg-gradient-to-b from-DarkTeal to-CharcoalBlue text-3xl sm:text-4xl font-extrabold drop-shadow-md w-full sm:w-auto text-center sm:text-start">
         Empleados
       </h1>
-      <OpenCreateButton />
+      <div class="w-full max-w-[400px] sm:max-w-none">
+        <OpenCreateButton class="w-full sm:w-auto md:ml-auto px-6 py-3 rounded-xl shadow-md" />
+      </div>
     </div>
+
     <Toast />
-    <ConfirmDialog></ConfirmDialog>
+    <ConfirmDialog />
 
-    <DataTable
-      :columns="['name', 'description', 'quantity']"
-      :columnsEs="['Nombre', 'Descripción', 'Cantidad']"
-      :data="employees"
-      @show-element="(data) => showEmployee(data)"
-      @edit-element="(data) => showEditModal(data)"
-      @confirm-delete="(data) => confirmDelete(data)"
-    />
+    <div class="w-full overflow-hidden rounded-2xl border border-gray-200 shadow-md bg-white">
+      <DataTable class="w-full table-auto" :columns="['name', 'lastName', 'age', 'salary']"
+        :columnsEs="['Nombre', 'Apellidos', 'Edad', 'Salario']" :data="employees"
+        @show-element="(data) => showEmployee(data)" @edit-element="(data) => showEditModal(data)"
+        @confirm-delete="(data) => confirmDelete(data)" />
+    </div>
 
-    <CreateForm
-      title="Crear empleado"
-      @submit="(values) => addEmployee(values)"
-      :fields="[
-        { id: 'name', label: 'Nombre', typeField: 'text', placeholder: 'Escribe el nombre' },
-        {
-          id: 'lastName',
-          label: 'Apellidos',
-          typeField: 'text',
-          placeholder: 'Escribe los apellidos',
-        },
-        { id: 'age', label: 'Edad', typeField: 'number', placeholder: '0' },
-        { id: 'sexo', label: 'Sexo', typeField: 'text', placeholder: 'Hombre/Mujer' },
-        { id: 'curp', label: 'CURP', typeField: 'text', placeholder: 'Escribe la CURP' },
-        { id: 'rfc', label: 'RFC', typeField: 'text', placeholder: 'Escribe el RFC' },
-        {
-          id: 'createdAt',
-          label: 'Fecha de creación',
-          typeField: 'text',
-          placeholder: 'Escribe la fecha de creación',
-        },
-        { id: 'salary', label: 'Salario', typeField: 'text', placeholder: 'Escribe el salario' },
-      ]"
-      :validationSchema="ResourceValidationSchema"
-      :formData="formData"
-    />
+    <!-- Formulario para crear empleados -->
+    <CreateForm title="Crear empleado" @submit="(values) => addEmployee(values)" :fields="[
+      { id: 'name', label: 'Nombre', typeField: 'text', placeholder: 'Escribe el nombre' },
+      { id: 'lastName', label: 'Apellidos', typeField: 'text', placeholder: 'Escribe los apellidos' },
+      { id: 'age', label: 'Edad', typeField: 'number', placeholder: '0' },
+      {
+        id: 'sexo', label: 'Sexo', typeField: 'select', placeholder: 'Selecciona el Sexo',
+        options: [
+          { label: 'No Especificado', value: 0 },
+          { label: 'Masculino', value: 1 },
+          { label: 'Femenino', value: 2 },
+          { label: 'Otro', value: 3 },
+        ]
+      },
+      { id: 'curp', label: 'CURP', typeField: 'text', placeholder: 'Escribe la CURP' },
+      { id: 'rfc', label: 'RFC', typeField: 'text', placeholder: 'Escribe el RFC' },
+      { id: 'salary', label: 'Salario', typeField: 'number', placeholder: '0' },
+      { id: 'email', label: 'Correo Electrónico', typeField: 'text', placeholder: 'Escribe el correo electrónico' },
+      { id: 'password', label: 'Contraseña', typeField: 'password', placeholder: 'Escribe la contraseña' },
+      { id: 'confirmPassword', label: 'Confirmar contraseña', typeField: 'password', placeholder: 'Escribe de nuevo la contraseña para confirmar' }
+    ]" :validationSchema="CreateEmployeeValidationSchema" :formData="formDataCreate" />
 
-    <EditForm
-      title="Editar recurso"
-      @submit="(value) => editEmployee(value)"
-      :fields="[
-        { id: 'name', label: 'Nombre', typeField: 'text', placeholder: 'Escribe el nombre' },
-        {
-          id: 'lastName',
-          label: 'Apellidos',
-          typeField: 'text',
-          placeholder: 'Escribe los apellidos',
-        },
-        { id: 'age', label: 'Edad', typeField: 'number', placeholder: '0' },
-        { id: 'sexo', label: 'Sexo', typeField: 'text', placeholder: 'Hombre/Mujer' },
-        { id: 'curp', label: 'CURP', typeField: 'text', placeholder: 'Escribe la CURP' },
-        { id: 'rfc', label: 'RFC', typeField: 'text', placeholder: 'Escribe el RFC' },
-        {
-          id: 'createdAt',
-          label: 'Fecha de creación',
-          typeField: 'text',
-          placeholder: 'Escribe la fecha de creación',
-        },
-        { id: 'salary', label: 'Salario', typeField: 'text', placeholder: 'Escribe el salario' },
-      ]"
-      :validationSchema="ResourceValidationSchema"
-      :formData="formData"
-    />
+    <!-- Formulario para editar empleados -->
+    <EditForm title="Editar empleado" @submit="(value) => editEmployee(value)" :fields="[
+      { id: 'name', label: 'Nombre', typeField: 'text', placeholder: 'Escribe el nombre' },
+      { id: 'lastName', label: 'Apellidos', typeField: 'text', placeholder: 'Escribe los apellidos' },
+      { id: 'age', label: 'Edad', typeField: 'number', placeholder: '0' },
+      { id: 'sexo', label: 'Sexo', typeField: 'text', placeholder: 'Hombre/Mujer' },
+      { id: 'curp', label: 'CURP', typeField: 'text', placeholder: 'Escribe la CURP' },
+      { id: 'rfc', label: 'RFC', typeField: 'text', placeholder: 'Escribe el RFC' },
+      { id: 'createdAt', label: 'Fecha de creación', typeField: 'text', placeholder: 'Escribe la fecha de creación' },
+      { id: 'salary', label: 'Salario', typeField: 'text', placeholder: 'Escribe el salario' }
+    ]" :validationSchema="ResourceValidationSchema" :formData="formDataEdit" />
   </main>
 </template>

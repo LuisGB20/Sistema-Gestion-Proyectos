@@ -68,7 +68,7 @@ watch(
 
 
 <template>
-    <Dialog v-model:visible="modalStore.isEditModalOpen" modal :header="title" :style="{ width: '25rem' }">
+    <Dialog v-model:visible="modalStore.isEditModalOpen" modal :header="title" :style="{ width: '30rem' }">
         <form @submit.prevent>
             <div v-for="(field, index) in fields" :key="index" class="mb-4">
                 <label :for="field.id" class="font-semibold block text-sm text-gray-700 mb-1">{{ field.label }}</label>
