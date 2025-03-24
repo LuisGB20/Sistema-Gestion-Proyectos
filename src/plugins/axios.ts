@@ -55,10 +55,7 @@ api.interceptors.response.use(
 
         if (error.response?.status === 401 && !originalRequest._retry) {
 
-            if(!authStore.isInitialized){
-                return Promise.reject();
-            }
-
+            
             if (isRefreshing) {
                 return new Promise((resolve) => {
                     failedRequestsQueue.push(() => {

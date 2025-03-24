@@ -33,6 +33,7 @@ import { useAuthStore } from '@/stores/authStore'
 import DashboardRecursosHumanosView from '@/views/recursosHumanos/DashboardRecursosHumanosView.vue'
 import RecursosAdminView from '@/views/admin/recursos/RecursosAdminView.vue'
 import DetallesRecursoAdminView from '@/views/admin/recursos/DetallesRecursoAdminView.vue'
+import { GetRoleNameService } from '@/services/auth/authService'
 
 const router = createRouter({
   linkActiveClass: 'underline underline-offset-2',
@@ -273,7 +274,16 @@ const router = createRouter({
 // Guard de rutas para proteger con autenticación y roles
 router.beforeEach(async (to, from, next) => {
   const authStore = useAuthStore();
-  
+
+  let rol = authStore.user?.rol;
+  if (!rol || rol == undefined) {
+    const response = await GetRoleNameService();
+    if(response.data){
+      rol = response.data
+    }
+   
+  }
+
   // Si la ruta requiere autenticación
   if (to.matched.some(record => record.meta.requiresAuth)) {
     if (!authStore.isLoggedIn) {
@@ -282,7 +292,7 @@ router.beforeEach(async (to, from, next) => {
     }
 
     // Verificar si el rol está permitido para esta ruta
-    if (to.matched.some(record => Array.isArray(record.meta.roles) && !record.meta.roles.includes(authStore.user?.rol))) {
+    if (to.matched.some(record => Array.isArray(record.meta.roles) && !record.meta.roles.includes(rol))) {
       next({ name: 'Inicio' });  // Redirige si el rol no tiene acceso
       return;
     }
