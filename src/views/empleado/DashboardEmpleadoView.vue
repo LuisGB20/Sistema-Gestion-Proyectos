@@ -48,8 +48,8 @@ const chartData = computed(() => ({
     label: 'Tareas por Mes',
     data: activityByMonthQuantity.value,
     fill: false,
-    borderColor: '#6A0DAD', // Púrpura oscuro
-    backgroundColor: '#B19CD9', // Púrpura claro
+    borderColor: '#6A0DAD',
+    backgroundColor: '#B19CD9',
     tension: 0.1
   }]
 }));
@@ -59,13 +59,11 @@ const chartData = computed(() => ({
   <main class=" min-h-screen">
     <div class="max-w-7xl mx-auto">
 
-      <!-- Header Section -->
       <header class="text-center">
         <h1 class="text-3xl font-bold text-DarkTeal">Panel de Actividades</h1>
         <p class="text-gray-600 mt-2">Resumen de tus tareas y actividades recientes</p>
       </header>
 
-      <!-- Stats Grid -->
       <section class="grid grid-cols-1 md:grid-cols-3 gap-6">
         <div
           class="bg-gradient-to-r from-DarkTeal to-CharcoalBlue text-white p-6 rounded-lg shadow-lg flex flex-col items-center justify-center text-center">
@@ -86,7 +84,6 @@ const chartData = computed(() => ({
         </div>
       </section>
 
-      <!-- Main Content Grid -->
       <div class="grid grid-cols-1 xl:grid-cols-2 gap-6">
         <div class="bg-white p-6 rounded-lg shadow-lg">
           <h2 class="text-2xl font-semibold mb-4 text-DarkTeal">Actividad Mensual de Tareas</h2>

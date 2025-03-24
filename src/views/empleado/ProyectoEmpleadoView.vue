@@ -34,10 +34,10 @@ onMounted(async () => {
 
 <template>
     <main class="space-y-6">
-        <header class="text-center">
+        <div class="text-center">
             <h1 class="text-3xl font-bold text-DarkTeal">Gestión del Proyecto</h1>
             <p class="text-gray-600 mt-2">Visualiza el progreso y la información relevante del proyecto</p>
-        </header>
+        </div>
 
         <section class="bg-white shadow-lg rounded-lg p-6">
             <h2 class="text-2xl font-semibold text-DarkTeal">{{ project?.name }}</h2>

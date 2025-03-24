@@ -106,12 +106,12 @@ button{
     color: #A31D1D !important;
 }
 
-.btn-export, .p-dialog-close-button{
+.btn-export, .p-dialog-close-button, .p-confirmdialog-reject-button{
     background-color: #212A31 !important;
     border: 2px solid #212A31 !important;
 }
 
-.btn-export:hover, .p-dialog-close-button:hover{
+.btn-export:hover, .p-dialog-close-button:hover, .p-confirmdialog-reject-button:hover{
     color: #212A31 !important;
 }
 
