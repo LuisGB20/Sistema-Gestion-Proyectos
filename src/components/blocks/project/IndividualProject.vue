@@ -21,7 +21,10 @@ defineProps<{ project: BestProjectModel }>();
 
     <div class="flex justify-end gap-3 flex-col space-x-2 text-right text-sm text-gray-500">
       <ChangeStatusForm :id="project.project.id" :status="project.status" />
-      <p class="text-slate-700">Encargado: {{project.encharge && project.encharge.length > 0  ? `${project.encharge[0].employee.name} ${project.encharge[0].employee.lastName}`: "N/A" }}</p>
+      <div>
+        <p class="text-slate-700">Encargado: {{project.encharge && project.encharge.length > 0  ? `${project.encharge[0].employee.name} ${project.encharge[0].employee.lastName}`: "N/A" }}</p>
+      </div>
+
     </div>
   </div>
 
@@ -39,7 +42,9 @@ defineProps<{ project: BestProjectModel }>();
       <span class="text-sm break-words">{{ formatDate(project.project.startDate) }}</span>
     </div>
 
-    <DeleteProjectForm :id="project.project.id"  />
+    <DeleteProjectForm :project="project.project.id"  />
+
+
 
   </div>
 </template>

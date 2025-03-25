@@ -52,7 +52,7 @@ watch(() => {
 });
 
 const handleSubmit = async (values: any) => {
-  console.log('Proyecto creado:', values);
+  console.log('Empleado creado:', values);
 
   const res = await asignProjectToEmployee(values.employee, id)
   console.log(res);

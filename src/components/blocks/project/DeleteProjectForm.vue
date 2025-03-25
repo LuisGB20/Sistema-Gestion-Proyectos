@@ -3,8 +3,7 @@ import { useModalStore } from '@/stores/modalStore';
 import { defineProps, ref, watch } from 'vue'
 import * as yup from 'yup';
 import {
-  ChangeStatusProject, DeleteProject,
-  GetStatusProject
+  DeleteProject,
 } from '@/services/projects/projectService'
 import FormModal from '@/components/forms/CreateForm.vue';
 
@@ -12,13 +11,13 @@ const modalStore = useModalStore();
 
 const isOpen = ref(false);
 
-const props = defineProps<{ id: string}>();
+const props = defineProps<{ project: string}>();
 
 
 const handleSubmit = async (values) => {
-  console.log('Proyecto creado:', values);
+  console.log('Proyecto eliminado:', values);
 
-  const res = await DeleteProject(props.id);
+  const res = await DeleteProject(props.project);
   console.log(res);
 
   isOpen.value = false;
@@ -36,13 +35,13 @@ watch(() => {
 
 <template>
   <div @click="isOpen = true; modalStore.isCreateModalOpen = true;">
-    <div class="px-2 py-2 hover:bg-red-600 bg-red-700 text-white px-5 text-sm rounded-2xl cursor-pointer">
+    <div class="py-2 hover:bg-red-600 bg-red-700 text-white px-5 text-sm rounded-2xl cursor-pointer">
       <h2>Eliminar</h2>
     </div>
   </div>
 
   <div class="absolute" v-if="isOpen">
     <FormModal title="Eliminar proyecto" :fields="[]" :validationSchema="[]" :formData="[]"
-               @submit="handleSubmit" />
+                @submit="handleSubmit" />
   </div>
 </template>

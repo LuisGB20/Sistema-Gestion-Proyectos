@@ -9,18 +9,27 @@ import FormModal from '@/components/forms/CreateForm.vue';
 
 const modalStore = useModalStore();
 const isOpen = ref(false);
-const props = defineProps<{ employeeId: string}>();
+const props = defineProps<{ employeeId: string, role: string}>();
 
 
 const handleSubmit = async (values) => {
-  console.log('Proyecto creado:', values);
+  console.log('Integrante Eliminado:', values);
 
-  const res = await RemoveProject(props.employeeId);
-  console.log('Misael', res);
+  // Llamada a RemoveProject con los props del componente
+  const res = await RemoveProject(props.employeeId, props.role);
+  console.log('Misael', res);  // Aquí deberías ver el objeto de respuesta
+
+  // Verifica la respuesta
+  if (res && res.success) {
+    console.log('Integrante eliminado correctamente:', res.message);
+  } else {
+    console.log('No se pudo eliminar el integrante');
+  }
 
   isOpen.value = false;
   modalStore.isCreateModalOpen = false;
 };
+
 
 watch(() => {
   if (!modalStore.isCreateModalOpen) {

@@ -16,8 +16,8 @@ export const asignProjectToEmployee = async ( employeeId : string, projectId: st
   return await genericRequest(`${controller}/AssignProject`, 'POST', { employeeId, projectId, role})
 }
 
-export const RemoveProject = async (employeeId : string, ) => {
-  return await genericRequest(`${controller}/RemoveProject`, 'POST', {employeeId})
+export const RemoveProject = async (employeeId : string, role: string ) => {
+  return await genericRequest(`${controller}/RemoveProject`, 'POST', {employeeId, role})
 }
 
 export const getAllEmployees = async () => {
