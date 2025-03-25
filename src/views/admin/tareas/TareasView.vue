@@ -68,60 +68,6 @@ const tasks = [
 
 ];
 
-import type { ActivityModel } from '@/interfaces/Activities/ActivityModel';
-import { GetEmployeeActivities, MarkAsCompletedActivity } from '@/services/activities/ActivityService';
-import { computed, onMounted, ref } from 'vue';
-import { useToast } from 'primevue';
-import { useModalStore } from '@/stores/modalStore';
-import { useAuthStore } from '@/stores/authStore';
-import { getStatusActivityColor } from '@/utils/getStatusActivityColor';
-import ActivityModal from '@/components/blocks/activity/ActivityModal.vue';
-
-const activitySelected = ref<ActivityModel>({} as ActivityModel);
-const activities = ref<ActivityModel[]>([]);
-const toast = useToast();
-const modalStore = useModalStore();
-const authStore = useAuthStore();
-const searchQuery = ref('');
-const statusFilter = ref('');
-
-const filteredActivities = computed(() => {
-  return activities.value.filter((activity) => {
-    const matchesSearch =
-      activity.name.toLowerCase().includes(searchQuery.value.toLowerCase()) ||
-      activity.description.toLowerCase().includes(searchQuery.value.toLowerCase());
-
-    const matchesStatus = statusFilter.value ? activity.status === statusFilter.value : true;
-
-    return matchesSearch && matchesStatus;
-  });
-});
-
-  onMounted(async () => {
-  const { id } = authStore.employee || {};
-  if (!id) {
-    toast.add({ severity: 'error', summary: 'Algo salió mal', detail: 'Intentalo de nuevo más tarde', life: 3000 });
-    return;
-  }
-
-  const response = await GetEmployeeActivities(id);
-  console.log("Misael", response);
-  activities.value = response.data;
-});
-
-const showActivityData = (data: ActivityModel) => {
-  activitySelected.value = data;
-  modalStore.isEmployeeActivityModalOpen = true;
-};
-
-const updateActivityStatus = async (activityId: string) => {
-  const response = await MarkAsCompletedActivity(activityId);
-  const activityModifiedIndex = activities.value.findIndex(x => x.id == activityId);
-  toast.add({ severity: 'success', summary: 'Operación exitosa', detail: 'La tarea ha sido marcada como completada correctamente', life: 3000 });
-  activities.value.splice(activityModifiedIndex, 1, response.data);
-};
-
-
 </script>
 
 <template>
@@ -156,17 +102,7 @@ const updateActivityStatus = async (activityId: string) => {
     <div class="overflow-y-auto max-h-screen w-full mt-6">
       <div class="space-y-4 w-full">
 
-        <ActivityModal :activity="activitySelected" @mark-as-completed="(value) => updateActivityStatus(value)" />
 
-          <div v-if="filteredActivities.length === 0" class="text-center text-gray-500 py-6">
-        <p>No se encontraron tareas que coincidan con tu búsqueda.</p>
-      </div>
-
-        <div v-for="activity in filteredActivities" :key="activity.id" @click="showActivityData(activity)">
-        <span :class="['px-3 py-1 rounded-full text-xs', getStatusActivityColor(activity.status)]">
-              {{ translateStatusActivity(activity.status) }}
-            </span>
-          </div>
 
         <div v-for="task in tasks" :key="task.id" class="bg-gray-50 rounded-lg p-4 shadow-md flex flex-col sm:flex-row md:flex-row items-center justify-between w-full">
           <div class="flex items-center space-x-4 mb-4 sm:mb-0 md:mb-0">
