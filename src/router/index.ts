@@ -129,6 +129,11 @@ const router = createRouter({
               path: ":id",
               name: "proyectos-detalle",
               component: ProyectoView,
+            },
+            {
+              path: ":id",
+              name: "tareas-detalle",
+              component: TareasView,
             }
           ]
         },
