@@ -8,9 +8,10 @@ import CreateTask from '@/components/blocks/project/task/CreateTask.vue'
 import ChangeStatusForm from '@/components/blocks/project/ChangeStatusForm.vue'
 import DeleteUserFromProjectForm
   from '@/components/blocks/project/employees/DeleteUserFromProjectForm.vue'
+import type { ProjectModel } from '@/interfaces/Projects/ProjectModel';
 
 const route = useRoute();
-const project = ref<Project | null>(null);
+const project = ref<ProjectModel | null>(null);
 const tasks = ref<{ name: string; description:string; showActivities?: boolean; activities: { name: string; description: string }[], users: string[] }[]>([]);
 const resources = ref<{name: string; quantity: number}[]>([]);
 const members = ref<{name: string; role:string; id: string}[]>([]);
@@ -145,7 +146,13 @@ const toggleTasks = (index: number) => {
               </div>
             </div>
             <div class="flex justify-end mt-4">
-              <button @click="toggleTasks(index)" class="text-sm text-DarkTeal bg-white px-10">Ver más...</button>
+              <router-link :to="{ name: 'tareas-detalle', params: { id: task.id } }">
+                <button
+                  class="text-sm text-DarkTeal bg-white px-2 py-2 rounded-2xl"
+                  style="max-width: 140px; white-space: normal;">
+                  Ver más...
+                </button>
+              </router-link>
             </div>
           </div>
         </div>

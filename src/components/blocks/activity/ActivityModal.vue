@@ -12,6 +12,10 @@ const props = defineProps<{
 
 const activity = computed(() => props.activity);
 
+
+const emit = defineEmits(['markAsCompleted']);
+
+
 // Store
 const modalStore = useModalStore();
 

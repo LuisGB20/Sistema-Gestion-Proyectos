@@ -7,7 +7,7 @@ export interface TaskModel {
     description:string,
     estimatedHours: number,
     workedHours: number,
-    startDate: Date,
-    endTime: Date,
-    activities: Array<ActivityModel>
+    startDate: Date | string,
+    endTime: Date | string,
+    activities?: Array<ActivityModel>
   }

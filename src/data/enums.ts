@@ -15,3 +15,10 @@ export enum StatusActivity {
     CANCELED = "CANCELED",
     COMPLETED = "COMPLETED"
 }
+
+export enum Gender {
+    NO_ESPECIFICADO = 0,
+    MASCULINO = 1,
+    FEMENINO = 2,
+    OTRO = 3
+}

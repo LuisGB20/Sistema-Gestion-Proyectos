@@ -1,6 +1,6 @@
 import { genericRequest } from "@/utils/genericRequest"
 
-const controller = "project"
+const controller = "Project"
 
 export const GetStatusProject = async () => {
   return await genericRequest(`${controller}/GetAllStatus`, 'GET')

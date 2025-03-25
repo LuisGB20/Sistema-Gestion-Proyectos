@@ -36,6 +36,9 @@ import DetallesRecursoAdminView from '@/views/admin/recursos/DetallesRecursoAdmi
 import { GetRoleNameService, ValidateSession } from '@/services/auth/authService'
 import { computed, watch } from 'vue'
 import LogsEntitiesView from '@/views/admin/logs/LogsEntitiesView.vue'
+import EquipoSupervisorView from '@/views/supervisor/equipo/EquipoSupervisorView.vue'
+import TareasSupervisorView from '@/views/supervisor/tareas/TareasSupervisorView.vue'
+import TareaSupervisorView from '@/views/supervisor/tareas/TareaSupervisorView.vue'
 
 const router = createRouter({
   linkActiveClass: 'underline underline-offset-2',
@@ -104,7 +107,7 @@ const router = createRouter({
         {
           path: '/admin/usuarios',
           name: 'admin-usuarios',
-          component: UsuariosView
+          component: EmployeesView
         },
         {
           path: '/admin/agregar-usuario',
@@ -196,7 +199,7 @@ const router = createRouter({
       path: '/supervisor',
       name: 'supervisor',
       component: Layout,
-      // meta: { requiresAuth: true, roles: ['Administrador'] },
+      meta: { requiresAuth: true, roles: ['Supervisor'] },
       children: [
         {
           path: '',
@@ -207,6 +210,30 @@ const router = createRouter({
           path: '/supervisor/proyecto',
           name: 'supervisor-proyecto',
           component: ProyectoSupervisorView,
+        },
+        {
+          path: '/supervisor/tareas',
+          name: 'supervisor-tareas',
+          children: [
+            {
+              path: '',
+              component: TareasSupervisorView,
+            },
+            {
+              path: ':id',
+              component: TareaSupervisorView,
+            }
+          ]
+        },
+        {
+          path: '/supervisor/actividades',
+          name: 'supervisor-actividades',
+          component: EquipoSupervisorView,
+        },
+        {
+          path: '/supervisor/recursos',
+          name: 'supervisor-recursos',
+          component: EquipoSupervisorView,
         },
       ]
     },

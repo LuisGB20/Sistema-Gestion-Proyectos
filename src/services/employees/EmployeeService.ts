@@ -1,7 +1,7 @@
 import { genericRequest } from "@/utils/genericRequest"
 import type { ResponseHelper } from "@/interfaces/helpers/ResponseHelper"
 import type { ResponseHelperArray } from "@/interfaces/helpers/ResponseHelperArray"
-import type { EmployeeModel } from "@/interfaces/employees/EmployeeModel"
+import type { createEmployeeModel, EmployeeModel } from "@/interfaces/employees/EmployeeModel"
 import type { ProjectModel } from "@/interfaces/Projects/ProjectModel"
 import type { EmployeeBasicModel } from "@/interfaces/employees/EmployeeBasicModel"
 import type { EmployeeDashboardDataModel } from "@/interfaces/employees/EmployeeDashboardDataModel"
@@ -32,15 +32,15 @@ export const getEmployee = async (id: string): Promise<ResponseHelper<EmployeeMo
   return await genericRequest(`${controller}/${id}`, 'GET')
 }
 
-export const createEmployee = async (email: string, password: string, confirmPassword: string, data: EmployeeModel): Promise<ResponseHelper<EmployeeModel>> => {
-  const { name, lastName, age, sexo, curp, rfc, salary } = data;
+export const createEmployee = async (data: createEmployeeModel): Promise<ResponseHelper<EmployeeModel>> => {
+  const { email, password, confirmPassword, name, lastName, age, sexo, curp, rfc, salary } = data;
   return await genericRequest(`Auth/register`, 'POST', { email, password, confirmPassword, name, lastName, age, sexo, curp, rfc, salary})
 }
 
 export const updateEmployee = async (data: EmployeeModel): Promise<ResponseHelper<EmployeeModel>> => {
-  const { id, name, lastName, age, sexo, curp, rfc, salary } = data;
+  const { id, name, lastName, age, sexo, curp, rfc, salary, userId, projectId } = data;
 
-  return await genericRequest(`${controller}/${id}`, 'PUT', { id, name, lastName, age, sexo, curp, rfc, salary })
+  return await genericRequest(`${controller}/${id}`, 'PUT', { id, name, lastName, age, sexo, curp, rfc, salary, userId, projectId })
 }
 
 export const deleteEmployee = async (id: string): Promise<ResponseHelper<EmployeeModel>> => {
