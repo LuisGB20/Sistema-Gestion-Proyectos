@@ -53,7 +53,7 @@ const handleSubmit = async (values: { name: string; description: string }) => {
 <template>
 
   <i @click="props.projectId ?isOpen = true : '' ; props.projectId ?  modalStore.isEditModalOpen = true : ''" class="pi cursor-pointer hover:text-gray-500 pi-pen-to-square text-CharcoalBlue ml-4"></i>
-  <div v-if="isOpen">
+  <div class="absolute" v-if="isOpen">
     <EditForm
       v-if="modalStore.isEditModalOpen"
       title="Editar Proyecto"

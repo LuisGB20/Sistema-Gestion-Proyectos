@@ -2,6 +2,8 @@
 import { formatDate } from '@/utils/formatDate.ts'
 import type { BestProjectModel } from '@/interfaces/Projects/ProjectModel'
 import EditProjectForm from '@/components/blocks/project/EditProjectForm.vue'
+import ChangeStatusForm from '@/components/blocks/project/ChangeStatusForm.vue'
+import DeleteProjectForm from '@/components/blocks/project/DeleteProjectForm.vue'
 
 defineProps<{ project: BestProjectModel }>();
 
@@ -16,8 +18,10 @@ defineProps<{ project: BestProjectModel }>();
       </router-link>
       <EditProjectForm :project-id="project.project.id" />
     </div>
-    <div class="px-2 py-2 bg-DarkTeal text-white text-sm rounded-2xl">
-      <h2>Estado: {{ project.status }}</h2>
+
+    <div class="flex justify-end gap-3 flex-col space-x-2 text-right text-sm text-gray-500">
+      <ChangeStatusForm :id="project.project.id" :status="project.status" />
+      <p class="text-slate-700">Encargado: {{project.encharge && project.encharge.length > 0  ? `${project.encharge[0].employee.name} ${project.encharge[0].employee.lastName}`: "N/A" }}</p>
     </div>
   </div>
 
@@ -35,7 +39,7 @@ defineProps<{ project: BestProjectModel }>();
       <span class="text-sm break-words">{{ formatDate(project.project.startDate) }}</span>
     </div>
 
-      <p class="text-slate-700">Encargado: {{project.encharge && project.encharge.length > 0  ? `${project.encharge[0].employee.name} ${project.encharge[0].employee.lastName}`: "N/A" }}</p>
+    <DeleteProjectForm :id="project.project.id"  />
 
   </div>
 </template>

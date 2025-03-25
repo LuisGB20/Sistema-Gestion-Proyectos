@@ -5,6 +5,7 @@ import { useRoute } from 'vue-router';
 import AddEmployeeToProject from '@/components/blocks/project/employees/AddEmployeeToProject.vue'
 import CreateResourceForProject from '@/components/blocks/project/resources/CreateResourceForProject.vue'
 import CreateTask from '@/components/blocks/project/task/CreateTask.vue'
+import ChangeStatusForm from '@/components/blocks/project/ChangeStatusForm.vue'
 
 const route = useRoute();
 const project = ref<Project | null>(null);
@@ -12,6 +13,7 @@ const tasks = ref<{ name: string; description:string; showActivities?: boolean; 
 const resources = ref<{name: string; quantity: number}[]>([]);
 const members = ref<{name: string; role:string}[]>([]);
 const encharge = ref<string | null>( null);
+const status = ref<string | null>(null);
 
 onBeforeMount(async () => {
   const id = route.params.id as string;
@@ -33,6 +35,7 @@ onBeforeMount(async () => {
         activities: task.activities.map((act: any) => ({ name: act.name, description: act.description })),
         showActivities: false
       }));
+      status.value = getProject.data.status;
 
       console.log("tareas", tasks.value);
     }
@@ -54,14 +57,14 @@ const toggleTasks = (index: number) => {
         <p class="text-2xl font-semibold text-DarkTeal">Nombre: {{ project.name }}</p>
         <p class="text-md pl-5">Descripción: {{ project.description }}</p>
       </div>
-      <div class="text-right text-sm text-gray-500 mt-4 md:mt-0">
+      <div class="text-right flex flex-col text-sm gap-2 text-gray-500 mt-4 md:mt-0">
+        <ChangeStatusForm :id="route.params.id" :status="status" />
         Encargado: {{ encharge ? encharge : "N/A" }}
       </div>
     </div>
 
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-      <!-- Recursos -->
       <div class="p-4 rounded-lg bg-white">
         <div class="flex justify-between items-center mb-3">
           <h3 class="text-lg font-semibold mb-2">Recursos</h3>
