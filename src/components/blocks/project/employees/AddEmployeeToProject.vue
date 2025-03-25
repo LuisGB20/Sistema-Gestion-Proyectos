@@ -3,11 +3,14 @@ import { useModalStore } from '@/stores/modalStore';
 import { ref, watch } from 'vue'
 import FormModal from '@/components/forms/CreateForm.vue';
 import * as yup from 'yup';
-import { CreateProject } from '@/services/projects/projectService'
-import { getEmployeesWithoutProject } from '@/services/employees/EmployeeService.ts'
+
+import {
+  asignProjectToEmployee,
+  getEmployeesWithoutProject
+} from '@/services/employees/EmployeeService.ts'
 import { useRoute } from 'vue-router'
 
-const isOpen = ref(false);
+const isOpen1 = ref(false);
 const modalStore = useModalStore();
 const route = useRoute();
 const id : string = route.params.id.toString();
@@ -15,10 +18,7 @@ const id : string = route.params.id.toString();
 const fields = [
   {
     id: 'employee', label: 'Empleado', typeField: 'select', placeholder: 'Seleccione un empleado', options: []
-  },
-  {
-    id: 'role', label: 'Rol', typeField: 'select', placeholder: 'Seleccione un rol', options: []
-  },
+  }
 ];
 
 const validationSchema = yup.object({
@@ -26,8 +26,7 @@ const validationSchema = yup.object({
 });
 
 const formData = ref({
-  employee: '',
-  role: '',
+  employee: ''
 });
 
 
@@ -46,7 +45,7 @@ const fetchEmployees = async () => {
 
 // Carga los empleados cuando se abre el modal
 watch(() => {
-  if (isOpen.value == true || modalStore.isCreateModalOpen) {
+  if (isOpen1.value == true || modalStore.isCreateModalOpen) {
     fetchEmployees();
     formData.value = { name: '', description: '', employee: '' }; // Reset form
   }
@@ -55,26 +54,26 @@ watch(() => {
 const handleSubmit = async (values: any) => {
   console.log('Proyecto creado:', values);
 
-  const res = await asignProjectToEmployee(values.employee, id, values.role)
+  const res = await asignProjectToEmployee(values.employee, id)
   console.log(res);
 
-  isOpen.value = false;
+  isOpen1.value = false;
   modalStore.isCreateModalOpen = false;
 }
 
 watch(() => {
   if (!modalStore.isCreateModalOpen) {
-    isOpen.value = false;
+    isOpen1.value = false;
   }
-});
+})
 
 </script>
 
 <template>
 
-  <i @click="isOpen= true; modalStore.isCreateModalOpen = true" class=" rounded-full h-5 w-5 bg-DarkTeal flex items-center justify-center text-white cursor-pointer">+</i>
+  <i @click="isOpen1= true; modalStore.isCreateModalOpen = true;" class=" rounded-full h-5 w-5 bg-DarkTeal flex items-center justify-center text-white cursor-pointer">+</i>
 
-  <div class="absolute" v-if="isOpen">
+  <div class="absolute" v-if="isOpen1">
     <FormModal
       title="Agregar Empleado a Proyecto"
       :fields="fields"

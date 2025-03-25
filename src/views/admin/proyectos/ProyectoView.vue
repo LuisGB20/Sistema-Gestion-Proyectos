@@ -5,13 +5,17 @@ import { useRoute } from 'vue-router';
 import AddEmployeeToProject from '@/components/blocks/project/employees/AddEmployeeToProject.vue'
 import CreateResourceForProject from '@/components/blocks/project/resources/CreateResourceForProject.vue'
 import CreateTask from '@/components/blocks/project/task/CreateTask.vue'
+import ChangeStatusForm from '@/components/blocks/project/ChangeStatusForm.vue'
+import DeleteUserFromProjectForm
+  from '@/components/blocks/project/employees/DeleteUserFromProjectForm.vue'
 
 const route = useRoute();
 const project = ref<Project | null>(null);
 const tasks = ref<{ name: string; description:string; showActivities?: boolean; activities: { name: string; description: string }[], users: string[] }[]>([]);
 const resources = ref<{name: string; quantity: number}[]>([]);
-const members = ref<{name: string; role:string}[]>([]);
+const members = ref<{name: string; role:string; id: string}[]>([]);
 const encharge = ref<string | null>( null);
+const status = ref<string | null>(null);
 
 onBeforeMount(async () => {
   const id = route.params.id as string;
@@ -24,7 +28,7 @@ onBeforeMount(async () => {
     if (getProject.success) {
       project.value = getProject.data.project;
       encharge.value = getProject.data.encharge && getProject.data.encharge.length > 0 ? `${getProject.data.encharge[0].employee.name} ${getProject.data.encharge[0].employee.lastName}` : "";
-      members.value = getProject.data.employees.map((employee: any) => ({name: `${employee.employee.name} ${employee.employee.lastName}`, role: employee.roles[0]}));
+      members.value = getProject.data.employees.map((employee: any) => ({name: `${employee.employee.name} ${employee.employee.lastName}`, role: employee.roles[0], id: employee.id}));
       resources.value = getProject.data.project.projectResources.map((resource: any) => ({ name : resource.resource.name, quantity: resource.quantity}) );
       tasks.value = getProject.data.project.tasks.map((task: any) => ({
         name: task.name,
@@ -33,6 +37,7 @@ onBeforeMount(async () => {
         activities: task.activities.map((act: any) => ({ name: act.name, description: act.description })),
         showActivities: false
       }));
+      status.value = getProject.data.status;
 
       console.log("tareas", tasks.value);
     }
@@ -54,14 +59,14 @@ const toggleTasks = (index: number) => {
         <p class="text-2xl font-semibold text-DarkTeal">Nombre: {{ project.name }}</p>
         <p class="text-md pl-5">Descripción: {{ project.description }}</p>
       </div>
-      <div class="text-right text-sm text-gray-500 mt-4 md:mt-0">
+      <div class="text-right flex flex-col text-sm gap-2 text-gray-500 mt-4 md:mt-0">
+        <ChangeStatusForm :id="route.params.id" :status="status" />
         Encargado: {{ encharge ? encharge : "N/A" }}
       </div>
     </div>
 
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-      <!-- Recursos -->
       <div class="p-4 rounded-lg bg-white">
         <div class="flex justify-between items-center mb-3">
           <h3 class="text-lg font-semibold mb-2">Recursos</h3>
@@ -91,10 +96,14 @@ const toggleTasks = (index: number) => {
           <div
             v-for="(member, index) in members"
             :key="index"
-            class="p-4  rounded-lg bg-slate-100"
+            class="p-4 flex justify-between rounded-lg bg-slate-100"
           >
-            <p class="font-medium text-CharcoalBlue">{{ member.name }}</p>
-            <p class="text-sm text-gray-600">Rol: {{ member.role }}</p>
+            <div class="">
+              <p class="font-medium text-CharcoalBlue">{{ member.name }}</p>
+              <p class="text-sm text-gray-600">Rol: {{ member.role }}</p>
+            </div>
+
+            <DeleteUserFromProjectForm  id="member" />
           </div>
         </div>
 
@@ -136,7 +145,13 @@ const toggleTasks = (index: number) => {
               </div>
             </div>
             <div class="flex justify-end mt-4">
-              <button @click="toggleTasks(index)" class="text-sm text-DarkTeal bg-white px-10">Ver más...</button>
+              <router-link :to="{ name: 'tareas-detalle', params: { id: task.id } }">
+                <button
+                  class="text-sm text-DarkTeal bg-white px-2 py-2 rounded-2xl"
+                  style="max-width: 140px; white-space: normal;">
+                  Ver más...
+                </button>
+              </router-link>
             </div>
           </div>
         </div>

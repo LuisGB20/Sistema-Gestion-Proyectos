@@ -27,8 +27,6 @@ const routes = [
             { to: '/admin', label: 'Dashboard', icon: ChartBarIcon },
             { to: '/admin/usuarios', label: 'Usuarios', icon: UsersIcon },
             { to: '/admin/proyectos', label: 'Proyectos', icon: FolderIcon },
-            // { to: '/admin/tareas', label: 'Tareas', icon: BriefcaseIcon },
-            // { to: '/admin/actividades', label: 'Actividades', icon: PuzzlePieceIcon },
             { to: '/admin/recursos', label: 'Recursos', icon: Square3Stack3DIcon },
             { to: '/admin/logs', label: 'Logs', icon: DocumentTextIcon },
             { to: '/admin/configuraciones', label: 'Configuraciones', icon: AdjustmentsHorizontalIcon },
@@ -41,8 +39,6 @@ const routes = [
             { to: '/gerente/proyectos', label: 'Proyectos', icon: FolderIcon },
             { to: '/gerente/equipos', label: 'equipos', icon: UserGroupIcon },
             { to: '/gerente/empleados', label: 'Empleados', icon: UsersIcon },
-            { to: '/gerente/tareas', label: 'Tareas', icon: BriefcaseIcon },
-            { to: '/gerente/actividades', label: 'Actividades', icon: PuzzlePieceIcon },
             { to: '/gerente/recursos', label: 'Recursos', icon: Square3Stack3DIcon },
         ]
     },
@@ -52,8 +48,6 @@ const routes = [
             { to: '/supervisor', label: 'Dashboard', icon: ChartBarIcon },
             { to: '/supervisor/proyecto', label: 'Proyecto', icon: FolderIcon },
             { to: '/supervisor/equipo', label: 'Equipo', icon: UserGroupIcon },
-            { to: '/supervisor/tareas', label: 'Tareas', icon: BriefcaseIcon },
-            { to: '/supervisor/actividades', label: 'Actividades', icon: PuzzlePieceIcon },
             { to: '/supervisor/recursos', label: 'Recursos', icon: Square3Stack3DIcon },
         ]
     },
