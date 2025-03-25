@@ -6,8 +6,8 @@ import Footer from './components/layouts/Footer.vue';
 import GuestHeader from './components/layouts/GuestHeader.vue';
 import { useAuthStore } from './stores/authStore';
 import AuthHeader from './components/layouts/AuthHeader.vue';
-import ProgressSpinner from 'primevue/progressspinner';
 import { Toast } from 'primevue';
+import Loading from './components/ui/Loading.vue';
 
 const authStore = useAuthStore();
 const isInitializing = ref(true);
@@ -25,7 +25,7 @@ onBeforeMount(async () => {
 
 <template>
   <div v-if="isInitializing" class="loading-overlay">
-    <ProgressSpinner />
+    <Loading />
   </div>
 
   <template v-else>
