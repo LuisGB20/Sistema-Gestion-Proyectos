@@ -5,10 +5,10 @@ export interface createEmployeeModel {
   name: string
   lastName: string
   age: number
-  sexo: string
+  sexo: number
   curp: string
   rfc: string
-  salary: number
+  salary: string
 }
 
 export interface EmployeeModel {
@@ -16,7 +16,7 @@ export interface EmployeeModel {
   name: string
   lastName: string
   age: number
-  sexo: string
+  sexo: number
   curp: string
   rfc: string
   salary: string

@@ -12,7 +12,6 @@ export const genericRequest = async <T, B = unknown>(
       method: method,
       data: body,
     });
-
     return response as ResponseHelper<T>;
   } catch (error: unknown) {
     console.error(error);

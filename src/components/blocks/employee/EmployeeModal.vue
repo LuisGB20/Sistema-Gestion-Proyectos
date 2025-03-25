@@ -3,6 +3,8 @@ import { computed } from 'vue';
 import { useModalStore } from '@/stores/modalStore';
 import { Dialog } from 'primevue';
 import type { EmployeeModel } from '@/interfaces/employees/EmployeeModel';
+import { genderToText } from '@/utils/genderToText';
+import { formatDate } from '@/utils/formatDate';
 
 // Props
 const props = defineProps<{
@@ -41,7 +43,7 @@ const modalStore = useModalStore();
         <div>
           <label class="font-semibold text-CharcoalBlue">Sexo:</label>
           <p class="text-DarkTeal mt-1 text-base font-medium">
-            {{ employee.sexo === 0 ? 'Masculino' : 'Femenino' }}
+            {{ genderToText(employee.sexo) }}
           </p>
         </div>
 
@@ -76,14 +78,14 @@ const modalStore = useModalStore();
         <div>
           <label class="font-semibold text-CharcoalBlue">ID de Proyecto:</label>
           <p class="text-DarkTeal mt-1 text-base font-medium">
-            {{ employee.projectId }}
+            {{ employee.projectId ? employee.projectId : 'Sin proyecto asignado' }}
           </p>
         </div>
 
         <div>
           <label class="font-semibold text-CharcoalBlue">Fecha de Creación:</label>
           <p class="text-DarkTeal mt-1 text-base font-medium">
-            {{ employee.createdAt }}
+            {{ employee.createdAt ? formatDate(employee.createdAt) : 'No especificada' }}
           </p>
         </div>
       </div>
