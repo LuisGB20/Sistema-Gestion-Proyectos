@@ -20,7 +20,6 @@ onBeforeMount(async () => {
     if (projectsFetch.success) {
       projects.value = projectsFetch.data;
 
-
     } else {
       console.warn("No se pudieron obtener los proyectos.");
     }
@@ -54,7 +53,7 @@ const prevPage = () => {
 <template>
   <div class="flex flex-col items-center pt-10">
 
-
+  
     <div class="flex items-center justify-between w-full px-4 mb-8 flex-wrap md:flex-nowrap">
       <h1 class="text-4xl md:text-5xl font-bold text-CharcoalBlue">Proyectos</h1>
       <CreateProjectForm />
@@ -95,5 +94,3 @@ const prevPage = () => {
     </nav>
   </div>
 </template>
-
-

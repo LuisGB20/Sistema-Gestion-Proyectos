@@ -104,7 +104,7 @@ const router = createRouter({
         {
           path: '/admin/usuarios',
           name: 'admin-usuarios',
-          component: UsuariosView
+          component: EmployeesView
         },
         {
           path: '/admin/agregar-usuario',

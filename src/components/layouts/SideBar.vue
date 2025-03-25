@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ChartBarIcon, DocumentTextIcon, FolderIcon, Square3Stack3DIcon, UserGroupIcon, UsersIcon, BriefcaseIcon, PuzzlePieceIcon } from '@heroicons/vue/16/solid';
+import { ChartBarIcon, DocumentTextIcon, FolderIcon, Square3Stack3DIcon, UserGroupIcon, UsersIcon, BriefcaseIcon, PuzzlePieceIcon, AdjustmentsHorizontalIcon } from '@heroicons/vue/16/solid';
 import { computed, onMounted, onUnmounted, ref } from 'vue'
 import { RouterLink, useRoute } from 'vue-router';
 import { GetRoleNameService } from '@/services/auth/authService'
@@ -27,10 +27,11 @@ const routes = [
             { to: '/admin', label: 'Dashboard', icon: ChartBarIcon },
             { to: '/admin/usuarios', label: 'Usuarios', icon: UsersIcon },
             { to: '/admin/proyectos', label: 'Proyectos', icon: FolderIcon },
-            { to: '/admin/tareas', label: 'Tareas', icon: BriefcaseIcon },
-            { to: '/admin/actividades', label: 'Actividades', icon: PuzzlePieceIcon },
+            // { to: '/admin/tareas', label: 'Tareas', icon: BriefcaseIcon },
+            // { to: '/admin/actividades', label: 'Actividades', icon: PuzzlePieceIcon },
             { to: '/admin/recursos', label: 'Recursos', icon: Square3Stack3DIcon },
             { to: '/admin/logs', label: 'Logs', icon: DocumentTextIcon },
+            { to: '/admin/configuraciones', label: 'Configuraciones', icon: AdjustmentsHorizontalIcon },
         ]
     },
     {
