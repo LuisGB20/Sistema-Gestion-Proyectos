@@ -66,7 +66,8 @@ const showEmployee = (data: EmployeeModel) => {
 }
 
 const addEmployee = async (data: createEmployeeModel) => {
-  const response = await createEmployee(toRaw(data))
+  const dataToSend = {...data, sexo: Number(data.sexo)};
+  const response = await createEmployee(toRaw(dataToSend))
   if (!response.success) {
     toast.add({
       severity: 'error',
