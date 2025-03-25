@@ -6,12 +6,14 @@ import AddEmployeeToProject from '@/components/blocks/project/employees/AddEmplo
 import CreateResourceForProject from '@/components/blocks/project/resources/CreateResourceForProject.vue'
 import CreateTask from '@/components/blocks/project/task/CreateTask.vue'
 import ChangeStatusForm from '@/components/blocks/project/ChangeStatusForm.vue'
+import DeleteUserFromProjectForm
+  from '@/components/blocks/project/employees/DeleteUserFromProjectForm.vue'
 
 const route = useRoute();
 const project = ref<Project | null>(null);
 const tasks = ref<{ name: string; description:string; showActivities?: boolean; activities: { name: string; description: string }[], users: string[] }[]>([]);
 const resources = ref<{name: string; quantity: number}[]>([]);
-const members = ref<{name: string; role:string}[]>([]);
+const members = ref<{name: string; role:string; id: string}[]>([]);
 const encharge = ref<string | null>( null);
 const status = ref<string | null>(null);
 
@@ -26,7 +28,7 @@ onBeforeMount(async () => {
     if (getProject.success) {
       project.value = getProject.data.project;
       encharge.value = getProject.data.encharge && getProject.data.encharge.length > 0 ? `${getProject.data.encharge[0].employee.name} ${getProject.data.encharge[0].employee.lastName}` : "";
-      members.value = getProject.data.employees.map((employee: any) => ({name: `${employee.employee.name} ${employee.employee.lastName}`, role: employee.roles[0]}));
+      members.value = getProject.data.employees.map((employee: any) => ({name: `${employee.employee.name} ${employee.employee.lastName}`, role: employee.roles[0], id: employee.id}));
       resources.value = getProject.data.project.projectResources.map((resource: any) => ({ name : resource.resource.name, quantity: resource.quantity}) );
       tasks.value = getProject.data.project.tasks.map((task: any) => ({
         name: task.name,
@@ -94,10 +96,14 @@ const toggleTasks = (index: number) => {
           <div
             v-for="(member, index) in members"
             :key="index"
-            class="p-4  rounded-lg bg-slate-100"
+            class="p-4 flex justify-between rounded-lg bg-slate-100"
           >
-            <p class="font-medium text-CharcoalBlue">{{ member.name }}</p>
-            <p class="text-sm text-gray-600">Rol: {{ member.role }}</p>
+            <div class="">
+              <p class="font-medium text-CharcoalBlue">{{ member.name }}</p>
+              <p class="text-sm text-gray-600">Rol: {{ member.role }}</p>
+            </div>
+
+            <DeleteUserFromProjectForm  id="member" />
           </div>
         </div>
 
