@@ -145,7 +145,13 @@ const toggleTasks = (index: number) => {
               </div>
             </div>
             <div class="flex justify-end mt-4">
-              <button @click="toggleTasks(index)" class="text-sm text-DarkTeal bg-white px-10">Ver más...</button>
+              <router-link :to="{ name: 'tareas-detalle', params: { id: task.id } }">
+                <button
+                  class="text-sm text-DarkTeal bg-white px-2 py-2 rounded-2xl"
+                  style="max-width: 140px; white-space: normal;">
+                  Ver más...
+                </button>
+              </router-link>
             </div>
           </div>
         </div>
