@@ -6,11 +6,13 @@ import * as yup from 'yup';
 import { CreateProject } from '@/services/projects/projectService'
 import { getEmployeesWithoutProject } from '@/services/employees/EmployeeService.ts'
 import { useRoute } from 'vue-router'
+import { useAuthStore } from '@/stores/authStore';
+const authStore = useAuthStore();
 
 const isOpen = ref(false);
 const modalStore = useModalStore();
 const route = useRoute();
-const id : string = route.params.id.toString();
+const id : string = route.params.id ? route.params.id.toString() : authStore.employee?.projectId;
 
 const fields = [
   {
