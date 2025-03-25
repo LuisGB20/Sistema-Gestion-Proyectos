@@ -15,6 +15,7 @@ const props = defineProps<{
 }>();
 
 const data = ref(props.data);
+const exportButtonDisabled = ref(false);  // Estado para deshabilitar el botón de exportar
 
 watch(
   () => props.data,
@@ -26,7 +27,13 @@ watch(
 
 const dt = ref();
 const exportCSV = () => {
+    if (exportButtonDisabled.value) return;
     dt.value.exportCSV();
+
+    exportButtonDisabled.value = true;
+    setTimeout(() => {
+        exportButtonDisabled.value = false;
+    }, 10000);  
 };
 
 const filters = ref({
@@ -51,7 +58,8 @@ const filters = ref({
                         </IconField>
                     </div>
                     <div class="flex flex-wrap items-center justify-start gap-2">
-                        <Button class="btn-export" icon="pi pi-external-link" label="Exportar" @click="exportCSV" />
+                        <!-- Deshabilitar el botón de exportar cuando 'exportButtonDisabled' sea verdadero -->
+                        <Button class="btn-export" icon="pi pi-external-link" label="Exportar" @click="exportCSV" :disabled="exportButtonDisabled" />
                     </div>
                 </div>
             </template>

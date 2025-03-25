@@ -8,9 +8,10 @@ import CreateTask from '@/components/blocks/project/task/CreateTask.vue'
 import ChangeStatusForm from '@/components/blocks/project/ChangeStatusForm.vue'
 import DeleteUserFromProjectForm
   from '@/components/blocks/project/employees/DeleteUserFromProjectForm.vue'
+import type { ProjectModel } from '@/interfaces/Projects/ProjectModel';
 
 const route = useRoute();
-const project = ref<Project | null>(null);
+const project = ref<ProjectModel | null>(null);
 const tasks = ref<{ name: string; description:string; showActivities?: boolean; activities: { name: string; description: string }[], users: string[] }[]>([]);
 const resources = ref<{name: string; quantity: number}[]>([]);
 const members = ref<{name: string; role:string; id: string}[]>([]);

@@ -21,6 +21,7 @@ const enlacesPorRol = {
     { to: '/admin/proyectos', label: 'Proyectos' },
     { to: '/admin/recursos', label: 'Recursos' },
     { to: '/admin/logs', label: 'Logs' },
+    { to: '/admin/configuraciones', label: 'Configuraciones' },
   ],
   gerente: [
     { to: '/gerente', label: 'Dashboard' },
@@ -32,8 +33,9 @@ const enlacesPorRol = {
   supervisor: [
     { to: '/supervisor', label: 'Dashboard' },
     { to: '/supervisor/proyecto', label: 'Proyecto' },
-    { to: '/supervisor/equipo', label: 'Equipo' },
-    { to: '/supervisor/recursos', label: 'Recursos' },
+    // { to: '/supervisor/tareas', label: 'Tareas' },
+    // { to: '/supervisor/actividades', label: 'Actividades' },
+    // { to: '/supervisor/recursos', label: 'Recursos' },
   ],
   'recursos-humanos': [
     { to: '/recursos-humanos', label: 'Dashboard' },
@@ -53,7 +55,7 @@ const enlacesPorRol = {
 
 // Obtener los enlaces correspondientes al rol del usuario
 const enlacesUsuario = computed(() => {
-  const rol : Roles = user.value?.rol.toLowerCase().replace(' ', '-') as Roles;
+  const rol: Roles = user.value?.rol.toLowerCase().replace(' ', '-') as Roles;
   return enlacesPorRol[rol] || [];
 });
 
@@ -73,7 +75,8 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <header class="px-4 sm:px-6 py-4 flex justify-between items-center bg-white shadow-lg h-16 fixed top-0 left-0 w-full z-50">
+  <header
+    class="px-4 sm:px-6 py-4 flex justify-between items-center bg-white shadow-lg h-16 fixed top-0 left-0 w-full z-50">
     <div class="flex items-center space-x-4">
       <img src="../../assets/Icons/logo.png" alt="logo" class="size-10">
       <h1 class="font-bold text-2xl text-DarkTeal tracking-tight hidden sm:block">
