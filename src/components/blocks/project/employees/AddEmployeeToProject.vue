@@ -3,18 +3,22 @@ import { useModalStore } from '@/stores/modalStore';
 import { ref, watch } from 'vue'
 import FormModal from '@/components/forms/CreateForm.vue';
 import * as yup from 'yup';
+import { CreateProject } from '@/services/projects/projectService'
 import { getEmployeesWithoutProject } from '@/services/employees/EmployeeService.ts'
 import { useRoute } from 'vue-router'
 
 const isOpen = ref(false);
-const modalStore = useM{ odalStore();
+const modalStore = useModalStore();
 const route = useRoute();
 const id : string = route.params.id.toString();
 
 const fields = [
   {
     id: 'employee', label: 'Empleado', typeField: 'select', placeholder: 'Seleccione un empleado', options: []
-  }
+  },
+  {
+    id: 'role', label: 'Rol', typeField: 'select', placeholder: 'Seleccione un rol', options: []
+  },
 ];
 
 const validationSchema = yup.object({
@@ -23,6 +27,7 @@ const validationSchema = yup.object({
 
 const formData = ref({
   employee: '',
+  role: '',
 });
 
 
