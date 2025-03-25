@@ -16,6 +16,10 @@ export const asignProjectToEmployee = async ( employeeId : string, projectId: st
   return await genericRequest(`${controller}/AssignProject`, 'POST', { employeeId, projectId, role})
 }
 
+export const RemoveProject = async (employeeId : string, ) => {
+  return await genericRequest(`${controller}/RemoveProject`, 'POST', {employeeId})
+}
+
 export const getAllEmployees = async () => {
   return await genericRequest(`${controller}/`, 'GET')
 }
@@ -59,5 +63,7 @@ export const GetEmployeesFromProject = async (id: string): Promise<ResponseHelpe
 export const GetEmployeeData = async (id: string): Promise<ResponseHelper<EmployeeModel>> => {
   return await genericRequest(`${controller}/GetEmployeeData?userId=${id}`, 'GET')
 }
+
+
 
 

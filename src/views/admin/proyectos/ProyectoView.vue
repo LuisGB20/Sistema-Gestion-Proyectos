@@ -103,7 +103,7 @@ const toggleTasks = (index: number) => {
               <p class="text-sm text-gray-600">Rol: {{ member.role }}</p>
             </div>
 
-            <DeleteUserFromProjectForm  id="member" />
+            <DeleteUserFromProjectForm  id="member" /> 
           </div>
         </div>
 
