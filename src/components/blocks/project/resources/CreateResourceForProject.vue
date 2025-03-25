@@ -10,36 +10,44 @@ const modalStore = useModalStore();
 
 const fields = [
   {
-    id: 'name', label: 'Nombre del Proyecto',
-    typeField: 'text',
-    placeholder: 'Ingrese el nombre'
+    id: 'projectType',label: 'Tipo de recursos',
+    typeField: 'select',
+    options: [
+      { label: 'recursos 2' },
+      { label: 'recursos 3' },
+      { label: 'recursos 4' }
+    ],
+    placeholder: 'Seleccione un tipo'
   },
   {
-    id: 'description',
-    label: 'Descripción',
-    typeField: 'textarea',
-    placeholder: 'Ingrese una descripción'
-  },
+    id: 'budget', label: 'Cantidad',
+    typeField: 'number',
+    placeholder: 'Ingrese la cantidad'
+  }
 ];
 
 const validationSchema = yup.object({
-  name: yup.
-  string().
-  required('El nombre es obligatorio'),
-  description: yup.
-  string().
-  required('La descripción es obligatoria'),
+
+  projectType: yup
+    .string()
+    .required('El tipo de proyecto es obligatorio'),
+  budget: yup
+    .number()
+    .required('El presupuesto es obligatorio')
+    .positive('El presupuesto debe ser un número positivo')
 });
 
 const formData = ref({
   name: '',
-  description: ''
+  description: '',
+  projectType: '',
+  budget: null
 });
 
 const handleSubmit = async (values) => {
   console.log('Proyecto creado:', values);
 
-  const res = await CreateProject(values.name, values.description);
+  const res = await CreateProject(values.name, values.description, values.projectType, values.budget);
   console.log(res);
 
   isOpen.value = false;
@@ -55,14 +63,10 @@ watch(() => {
 </script>
 
 <template>
+  <i @click="isOpen = true; modalStore.isCreateModalOpen = true" class=" rounded-full h-5 w-5 bg-DarkTeal flex items-center justify-center text-white cursor-pointer">+</i>
 
-
-  <i @click="isOpen= true; modalStore.isCreateModalOpen = true" class=" rounded-full h-5 w-5 bg-DarkTeal flex items-center justify-center text-white cursor-pointer">+</i>
-
-  <div class="absolute" v-if="isOpen" >
-    <FormModal title="Crear Proyecto" :fields="fields" :validationSchema="validationSchema" :formData="formData"
-                @submit="handleSubmit" />
-
+  <div class="absolute" v-if="isOpen">
+    <FormModal title="Crear Proyecto" :fields="fields" :validationSchema="validationSchema" :formData="formData" @submit="handleSubmit" />
   </div>
 </template>
 

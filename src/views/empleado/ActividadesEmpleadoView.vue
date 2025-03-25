@@ -101,6 +101,7 @@ const updateActivityStatus = async (activityId: string) => {
           </div>
         </div>
       </div>
+
     </section>
   </main>
 </template>
