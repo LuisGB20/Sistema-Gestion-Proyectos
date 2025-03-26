@@ -7,6 +7,7 @@ import { CreateProject } from '@/services/projects/projectService'
 import Button from 'primevue/button'
 import CustomLink from '@/components/ui/OpenCreateButton.vue'
 import { getEmployeesWithoutProject } from '@/services/employees/EmployeeService.ts'
+import { useNotificationStore } from '@/stores/notificationsStore';
 
 const modalStore = useModalStore();
 const isOpen = ref(false);
@@ -66,6 +67,12 @@ const formData = ref({
   description: ''
 });
 
+const emit = defineEmits(["submit"]);
+
+
+
+const notificationStore = useNotificationStore()
+
 const handleSubmit = async (values) => {
   console.log('Proyecto creado:', values);
 
@@ -74,6 +81,10 @@ const handleSubmit = async (values) => {
 
   isOpen.value = false;
   modalStore.isCreateModalOpen = false;
+  notificationStore.showSuccess = true;
+notificationStore.message = 'Proyecto creado correctamente'
+notificationStore.showAlert();
+emit("submit", values);
 };
 
 watch(() => {
