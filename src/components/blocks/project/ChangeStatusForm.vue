@@ -74,7 +74,7 @@ watch(() => {
 
 
   <div @click="modalStore.isCreateModalOpen = true; isOpen = true"  >
-    <div class="cursor-pointer hover:bg-slate-600 px-2 py-2 bg-DarkTeal px-5 text-white text-sm rounded-2xl">
+    <div class="cursor-pointer hover:bg-slate-600 w-52 text-center px-2 py-2 bg-DarkTeal px-5 text-white text-sm rounded-2xl">
       <h2>Estado: {{ status }}</h2>
     </div>
   </div>

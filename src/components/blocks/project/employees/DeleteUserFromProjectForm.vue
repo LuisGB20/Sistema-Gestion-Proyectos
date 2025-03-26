@@ -41,7 +41,7 @@ watch(() => {
   </div>
 
   <div class="absolute" v-if="isOpen">
-    <FormModal title="Eliminar proyecto" :fields="[]" :validationSchema="[]" :formData="[]"
+    <FormModal title="Esta seguro de eliminar del proyecto" :fields="[]" :validationSchema="[]" :formData="[]"
                @submit="handleSubmit" />
   </div>
 </template>

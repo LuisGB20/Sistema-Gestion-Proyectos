@@ -19,8 +19,10 @@ defineProps<{ project: BestProjectModel }>();
       <EditProjectForm :project-id="project.project.id" />
     </div>
 
-    <div class="flex justify-end gap-3 flex-col space-x-2 text-right text-sm text-gray-500">
-      <ChangeStatusForm :id="project.project.id" :status="project.status" />
+    <div class="flex  justify-end gap-3 flex-col space-x-2 text-right text-sm text-gray-500">
+      <div class="w-full flex justify-end">
+        <ChangeStatusForm :id="project.project.id" :status="project.status" />
+      </div>
       <p class="text-slate-700">Encargado: {{project.encharge && project.encharge.length > 0  ? `${project.encharge[0].employee.name} ${project.encharge[0].employee.lastName}`: "N/A" }}</p>
     </div>
   </div>
