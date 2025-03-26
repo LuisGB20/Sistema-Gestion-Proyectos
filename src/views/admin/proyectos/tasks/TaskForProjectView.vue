@@ -9,6 +9,9 @@ import CreateActivityForTask from '@/components/blocks/project/task/activity/Cre
 import ActivityModal from '@/components/blocks/activity/ActivityModal.vue';
 import { useModalStore } from '@/stores/modalStore.ts';
 import type { ActivityModel } from '@/interfaces/Activities/ActivityModel.ts';
+import { translateStatusActivity } from '../../../../utils/statusActivity.ts'
+import { CalendarDaysIcon, MagnifyingGlassIcon } from '@heroicons/vue/16/solid';
+import { getStatusActivityColor } from '@/utils/getStatusActivityColor.ts'
 
 interface Employee {
   id: string;
@@ -26,29 +29,28 @@ interface Activity {
   id: string;
   name: string;
   description: string;
-  status: number;
+  status: string;
+  taskId: string;
+  employeeId: string;
+  isDeleted: boolean;
+  createdAt: Date;
   employee: Employee;
-  task?: {
-    name: string;
-  };
+  task: TaskModel;
 }
 
-interface Task {
+interface TaskModel {
   id: string;
   projectId: string;
   name: string;
   description: string;
   estimatedHours: number;
   workedHours: number;
-  startDate: string;
-  endTime: string;
-  taskEmployees: TaskEmployee[];
-  activities: Activity[];
-  showActivities?: boolean;
+  startDate: Date | string;
+  endTime: Date | string;
 }
 
 const route = useRoute();
-const tasks = ref<Task[]>([]);
+const tasks = ref<TaskModel[]>([]);
 const toast = useToast();
 const modalStore = useModalStore();
 const activitySelected = ref<ActivityModel>({} as ActivityModel);
@@ -84,8 +86,21 @@ onBeforeMount(async () => {
           name: a.name,
           description: a.description,
           status: a.status,
+          taskId: a.taskId,
+          employeeId: a.employeeId,
+          isDeleted: a.isDeleted,
+          createdAt: a.createdAt,
           employee: a.employee,
-          task: a.task
+          task: {
+            id: task.id,
+            projectId: task.projectId,
+            name: task.name,
+            description: task.description,
+            estimatedHours: task.estimatedHours,
+            workedHours: task.workedHours,
+            startDate: task.startDate,
+            endTime: task.endTime
+          }
         })),
         showActivities: false
       }));
@@ -158,55 +173,25 @@ const showActivityData = (data: ActivityModel, event: Event) => {
     </div>
 
     <div class="overflow-y-auto max-h-screen w-full mt-6">
-      <div class="space-y-4 w-full">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         <div
           v-for="(activity, index) in tasks[0]?.activities"
           :key="activity.id"
-          class="bg-gray-50 rounded-lg p-6 shadow-md flex flex-col sm:flex-row items-center justify-between w-full"
           @click="showActivityData(activity, $event)"
+          class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow cursor-pointer flex flex-col"
         >
-          <div class="flex items-center space-x-6 mb-4 sm:mb-0">
-            <i class="pi pi-lightbulb text-CharcoalBlue text-2xl"></i>
-
-            <div>
-              <h2 class="text-xl font-semibold text-CharcoalBlue mb-1">
-                {{ activity.name }}
-              </h2>
-
-              <p class="text-sm text-CharcoalBlue mb-1">
-                {{ activity.description }}
-              </p>
-
-              <p class="text-sm text-CharcoalBlue font-medium">
-                Encargado:
-                <span class="font-semibold">{{ activity.employee.name }} {{ activity.employee.lastName }}</span>
-              </p>
-
-              <p v-if="activity.task" class="text-sm text-CharcoalBlue font-medium">
-                Tarea:
-                <span class="font-semibold">{{ activity.task.name }}</span>
-              </p>
-
-              <button
-                @click="showActivityData({
-                          id: activity.id,
-                          name: activity.name,
-                          description: activity.description,
-                          status: activity.status,
-                          taskId: activity.taskId,
-                          employeeId: activity.employeeId,
-                          isDeleted: activity.isDeleted,
-                          createdAt: activity.createdAt,
-                          task: tasks[0]
-                        }, $event)"
-                class="text-white bg-DarkTeal px-4 py-2 mt-3 rounded-md shadow-md transition-all duration-300 hover:bg-teal-700"
-              >
-                Ver detalles
-              </button>
-            </div>
+          <div class="flex flex-col md:flex-row justify-between items-start mb-4">
+            <h4 class="font-semibold text-gray-800 text-lg truncate w-2/3">{{ activity.name }}</h4>
+            <span :class="['px-3 py-1 rounded-full text-xs', getStatusActivityColor(activity.status)]">
+              {{ translateStatusActivity(activity.status) }}
+            </span>
+          </div>
+          <p class="text-sm text-gray-600 mt-2 mb-4 truncate">{{ activity.description }}</p>
+          <div class="flex items-center text-sm text-gray-700">
+            <CalendarDaysIcon class="w-5 h-5 text-CharcoalBlue mr-2" />
+            <span>Tarea: {{ activity.task.name }}</span>
           </div>
         </div>
-
       </div>
     </div>
   </div>
