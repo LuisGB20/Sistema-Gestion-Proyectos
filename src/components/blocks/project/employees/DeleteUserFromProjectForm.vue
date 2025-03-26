@@ -2,27 +2,36 @@
 import { useModalStore } from '@/stores/modalStore';
 import { defineProps, ref, watch } from 'vue'
 import * as yup from 'yup';
+
 import {
-  DeleteProject,
-} from '@/services/projects/projectService'
+  RemoveProject,
+} from '@/services/employees/EmployeeService'
 import FormModal from '@/components/forms/CreateForm.vue';
 
 const modalStore = useModalStore();
 
 const isOpen = ref(false);
-
-const props = defineProps<{ id: string}>();
+const props = defineProps<{ employeeId: string}>();
 
 
 const handleSubmit = async (values) => {
-  console.log('Proyecto creado:', values);
+  console.log('Integrante Eliminado:', props.employeeId);
 
-  const res = await DeleteProject(props.id);
-  console.log(res);
+  // Llamada a RemoveProject con los props del componente
+  const res = await RemoveProject(props.employeeId, props.role);
+  console.log('Misael', res);  // Aquí deberías ver el objeto de respuesta
+
+  // Verifica la respuesta
+  if (res && res.success) {
+    console.log('Integrante eliminado correctamente:', res.message);
+  } else {
+    console.log('No se pudo eliminar el integrante');
+  }
 
   isOpen.value = false;
   modalStore.isCreateModalOpen = false;
 };
+
 
 watch(() => {
   if (!modalStore.isCreateModalOpen) {
@@ -41,7 +50,7 @@ watch(() => {
   </div>
 
   <div class="absolute" v-if="isOpen">
-    <FormModal title="Esta seguro de eliminar del proyecto" :fields="[]" :validationSchema="[]" :formData="[]"
-               @submit="handleSubmit" />
+    <FormModal title="Eliminar Integrantes" :fields="[]" :validationSchema="[]" :formData="[]"
+                @submit="handleSubmit" />
   </div>
 </template>

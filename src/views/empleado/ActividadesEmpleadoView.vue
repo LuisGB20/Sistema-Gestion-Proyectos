@@ -43,7 +43,7 @@ onMounted(async () => {
 
 const showActivityData = (data: ActivityModel) => {
   activitySelected.value = data;
-  modalStore.isEmployeeActivityModalOpen = true;
+    modalStore.isEmployeeActivityModalOpen = true;
 };
 
 const updateActivityStatus = async (activityId: string) => {
@@ -89,7 +89,7 @@ const updateActivityStatus = async (activityId: string) => {
         <div v-for="activity in filteredActivities" :key="activity.id" @click="showActivityData(activity)"
           class="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow cursor-pointer flex flex-col mb-6 lg:mb-8 xl:mb-10">
           <div class="flex justify-between items-start mb-4">
-            <h4 class="font-semibold text-gray-800 text-lg truncate w-3/4">{{ activity.name }}</h4>
+            <h4 class="font-semibold text-gray-800 text-lg truncate w-1/2">{{ activity.name }}</h4>
             <span :class="['px-3 py-1 rounded-full text-xs', getStatusActivityColor(activity.status)]">
               {{ translateStatusActivity(activity.status) }}
             </span>

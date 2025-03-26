@@ -1,6 +1,6 @@
 import { genericRequest } from "@/utils/genericRequest"
 
-const controller = "project"
+const controller = "Project"
 
 export const GetStatusProject = async () => {
   return await genericRequest(`${controller}/GetAllStatus`, 'GET')
@@ -31,6 +31,6 @@ export const ChangeStatusProject = async (id: string, status:string) => {
   return await genericRequest(`${controller}/ChangeStatus?id=${id}&status=${status}`, 'POST')
 }
 
-export const DeleteProject = async (id: string) => {
-  return await genericRequest(`${controller}/DeleteProject/${id}`, 'DELETE')
+export const DeleteProject = async (project: string) => {
+  return await genericRequest(`${controller}/${project}`, 'DELETE')
 }

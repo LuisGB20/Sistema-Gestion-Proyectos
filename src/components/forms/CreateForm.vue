@@ -7,8 +7,8 @@ import { Button, Dialog } from 'primevue';
 import * as yup from 'yup';
 
 const modalStore = useModalStore();
-
 const isSubmited = ref(false);
+const isPasswordVisible = ref(false);
 
 const props = defineProps<{
     title: string,
@@ -34,17 +34,20 @@ const handleSubmit = async () => {
   if (isValid.valid) {
     emit("submit", values);
     modalStore.isCreateModalOpen = false;
-  } else {
-    return;
   }
 };
 
-// Función para manejar los cambios en los campos del formulario.
+// Función para manejar cambios en los campos del formulario.
 const handleInput = (fieldId: string, event: Event) => {
     const target = event.target as HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement;
     if (target) {
         setFieldValue(fieldId, target.value);
     }
+};
+
+// Alternar visibilidad de contraseña
+const togglePasswordVisibility = () => {
+  isPasswordVisible.value = !isPasswordVisible.value;
 };
 </script>
 
@@ -55,7 +58,23 @@ const handleInput = (fieldId: string, event: Event) => {
                 <label :for="field.id" class="font-semibold block text-sm text-CharcoalBlue mb-1">{{ field.label }}</label>
 
                 <!-- Campo de tipo Input -->
-                <input v-if="field.typeField === 'text' || field.typeField === 'password' || field.typeField === 'number'"
+                <div v-if="field.typeField === 'password'" class="relative">
+                    <input
+                        :id="field.id"
+                        :value="values[field.id]"
+                        @input="(e) => handleInput(field.id, e)"
+                        :type="isPasswordVisible ? 'text' : 'password'"
+                        class="w-full p-2 border rounded-md text-DarkTeal border-DarkTeal focus:border-2 focus:border-CharcoalBlue outline-none"
+                        :placeholder="field.placeholder"
+                    />
+                    <button type="button" @click="togglePasswordVisibility"
+                        class="absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer">
+                        <i v-if="!isPasswordVisible" class="pi pi-eye-slash text-CharcoalBlue"></i>
+                        <i v-else class="pi pi-eye text-DarkTeal"></i>
+                    </button>
+                </div>
+
+                <input v-else-if="field.typeField === 'text' || field.typeField === 'number'"
                     :id="field.id"
                     :value="values[field.id]"
                     @input="(e) => handleInput(field.id, e)"

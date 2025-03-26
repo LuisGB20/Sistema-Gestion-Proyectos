@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, toRaw } from 'vue'
 import router from '@/router'
 import {
   getEmployees,
@@ -13,12 +13,12 @@ import { useToast } from 'primevue/usetoast'
 import { useNotificationStore } from '@/stores/notificationsStore'
 import CreateForm from '@/components/forms/CreateForm.vue'
 import OpenCreateButton from '@/components/ui/OpenCreateButton.vue'
-import { CreateEmployeeValidationSchema, ResourceValidationSchema } from '@/validationSchemas/ValidationSchemas'
 import DataTable from '@/components/ui/DataTable.vue'
 import EditForm from '@/components/forms/EditForm.vue'
 import { useModalStore } from '@/stores/modalStore'
 import type { createEmployeeModel, EmployeeModel } from '@/interfaces/employees/EmployeeModel'
 import EmployeeModal from '@/components/blocks/employee/EmployeeModal.vue'
+import { CreateEmployeeValidationSchema, EmployeeValidationSchema } from '@/validationSchemas/ValidationSchemas'
 
 const employees = ref<EmployeeModel[]>([])
 const employeeSelected = ref<EmployeeModel>({} as EmployeeModel);
@@ -42,11 +42,11 @@ const formDataCreate = ref<createEmployeeModel>({
   "confirmPassword": "",
   "name": "",
   "lastName": "",
-  "age": 0,
-  "sexo": "",
+  "age": 18,
+  "sexo": 0,
   "curp": "",
   "rfc": "",
-  "salary": 0
+  "salary": ""
 })
 
 const formDataEdit = ref<EmployeeModel>({
@@ -54,34 +54,35 @@ const formDataEdit = ref<EmployeeModel>({
   name: '',
   lastName: '',
   age: 0,
-  sexo: '',
+  sexo: 0,
   curp: '',
   rfc: '',
   salary: '',
 })
 
 const showEmployee = (data: EmployeeModel) => {
-  console.log("Hola")
   employeeSelected.value = data;
   modalStore.isEmployeeDataModalOpen = true;
 }
 
-const addEmployee = async (data: EmployeeModel) => {
-  console.log(data)
-  // const response = await createEmployee(data)
-  // if (!response.success) {
-  //   toast.add({
-  //     severity: 'error',
-  //     summary: 'Algo salió mal',
-  //     detail: response.message,
-  //     life: 3000,
-  //   })
-  // } else {
-  //   notificationStore.showSuccess = true
-  //   notificationStore.message = 'Empleado creado con exito'
-  //   notificationStore.showAlertSuccess()
-  //   employees.value.push(response.data)
-  // }
+const addEmployee = async (data: createEmployeeModel) => {
+  const dataToSend = {...data, sexo: Number(data.sexo)};
+  const response = await createEmployee(toRaw(dataToSend))
+  if (!response.success) {
+    toast.add({
+      severity: 'error',
+      summary: 'Algo salió mal',
+      detail: response.message,
+      life: 3000,
+    })
+  } else {
+    notificationStore.showSuccess = true
+    notificationStore.message = 'Empleado creado con exito'
+    notificationStore.showAlertSuccess()
+
+    console.log(response)
+    employees.value.push(response.data)
+  }
 }
 
 const showEditModal = (data: EmployeeModel) => {
@@ -91,6 +92,7 @@ const showEditModal = (data: EmployeeModel) => {
 
 const editEmployee = async (data: EmployeeModel) => {
   const response = await updateEmployee(data)
+  console.log(response)
   if (!response.success) {
     toast.add({
       severity: 'error',
@@ -213,11 +215,18 @@ const confirmDeleteEmployee = async (id: string) => {
       { id: 'name', label: 'Nombre', typeField: 'text', placeholder: 'Escribe el nombre' },
       { id: 'lastName', label: 'Apellidos', typeField: 'text', placeholder: 'Escribe los apellidos' },
       { id: 'age', label: 'Edad', typeField: 'number', placeholder: '0' },
-      { id: 'sexo', label: 'Sexo', typeField: 'text', placeholder: 'Hombre/Mujer' },
+      {
+        id: 'sexo', label: 'Sexo', typeField: 'select', placeholder: 'Selecciona el Sexo',
+        options: [
+          { label: 'No Especificado', value: 0 },
+          { label: 'Masculino', value: 1 },
+          { label: 'Femenino', value: 2 },
+          { label: 'Otro', value: 3 },
+        ]
+      },
       { id: 'curp', label: 'CURP', typeField: 'text', placeholder: 'Escribe la CURP' },
       { id: 'rfc', label: 'RFC', typeField: 'text', placeholder: 'Escribe el RFC' },
-      { id: 'createdAt', label: 'Fecha de creación', typeField: 'text', placeholder: 'Escribe la fecha de creación' },
-      { id: 'salary', label: 'Salario', typeField: 'text', placeholder: 'Escribe el salario' }
-    ]" :validationSchema="ResourceValidationSchema" :formData="formDataEdit" />
+      { id: 'salary', label: 'Salario', typeField: 'number', placeholder: '0' },
+    ]" :validationSchema="EmployeeValidationSchema" :formData="formDataEdit" />
   </main>
 </template>

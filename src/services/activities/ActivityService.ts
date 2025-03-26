@@ -12,3 +12,7 @@ export const GetEmployeeActivities = async (id: string): Promise<ResponseHelperA
 export const MarkAsCompletedActivity = async (id: string): Promise<ResponseHelper<ActivityModel>> => {
   return await genericRequest(`${controller}/MarkAsCompletedActivity?ActivityId=${id}`, 'GET')
 }
+
+export const CreateActivity = async (name: string, description: string, taskId: string, employeeId: string): Promise<ResponseHelper<ActivityModel>> => {
+  return await genericRequest(`${controller}`, 'POST', { name, description, taskId, employeeId });
+};

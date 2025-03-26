@@ -42,10 +42,20 @@ const httpMethodsCount = computed(() => {
   return counts
 })
 
+const exportButtonDisabled = ref(false);  // Estado para deshabilitar el botón de exportar
+
+
 const dt = ref()
 const exportCSV = () => {
-  dt.value.exportCSV()
-}
+    if (exportButtonDisabled.value) return;
+    dt.value.exportCSV();
+
+    exportButtonDisabled.value = true;
+    setTimeout(() => {
+        exportButtonDisabled.value = false;
+    }, 10000);  
+};
+
 
 const { setupLogsListeners, cleanupLogsListeners, close: closeLogsWebSocket } = useLogsWebSocket()
 
@@ -340,7 +350,7 @@ const gaugeOptions = computed(() => ({
             </div>
             <div class="flex">
               <div class="text-end mr-4">
-                <Button icon="pi pi-external-link" label="Exportar" @click="exportCSV" />
+                <Button class="btn-export" icon="pi pi-external-link" label="Exportar" @click="exportCSV" :disabled="exportButtonDisabled" />
               </div>
               <IconField>
                 <InputIcon>

@@ -7,6 +7,7 @@ import SubmitButton from '@/components/ui/SubmitButton.vue';
 import { useToast } from 'primevue/usetoast';
 import router from '@/router';
 import { ValidateSession } from '@/services/auth/authService';
+import Loading from '@/components/ui/Loading.vue';
 
 const authStore = useAuthStore();
 
@@ -28,6 +29,7 @@ const [password, passwordAttrs] = defineField('password', {
   validateOnModelUpdate: false,
 });
 
+const isLoading = ref(false);
 const isPasswordVisible = ref(false);
 const toast = useToast();
 
@@ -38,17 +40,22 @@ const togglePasswordVisibility = () => {
 const handleLogin = async () => {
   const isValid = await validate();
   if (isValid.valid) {
-    const response = await authStore.login(email.value, password.value);
-    if (!response?.success) {
-      toast.add({ severity: 'error', summary: 'Algo salió mal', detail: response?.message, life: 3000 });
-    } else {
-      toast.add({ severity: 'success', summary: '¡Bienvenido!', detail: 'Inicio de sesión exitoso.', life: 3000 });
-      const getInfoUser = await ValidateSession();
-      if (getInfoUser?.success) {
-        const rol = getInfoUser.data.rol.toLowerCase().replace(' ', '-');
-        router.push(`/${rol}`)
+    isLoading.value = true;
+    setTimeout(async () => {
+      const response = await authStore.login(email.value, password.value);
+      if (!response?.success) {
+        isLoading.value = false;
+        toast.add({ severity: 'error', summary: 'Algo salió mal', detail: response?.message, life: 3000 });
+      } else {
+        isLoading.value = false;
+        toast.add({ severity: 'success', summary: '¡Bienvenido!', detail: 'Inicio de sesión exitoso.', life: 3000 });
+        const getInfoUser = await ValidateSession();
+        if (getInfoUser?.success) {
+          const rol = getInfoUser.data.rol.toLowerCase().replace(' ', '-');
+          router.push(`/${rol}`)
+        }
       }
-    }
+    }, 1000)
   } else {
     return;
   }
@@ -56,6 +63,7 @@ const handleLogin = async () => {
 </script>
 
 <template>
+  <Loading v-if="isLoading" />
   <main class="flex flex-col lg:flex-row min-h-screen p-4 lg:p-10 justify-center items-center">
     <img src="/src/assets/images/auth/access.svg" alt="Imagen de Login"
       class="w-full max-w-[300px] lg:max-w-[500px] mx-auto mb-8 lg:mb-0" />
@@ -63,7 +71,8 @@ const handleLogin = async () => {
     <div class="w-full md:w-1/2 flex justify-center items-center">
       <div class="w-full max-w-md">
         <h2 class="text-2xl md:text-3xl font-semibold text-center mb-6 text-CharcoalBlue">Inicio de sesión</h2>
-        <h1 class="text-lg md:text-xl font-semibold text-center mb-8 text-CharcoalBlue">Bienvenido, por favor ingresa tus datos</h1>
+        <h1 class="text-lg md:text-xl font-semibold text-center mb-8 text-CharcoalBlue">Bienvenido, por favor ingresa
+          tus datos</h1>
 
         <form @submit.prevent="handleLogin" class="space-y-4">
           <div class="relative z-0 w-full mb-5 group">

@@ -5,10 +5,8 @@ import ListOfProject from '@/components/blocks/project/ListOfProject.vue'
 import { GetProject } from '@/services/projects/projectService'
 import CreateProjectForm from '@/components/blocks/project/CreateProjectForm.vue'
 
-
 const itemsPerPage = 6;
 const currentPage = ref(1);
-
 
 const projects = ref([]);
 
@@ -18,8 +16,12 @@ onBeforeMount(async () => {
     console.log("Respuesta de la API:", projectsFetch);
 
     if (projectsFetch.success) {
-      projects.value = projectsFetch.data;
+      // Ordenar proyectos por fecha de inicio
+      projectsFetch.data.sort((a, b) => {
+        return new Date(b.project.startDate).getTime() - new Date(a.project.startDate).getTime(); // Orden descendente
+      });
 
+      projects.value = projectsFetch.data;
 
     } else {
       console.warn("No se pudieron obtener los proyectos.");
@@ -28,8 +30,6 @@ onBeforeMount(async () => {
     console.error("Error en onBeforeMount:", error);
   }
 });
-
-
 
 const totalPages = computed(() => Math.ceil(projects.value.length / itemsPerPage));
 
@@ -50,6 +50,7 @@ const prevPage = () => {
   }
 };
 </script>
+
 
 <template>
   <div class="flex flex-col items-center pt-10">
@@ -95,5 +96,3 @@ const prevPage = () => {
     </nav>
   </div>
 </template>
-
-

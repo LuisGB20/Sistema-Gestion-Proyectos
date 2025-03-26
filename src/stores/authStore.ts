@@ -24,8 +24,10 @@ export const useAuthStore = defineStore('auth', () => {
       if (response.success) {
         const getSession = await ValidateSession()
         if (getSession.success) {
-          if (getSession.data.rol == 'Empleado') {
+          console.log(getSession)
+          if (getSession.data.rol == 'Empleado' || getSession.data.rol == 'Supervisor') {
             const getEmployeeData = await GetEmployeeData(getSession.data.id);
+            console.log(getEmployeeData)
             employee.value = getEmployeeData.data;
           }
           user.value = getSession.data
@@ -61,8 +63,9 @@ export const useAuthStore = defineStore('auth', () => {
       const response = await ValidateSession();
       if (response.success) {
         user.value = response.data;
-        if (response.data.rol == 'Empleado') {
+        if (response.data.rol == 'Empleado' || response.data.rol == 'Supervisor') {
           const getEmployeeData = await GetEmployeeData(response.data.id);
+          console.log(getEmployeeData)
           employee.value = getEmployeeData.data;
         }
         isLoading.value = false;

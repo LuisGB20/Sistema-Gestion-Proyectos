@@ -25,6 +25,7 @@ const fetchStatus = async () => {
 
   console.log("data", data)
   if (data.success) {
+
     fields[0].options = data.data.map((data: any) => ({
       label: data[1],
       value: data[0]
@@ -81,7 +82,7 @@ watch(() => {
 
   <div class="absolute" v-if="isOpen">
     <FormModal title="Cambiar status del proyecto" :fields="fields" :validationSchema="validationSchema" :formData="formData"
-               @submit="handleSubmit" />
+                @submit="handleSubmit" />
   </div>
 
 

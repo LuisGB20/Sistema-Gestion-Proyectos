@@ -9,11 +9,14 @@ import {
   getEmployeesWithoutProject
 } from '@/services/employees/EmployeeService.ts'
 import { useRoute } from 'vue-router'
+import { useAuthStore } from '@/stores/authStore';
+
+const authStore = useAuthStore();
 
 const isOpen1 = ref(false);
 const modalStore = useModalStore();
 const route = useRoute();
-const id : string = route.params.id.toString();
+const id : string = route.params.id ? route.params.id.toString() : authStore.employee?.projectId;
 
 const fields = [
   {
@@ -52,7 +55,7 @@ watch(() => {
 });
 
 const handleSubmit = async (values: any) => {
-  console.log('Proyecto creado:', values);
+  console.log('Empleado creado:', values);
 
   const res = await asignProjectToEmployee(values.employee, id)
   console.log(res);
