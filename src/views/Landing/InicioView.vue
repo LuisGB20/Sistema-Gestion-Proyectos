@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { useAuthStore } from "@/stores/authStore";
 import { Carousel } from "primevue";
 import { ref } from "vue";
@@ -104,7 +104,6 @@ const responsiveOptions2 = ref([
 <template>
     <main class="flex flex-col" :class="authStore.isLoggedIn ? 'mt-12' : ''">
         <section class="p-3 sm:py-[6rem] sm:px-[6rem] w-full flex sm:flex-row flex-col bg-Gunmetal">
-            <!-- Texto Principal -->
             <div class="w-full lg:w-2/6 p-2 flex flex-col px-[1rem] sm:py-[3rem] text-center lg:text-left">
                 <h1 class="text-white text-2xl md:text-3xl lg:text-5xl font-bold">
                     Optimiza tu flujo de trabajo y aumenta la productividad de tu equipo.
@@ -117,9 +116,7 @@ const responsiveOptions2 = ref([
 
                 <img src="/src/assets/images/home/teamCollaboration.svg" alt="Imagen portada"
                     class="w-full h-[300px] lg:hidden bg-white p-5 rounded-2xl mt-5">
-
             </div>
-
 
             <div class="w-full sm:w-4/6 px-2 py-[1rem] flex-col m-auto hidden lg:flex">
                 <div class="w-full flex flex-col sm:flex-row sm:px-4 gap-2 sm:gap-0">
@@ -264,39 +261,29 @@ const responsiveOptions2 = ref([
                 </div>
 
                 <div class="block lg:hidden px-4">
-    <Carousel
-        :value="features"
-        :numVisible="1"
-        :numScroll="1"
-        :responsiveOptions="responsiveOptions2"
-        circular
-        :autoplayInterval="3000"
-    >
-        <template #item="slotProps">
-            <div class="bg-white p-3 rounded-lg shadow-md transform transition-transform hover:scale-105 text-center mx-auto w-[90%] max-w-[320px] min-h-[150px] flex flex-col justify-center">
-
-              
-                <img
-                    :src="slotProps.data.img"
-                    alt="Imagen"
-                    class="hidden sm:block w-full h-auto max-h-[200px] object-contain mb-2"
-                />
+                    <Carousel :value="features" :numVisible="1" :numScroll="1" :responsiveOptions="responsiveOptions2"
+                        circular :autoplayInterval="3000">
+                        <template #item="slotProps">
+                            <div
+                                class="bg-white p-3 rounded-lg shadow-md transform transition-transform hover:scale-105 text-center mx-auto w-[90%] max-w-[320px] min-h-[150px] flex flex-col justify-center">
 
 
-                <h3 class="text-sm sm:text-lg font-semibold text-DarkTeal">
-                    {{ slotProps.data.title }}
-                </h3>
+                                <img :src="slotProps.data.img" alt="Imagen"
+                                    class="hidden sm:block w-full h-auto max-h-[200px] object-contain mb-2" />
 
 
-                <p class="mt-1 text-xs sm:text-sm text-2E3944 leading-snug">
-                    {{ slotProps.data.description }}
-                </p>
-            </div>
-        </template>
-    </Carousel>
-</div>
+                                <h3 class="text-sm sm:text-lg font-semibold text-DarkTeal">
+                                    {{ slotProps.data.title }}
+                                </h3>
 
 
+                                <p class="mt-1 text-xs sm:text-sm text-2E3944 leading-snug">
+                                    {{ slotProps.data.description }}
+                                </p>
+                            </div>
+                        </template>
+                    </Carousel>
+                </div>
             </div>
         </section>
     </main>

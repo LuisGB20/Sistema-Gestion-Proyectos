@@ -59,7 +59,7 @@ const filters = ref({
                     </div>
                     <div class="flex flex-wrap items-center justify-start gap-2">
                         <!-- Deshabilitar el botón de exportar cuando 'exportButtonDisabled' sea verdadero -->
-                        <Button class="btn-export" icon="pi pi-external-link" label="Exportar" @click="exportCSV" :disabled="exportButtonDisabled" />
+                        <Button class="btn-export mx-auto md:m-0" icon="pi pi-external-link" label="Exportar" @click="exportCSV" :disabled="exportButtonDisabled" />
                     </div>
                 </div>
             </template>

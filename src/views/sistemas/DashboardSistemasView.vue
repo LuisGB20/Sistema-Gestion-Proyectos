@@ -11,7 +11,7 @@ Chart.register(...registerables);
 const toast = useToast();
 const dashboardData = ref<ResourceDashboardDataModel>();
 
-const resourcesQuantityMonth = ref<Number[]>([]);
+const resourcesQuantityMonth = ref<number[]>([]);
 
 onBeforeMount(async () => {
   try {
@@ -51,34 +51,40 @@ const chartData = computed(() => ({
 <template>
   <main class="min-h-screen">
     <div class="max-w-7xl mx-auto">
-      <header class="text-center">
-        <h1 class="text-3xl font-bold text-DarkTeal">Panel de Recursos</h1>
-        <p class="text-gray-600 mt-2">Resumen del uso y asignación de recursos</p>
-      </header>
+      <div class="text-center mb-6">
+        <h1 class="text-4xl font-semibold text-DarkTeal flex justify-center items-center gap-4">
+          Panel de Recursos
+        </h1>
+        <p class="text-lg text-gray-500 mt-3">Resumen del uso y asignación de recursos</p>
+      </div>
 
-      <section class="grid grid-cols-1 md:grid-cols-4 gap-6">
-        <div class="bg-gradient-to-r from-DarkTeal to-CharcoalBlue text-white p-6 rounded-lg shadow-lg flex flex-col items-center justify-center text-center">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+        <div
+          class="bg-gradient-to-r from-DarkTeal to-CharcoalBlue text-white p-6 rounded-lg shadow-lg flex flex-col items-center justify-center text-center">
           <h3 class="text-sm md:text-lg font-semibold">Recursos Totales</h3>
           <p class="text-2xl md:text-4xl font-bold mt-2">{{ dashboardData?.totalResources }}</p>
         </div>
 
-        <div class="bg-gradient-to-r from-DarkTeal to-CharcoalBlue text-white p-6 rounded-lg shadow-lg flex flex-col items-center justify-center text-center">
+        <div
+          class="bg-gradient-to-r from-DarkTeal to-CharcoalBlue text-white p-6 rounded-lg shadow-lg flex flex-col items-center justify-center text-center">
           <h3 class="text-sm md:text-lg font-semibold">Recursos Asignados</h3>
           <p class="text-2xl md:text-4xl font-bold mt-2">{{ dashboardData?.assignedResources }}</p>
         </div>
 
-        <div class="bg-gradient-to-r from-DarkTeal to-CharcoalBlue text-white p-6 rounded-lg shadow-lg flex flex-col items-center justify-center text-center">
+        <div
+          class="bg-gradient-to-r from-DarkTeal to-CharcoalBlue text-white p-6 rounded-lg shadow-lg flex flex-col items-center justify-center text-center">
           <h3 class="text-sm md:text-lg font-semibold">Proyectos con Recursos</h3>
           <p class="text-2xl md:text-4xl font-bold mt-2">{{ dashboardData?.projectsWithResources }}</p>
         </div>
 
-        <div class="bg-gradient-to-r from-DarkTeal to-CharcoalBlue text-white p-6 rounded-lg shadow-lg flex flex-col items-center justify-center text-center">
+        <div
+          class="bg-gradient-to-r from-DarkTeal to-CharcoalBlue text-white p-6 rounded-lg shadow-lg flex flex-col items-center justify-center text-center">
           <h3 class="text-sm md:text-lg font-semibold">Recurso Más Utilizado</h3>
           <p class="text-xl md:text-2xl font-bold mt-2">{{ dashboardData?.mostUsedResource }}</p>
         </div>
-      </section>
+      </div>
 
-      <div class="grid grid-cols-1 gap-6">
+      <div class="grid grid-cols-1 gap-6 my-5">
         <div class="bg-white p-6 rounded-lg shadow-lg">
           <h2 class="text-2xl font-semibold mb-4 text-DarkTeal">Actividad Mensual de Recursos</h2>
           <div class="h-[300px] md:h-[400px] w-full rounded-lg bg-white flex justify-center items-center">

@@ -7,9 +7,9 @@ import { useAuthStore } from "@/stores/authStore";
 import { translateStatus } from "@/utils/statusProject";
 import type { EmployeeBasicModel } from "@/interfaces/employees/EmployeeBasicModel";
 import { useToast } from "primevue";
+import { CalendarIcon, CheckBadgeIcon, ClipboardDocumentCheckIcon, ClockIcon, DocumentTextIcon, UserGroupIcon, UserIcon } from "@heroicons/vue/16/solid";
 
 const authStore = useAuthStore();
-
 const toast = useToast();
 const project = ref<ProjectModel>();
 const employees = ref<Array<EmployeeBasicModel>>()
@@ -23,50 +23,80 @@ onMounted(async () => {
     }
 
     const responseProject = await GetEmployeeProject(id);
-    project.value = responseProject.data
+    project.value = responseProject.data;
 
     const responseEmployeesFromProject = await GetEmployeesFromProject(projectId);
     employees.value = responseEmployeesFromProject.data;
-
 })
-
 </script>
 
 <template>
-    <main class="space-y-6">
-        <div class="text-center">
-            <h1 class="text-3xl font-bold text-DarkTeal">Gestión del Proyecto</h1>
-            <p class="text-gray-600 mt-2">Visualiza el progreso y la información relevante del proyecto</p>
+    <main class="space-y-8 px-4 md:px-8">
+        <div class="text-center mb-6">
+            <h1 class="text-4xl font-semibold text-DarkTeal flex justify-center items-center gap-4">
+                Gestión del Proyecto
+            </h1>
+            <p class="text-lg text-gray-500 mt-3">Visualiza el progreso y la información relevante de tu proyecto</p>
         </div>
 
-        <section class="bg-white shadow-lg rounded-lg p-6">
-            <h2 class="text-2xl font-semibold text-DarkTeal">{{ project?.name }}</h2>
-            <p class="mt-2 text-gray-600">{{ project?.description }}</p>
-            <div class="mt-4 text-sm">
-                <p><span class="font-semibold">Estado:</span> {{ project?.status ? translateStatus(project.status) :
-                    'Estatus no disponible' }}</p>
-                <p><span class="font-semibold">Inicio:</span> {{ project?.startDate ? formatDate(project?.startDate) :
-                    'Fecha no disponible' }}</p>
-                <p><span class="font-semibold">Fin:</span> {{ project?.endTime ? formatDate(project?.endTime) : 'Fecha no disponible'}}</p>
+        <section class="bg-white shadow-xl rounded-xl p-6 md:p-8 border border-gray-100">
+            <h2 class="text-2xl md:text-3xl font-bold text-DarkTeal flex items-center gap-3 mb-4">
+                <DocumentTextIcon class="size-7 text-CharcoalBlue" />
+                {{ project?.name }}
+            </h2>
+            <p class="text-lg text-gray-700 mb-6">{{ project?.description }}</p>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+                <div class="flex items-center gap-3 text-lg">
+                    <CheckBadgeIcon class="size-6 text-CharcoalBlue hidden md:block" />
+                    <p><span class="font-medium">Estado:</span> {{ project?.status ? translateStatus(project.status) : 'No disponible' }}</p>
+                </div>
+                <div class="flex items-center gap-3 text-lg">
+                    <CalendarIcon class="size-6 text-CharcoalBlue hidden md:block" />
+                    <p><span class="font-medium">Inicio:</span> {{ project?.startDate ? formatDate(project.startDate) : 'No disponible' }}</p>
+                </div>
+                <div class="flex items-center gap-3 text-lg">
+                    <ClockIcon class="size-6 text-CharcoalBlue hidden md:block" />
+                    <p><span class="font-medium">Fin:</span> {{ project?.endTime ? formatDate(project.endTime) : 'No disponible' }}</p>
+                </div>
             </div>
         </section>
 
-        <section class="bg-white shadow-lg rounded-lg p-6">
-            <h2 class="text-2xl font-semibold mb-4 text-DarkTeal">Compañeros Asignados</h2>
-            <div class="overflow-x-auto">
-                <table class="w-full border-collapse border border-gray-300">
-                    <thead>
-                        <tr class="bg-gray-100">
-                            <th class="border border-gray-300 px-4 py-2 text-left">Nombre</th>
-                            <th class="border border-gray-300 px-4 py-2 text-left">Apellidos</th>
-                            <th class="border border-gray-300 px-4 py-2 text-left">Email</th>
+        <section class="bg-white shadow-xl rounded-xl p-6 md:p-8 border border-gray-100">
+            <h2 class="text-2xl md:text-3xl font-bold text-DarkTeal flex items-center gap-3 mb-6">
+                <UserGroupIcon class="size-7 text-CharcoalBlue" />
+                Compañeros
+            </h2>
+
+            <div v-if="employees?.length" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+                <div v-for="employee in employees" :key="employee.email" class="bg-white p-6 rounded-xl shadow-md border border-gray-100 hover:bg-gray-50">
+                    <div class="flex items-center gap-4">
+                        <UserIcon class="w-8 h-8 text-CharcoalBlue hidden md:block" />
+                        <div>
+                            <p class="font-medium text-lg">{{ employee.name }} {{ employee.lastName }}</p>
+                            <p class="text-sm text-gray-500">{{ employee.email }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div v-else class="overflow-x-auto rounded-lg border border-gray-100 shadow-md hidden md:block">
+                <table class="w-full table-auto text-sm md:text-lg">
+                    <thead class="bg-gray-200 text-gray-700">
+                        <tr>
+                            <th class="px-6 py-4 text-left">Nombre</th>
+                            <th class="px-6 py-4 text-left">Apellidos</th>
+                            <th class="px-6 py-4 text-left">Email</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="employee in employees" :key="employee.email" class="hover:bg-gray-50">
-                            <td class="border border-gray-300 px-4 py-2">{{ employee.name }}</td>
-                            <td class="border border-gray-300 px-4 py-2">{{ employee.lastName }}</td>
-                            <td class="border border-gray-300 px-4 py-2">{{ employee.email }}</td>
+                        <tr v-for="employee in employees" :key="employee.email" class="border-b border-gray-100 hover:bg-gray-50">
+                            <td class="px-6 py-4 flex items-center gap-3">
+                                <UserIcon class="w-5 h-5 text-CharcoalBlue" />
+                                {{ employee.name }}
+                            </td>
+                            <td class="px-6 py-4">{{ employee.lastName }}</td>
+                            <td class="px-6 py-4">{{ employee.email }}</td>
                         </tr>
                     </tbody>
                 </table>

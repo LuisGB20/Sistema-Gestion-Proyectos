@@ -25,7 +25,7 @@ const menuAbierto = ref(false);
     </header>
 
     <!-- Menú desplegable en móviles -->
-    <div v-if="menuAbierto" class="bg-white drop-shadow-md p-4 flex flex-col items-center md:hidden">
+    <div v-if="menuAbierto" class="bg-white drop-shadow-md p-4 flex flex-col items-center md:hidden" @click="menuAbierto = false">
         <LinkComponent to="/iniciar-sesion" text="Iniciar sesión"
             class="text-sm sm:text-base px-4 py-2 w-full text-center" />
     </div>

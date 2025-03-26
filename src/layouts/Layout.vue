@@ -5,7 +5,7 @@ import SideBar from '@/components/layouts/SideBar.vue';
 
 <template>
     <div class="flex">
-        <SideBar />
+        <SideBar/>
         <div class="flex-1 p-5 content mt-20">
             <router-view></router-view>
         </div>
