@@ -101,7 +101,7 @@ onMounted(() => {
 
 <template>
     <nav ref="sidebar"
-    class="sticky top-16 left-0 h-screen group bg-white font-semibold w-[80px] text-CharcoalBlue py-6 px-5 flex flex-col items-center shadow-2xl transition-all duration-300 lg:hover:w-[220px]">
+    class="hidden md:flex sticky top-16 left-0 h-screen group bg-white font-semibold w-[80px] text-CharcoalBlue py-6 px-5 flex-col items-center shadow-2xl transition-all duration-300 lg:hover:w-[220px]">
     <ul>
             <li v-for="link in userLinks" class="mb-4 text-center">
                 <RouterLink :to="link.to" activeClass="!bg-linear-to-r !from-DarkTeal !to-CharcoalBlue !text-white"

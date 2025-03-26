@@ -1,15 +1,8 @@
-<script setup>
-import { ref } from 'vue';
-</script>
-
 <template>
   <div class="loading-overlay">
     <div class="custom-loader">
-      <!-- Círculo exterior (animación de rotación) -->
       <div class="outer-circle"></div>
-      <!-- Círculo interior (animación de pulso) -->
       <div class="inner-circle"></div>
-      <!-- Texto con efecto de fade -->
       <p class="loading-text">Cargando...</p>
     </div>
   </div>

@@ -1,10 +1,8 @@
 import DashboardView from '@/views/admin/DashboardView.vue'
 import equiposView from '@/views/admin/equipos/EquiposView.vue'
 import LogsView from '@/views/admin/logs/LogsView.vue'
-import UsuariosView from '@/views/admin/usuarios/UsuariosView.vue'
 import LoginView from '@/views/auth/LoginView.vue'
 import NotFoundView from '@/views/error/NotFoundView.vue'
-import InicioView from '@/views/InicioView.vue'
 import { createRouter, createWebHistory } from 'vue-router'
 import TareasView from '@/views/admin/tareas/TareasView.vue'
 import ActividadesView from '@/views/admin/actividades/ActividadesView.vue'
@@ -21,7 +19,6 @@ import NotAuthorizedView from '@/views/error/NotAuthorizedView.vue'
 import ProyectoView from '@/views/admin/proyectos/ProyectoView.vue'
 import RecursosSistemasView from '@/views/sistemas/recursos/RecursosSistemasView.vue'
 import DetalleRecursoSistemasView from '@/views/sistemas/recursos/DetalleRecursoSistemasView.vue'
-import EstatusView from '@/views/valierTest/EstatusView.vue'
 import DashboardSupervisorView from '@/views/supervisor/DashboardSupervisorView.vue'
 import ProyectoSupervisorView from '@/views/supervisor/proyecto/ProyectoSupervisorView.vue'
 import DashboardEmpleadoView from '@/views/empleado/DashboardEmpleadoView.vue'
@@ -33,12 +30,12 @@ import { useAuthStore } from '@/stores/authStore'
 import DashboardRecursosHumanosView from '@/views/recursosHumanos/DashboardRecursosHumanosView.vue'
 import RecursosAdminView from '@/views/admin/recursos/RecursosAdminView.vue'
 import DetallesRecursoAdminView from '@/views/admin/recursos/DetallesRecursoAdminView.vue'
-import { GetRoleNameService, ValidateSession } from '@/services/auth/authService'
-import { computed, watch } from 'vue'
+import { GetRoleNameService } from '@/services/auth/authService'
 import LogsEntitiesView from '@/views/admin/logs/LogsEntitiesView.vue'
 import EquipoSupervisorView from '@/views/supervisor/equipo/EquipoSupervisorView.vue'
 import TareasSupervisorView from '@/views/supervisor/tareas/TareasSupervisorView.vue'
 import TareaSupervisorView from '@/views/supervisor/tareas/TareaSupervisorView.vue'
+import InicioView from '@/views/Landing/InicioView.vue'
 
 const router = createRouter({
   linkActiveClass: 'underline underline-offset-2',
@@ -48,16 +45,6 @@ const router = createRouter({
   },
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
-    {
-      path: '/test',
-      name: 'test-paginas',
-      component: ConfigView
-    },
-    {
-      path: '/gestion-estatus',
-      name: 'test-paginas',
-      component: EstatusView
-    },
     {
       path: '/:pathMatch(.*)*',
       name: 'NoEncontrado',
@@ -217,10 +204,12 @@ const router = createRouter({
           children: [
             {
               path: '',
+              name: 'SupervisorTareas',
               component: TareasSupervisorView,
             },
             {
               path: ':id',
+              name: 'SupervisorTarea',
               component: TareaSupervisorView,
             }
           ]
@@ -287,11 +276,12 @@ const router = createRouter({
     {
       path: '/empleado',
       name: 'empleado',
+      meta: { requiresAuth: true, roles: ['Empleado'] },
       component: Layout,
       children: [
         {
           path: '',
-          name: 'empleado-dash',
+          name: 'empleado-dashboard',
           component: DashboardEmpleadoView,
         },
         {

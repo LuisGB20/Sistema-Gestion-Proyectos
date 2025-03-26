@@ -79,19 +79,19 @@ onUnmounted(() => {
     class="px-4 sm:px-6 py-4 flex justify-between items-center bg-white shadow-lg h-16 fixed top-0 left-0 w-full z-50">
     <div class="flex items-center space-x-4">
       <img src="../../assets/Icons/logo.png" alt="logo" class="size-10">
-      <h1 class="font-bold text-2xl text-DarkTeal tracking-tight hidden sm:block">
+      <h1 class="font-bold text-2xl text-DarkTeal tracking-tight hidden lg:block">
         Sistema de Gestión de Proyectos
       </h1>
     </div>
 
-    <div class="flex items-center space-x-4 sm:space-x-6 relative">
-      <div @click.stop="modalAbierto = !modalAbierto" class="flex flex-row items-center text-sm font-medium text-white space-x-0
+    <div class="flex justify-end items-center space-x-4 sm:space-x-6 relative w-auto">
+      <div @click.stop="modalAbierto = !modalAbierto" class="flex flex-row items-center justify-end md:justify-center text-sm  font-medium text-white space-x-0
               bg-DarkTeal px-4 py-2 rounded-lg transition duration-300
               hover:bg-CharcoalBlue hover:text-white cursor-pointer relative mr-0">
         <p>Bienvenido</p>
         <p class="px-2">|</p>
-        <p>{{ user?.rol }}</p>
-        <i class="pi pi-user text-white ml-2"></i>
+        <p>{{ user?.rol == 'Recursos Humanos' ? 'R.H.' : user?.rol }}</p>
+        <i class="pi pi-user text-white ml-3"></i>
       </div>
 
       <div v-if="modalAbierto" ref="modalRef"
@@ -106,7 +106,9 @@ onUnmounted(() => {
         <div class="bg-white flex flex-col p-4">
           <RouterLink v-for="(enlace, index) in enlacesUsuario" :key="index" :to="enlace.to"
             class="text-DarkTeal hover:bg-gray-100 px-4 py-2 rounded-lg transition duration-300">
-            {{ enlace.label }}
+            <button @click="modalAbierto = !modalAbierto">
+              {{ enlace.label }}
+            </button>
           </RouterLink>
         </div>
 

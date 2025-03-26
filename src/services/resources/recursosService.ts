@@ -15,7 +15,6 @@ export const getResource = async (id: string): Promise<ResponseHelper<ResourceMo
   return await genericRequest(`${controller}/${id}`, 'GET')
 }
 
-// Pendientes
 export const getResourceWithProjects = async (id: string): Promise<ResponseHelper<ProjectWithResourceModel>> => {
   return await genericRequest(`${controller}/GetResourceWithProjects?Id=${id}`, 'GET')
 }

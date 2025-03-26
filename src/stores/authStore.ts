@@ -24,19 +24,15 @@ export const useAuthStore = defineStore('auth', () => {
       if (response.success) {
         const getSession = await ValidateSession()
         if (getSession.success) {
-          console.log(getSession)
           if (getSession.data.rol == 'Empleado' || getSession.data.rol == 'Supervisor') {
             const getEmployeeData = await GetEmployeeData(getSession.data.id);
-            console.log(getEmployeeData)
             employee.value = getEmployeeData.data;
           }
           user.value = getSession.data
           isLoading.value = false;
         }
       }
-
       return response;
-
     } catch (error: unknown) {
       const errorMessage = error instanceof Error ? error.message : 'Ocurrió un error desconocido';
       console.error(errorMessage)
@@ -46,7 +42,6 @@ export const useAuthStore = defineStore('auth', () => {
   async function logout() {
     try {
       const response = await LogoutService()
-
       if (response.success) {
         user.value = {} as User
         toast.add({ severity: 'success', summary: '¡Nos vemos pronto!', detail: 'Has cerrado sesión correctamente.', life: 3000 });
@@ -65,7 +60,6 @@ export const useAuthStore = defineStore('auth', () => {
         user.value = response.data;
         if (response.data.rol == 'Empleado' || response.data.rol == 'Supervisor') {
           const getEmployeeData = await GetEmployeeData(response.data.id);
-          console.log(getEmployeeData)
           employee.value = getEmployeeData.data;
         }
         isLoading.value = false;
@@ -93,7 +87,7 @@ export const useAuthStore = defineStore('auth', () => {
     }
     return isLoggedIn.value;
   }
-  
+
 
   return { login, logout, isLoggedIn, user, validateSession, initialize, employee, isLoading, isInitialized, getIsLoggedIn }
 })

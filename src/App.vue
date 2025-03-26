@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onBeforeMount, onMounted, ref } from 'vue';
+import { onBeforeMount, ref } from 'vue';
 import { RouterView } from 'vue-router';
 import 'primeicons/primeicons.css';
 import Footer from './components/layouts/Footer.vue';
@@ -7,7 +7,7 @@ import GuestHeader from './components/layouts/GuestHeader.vue';
 import { useAuthStore } from './stores/authStore';
 import AuthHeader from './components/layouts/AuthHeader.vue';
 import { Toast } from 'primevue';
-import Loading from './components/ui/Loading.vue';
+import Loading from '@/components/ui/Loading.vue';
 
 const authStore = useAuthStore();
 const isInitializing = ref(true);
@@ -24,30 +24,15 @@ onBeforeMount(async () => {
 </script>
 
 <template>
-  <div v-if="isInitializing" class="loading-overlay">
+  <div v-if="isInitializing">
     <Loading />
   </div>
 
   <template v-else>
-    <Toast />
+    <Toast position="top-right" style="width: 20rem;" class="sm:!w-[20rem] md:!w-[30rem]" />
     <AuthHeader v-if="authStore.isLoggedIn" />
     <GuestHeader v-else />
     <RouterView />
     <Footer />
   </template>
 </template>
-
-<style scoped>
-.loading-overlay {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  width: 100vw;
-  position: fixed;
-  top: 0;
-  left: 0;
-  background: rgba(255, 255, 255, 0.8);
-  z-index: 9999;
-}
-</style>

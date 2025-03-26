@@ -10,6 +10,7 @@ const authStore = useAuthStore();
 const toast = useToast();
 const tasks = ref<Array<TaskModel>>([]);
 const searchQuery = ref('');
+const showDetails = ref(false)
 
 const filteredTasks = computed(() => {
     return tasks.value.filter(task =>
@@ -30,61 +31,63 @@ onMounted(async () => {
 </script>
 
 <template>
-    <main class="space-y-6">
+    <main class="space-y-6 px-4 md:px-8">
         <div class="text-center">
-            <h1 class="text-3xl font-bold text-DarkTeal">Tareas del Proyecto</h1>
+            <h1 class="text-4xl font-semibold text-DarkTeal">Tareas del Proyecto</h1>
             <p class="text-gray-600 mt-2">Consulta y gestiona las tareas asignadas al proyecto</p>
         </div>
 
-        <section class="bg-white shadow-lg rounded-lg p-4 lg:min-h-[500px]">
-            <div class="mb-6 flex items-center justify-between gap-4">
-                <div class="relative w-full max-w-lg">
-                    <input v-model="searchQuery" type="text" placeholder="Buscar tareas..."
-                        class="w-full px-4 py-2 pl-10 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-DarkTeal transition duration-200" />
-                    <MagnifyingGlassIcon class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
-                </div>
+        <section class="bg-white shadow-lg rounded-lg p-6">
+            <div class="mb-6 relative">
+                <input v-model="searchQuery" type="text" placeholder="Buscar tareas..."
+                    class="w-full px-4 py-2 pl-10 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-DarkTeal transition duration-200" />
+                <MagnifyingGlassIcon class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
             </div>
 
             <div v-if="filteredTasks.length === 0" class="text-center text-gray-500 py-6">
                 <p>No se encontraron tareas que coincidan con tu búsqueda.</p>
             </div>
 
-            <div v-else class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <div v-for="task in filteredTasks" :key="task.id"
-                    class="bg-gradient-to-b from-DarkTeal to-CharcoalBlue text-white p-6 rounded-2xl shadow-lg hover:shadow-xl transition transform hover:-translate-y-1">
-                    <div class="border-b pb-4 mb-4">
-                        <h4 class="text-xl font-semibold">{{ task.name }}</h4>
-                        <p class="text-sm opacity-80">{{ task.description }}</p>
-                    </div>
-                    <div class="grid grid-cols-2 gap-4 text-sm">
-                        <div class="flex items-center">
-                            <ClockIcon class="w-5 h-5 text-white mr-2"/>
-                            <span><strong>{{ task.estimatedHours }}h</strong> estimadas</span>
+            <div v-else>
+                <ul>
+                    <li v-for="task in filteredTasks" :key="task.id" class="bg-white border border-gray-200 p-5 rounded-xl shadow-sm mb-4 hover:shadow-lg transition transform hover:-translate-y-1 cursor-pointer" @click="showDetails = !showDetails">
+                        <div class="flex flex-col md:flex-row justify-between items-start md:items-center">
+                            <h4 class="text-xl font-semibold text-DarkTeal">{{ task.name }}</h4>
+                            <span class="text-sm text-gray-600">{{ new Date(task.startDate).toLocaleDateString() }} - {{ new Date(task.endTime).toLocaleDateString() }}</span>
                         </div>
-                        <div class="flex items-center">
-                            <ChartPieIcon class="w-5 h-5 text-white mr-2"/>
-                            <span><strong>{{ task.workedHours }}h</strong> trabajadas</span>
-                        </div>
-                        <div class="flex items-center">
-                            <CalendarDaysIcon class="w-5 h-5 text-white mr-2"/>
-                            <span>Inicio: <strong>{{ new Date(task.startDate).toLocaleDateString() }}</strong></span>
-                        </div>
-                        <div class="flex items-center">
-                            <CalendarDateRangeIcon class="w-5 h-5 text-white mr-2"/>
-                            <span>Fin: <strong>{{ new Date(task.endTime).toLocaleDateString() }}</strong></span>
-                        </div>
-                    </div>
-                    <div v-if="task.activities.length" class="mt-6">
-                        <h5 class="text-sm font-semibold mb-3">Actividades</h5>
-                        <div class="space-y-3">
-                            <div v-for="activity in task.activities" :key="activity.id"
-                                class="p-3 bg-white text-gray-800 rounded-lg shadow-sm hover:bg-gray-100 transition">
-                                <h6 class="text-xs font-semibold">{{ activity.name }}</h6>
-                                <p class="text-xs opacity-80">{{ activity.description }}</p>
+                        <p class="text-sm text-gray-600 mt-2">{{ task.description }}</p>
+
+                        <div v-if="showDetails" class="mt-4 text-sm text-gray-700 space-y-3">
+                            <div class="flex items-center gap-3">
+                                <ClockIcon class="w-5 h-5 text-DarkTeal"/>
+                                <span><strong>{{ task.estimatedHours }}h</strong> estimadas | <strong>{{ task.workedHours }}h</strong> trabajadas</span>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <ChartPieIcon class="w-5 h-5 text-DarkTeal"/>
+                                <span><strong>{{ task.workedHours }}</strong> trabajadas</span>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <CalendarDaysIcon class="w-5 h-5 text-DarkTeal"/>
+                                <span>Inicio: <strong>{{ new Date(task.startDate).toLocaleDateString() }}</strong></span>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <CalendarDateRangeIcon class="w-5 h-5 text-DarkTeal"/>
+                                <span>Fin: <strong>{{ new Date(task.endTime).toLocaleDateString() }}</strong></span>
+                            </div>
+
+                            <div v-if="task.activities?.length" class="mt-4">
+                                <h5 class="text-sm font-semibold text-DarkTeal mb-3">Actividades</h5>
+                                <div class="space-y-2">
+                                    <div v-for="activity in task.activities" :key="activity.id"
+                                        class="p-3 bg-gray-50 text-gray-800 rounded-lg shadow-sm hover:bg-gray-100 transition">
+                                        <h6 class="text-xs font-semibold">{{ activity.name }}</h6>
+                                        <p class="text-xs text-gray-600">{{ activity.description }}</p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </div>
+                    </li>
+                </ul>
             </div>
         </section>
     </main>
