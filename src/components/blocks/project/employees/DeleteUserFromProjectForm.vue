@@ -11,7 +11,7 @@ import FormModal from '@/components/forms/CreateForm.vue';
 const modalStore = useModalStore();
 
 const isOpen = ref(false);
-const props = defineProps<{ employeeId: string}>();
+const props = defineProps<{ employeeId: string,  fetchOnUpdate : () => void}>();
 
 
 const handleSubmit = async (values) => {
@@ -30,6 +30,8 @@ const handleSubmit = async (values) => {
 
   isOpen.value = false;
   modalStore.isCreateModalOpen = false;
+
+  props.fetchOnUpdate();
 };
 
 

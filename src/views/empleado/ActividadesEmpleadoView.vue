@@ -30,7 +30,7 @@ const filteredActivities = computed(() => {
   });
 });
 
-onMounted(async () => {
+const fetchActivities = async () => {
   const { id } = authStore.employee || {};
   if (!id) {
     toast.add({ severity: 'error', summary: 'Algo salió mal', detail: 'Intentalo de nuevo más tarde', life: 3000 });
@@ -39,18 +39,19 @@ onMounted(async () => {
 
   const response = await GetEmployeeActivities(id);
   activities.value = response.data;
-});
+};
+
+onMounted(fetchActivities);
 
 const showActivityData = (data: ActivityModel) => {
   activitySelected.value = data;
-    modalStore.isEmployeeActivityModalOpen = true;
+  modalStore.isEmployeeActivityModalOpen = true;
 };
 
 const updateActivityStatus = async (activityId: string) => {
   const response = await MarkAsCompletedActivity(activityId);
-  const activityModifiedIndex = activities.value.findIndex(x => x.id == activityId);
+  await fetchActivities();
   toast.add({ severity: 'success', summary: 'Operación exitosa', detail: 'La tarea ha sido marcada como completada correctamente', life: 3000 });
-  activities.value.splice(activityModifiedIndex, 1, response.data);
 };
 </script>
 
@@ -68,13 +69,13 @@ const updateActivityStatus = async (activityId: string) => {
         <div class="mb-6 flex flex-col md:flex-row gap-6 justify-between items-center">
           <div class="relative w-full md:w-1/2 lg:w-1/3">
             <input v-model="searchQuery" type="text" placeholder="Buscar tareas..."
-              class="w-full px-4 py-3 pl-10 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-DarkTeal transition duration-200 text-lg placeholder-gray-500" />
+                   class="w-full px-4 py-3 pl-10 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-DarkTeal transition duration-200 text-lg placeholder-gray-500" />
             <MagnifyingGlassIcon class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
           </div>
 
           <div class="relative w-full md:w-1/3 lg:w-1/4">
             <select v-model="statusFilter"
-              class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-DarkTeal transition duration-200 text-lg">
+                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-DarkTeal transition duration-200 text-lg">
               <option value="">Todos los estados</option>
               <option value="BEGIN">Pendiente</option>
               <option value="ON_HOLD">En espera</option>
@@ -90,7 +91,7 @@ const updateActivityStatus = async (activityId: string) => {
 
         <div v-else class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           <div v-for="activity in filteredActivities" :key="activity.id" @click="showActivityData(activity)"
-            class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow cursor-pointer flex flex-col">
+               class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow cursor-pointer flex flex-col">
             <div class="flex flex-col md:flex-row justify-between items-start mb-4">
               <h4 class="font-semibold text-gray-800 text-lg truncate w-2/3">{{ activity.name }}</h4>
               <span :class="['px-3 py-1 rounded-full text-xs', getStatusActivityColor(activity.status)]">

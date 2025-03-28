@@ -5,13 +5,12 @@ import FormModal from '@/components/forms/CreateForm.vue';
 import * as yup from 'yup';
 import { CreateActivity } from '@/services/activities/ActivityService';
 import { useRoute } from 'vue-router';
-import { formatDate } from '@/utils/formatDate.ts'
 
 const isOpen = ref(false);
 const modalStore = useModalStore();
 const route = useRoute();
 const taskId: string = route.params.idTarea ? route.params.idTarea.toString() : '';
-const props = defineProps<{ employees: { id: string, name: string, lastName: string }[] }>();
+const props = defineProps<{ employees: { id: string, name: string, lastName: string }[],   fetchOnUpdate : () => void }>();
 
 const fields = [
   { id: 'name', label: 'Nombre de la Actividad', typeField: 'text', placeholder: 'Ingrese el nombre de la actividad' },
@@ -47,6 +46,9 @@ const handleSubmit = async (values: any) => {
 
   isOpen.value = false;
   modalStore.isCreateModalOpen = false;
+
+  props.fetchOnUpdate();
+
 };
 
 watch(() => {

@@ -11,6 +11,8 @@ import { getEmployeesWithoutProject } from '@/services/employees/EmployeeService
 const modalStore = useModalStore();
 const isOpen = ref(false);
 
+const props = defineProps<{ fetchOnUpdate : () => void }>();
+
 const fields = [
   {
     id: 'name', label: 'Nombre del Proyecto',
@@ -74,6 +76,8 @@ const handleSubmit = async (values) => {
 
   isOpen.value = false;
   modalStore.isCreateModalOpen = false;
+
+  props.fetchOnUpdate();
 };
 
 watch(() => {

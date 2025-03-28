@@ -11,6 +11,10 @@ const currentPage = ref(1);
 const projects = ref([]);
 
 onBeforeMount(async () => {
+  projectFetch();
+});
+
+const projectFetch = async () => {
   try {
     const projectsFetch = await GetProject();
     console.log("Respuesta de la API:", projectsFetch);
@@ -29,7 +33,7 @@ onBeforeMount(async () => {
   } catch (error) {
     console.error("Error en onBeforeMount:", error);
   }
-});
+}
 
 const totalPages = computed(() => Math.ceil(projects.value.length / itemsPerPage));
 
@@ -58,11 +62,11 @@ const prevPage = () => {
 
     <div class="flex items-center justify-between w-full px-4 mb-8 flex-wrap md:flex-nowrap">
       <h1 class="text-4xl md:text-5xl font-bold text-CharcoalBlue">Proyectos</h1>
-      <CreateProjectForm />
+      <CreateProjectForm  :fetch-on-update="() => projectFetch()"/>
     </div>
 
     <div class="overflow-y-auto max-h-screen w-full mb-8">
-      <ListOfProject :projects="paginatedProjects" />
+      <ListOfProject :projects="paginatedProjects"  :fetch-on-update="() => projectFetch()"/>
     </div>
 
 

@@ -5,7 +5,7 @@ import EditProjectForm from '@/components/blocks/project/EditProjectForm.vue'
 import ChangeStatusForm from '@/components/blocks/project/ChangeStatusForm.vue'
 import DeleteProjectForm from '@/components/blocks/project/DeleteProjectForm.vue'
 
-defineProps<{ project: BestProjectModel }>();
+defineProps<{ project: BestProjectModel,   fetchOnUpdate : () => void }>();
 
 </script>
 
@@ -16,11 +16,11 @@ defineProps<{ project: BestProjectModel }>();
       <router-link :to="{ name: 'proyectos-detalle', params: { id: project.project.id } }">
         <h2 class="hover:text-slate-500 text-3xl font-semibold text-CharcoalBlue">{{ project.project.name }}</h2>
       </router-link>
-      <EditProjectForm :project-id="project.project.id" />
+      <EditProjectForm :project-id="project.project.id"  :fetch-on-update="() => fetchOnUpdate()"/>
     </div>
 
     <div class="flex justify-end gap-3 flex-col space-x-2 text-right text-sm text-gray-500">
-      <ChangeStatusForm :id="project.project.id" :status="project.status" />
+      <ChangeStatusForm :id="project.project.id" :status="project.status"  :fetch-on-update="() => fetchOnUpdate() "/>
       <div>
         <p class="text-slate-700">Encargado: {{project.encharge && project.encharge.length > 0  ? `${project.encharge[0].employee.name} ${project.encharge[0].employee.lastName}`: "N/A" }}</p>
       </div>
@@ -42,7 +42,7 @@ defineProps<{ project: BestProjectModel }>();
       <span class="text-sm break-words">{{ formatDate(project.project.startDate) }}</span>
     </div>
 
-    <DeleteProjectForm :project="project.project.id"  />
+    <DeleteProjectForm :project="project.project.id"   :fetch-on-update="() => fetchOnUpdate() "/>
 
 
 

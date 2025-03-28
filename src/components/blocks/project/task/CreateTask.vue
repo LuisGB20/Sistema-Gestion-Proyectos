@@ -13,6 +13,8 @@ const modalStore = useModalStore();
 const route = useRoute();
 const projectId: string = route.params.id ? route.params.id.toString() : authStore.employee?.projectId;
 
+const props = defineProps<{ fetchOnUpdate: () => void }>();
+
 const fields = [
   { id: 'name', label: 'Nombre de la Tarea', typeField: 'text', placeholder: 'Ingrese el nombre de la tarea' },
   { id: 'description', label: 'Descripción', typeField: 'textarea', placeholder: 'Ingrese la descripción de la tarea' },
@@ -52,6 +54,7 @@ const handleSubmit = async (values: any) => {
 
   isOpen.value = false;
   modalStore.isCreateModalOpen = false;
+  props.fetchOnUpdate();
 };
 
 watch(() => {

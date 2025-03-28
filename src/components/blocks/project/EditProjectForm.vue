@@ -5,7 +5,7 @@ import * as yup from 'yup';
 import { GetProjectById, UpdateProject } from '@/services/projects/projectService';
 import EditForm from '@/components/forms/EditForm.vue'
 
-const props = defineProps<{ projectId: string }>();
+const props = defineProps<{ projectId: string,   fetchOnUpdate : () => void }>();
 const isOpen = ref(false);
 const modalStore = useModalStore();
 
@@ -47,6 +47,8 @@ const handleSubmit = async (values: { name: string; description: string }) => {
   console.log(res);
 
   modalStore.isEditModalOpen = false;
+
+  props.fetchOnUpdate();
 };
 </script>
 

@@ -19,13 +19,18 @@ const resources = ref<{name: string; quantity: number}[]>([]);
 const members = ref<{name: string; role:string; id: string}[]>([]);
 const encharge = ref<string | null>( null);
 const status = ref<string | null>(null);
+const id = ref<string | null>(null);
+
 
 onBeforeMount(async () => {
-  const id = route.params.id as string;
-  console.log("projectId", id);
+  id.value = route.params.id as string;
+  console.log("projectId", id.value);
+  await projectFetch();
+});
 
+const projectFetch = async () => {
   try {
-    const getProject = await GetProjectById(id);
+    const getProject = await GetProjectById(id.value);
     console.log("getProject", getProject);
 
     if (getProject.success) {
@@ -48,7 +53,7 @@ onBeforeMount(async () => {
   } catch (error) {
     console.error("Error fetching project:", error);
   }
-});
+}
 
 const toggleTasks = (index: number) => {
   tasks.value[index].showActivities = !tasks.value[index].showActivities;
@@ -64,7 +69,7 @@ const toggleTasks = (index: number) => {
         <p class="text-md pl-5">Descripción: {{ project.description }}</p>
       </div>
       <div class="text-right flex flex-col text-sm gap-2 text-gray-500 mt-4 md:mt-0">
-        <ChangeStatusForm :id="route.params.id" :status="status" />
+        <ChangeStatusForm :fetch-on-update="() => projectFetch()" :id="route.params.id" :status="status" />
         Encargado: {{ encharge ? encharge : "N/A" }}
       </div>
     </div>
@@ -74,7 +79,7 @@ const toggleTasks = (index: number) => {
       <div class=" p-4 rounded-lg bg-white">
         <div class="flex justify-between items-center mb-3">
           <h3 class="text-lg font-semibold mb-2">Recursos</h3>
-          <CreateResourceForProject  :id="route.params.id"/>
+          <CreateResourceForProject :fetch-on-update="() => projectFetch()" :id="route.params.id"/>
         </div>
 
         <div class="grid grid-cols-1 h-[50vh] overflow-auto gap-4">
@@ -93,7 +98,7 @@ const toggleTasks = (index: number) => {
       <div class=" p-4 rounded-lg bg-white">
         <div class="flex justify-between items-center mb-3">
           <h3 class="text-lg font-semibold mb-2">Integrantes</h3>
-          <AddEmployeeToProject />
+          <AddEmployeeToProject :fetch-on-update="() => projectFetch()" />
         </div>
 
         <div class="grid grid-cols-1 h-[50vh] overflow-auto gap-4">
@@ -107,7 +112,7 @@ const toggleTasks = (index: number) => {
               <p class="text-sm text-gray-600">Rol: {{ member.role }}</p>
             </div>
 
-            <DeleteUserFromProjectForm :employeeId="member.id" :role="member.role" />
+            <DeleteUserFromProjectForm :employeeId="member.id" :role="member.role" :fetch-on-update="() => projectFetch()" />
 
           </div>
         </div>
@@ -121,7 +126,7 @@ const toggleTasks = (index: number) => {
     <div class="p-4 rounded-lg bg-white mb-4">
       <div class="flex justify-between items-center">
         <p class="text-lg font-semibold">Lista de tareas</p>
-        <CreateTask />
+        <CreateTask :fetch-on-update="() => projectFetch()" />
       </div>
       <div class="mt-4 min-h-[50vh] max-h-[100vh] overflow-y-auto">
         <div v-for="(task, index) in tasks" :key="index" class="p-4 rounded-lg bg-slate-100 mt-4">
@@ -134,7 +139,7 @@ const toggleTasks = (index: number) => {
             </div>
             <div class="col-span-2">
               <h3 class=" flex items-center gap-3 text-md font-semibold cursor-pointer">
-                Integrantes <AssignTaskToEmployeeForm :project-members="members" :task-id="task.id" />
+                Integrantes <AssignTaskToEmployeeForm :fetch-on-update="() => projectFetch()" :project-members="members" :task-id="task.id" />
               </h3>
               <ul v-for="(user, i) in task.users" :key="i" class="list-disc pl-10">
                 <li class="text-md">{{ user }}</li>

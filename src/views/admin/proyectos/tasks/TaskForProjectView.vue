@@ -10,7 +10,6 @@ import ActivityModal from '@/components/blocks/activity/ActivityModal.vue';
 import { useModalStore } from '@/stores/modalStore.ts';
 import type { ActivityModel } from '@/interfaces/Activities/ActivityModel.ts';
 import { translateStatusActivity } from '../../../../utils/statusActivity.ts'
-import { CalendarDaysIcon, MagnifyingGlassIcon } from '@heroicons/vue/16/solid';
 import { getStatusActivityColor } from '@/utils/getStatusActivityColor.ts'
 
 interface Employee {
@@ -55,7 +54,7 @@ const toast = useToast();
 const modalStore = useModalStore();
 const activitySelected = ref<ActivityModel>({} as ActivityModel);
 
-onBeforeMount(async () => {
+const fetchTasks = async () => {
   const id = route.params.idTarea as string;
 
   try {
@@ -109,20 +108,16 @@ onBeforeMount(async () => {
   } catch (error) {
     console.error("Error fetching project:", error);
   }
-});
+};
+
+onBeforeMount(fetchTasks);
 
 const updateActivityStatus = async (activityId: string) => {
   try {
     const response = await MarkAsCompletedActivity(activityId);
     console.log("response", response);
-    const taskIndex = tasks.value.findIndex(task => task.activities.some(activity => activity.id === activityId));
-    if (taskIndex !== -1) {
-      const activityIndex = tasks.value[taskIndex].activities.findIndex(activity => activity.id === activityId);
-      if (activityIndex !== -1) {
-        tasks.value[taskIndex].activities.splice(activityIndex, 1, response.data);
-        toast.add({ severity: 'success', summary: 'Operación exitosa', detail: 'La actividad ha sido marcada como completada correctamente', life: 3000 });
-      }
-    }
+    await fetchTasks();
+    toast.add({ severity: 'success', summary: 'Operación exitosa', detail: 'La actividad ha sido marcada como completada correctamente', life: 3000 });
   } catch (error) {
     toast.add({ severity: 'error', summary: 'Error', detail: 'No se pudo marcar la actividad como completada', life: 3000 });
   }
@@ -166,7 +161,7 @@ const showActivityData = (data: ActivityModel, event: Event) => {
 
         <div v-if="tasks[0]?.taskEmployees.length > 0">
           <i class="pi pi-clock text-black mr-2 bg-transparent opacity-0 "></i>
-          <CreateActivityForTask :employees="tasks[0]?.taskEmployees?.map(te => te.employee)" :taskId="route.params.idTarea" />
+          <CreateActivityForTask :employees="tasks[0]?.taskEmployees?.map(te => te.employee)" :taskId="route.params.idTarea"  :fetch-on-update="() => fetchTasks"/>
         </div>
 
       </div>

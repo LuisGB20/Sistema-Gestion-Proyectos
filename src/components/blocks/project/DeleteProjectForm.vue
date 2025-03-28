@@ -11,7 +11,7 @@ const modalStore = useModalStore();
 
 const isOpen = ref(false);
 
-const props = defineProps<{ project: string}>();
+const props = defineProps<{ project: string,   fetchOnUpdate : () => void}>();
 
 
 const handleSubmit = async (values) => {
@@ -22,6 +22,8 @@ const handleSubmit = async (values) => {
 
   isOpen.value = false;
   modalStore.isCreateModalOpen = false;
+
+  props.fetchOnUpdate();
 };
 
 watch(() => {

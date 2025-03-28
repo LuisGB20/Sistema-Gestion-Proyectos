@@ -5,7 +5,7 @@ import { AssignEmployeeToTask } from '@/services/tasks/TaskService';
 import { useModalStore } from '@/stores/modalStore';
 import FormModal from '@/components/forms/CreateForm.vue';
 
-const props = defineProps<{ taskId: string, projectMembers: { id: string, name: string }[] }>();
+const props = defineProps<{ taskId: string, projectMembers: { id: string, name: string }[],   fetchOnUpdate : () => void }>();
 
 const isOpen = ref(false);
 const modalStore = useModalStore();
@@ -30,6 +30,8 @@ const handleSubmit = async (values: any) => {
 
   isOpen.value = false;
   modalStore.isCreateModalOpen = false;
+
+  props.fetchOnUpdate();
 };
 </script>
 

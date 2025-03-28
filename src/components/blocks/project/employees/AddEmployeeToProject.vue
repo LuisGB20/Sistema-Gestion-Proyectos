@@ -13,6 +13,8 @@ import { useAuthStore } from '@/stores/authStore';
 
 const authStore = useAuthStore();
 
+const props = defineProps<{ fetchOnUpdate : () => void }>();
+
 const isOpen1 = ref(false);
 const modalStore = useModalStore();
 const route = useRoute();
@@ -41,6 +43,8 @@ const fetchEmployees = async () => {
       label: `${employee.name} ${employee.lastName}`,
       value: employee.id
     }));
+
+
   } else {
     console.error('Error al obtener empleados:', data);
   }
@@ -62,6 +66,8 @@ const handleSubmit = async (values: any) => {
 
   isOpen1.value = false;
   modalStore.isCreateModalOpen = false;
+
+  props.fetchOnUpdate();
 }
 
 watch(() => {

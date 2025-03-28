@@ -114,7 +114,7 @@ import { Button, Dialog } from 'primevue';
 
 const isOpen = ref(false);
 const modalStore = useModalStore();
-const props = defineProps<{ id: string }>();
+const props = defineProps<{ id: string,  fetchOnUpdate : () => void }>();
 const projectResources = ref<any[]>([]);
 const isSubmited = ref(false);
 const isPasswordVisible = ref(false);
@@ -198,6 +198,8 @@ const handleSubmit = async () => {
     console.log('Asignando recursos al proyecto:', res);
     isOpen.value = false;
     modalStore.isCreateModalOpen = false;
+
+    props.fetchOnUpdate();
   }
 };
 
